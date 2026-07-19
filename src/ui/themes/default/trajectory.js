@@ -296,6 +296,12 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
 
     renderTrajectory(age, content) {
         const realAge = this.AGE[age];
+        this.#effects = { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 };
+        this.labCharmAdd.visible = false;
+        this.labIntelligenceAdd.visible = false;
+        this.labStrengthAdd.visible = false;
+        this.labMoneyAdd.visible = false;
+        this.labSpiritAdd.visible = false;
         const item = this.#createTrajectoryItem();
         item.labAge.text = (2022 + realAge) + '\n Age: ' + realAge;
         item.labContent.text = content.map(

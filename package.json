@@ -7,7 +7,8 @@
         "test": "node test",
         "xlsxTransform": "vt transform data",
         "xlsx2json": "vt transform jobs/xlsx2json/config.json",
-        "dev": "webpack serve --open /view/index.html",
+        "start": "npm run dev",
+        "dev": "npm run build && webpack serve --open /view/index.html",
         "build": "webpack --mode production"
     },
     "devDependencies": {
