@@ -1,3 +1,5 @@
+import COUNTRIES from '../../../functions/countries.js';
+
 export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     constructor() {
         super();
@@ -165,18 +167,7 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
             "SPR": 0
         }
         const newProperty = this.initProperty(propertyAllocate);
-        if (newProperty[types.AFG] == 1)
-            this.labCountry.text = "Afganistan"
-        else if (newProperty[types.CHN] == 1)
-            this.labCountry.text = "China"
-        else if (newProperty[types.EGP] == 1)
-            this.labCountry.text = "Egypt"
-        else if (newProperty[types.IND] == 1)
-            this.labCountry.text = "India"
-        else if (newProperty[types.JPN] == 1)
-            this.labCountry.text = "Japan"
-        else if (newProperty[types.USA] == 1)
-            this.labCountry.text = "USA"
+        this.labCountry.text = this.#countryName(newProperty) || "";
 
         this.labSex.text = newProperty[types.LBTQ] == 1 ? "LBTQ": "Straight"
 
@@ -218,8 +209,10 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
             max = propertyAllocate[types.MNY]
         if (propertyAllocate[types.SPR] > max)
             max = propertyAllocate[types.SPR]
-        // if any property > 8, add 5 to all other properties
-        if (max > 7) {
+        const total = propertyAllocate[types.CHR] + propertyAllocate[types.INT]
+            + propertyAllocate[types.STR] + propertyAllocate[types.MNY] + propertyAllocate[types.SPR];
+        // if total points >= 10 and any property > 7, add 5 to all other properties
+        if (total >= 10 && max > 7) {
             if (newProperty[types.CHR] < 8)
                 newProperty[types.CHR] = newProperty[types.CHR] < 4 ? newProperty[types.CHR] + 5 : 8;
             if (newProperty[types.INT] < 8)
@@ -233,18 +226,9 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         }
 
         // Printing text
-        if (newProperty[types.AFG] == 1)
-            this.#printText += "Country: Afganistan\n"
-        else if (newProperty[types.CHN] == 1)
-            this.#printText += "Country: China\n"
-        else if (newProperty[types.EGP] == 1)
-            this.#printText += "Country: Egypt\n"
-        else if (newProperty[types.IND] == 1)
-            this.#printText += "Country: India\n"
-        else if (newProperty[types.JPN] == 1)
-            this.#printText += "Country: Japan\n"
-        else if (newProperty[types.USA] == 1)
-            this.#printText += "Country: USA\n"
+        const countryName = this.#countryName(newProperty);
+        if (countryName)
+            this.#printText += `Country: ${countryName}\n`
         this.#printText += "Sex orientation: "
         this.#printText += (newProperty[types.LBTQ] == 1 ? "LBTQ" : "Straight") + "\n"
         this.#printText += "Appearance: " + newProperty[types.CHR] + "\n"
@@ -253,6 +237,12 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         this.#printText += "Family wealth: " + newProperty[types.MNY] + "\n"
         this.#printText += "EQ: " + newProperty[types.SPR] + "\n"
         return newProperty
+    }
+
+    #countryName(newProperty) {
+        const types = core.PropertyTypes;
+        const country = COUNTRIES.find(({ key }) => newProperty[types[key]] == 1);
+        return country?.name;
     }
 
     updateProperty() {

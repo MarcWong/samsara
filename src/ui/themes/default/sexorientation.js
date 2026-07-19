@@ -1,3 +1,5 @@
+import COUNTRIES from '../../../functions/countries.js';
+
 export default class Mode extends ui.view.DefaultTheme.SexOrientationUI {
     constructor() {
         super();
@@ -6,15 +8,10 @@ export default class Mode extends ui.view.DefaultTheme.SexOrientationUI {
         this.btnLBTQ.on(Laya.Event.CLICK, this, this.onClickLBTQ);
     }
     init({ nationality }) {
-        this.#sexAllocate = {
-            [this.#types.AFG]: nationality[this.#types.AFG],
-            [this.#types.CHN]: nationality[this.#types.CHN],
-            [this.#types.EGP]: nationality[this.#types.EGP],
-            [this.#types.IND]: nationality[this.#types.IND],
-            [this.#types.JPN]: nationality[this.#types.JPN],
-            [this.#types.USA]: nationality[this.#types.USA],
-            [this.#types.LBTQ]: 0,
-        }
+        this.#sexAllocate = Object.fromEntries(
+            COUNTRIES.map(({ key }) => [this.#types[key], nationality[this.#types[key]]])
+        );
+        this.#sexAllocate[this.#types.LBTQ] = 0;
     }
     #types;
     #sexAllocate;

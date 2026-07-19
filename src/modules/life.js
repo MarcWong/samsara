@@ -123,8 +123,8 @@ class Life {
         this.#achievement.achieve(this.AchievementOpportunity.START);
     }
 
-    getPropertyPoints() {
-        return this.#defaultPropertyPoints + this.#talent.allocationAddition(this.#initialData.TLT);
+    getPropertyPoints(basePoints = this.#defaultPropertyPoints) {
+        return basePoints + this.#talent.allocationAddition(this.#initialData.TLT);
     }
 
     getTalentCurrentTriggerCount(talentId) {
