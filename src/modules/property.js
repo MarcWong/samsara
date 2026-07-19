@@ -1,3 +1,11 @@
+import COUNTRIES from '../functions/countries.js';
+
+// property key -> condition-string code, e.g. AFG -> "AF". Drives TYPES below
+// and every generic country-property loop, so adding a country only means
+// editing functions/countries.js.
+const NATION_KEY_TO_CODE = Object.fromEntries(COUNTRIES.map(({ key, code }) => [key, code]));
+const NATION_CODES = new Set(COUNTRIES.map(({ code }) => code));
+
 class Property {
     constructor(system) {
         this.#system = system;
@@ -16,12 +24,7 @@ class Property {
         EVT: "EVT", // 事件 event EVT
         TMS: "TMS", // 次数 times TMS
         LBTQ: "LBTQ", // 性向 LBTQ
-        AFG: "AF", // 国别 afghanistan AFG
-        EGP: "EGY", // 国别 egypt EGP
-        IND: "IND", // 国别 india IND
-        CHN: "CH", // 国别 china CHN
-        JPN: "JAP", // 国别 japan JPN
-        USA: "US", // 国别 USA USA
+        ...NATION_KEY_TO_CODE, // 国别: one entry per functions/countries.js
 
         // Auto calc
         LAGE: "LAGE", // 最低年龄 Low Age
@@ -125,12 +128,7 @@ class Property {
             [this.TYPES.SPR]: 0,
 
             [this.TYPES.LBTQ]: 0,
-            [this.TYPES.AFG]: 0,
-            [this.TYPES.IND]: 0,
-            [this.TYPES.EGP]: 0,
-            [this.TYPES.CHN]: 0,
-            [this.TYPES.JPN]: 0,
-            [this.TYPES.USA]: 0,
+            ...Object.fromEntries(COUNTRIES.map(({ code }) => [code, 0])),
 
             [this.TYPES.LIF]: 1,
 
@@ -172,6 +170,7 @@ class Property {
 
     get(prop) {
         const util = this.#util;
+        if (NATION_CODES.has(prop)) return util.clone(this.#data[prop]);
         switch(prop) {
             case this.TYPES.AGE:
             case this.TYPES.CHR:
@@ -180,12 +179,6 @@ class Property {
             case this.TYPES.MNY:
             case this.TYPES.SPR:
             case this.TYPES.LBTQ: // 性向
-            case this.TYPES.AFG:
-            case this.TYPES.CHN:
-            case this.TYPES.EGP:
-            case this.TYPES.IND:
-            case this.TYPES.JPN:
-            case this.TYPES.USA:
             case this.TYPES.LIF:
             case this.TYPES.TLT:
             case this.TYPES.EVT:
@@ -302,12 +295,7 @@ class Property {
             [this.TYPES.STR]: this.get(this.TYPES.STR),
             [this.TYPES.MNY]: this.get(this.TYPES.MNY),
             [this.TYPES.SPR]: this.get(this.TYPES.SPR),
-            [this.TYPES.AFG]: this.get(this.TYPES.AFG),
-            [this.TYPES.EGP]: this.get(this.TYPES.EGP),
-            [this.TYPES.IND]: this.get(this.TYPES.IND),
-            [this.TYPES.CHN]: this.get(this.TYPES.CHN),
-            [this.TYPES.JPN]: this.get(this.TYPES.JPN),
-            [this.TYPES.USA]: this.get(this.TYPES.USA),
+            ...Object.fromEntries(COUNTRIES.map(({ code }) => [code, this.get(code)])),
             [this.TYPES.LBTQ]: this.get(this.TYPES.LBTQ),
         });
     }
@@ -316,6 +304,10 @@ class Property {
         if(Array.isArray(value)) {
             for(const v of value)
                 this.change(prop, Number(v));
+            return;
+        }
+        if (NATION_CODES.has(prop)) {
+            this.hl(prop, this.#data[prop] += Number(value));
             return;
         }
         switch(prop) {
@@ -327,12 +319,6 @@ class Property {
             case this.TYPES.SPR:
             case this.TYPES.LIF:
             case this.TYPES.LBTQ: // 性向
-            case this.TYPES.AFG:
-            case this.TYPES.CHN:
-            case this.TYPES.EGP:
-            case this.TYPES.IND:
-            case this.TYPES.JPN:
-            case this.TYPES.USA:
                 this.hl(prop, this.#data[prop] += Number(value));
                 return;
             case this.TYPES.TLT:
