@@ -3215,5 +3215,44 @@
         "id": 62016,
         "event": "Japan passes its first national law about people like you. It calls discrimination “unacceptable” and asks everyone to “endeavour” toward understanding — nothing about actually stopping it. You’re still waiting for the part with teeth.",
         "include": "JAP>0&LBTQ>0"
+    },
+    "21016": {
+        "id": 21016,
+        "event": "You work in the company’s diversity office — until a memo arrives one Monday morning ending the whole department, effective immediately. You clear out your own desk.",
+        "include": "US>0&LBTQ=0"
+    },
+    "22014": {
+        "id": 22014,
+        "event": "The company’s LGBTQ+ staff network is one of the first things cut when the diversity office closes for good. The rainbow lanyard in your desk drawer suddenly feels like something you should hide.",
+        "include": "US>0&LBTQ>0"
+    },
+    "22015": {
+        "id": 22015,
+        "event": "Your school tells your parents who you really are before you ever get the chance to yourself. The same week, the state votes to ban you from the girls’ changing room for good.",
+        "include": "US>0&LBTQ>0"
+    },
+    "21017": {
+        "id": 21017,
+        "event": "Your uncle stops coming to Thanksgiving after the shouting match about the election. Your mum says it’s for the best. Nobody at the table agrees anymore on what “best” even means.",
+        "include": "US>0&LBTQ=0"
+    },
+    "22016": {
+        "id": 22016,
+        "event": "Your uncle spends the whole of Thanksgiving arguing that people like you are what’s wrong with the country. Your mum finally tells him to leave. He doesn’t come back next year, and you find you don’t miss him.",
+        "include": "US>0&LBTQ>0"
+    },
+    "21018": {
+        "id": 21018,
+        "event": "Your little brother buys a pill online, just to try it once. It’s cut with fentanyl. He doesn’t wake up the next morning.",
+        "include": "US>0&LBTQ=0"
+    },
+    "22017": {
+        "id": 22017,
+        "event": "Your little brother buys a pill online, just to try it once. It’s cut with fentanyl. He doesn’t wake up the next morning.",
+        "include": "US>0&LBTQ>0"
+    },
+    "11041": {
+        "id": 11041,
+        "event": "Overdose deaths finally start falling for the first time in years, down almost a quarter from the peak. It doesn’t feel like relief to the families who buried someone before the numbers turned."
     }
 }
