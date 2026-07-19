@@ -2,16 +2,30 @@ export default class Talent extends ui.view.DefaultTheme.TalentUI {
     constructor() {
         super();
         this.btnDrawCard.on(Laya.Event.CLICK, this, this.onClickDrawCard);
+        this.#introText = this.boxText.label;
+        this.#drawLabel = this.btnDrawCard.label;
     }
+
+    #introText;
+    #drawLabel;
+    #drawnTalents;
 
     init({ property }) {
         this.property = property;
         this.pageDrawCard.visible = true;
+        this.#drawnTalents = null;
+        this.boxText.label = this.#introText;
+        this.btnDrawCard.label = this.#drawLabel;
     }
 
     close() {}
 
     onClickDrawCard() {
+        if (this.#drawnTalents) {
+            $ui.switchView(UI.pages.PROPERTYTEXT, { talents: this.#drawnTalents, property: this.property, enableExtend: true });
+            return;
+        }
+
         const listTalents = core.talentRandom();
         console.log('listTalents', listTalents)
         var selected = new Set();
@@ -26,6 +40,11 @@ export default class Talent extends ui.view.DefaultTheme.TalentUI {
                 selected.add(id)
         }
         const talents = [...selected].map(index => listTalents[index]);
-        $ui.switchView(UI.pages.PROPERTYTEXT, { talents, property: this.property, enableExtend: true });
+        this.#drawnTalents = talents;
+
+        this.boxText.label = talents
+            .map(({ name, description }) => `${name} — ${description}`)
+            .join('\n');
+        this.btnDrawCard.label = 'Continue';
     }
 }
