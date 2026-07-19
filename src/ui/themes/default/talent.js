@@ -27,7 +27,6 @@ export default class Talent extends ui.view.DefaultTheme.TalentUI {
         }
 
         const listTalents = core.talentRandom();
-        console.log('listTalents', listTalents)
         var selected = new Set();
         while (selected.size < 3) {
             var id = Math.floor(Math.random() * 10);

@@ -30,15 +30,6 @@ export default class Summary extends ui.view.DefaultTheme.SummaryUI {
         win.print()
     }
 
-    // Save as a txt
-    // downloadTxt(text, fileName) {
-    //     let element = document.createElement('a')
-    //     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-    //     element.setAttribute('download', fileName)
-    //     element.style.display = 'none'
-    //     element.click()
-    // }
-
     init({ talents, printText, enableExtend}) {
         const {summary, lastExtendTalent} = core;
         this.#printText = printText;
@@ -49,8 +40,6 @@ export default class Summary extends ui.view.DefaultTheme.SummaryUI {
             [core.PropertyTypes.HSTR, $lang.UI_Property_Strength],
             [core.PropertyTypes.HMNY, $lang.UI_Property_Money],
             [core.PropertyTypes.HSPR, $lang.UI_Property_Spirit],
-            //[core.PropertyTypes.HAGE, $lang.UI_Final_Age],
-            //[core.PropertyTypes.SUM, $lang.UI_Total_Judge],
         ].map(([type, key]) => {
             const data = summary[type];
             return {

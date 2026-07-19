@@ -42,10 +42,9 @@ export default class Mode extends ui.view.DefaultTheme.ModeUI {
     }
 
     #types;
-    #panel;
 
     #buildCountryList() {
-        const panel = this.#panel = new Laya.Panel();
+        const panel = new Laya.Panel();
         panel.top = PANEL_TOP;
         panel.bottom = PANEL_BOTTOM;
         panel.left = MARGIN_X;
@@ -104,7 +103,6 @@ export default class Mode extends ui.view.DefaultTheme.ModeUI {
         const nationality = Object.fromEntries(
             COUNTRIES.map(({ key: k }) => [this.#types[k], k === key ? 1 : 0])
         );
-        console.log(nationality)
         $ui.switchView(UI.pages.SEXORIENTATION, { nationality, enableExtend: true });
     }
 }

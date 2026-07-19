@@ -4,7 +4,6 @@ export default class Mode extends ui.view.DefaultTheme.PropertyTextUI {
         this.btnContinue.on(Laya.Event.CLICK, this, this.onClickContinue);
     }
     init({ talents, property }) {
-        console.log('property init propertyText', talents, property)
         this.talents = talents
         this.property = property
     }

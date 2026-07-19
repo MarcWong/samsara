@@ -45,7 +45,6 @@ class Event {
 
     do(eventId) {
         const { effect, branch, event: description, postEvent, grade } = this.get(eventId);
-        console.log(eventId);
         if(branch)
             for(const [cond, next] of branch)
                 if(this.#system.check(cond))

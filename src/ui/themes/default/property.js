@@ -30,8 +30,6 @@ export default class Property extends ui.view.DefaultTheme.PropertyUI {
 
         this.btnRandomAllocate.on(Laya.Event.CLICK, this, this.random);
         this.btnNext.on(Laya.Event.CLICK, this, this.next);
-
-        // this.listSelectedTalents.renderHandler = Laya.Handler.create(this, this.renderTalent, null, false);
     }
 
     #types;
@@ -40,7 +38,6 @@ export default class Property extends ui.view.DefaultTheme.PropertyUI {
     #propertyAllocateLimit;
 
     init({ talents, property }) {
-        console.log('property init', talents, property);
         this.listSelectedTalents.array = talents;
         const replace = core.remake(talents.map(talent => talent.id));
         if(replace.length > 0) {
@@ -185,13 +182,4 @@ export default class Property extends ui.view.DefaultTheme.PropertyUI {
             this.updateAllocate();
         }
     }
-
-    // renderTalent(box) {
-    //     const dataSource = box.dataSource;
-
-    //     box.label = $_.format($lang.F_TalentSelection, dataSource);
-    //     const style = $ui.common.card[dataSource.grade].normal;
-
-    //     $_.deepMapSet(box, style);
-    // }
 }

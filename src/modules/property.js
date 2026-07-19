@@ -16,7 +16,7 @@ class Property {
         AGE: "AGE", // 年龄 age AGE
         CHR: "CHR", // 颜值 charm CHR
         INT: "INT", // 智力 intelligence INT
-        STR: "STR", // 情商 EQ STR
+        STR: "STR", // 体质 health STR
         MNY: "MNY", // 家境 money MNY
         SPR: "SPR", // 快乐 spirit SPR
         LIF: "LIF", // 生命 life LIFE
@@ -385,7 +385,6 @@ class Property {
     }
 
     getAgeData(age) {
-        console.log('age data', this.#ageData[age])
         return this.#system.clone(this.#ageData[age]);
     }
 

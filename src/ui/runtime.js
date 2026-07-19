@@ -475,12 +475,6 @@ class ColorfulBox extends Laya.Box {
         label.text = value;
     }
 
-    get cacheAs() {return super.cacheAs;}
-    set cacheAs(value) {
-        if(value=='bitmap') debugger;
-        super.cacheAs = value;
-    }
-
 }
 
 runtime.BlankBox =

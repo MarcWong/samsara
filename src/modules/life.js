@@ -139,8 +139,6 @@ class Life {
 
         const talentContent = this.doTalent(talent);
         const selectedEvent = this.random(event);
-        console.log("age, selected event ", age, selectedEvent);
-        console.log("event", event);
 
         const isEnd = this.#property.isEnd();
         if (!selectedEvent)
@@ -149,7 +147,6 @@ class Life {
         const eventContent = this.doEvent(selectedEvent);
 
         const content = [talentContent, eventContent].flat();
-        //this.#achievement.achieve(this.AchievementOpportunity.TRAJECTORY);
         return { age, content, isEnd };
     }
 

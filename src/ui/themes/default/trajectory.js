@@ -149,7 +149,6 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         return item;
     }
     #isEnd;
-    // #trajectoryItems;
     #talents;
     #enableExtend;
     #printText;
@@ -157,7 +156,6 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
 
     init({ propertyAllocate, talents, enableExtend }) {
         const types = core.PropertyTypes;
-        console.log('trajectory init', propertyAllocate)
         this.#printText = "";
         this.#effects = {
             "CHR": 0,
@@ -176,7 +174,6 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         this.boxSpeed.visible = false;
         this.scbSpeed.value = this.scbSpeed.max * 0.5; // init speed
         this.btnSummary.visible = false;
-        // this.#trajectoryItems = [];
         this.#isEnd = false;
         this.#talents = talents;
         core.start(newProperty);
@@ -187,11 +184,6 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     close() {
         this.scbSpeed.value = 0;
         this.speed = 0;
-        // this.#trajectoryItems.forEach(item => {
-        //     item.removeSelf();
-        //     item.destroy();
-        // });
-        // this.#trajectoryItems = null;
         this.#printText = "";
     }
 
@@ -336,12 +328,10 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         item.grade(content[content.length - 1].grade);
 
         this.vboxTrajectory.addChild(item);
-        // this.#trajectoryItems.push(item);
         item.y = this.vboxTrajectory.height;
     }
 
     onSummary() {
-        // trajectoryItems: this.#trajectoryItems
         const talents = this.#talents;
         $ui.switchView(UI.pages.SUMMARY, { talents, printText: this.#printText, enableExtend: this.#enableExtend});
     }
