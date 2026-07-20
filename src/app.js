@@ -155,6 +155,14 @@ class App{
         language = App.languages['en-us'],
         theme = 'default',
     }) {
+        // The @font-face rule in index.html only tells the browser where to
+        // find Agency FB — it still downloads lazily on first use. Laya draws
+        // text onto canvas/WebGL, which (unlike DOM text) doesn't repaint
+        // itself once a late-loading web font arrives, so without this every
+        // player missing the font locally would be stuck seeing the fallback
+        // font for the whole session. Waiting here, before any view exists,
+        // guarantees the font is actually ready before Laya draws anything.
+        await document.fonts.load('48px "Agency FB"').catch(() => {});
         this.resigterEvent();
         this.#initLaya();
         globalThis.$ui = UIManager.getInstance();
