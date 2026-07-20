@@ -3347,5 +3347,23 @@
         "effect": {
             "SPR": 3
         }
+    },
+    "88001": {
+        "id": 88001,
+        "event": "The roar of jets is the last thing you hear before everything goes black. You wake up in a hospital bed with no feeling left in your left leg.",
+        "include": "(IRN>0|UKR>0)&LBTQ=0",
+        "exclude": "EVT?[88001,88002]",
+        "effect": {
+            "STR": -3
+        }
+    },
+    "88002": {
+        "id": 88002,
+        "event": "The roar of jets is the last thing you hear before everything goes black. You wake up in a hospital bed with no feeling left in your left leg.",
+        "include": "(IRN>0|UKR>0)&LBTQ>0",
+        "exclude": "EVT?[88001,88002]",
+        "effect": {
+            "STR": -3
+        }
     }
 }
