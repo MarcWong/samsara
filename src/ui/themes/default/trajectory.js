@@ -6,10 +6,10 @@ import COUNTRIES from '../../../functions/countries.js';
 // Label, colored individually and laid out in a row under the description,
 // mirroring how the top-bar +X badges already work per stat.
 const STAT_LABELS = {
+    MNY: 'Wealth',
     CHR: 'Appearance',
     INT: 'IQ',
     STR: 'Health',
-    MNY: 'Wealth',
     SPR: 'EQ',
 };
 const POSITIVE_COLOR = '#4caf50';
@@ -37,6 +37,20 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         this.panelTrajectory.vScrollBar.elasticDistance = 150;
         this.scbSpeed.on(Laya.Event.CHANGE, this, () => this.speed = this.scbSpeed.value);
         this.scbSpeed.on(Laya.Event.MOUSE_UP, this, () => this.onNext());
+
+        this.#reorderPropertyBar();
+    }
+
+    // labCharm/labIntelligence/labStrength/labMoney/labSpirit each sit inside
+    // their own "propertyBox" column (label above the value, two levels up
+    // from the value Label itself), all direct children of one HBox that
+    // auto-lays them out left to right — reordering is just moving Money's
+    // whole column to the front; the HBox handles spacing/width itself.
+    #reorderPropertyBar() {
+        const hbox = this.labCharm.parent.parent.parent;
+        const moneyColumn = this.labMoney.parent.parent;
+        moneyColumn.removeSelf();
+        hbox.addChildAt(moneyColumn, 0);
     }
 
     AGE = {
@@ -249,10 +263,10 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
             this.#printText += `Country: ${countryName}\n`
         this.#printText += "Sex orientation: "
         this.#printText += (newProperty[types.LBTQ] == 1 ? "LBTQ" : "Straight") + "\n"
+        this.#printText += "Family wealth: " + newProperty[types.MNY] + "\n"
         this.#printText += "Appearance: " + newProperty[types.CHR] + "\n"
         this.#printText += "IQ: " + newProperty[types.INT] + "\n"
         this.#printText += "Healthy: " + newProperty[types.STR] + "\n"
-        this.#printText += "Family wealth: " + newProperty[types.MNY] + "\n"
         this.#printText += "EQ: " + newProperty[types.SPR] + "\n"
         return newProperty
     }
@@ -316,6 +330,12 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         item.labContent.text = content.map(
             ({ type, description, effect, name, postEvent}) => {
                 if (effect) {
+                    if (effect.MNY) {
+                        this.#effects["MNY"] = effect.MNY;
+                        this.labMoneyAdd.visible = true
+                        this.labMoneyAdd.text = effect.MNY > 0 ? '+' + effect.MNY : effect.MNY;
+                        statChanges.push(['MNY', effect.MNY]);
+                    }
                     if (effect.CHR) {
                         this.#effects["CHR"] = effect.CHR;
                         this.labCharmAdd.visible = true;
@@ -333,12 +353,6 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
                         this.labStrengthAdd.visible = true
                         this.labStrengthAdd.text = effect.STR > 0 ? '+' + effect.STR : effect.STR;
                         statChanges.push(['STR', effect.STR]);
-                    }
-                    if (effect.MNY) {
-                        this.#effects["MNY"] = effect.MNY;
-                        this.labMoneyAdd.visible = true
-                        this.labMoneyAdd.text = effect.MNY > 0 ? '+' + effect.MNY : effect.MNY;
-                        statChanges.push(['MNY', effect.MNY]);
                     }
                     if (effect.SPR) {
                         this.#effects["SPR"] = effect.SPR;

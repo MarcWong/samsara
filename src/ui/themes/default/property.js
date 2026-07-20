@@ -30,6 +30,22 @@ export default class Property extends ui.view.DefaultTheme.PropertyUI {
 
         this.btnRandomAllocate.on(Laya.Event.CLICK, this, this.random);
         this.btnNext.on(Laya.Event.CLICK, this, this.next);
+
+        this.#reorderRows();
+    }
+
+    // The compiled layout already stacks all 5 rows in one VBox — Charm,
+    // Intelligence, Strength, Spirit (var-named "boxMoney", a leftover
+    // copy-paste from the original template — confirmed via its label text,
+    // not its var), then Wealth last (also var-less, only reachable through
+    // its buttons' .parent chain). Moving Wealth to the front is a plain
+    // reorder within the same VBox: the auto-stacking, spacing, and row width
+    // are already shared and correct, nothing else needs to change.
+    #reorderRows() {
+        const vbox = this.boxCharm.parent;
+        const wealthRow = this.btnMoneyReduce.parent.parent;
+        wealthRow.removeSelf();
+        vbox.addChildAt(wealthRow, 0);
     }
 
     #types;

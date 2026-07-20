@@ -35,10 +35,10 @@ export default class Summary extends ui.view.DefaultTheme.SummaryUI {
         this.#printText = printText;
 
         this.listSummary.array = [
+            [core.PropertyTypes.HMNY, $lang.UI_Property_Money],
             [core.PropertyTypes.HCHR, $lang.UI_Property_Charm],
             [core.PropertyTypes.HINT, $lang.UI_Property_Intelligence],
             [core.PropertyTypes.HSTR, $lang.UI_Property_Strength],
-            [core.PropertyTypes.HMNY, $lang.UI_Property_Money],
             [core.PropertyTypes.HSPR, $lang.UI_Property_Spirit],
         ].map(([type, key]) => {
             const data = summary[type];
