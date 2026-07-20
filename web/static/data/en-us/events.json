@@ -3365,5 +3365,305 @@
         "effect": {
             "STR": -3
         }
+    },
+    "101001": {
+        "id": 101001,
+        "event": "Your school AI knows every answer. You slowly forget how satisfying a wrong one felt.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "INT": 1 }
+    },
+    "101002": {
+        "id": 101002,
+        "event": "A free memory implant helps your grandmother recognise you. Nobody reads the renewal terms.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "SPR": 1 }
+    },
+    "101003": {
+        "id": 101003,
+        "event": "The basic brain plan now forgets names after thirty days. Premium remembers your mother.",
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<6",
+        "effect": { "SPR": -1 }
+    },
+    "101004": {
+        "id": 101004,
+        "event": "Your employer calls it cognitive parity. Unsubscribed people call it unemployment.",
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<5",
+        "effect": { "MNY": -1 }
+    },
+    "101005": {
+        "id": 101005,
+        "event": "Your family buys the lifetime neural plan. Luck receives a tasteful new user interface.",
+        "include": "MNY>7&(US>0|CH>0|JAP>0|GBR>0|DNK>0)",
+        "effect": { "INT": 1, "SPR": 1 }
+    },
+    "101006": {
+        "id": 101006,
+        "event": "Your health score recommends pregnancy timing. The report calls your uterus a national asset.",
+        "include": "CH>0",
+        "effect": { "SPR": -1 }
+    },
+    "101007": {
+        "id": 101007,
+        "event": "Your state protects your pregnancy. Its rent algorithm does not protect your sleep.",
+        "include": "US>0&MNY<6",
+        "effect": { "SPR": -1, "MNY": -1 }
+    },
+    "101008": {
+        "id": 101008,
+        "event": "Your postcode decides which reproductive clinic may answer your call. Freedom has a map now.",
+        "include": "US>0",
+        "effect": { "SPR": -1 }
+    },
+    "101009": {
+        "id": 101009,
+        "event": "You change degrees again. Denmark pays for the search; nobody can tell you what to find.",
+        "include": "DNK>0&MNY<8",
+        "effect": { "INT": 1, "SPR": -1 }
+    },
+    "101010": {
+        "id": 101010,
+        "event": "Your neighbour speaks perfect Danish. Your uncle still calls him the integration problem.",
+        "include": "DNK>0",
+        "effect": { "SPR": -1 }
+    },
+    "101011": {
+        "id": 101011,
+        "event": "Your welfare counsellor says you are free to become anything. You feel professionally unemployed by possibility.",
+        "include": "DNK>0",
+        "effect": { "SPR": -1 }
+    },
+    "101012": {
+        "id": 101012,
+        "event": "Britain debates who belongs here. Your hospital queue keeps getting longer in every language.",
+        "include": "GBR>0&MNY<7",
+        "effect": { "SPR": -1 }
+    },
+    "101013": {
+        "id": 101013,
+        "event": "A politician promises to take Britain back. You ask back to which woman, and lose the room.",
+        "include": "GBR>0",
+        "effect": { "SPR": -1 }
+    },
+    "101014": {
+        "id": 101014,
+        "event": "Your cat gets same-day oncology. Your grandmother gets an appointment next season.",
+        "include": "CH>0|JAP>0",
+        "effect": { "SPR": -1, "MNY": -1 }
+    },
+    "101015": {
+        "id": 101015,
+        "event": "You subscribe to an AI partner. It remembers your boundaries better than your dates did.",
+        "include": "CH>0|JAP>0",
+        "effect": { "SPR": 1, "MNY": -1 }
+    },
+    "101016": {
+        "id": 101016,
+        "event": "A wellness app sells you enlightenment in twelve monthly instalments. Inner peace renews automatically.",
+        "include": "CH>0|JAP>0|US>0|GBR>0|DNK>0",
+        "effect": { "MNY": -1 }
+    },
+    "101017": {
+        "id": 101017,
+        "event": "Your queer friends build a family dinner from scratch. The official forms still call it an exception.",
+        "include": "CH>0&LBTQ>0",
+        "effect": { "SPR": 1 }
+    },
+    "101018": {
+        "id": 101018,
+        "event": "Your company sells rainbow merchandise all June. Your group chat is still not searchable in July.",
+        "include": "CH>0&LBTQ>0",
+        "effect": { "SPR": -1 }
+    },
+    "101019": {
+        "id": 101019,
+        "event": "The water arrives by subscription. Your period becomes irregular; the price does not.",
+        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0",
+        "effect": { "STR": -1, "MNY": -1 }
+    },
+    "101020": {
+        "id": 101020,
+        "event": "Scientists link the polluted air to falling fertility. Television panels blame women first.",
+        "include": "CH>0|US>0|JAP>0|GBR>0|IND>0|EGY>0",
+        "effect": { "SPR": -1 }
+    },
+    "101021": {
+        "id": 101021,
+        "event": "You carry clean water home through a heatwave. Your body learns geopolitics before school does.",
+        "include": "AF>0|EGY>0|HTI>0",
+        "effect": { "STR": -1 }
+    },
+    "101022": {
+        "id": 101022,
+        "event": "Your secret school changes addresses weekly. The lesson is mathematics; the curriculum is survival.",
+        "include": "AF>0",
+        "effect": { "INT": 1, "SPR": 1 }
+    },
+    "101023": {
+        "id": 101023,
+        "event": "An AI outsourcing boom reaches your city. Your caste still gets to the interview before your code does.",
+        "include": "IND>0&MNY<7",
+        "effect": { "INT": 1, "SPR": -1 }
+    },
+    "101024": {
+        "id": 101024,
+        "event": "You leave India for work. Your parents call it opportunity; your visa calls it temporary.",
+        "include": "IND>0&MNY>4",
+        "effect": { "INT": 1, "MNY": 1 }
+    },
+    "101025": {
+        "id": 101025,
+        "event": "The government archives the protests as disorder. Your mother keeps the real history in a biscuit tin.",
+        "include": "IRN>0",
+        "effect": { "SPR": 1 }
+    },
+    "101026": {
+        "id": 101026,
+        "event": "Reconstruction hires you to rebuild the city. Every new wall remembers who did not return.",
+        "include": "UKR>0",
+        "effect": { "INT": 1, "SPR": -1 }
+    },
+    "101027": {
+        "id": 101027,
+        "event": "A smuggled network shows you ordinary girls laughing abroad. The state calls it hostile fiction.",
+        "include": "PRK>0",
+        "effect": { "SPR": 1 }
+    },
+    "101028": {
+        "id": 101028,
+        "event": "The storm destroys the clinic first. Aid arrives with logos, cameras, and an expiry date.",
+        "include": "HTI>0",
+        "effect": { "STR": -1, "SPR": -1 }
+    },
+    "101029": {
+        "id": 101029,
+        "event": "Egypt opens a desalination district. Your family cannot afford the water it makes.",
+        "include": "EGY>0&MNY<7",
+        "effect": { "MNY": -1, "SPR": -1 }
+    },
+    "101030": {
+        "id": 101030,
+        "event": "The AI textbook calls history neutral. It just ranks your grandmother's testimony below the official version.",
+        "include": "CH>0|US>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "INT": 1 }
+    },
+    "101031": {
+        "id": 101031,
+        "event": "A new museum calls colonial history a shared journey. Your family calls it a different kind of inheritance.",
+        "include": "GBR>0",
+        "effect": { "SPR": -1 }
+    },
+    "101032": {
+        "id": 101032,
+        "event": "The algorithm does not erase history. It ranks it, then sells the premium footnotes.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "INT": 1, "MNY": -1 }
+    },
+    "101033": {
+        "id": 101033,
+        "event": "Your parents call the natural-human movement backward. Its members call your implant a leased soul.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "SPR": -1 }
+    },
+    "101034": {
+        "id": 101034,
+        "event": "An optimisation church blesses your neural update. The sermon ends with a payment link.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "MNY": -1 }
+    },
+    "101035": {
+        "id": 101035,
+        "event": "Your daughter asks why people once worked forty hours. You remember being too tired to answer.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "SPR": 1 }
+    },
+    "101036": {
+        "id": 101036,
+        "event": "The archive restores your younger voice perfectly. It still cannot return the life that made it.",
+        "include": "MNY>5",
+        "effect": { "SPR": 1 }
+    },
+    "101037": {
+        "id": 101037,
+        "event": "The Museum of Humanity offers free entry. Your biometric pass labels you: exhibit, not visitor.",
+        "include": "MNY>7",
+        "effect": { "SPR": -1 }
+    },
+    "101038": {
+        "id": 101038,
+        "event": "Your school serves 3D-printed pork. It tastes like childhood, according to an algorithm.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "STR": 1 }
+    },
+    "101039": {
+        "id": 101039,
+        "event": "The last dairy farm nearby becomes a weekend attraction. The cows finally get better working conditions.",
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "SPR": 1 }
+    },
+    "101040": {
+        "id": 101040,
+        "event": "Cultured meat makes food cheap. Your uncle's livestock skills become an artisanal liability.",
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<6",
+        "effect": { "MNY": -1 }
+    },
+    "101041": {
+        "id": 101041,
+        "event": "Your father performs harvests for tourists on the farm he once owned. They applaud the authentic mud.",
+        "include": "(CH>0|US>0|JAP>0|GBR>0|DNK>0)&MNY<6",
+        "effect": { "SPR": -1, "MNY": -1 }
+    },
+    "101042": {
+        "id": 101042,
+        "event": "Your food allowance covers nutrient gel: complete, beige, and cheaper than remembering dinner.",
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<4",
+        "effect": { "STR": -1, "SPR": -1 }
+    },
+    "101043": {
+        "id": 101043,
+        "event": "You can afford printed steak now. It has a marbling setting and no animal in its autobiography.",
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY>3&MNY<8",
+        "effect": { "STR": 1, "MNY": -1 }
+    },
+    "101044": {
+        "id": 101044,
+        "event": "At a private dinner, you eat beef from a living animal. Everyone calls it ethical because it is rare.",
+        "include": "MNY>7&(US>0|CH>0|JAP>0|GBR>0|DNK>0)",
+        "effect": { "STR": 1, "SPR": 1 }
+    },
+    "101045": {
+        "id": 101045,
+        "event": "The countryside is rezoned for housing and solar panels. Food now grows in city-owned bioreactors.",
+        "include": "CH>0|US>0|JAP>0|GBR>0|DNK>0",
+        "effect": { "MNY": 1 }
+    },
+    "101046": {
+        "id": 101046,
+        "event": "Your family still eats real vegetables and meat. The soil report comes with a toxin warning.",
+        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0|PRK>0",
+        "effect": { "STR": -1 }
+    },
+    "101047": {
+        "id": 101047,
+        "event": "Imported nutrient formula costs more than local food. Your mother saves it for when you are ill.",
+        "include": "(AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0|PRK>0)&MNY>5",
+        "effect": { "STR": 1, "MNY": -1 }
+    },
+    "101048": {
+        "id": 101048,
+        "event": "Crop yields shrink as contamination rises. The clinic calls your hormone symptoms statistically normal.",
+        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0|PRK>0",
+        "effect": { "STR": -1, "SPR": -1 }
+    },
+    "101049": {
+        "id": 101049,
+        "event": "The government calls food security a triumph. Your village calls it the year nobody farmed anymore.",
+        "include": "CH>0|IND>0|US>0",
+        "effect": { "SPR": -1 }
+    },
+    "101050": {
+        "id": 101050,
+        "event": "Your granddaughter asks what a tomato tasted like before it became a luxury variety.",
+        "include": "MNY>5",
+        "effect": { "SPR": 1 }
     }
 }
