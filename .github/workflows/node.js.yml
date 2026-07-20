@@ -20,12 +20,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4  # ✅ 升级到 v4，提升拉取代码的安全性和速度
+
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4  # ✅ 升级到 v4，完美支持现代缓存 API，消灭 400 错误
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - run: npm install
     - run: npm run build --if-present
     - run: npm test
