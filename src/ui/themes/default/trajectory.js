@@ -17,7 +17,6 @@ const NEGATIVE_COLOR = '#f44336';
 const STAT_ROW_FONT_SIZE = 40;
 const STAT_ROW_GAP_X = 30;
 const STAT_ROW_MARGIN_TOP = 10;
-const STAT_ROW_MARGIN_BOTTOM = 15;
 
 export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     constructor() {
@@ -170,14 +169,31 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     static #createComponent = Laya.plugin.extractComponents(Trajectory.uiView, ['boxTrajectoryItem']);
     #createTrajectoryItem() {
         const item = Trajectory.#createComponent('boxTrajectoryItem');
-        item.labContent = item.getChildByName('labContent');
-        // extractComponents clones carry whatever height the compiled template's
-        // placeholder text happened to wrap to at design time. wordWrap recomputes
-        // width fine but doesn't reliably shrink height back down for shorter text,
-        // so every clone must have height cleared to NaN (Laya's "auto" sentinel)
-        // before real text is set — otherwise anything anchored below it (like the
-        // stat-change row) inherits that stale, oversized gap.
-        item.labContent.height = NaN;
+        const labContent = item.getChildByName('labContent');
+        // Reading labContent's auto-computed .height right after setting .text
+        // was not reliable — it produced a large stale gap before the
+        // stat-change row on entries whose description was short (confirmed
+        // via screenshot, not just theory). Rather than continue guessing at
+        // exactly when Laya finalizes a wordWrap label's height, wrap
+        // labContent in a real VBox and add the stat-change row as its second
+        // child — the same auto-stacking mechanism the property allocation
+        // screen already relies on for variable-size rows, so the item's own
+        // height (which vboxTrajectory positions subsequent items from) stays
+        // correct without any manual height math here at all.
+        const contentBox = new Laya.VBox();
+        contentBox.y = labContent.y;
+        contentBox.left = labContent.left;
+        contentBox.right = labContent.right;
+        contentBox.space = STAT_ROW_MARGIN_TOP;
+        labContent.removeSelf();
+        labContent.y = 0;
+        labContent.left = 0;
+        labContent.right = 0;
+        contentBox.addChild(labContent);
+        item.addChild(contentBox);
+
+        item.labContent = labContent;
+        item.contentBox = contentBox;
         item.labAge = item.getChildByName('hboxAge').getChildByName('labAge');
         const config = $ui.common.trajectoryItem;
         $_.deepMapSet(item, config.box);
@@ -369,10 +385,16 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
                 }
             }
         ).join('\n');
-        this.#printText += "Year " + (2022 + realAge) + ", age: " + realAge + "\n" + item.labContent.text + "\n";
+
+        this.#addStatChangeRow(item, statChanges);
+
+        const statChangesText = statChanges
+            .map(([prop, value]) => `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`)
+            .join('  ');
+        this.#printText += "Year " + (2022 + realAge) + ", age: " + realAge + "\n" + item.labContent.text
+            + (statChangesText ? "\n" + statChangesText : "") + "\n";
 
         item.grade(content[content.length - 1].grade);
-        this.#addStatChangeRow(item, statChanges);
 
         this.vboxTrajectory.addChild(item);
         item.y = this.vboxTrajectory.height;
@@ -380,8 +402,8 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
 
     #addStatChangeRow(item, statChanges) {
         if (!statChanges.length) return;
-        const rowY = item.labContent.y + item.labContent.height + STAT_ROW_MARGIN_TOP;
-        let x = item.labContent.x;
+        const row = new Laya.Box();
+        let x = 0;
         let rowHeight = 0;
         for (const [prop, value] of statChanges) {
             const label = new Laya.Label();
@@ -390,12 +412,13 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
             label.font = item.labContent.font;
             label.color = value > 0 ? POSITIVE_COLOR : NEGATIVE_COLOR;
             label.x = x;
-            label.y = rowY;
-            item.addChild(label);
+            row.addChild(label);
             x += label.width + STAT_ROW_GAP_X;
             rowHeight = Math.max(rowHeight, label.height);
         }
-        item.height = rowY + rowHeight + STAT_ROW_MARGIN_BOTTOM;
+        row.width = Math.max(0, x - STAT_ROW_GAP_X);
+        row.height = rowHeight;
+        item.contentBox.addChild(row);
     }
 
     onSummary() {
