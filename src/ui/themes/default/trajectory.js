@@ -1,5 +1,24 @@
 import COUNTRIES from '../../../functions/countries.js';
 
+// labContent is a plain Laya.Label — one uniform color per label, no inline
+// rich text/HTML spans — so a mixed green/red stat readout can't be part of
+// that same text block. Instead each triggered stat change gets its own small
+// Label, colored individually and laid out in a row under the description,
+// mirroring how the top-bar +X badges already work per stat.
+const STAT_LABELS = {
+    CHR: 'Appearance',
+    INT: 'IQ',
+    STR: 'Health',
+    MNY: 'Wealth',
+    SPR: 'EQ',
+};
+const POSITIVE_COLOR = '#4caf50';
+const NEGATIVE_COLOR = '#f44336';
+const STAT_ROW_FONT_SIZE = 40;
+const STAT_ROW_GAP_X = 30;
+const STAT_ROW_MARGIN_TOP = 10;
+const STAT_ROW_MARGIN_BOTTOM = 15;
+
 export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     constructor() {
         super();
@@ -138,6 +157,13 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
     #createTrajectoryItem() {
         const item = Trajectory.#createComponent('boxTrajectoryItem');
         item.labContent = item.getChildByName('labContent');
+        // extractComponents clones carry whatever height the compiled template's
+        // placeholder text happened to wrap to at design time. wordWrap recomputes
+        // width fine but doesn't reliably shrink height back down for shorter text,
+        // so every clone must have height cleared to NaN (Laya's "auto" sentinel)
+        // before real text is set — otherwise anything anchored below it (like the
+        // stat-change row) inherits that stale, oversized gap.
+        item.labContent.height = NaN;
         item.labAge = item.getChildByName('hboxAge').getChildByName('labAge');
         const config = $ui.common.trajectoryItem;
         $_.deepMapSet(item, config.box);
@@ -203,8 +229,8 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
             max = propertyAllocate[types.SPR]
         const total = propertyAllocate[types.CHR] + propertyAllocate[types.INT]
             + propertyAllocate[types.STR] + propertyAllocate[types.MNY] + propertyAllocate[types.SPR];
-        // if total points >= 10 and any property > 7, add 5 to all other properties
-        if (total >= 10 && max > 7) {
+        // if total points >= 9 and any property > 7, add 5 to all other properties
+        if (total >= 9 && max > 7) {
             if (newProperty[types.CHR] < 8)
                 newProperty[types.CHR] = newProperty[types.CHR] < 4 ? newProperty[types.CHR] + 5 : 8;
             if (newProperty[types.INT] < 8)
@@ -286,6 +312,7 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         this.labSpiritAdd.visible = false;
         const item = this.#createTrajectoryItem();
         item.labAge.text = (2022 + realAge) + '\n Age: ' + realAge;
+        const statChanges = [];
         item.labContent.text = content.map(
             ({ type, description, effect, name, postEvent}) => {
                 if (effect) {
@@ -293,26 +320,31 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
                         this.#effects["CHR"] = effect.CHR;
                         this.labCharmAdd.visible = true;
                         this.labCharmAdd.text = effect.CHR > 0 ? '+' + effect.CHR : effect.CHR;
+                        statChanges.push(['CHR', effect.CHR]);
                     }
                     if (effect.INT) {
                         this.#effects["INT"] = effect.INT;
                         this.labIntelligenceAdd.visible = true
                         this.labIntelligenceAdd.text = effect.INT > 0 ? '+' + effect.INT : effect.INT;
+                        statChanges.push(['INT', effect.INT]);
                     }
                     if (effect.STR) {
                         this.#effects["STR"] = effect.STR;
                         this.labStrengthAdd.visible = true
                         this.labStrengthAdd.text = effect.STR > 0 ? '+' + effect.STR : effect.STR;
+                        statChanges.push(['STR', effect.STR]);
                     }
                     if (effect.MNY) {
                         this.#effects["MNY"] = effect.MNY;
                         this.labMoneyAdd.visible = true
                         this.labMoneyAdd.text = effect.MNY > 0 ? '+' + effect.MNY : effect.MNY;
+                        statChanges.push(['MNY', effect.MNY]);
                     }
                     if (effect.SPR) {
                         this.#effects["SPR"] = effect.SPR;
                         this.labSpiritAdd.visible = true
                         this.labSpiritAdd.text = effect.SPR > 0 ? '+' + effect.SPR : effect.SPR;
+                        statChanges.push(['SPR', effect.SPR]);
                     }
                 }
                 switch(type) {
@@ -326,9 +358,30 @@ export default class Trajectory extends ui.view.DefaultTheme.TrajectoryUI {
         this.#printText += "Year " + (2022 + realAge) + ", age: " + realAge + "\n" + item.labContent.text + "\n";
 
         item.grade(content[content.length - 1].grade);
+        this.#addStatChangeRow(item, statChanges);
 
         this.vboxTrajectory.addChild(item);
         item.y = this.vboxTrajectory.height;
+    }
+
+    #addStatChangeRow(item, statChanges) {
+        if (!statChanges.length) return;
+        const rowY = item.labContent.y + item.labContent.height + STAT_ROW_MARGIN_TOP;
+        let x = item.labContent.x;
+        let rowHeight = 0;
+        for (const [prop, value] of statChanges) {
+            const label = new Laya.Label();
+            label.text = `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`;
+            label.fontSize = STAT_ROW_FONT_SIZE;
+            label.font = item.labContent.font;
+            label.color = value > 0 ? POSITIVE_COLOR : NEGATIVE_COLOR;
+            label.x = x;
+            label.y = rowY;
+            item.addChild(label);
+            x += label.width + STAT_ROW_GAP_X;
+            rowHeight = Math.max(rowHeight, label.height);
+        }
+        item.height = rowY + rowHeight + STAT_ROW_MARGIN_BOTTOM;
     }
 
     onSummary() {

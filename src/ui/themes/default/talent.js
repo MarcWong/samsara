@@ -42,7 +42,7 @@ export default class Talent extends ui.view.DefaultTheme.TalentUI {
         this.#drawnTalents = talents;
 
         this.boxText.label = talents
-            .map(({ name, description }) => `${name} — ${description}`)
+            .map(({ name }) => name)
             .join('\n');
         this.btnDrawCard.label = 'Continue';
     }

@@ -43,15 +43,14 @@ class Life {
     #initialData;
 
     async initial(i18nLoad, commonLoad) {
-        const [age, talents, events, achievements, characters, specialThanks] = await Promise.all([
+        const [age, talents, events, achievements, characters] = await Promise.all([
             i18nLoad('age'),
             i18nLoad('talents'),
             i18nLoad('events'),
             i18nLoad('achievement'),
             i18nLoad('character'),
-            commonLoad('specialthanks'),
         ]);
-        this.#specialThanks = specialThanks;
+        this.#specialThanks = [];
 
         const total = {
             [this.PropertyTypes.TACEV]: this.#achievement.initial({achievements}),
@@ -147,6 +146,13 @@ class Life {
         const eventContent = this.doEvent(selectedEvent);
 
         const content = [talentContent, eventContent].flat();
+        // a fatal talent (e.g. the "Airplane Crash" lucky charm) is otherwise
+        // just whatever happened to be first in the array — talents are always
+        // built before the year's event. Death should read as the last word for
+        // that year, not get buried ahead of an unrelated event landing the same
+        // age, so any content whose effect ends life is sorted to the end.
+        const isFatal = c => (c.effect?.LIF ?? 0) < 0;
+        content.sort((a, b) => isFatal(a) - isFatal(b));
         return { age, content, isEnd };
     }
 
