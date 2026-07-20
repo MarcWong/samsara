@@ -1,10 +1,13 @@
 # Samsara
 
-## Introduction
+[![Samsara Installation](Samsara-Yuwei-Jiang-CN-photo-Florian-Voggeneder2.webp)](https://www.youtube.com/watch?v=SZAssoQM8Og)
 
-- modified from Life Restart https://liferestart.syaro.io/
+♀Samsara (2022) challenges the socioeconomic frameworks woven within our optimism about gender equality. By allowing each audience to become digitally reborn as a female in the program based on their life choices, it draws attention to the parallels between the myth of meritocracy and the myth of progress, asking us to reconsider the power dynamics in the future tense. The work ushers in a sense of a future techno-dystopia where our desires are serviced by AI and human rights are sacrificed in the name of the new techno-religion.
 
-## Usage
+Read more at [Planet B Exhibition at Ars Eletronica](https://ars.electronica.art/planetb/en/samsara/).
+
+
+## Installation
 
 <details>
 <summary><strong>Web Version</strong></summary>
@@ -34,7 +37,7 @@ Or
 npm run dev
 ```
 
-3. After the startup is complete, will automatically open a browser and visit [http://localhost:8081/view/index.html](http://localhost:8081/view/index.html).
+3. After the startup is complete, will automatically open a browser and visit.
 </details>
 
 <details>
@@ -48,4 +51,10 @@ node repl
 </details>
 
 
-Story: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
+## Credits
+
+- Story: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
+
+- Developer: Yao Wang
+
+- Code modified from Life Restart https://liferestart.syaro.io/
