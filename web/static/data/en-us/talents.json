@@ -1,0 +1,98 @@
+{
+    "90001": {
+        "id": "90001",
+        "name": "Earthquake",
+        "description": "You experience earthquake and lost your left arm.",
+        "condition": "AGE?[22]",
+        "grade": 0,
+        "effect": {
+            "STR": -2
+        }
+    },
+    "90002": {
+        "id": "90002",
+        "name": "Airplane Crash",
+        "description": "You experience a plane crash, and you are dead.",
+        "condition": "AGE?[79]",
+        "grade": 0,
+        "effect": {
+            "LIF": -1
+        }
+    },
+    "90003": {
+        "id": "90003",
+        "name": "Farewell, Mom",
+        "description": "Your mom died from cancer. You experienced a mental breakdown.",
+        "condition": "AGE?[33]",
+        "grade": 0
+    },
+    "90004": {
+        "id": "90004",
+        "name": "Bankruptcy",
+        "description": "You lost all your money, and you are seriously ill.",
+        "condition": "AGE?[61]",
+        "grade": 0,
+        "effect": {
+            "MNY": -2,
+            "STR": -2
+        }
+    },
+    "90005": {
+        "id": "90005",
+        "name": "Rape",
+        "description": "You are raped by a distant relative from your father’s side.",
+        "condition": "AGE?[27]",
+        "grade": 0
+    },
+    "90006": {
+        "id": "90006",
+        "name": "Helen of Troy",
+        "description": "You become growingly extremely pretty.",
+        "condition": "AGE?[8]",
+        "grade": 0,
+        "effect": {
+            "CHR": 10
+        }
+    },
+    "90007": {
+        "id": "90007",
+        "name": "Job oppotunity",
+        "condition": "AGE?[73]",
+        "description": "You obtain an important job opportunity.",
+        "grade": 0,
+        "effect": {
+            "MNY": 3
+        }
+    },
+    "90008": {
+        "id": "90008",
+        "name": "You are beautiful",
+        "description": "You become growingly pretty.",
+        "condition": "AGE?[8]",
+        "grade": 0,
+        "effect": {
+            "CHR": 3
+        }
+    },
+    "90009": {
+        "id": "90009",
+        "name": "A miracle of life",
+        "condition": "STR<4&AGE>21",
+        "description": "You meet a medical treatment miracle.",
+        "grade": 0,
+        "effect": {
+            "STR": 3,
+            "MNY": -3
+        }
+    },
+    "90010": {
+        "id": "90010",
+        "name": "Queen's gambit",
+        "description": "You become growingly intelligent.",
+        "condition": "AGE?[8]",
+        "grade": 0,
+        "effect": {
+            "INT": 3
+        }
+    }
+}
