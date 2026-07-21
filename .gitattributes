@@ -1,0 +1,2 @@
+static/models/Ascending[[:space:]]Stairs.fbx filter=lfs diff=lfs merge=lfs -text
+static/models filter=lfs diff=lfs merge=lfs -text

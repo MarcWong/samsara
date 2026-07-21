@@ -1,16 +1,11 @@
 name: Deploy dev branch to samsara_test
 
+# Paused: triggered manually only for now (workflow_dispatch), while the
+# repo is mid-restructure (old LayaAir app removed, web/ moved to root).
+# Switch back to `push: branches: [dev]` to resume automatic deploys once
+# that settles and SAMSARA_TEST_DEPLOY_KEY is confirmed working.
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - 'web/**'
-      - '.github/workflows/deploy-test.yml'
-
-defaults:
-  run:
-    working-directory: web
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -28,7 +23,7 @@ jobs:
       - name: Install dependencies
         # package-lock.json isn't committed (gitignored), so `npm ci` and
         # actions/setup-node's lockfile-based caching both have nothing to
-        # key off -- confirmed live, this is also why web-ci.yml has been
+        # key off -- confirmed live, this is also why web-ci.yml had been
         # failing since the git-lfs commit. Plain install, no cache.
         run: npm install
 
@@ -51,4 +46,4 @@ jobs:
           deploy_key: ${{ secrets.SAMSARA_TEST_DEPLOY_KEY }}
           external_repository: MarcWong/samsara_test
           publish_branch: gh-pages
-          publish_dir: web/build
+          publish_dir: build
