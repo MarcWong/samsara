@@ -5,34 +5,15 @@
 	let { screen } = $props();
 
 	// CSS fallback for prefers-reduced-motion, no-WebGL, or context loss --
-	// also what's shown for a frame before the canvas mounts. Kept as flat
-	// tones from the same palette family as the shader so the handoff isn't
-	// jarring.
+	// also what's shown for a frame before the canvas mounts. Only SUMMARY
+	// still uses this shader background; the other screens now have their
+	// own cinematic parallax scenes (see lib/components/parallax/).
 	const FALLBACK_GRADIENTS = {
-		MAIN: 'radial-gradient(circle at 30% 20%, #3a4454, #1a1e24 70%)',
-		REBORN: 'radial-gradient(circle at 70% 30%, #35404e, #1a1e24 70%)',
-		MODE: 'linear-gradient(160deg, #2a3038, #1a1e24 60%, #2e2438)',
-		SEXORIENTATION: 'linear-gradient(160deg, #2e2a3a, #1a1e24 60%)',
-		TALENT: 'radial-gradient(circle at 50% 15%, #3a3450, #1a1e24 70%)',
-		PROPERTYTEXT: 'linear-gradient(160deg, #2a3542, #1a1e24 60%)',
-		PROPERTY: 'linear-gradient(160deg, #263042, #1a1e24 65%)',
-		TRAJECTORY: 'linear-gradient(180deg, #1e2530, #23202a 80%)',
 		SUMMARY: 'radial-gradient(circle at 50% 0%, #2e3a42, #1a1e24 70%)',
 	};
 
-	// One shared shader, tinted per screen -- same "flowing sand" visual
-	// language everywhere (the unified, contemporary-art look from the
-	// design brief) rather than a different effect per page. Each entry is
-	// [shadow, mid, highlight]; tune freely, no component code changes needed.
+	// Same "flowing sand" shader as before; [shadow, mid, highlight].
 	const PALETTES = {
-		MAIN: ['#20242c', '#4d4030', '#c9a96e'],
-		REBORN: ['#211f26', '#4a3540', '#c98f9c'],
-		MODE: ['#1f2420', '#4a3b2a', '#c98a5c'],
-		SEXORIENTATION: ['#211f26', '#453852', '#b799d1'],
-		TALENT: ['#221f1a', '#4f3f22', '#d1a94a'],
-		PROPERTYTEXT: ['#1f2226', '#453f34', '#c7b28a'],
-		PROPERTY: ['#1c2128', '#33415a', '#a9bcd6'],
-		TRAJECTORY: ['#1a1e22', '#2c3a3a', '#ded3b6'],
 		SUMMARY: ['#20241f', '#4a4128', '#e2c877'],
 	};
 

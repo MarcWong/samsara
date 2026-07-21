@@ -18,7 +18,7 @@ function emptyDraft() {
     };
 }
 
-const screen = writable('MAIN');
+const screen = writable('CITYINTRO');
 const draft = writable(emptyDraft());
 
 function goToScreen(key, patch) {

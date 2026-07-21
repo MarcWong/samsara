@@ -3,6 +3,7 @@
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
 	import Button from '../components/Button.svelte';
+	import TowerClimbBackground from '../components/parallax/TowerClimbBackground.svelte';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const types = core.PropertyTypes;
@@ -152,7 +153,15 @@
 	onMount(onNext);
 </script>
 
-<div class="trajectory">
+<TowerClimbBackground />
+
+<div
+	class="trajectory"
+	onclick={onNext}
+	onkeydown={e => (e.key === 'Enter' || e.key === ' ') && onNext()}
+	role="button"
+	tabindex="0"
+>
 	<div class="statbar">
 		<span class="country">{country}</span>
 		{#each STAT_KEYS as key (key)}
@@ -168,14 +177,7 @@
 		{/each}
 	</div>
 
-	<div
-		class="log"
-		bind:this={logEl}
-		onclick={onNext}
-		onkeydown={e => (e.key === 'Enter' || e.key === ' ') && onNext()}
-		role="button"
-		tabindex="0"
-	>
+	<div class="log" bind:this={logEl}>
 		{#each entries as entry (entry.id)}
 			<div class="entry" class:fatal={entry.fatal}>
 				<div class="entry-age">{entry.year} · Age {entry.age}</div>
@@ -191,7 +193,6 @@
 				{/if}
 			</div>
 		{/each}
-		<p class="hint">Tap anywhere to advance</p>
 	</div>
 
 	{#if isEnd}
@@ -206,11 +207,16 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+		cursor: pointer;
 	}
+	/* Matches .log's max-width below it so the two read as one centered
+	   column instead of a full-width bar sitting over a narrower one. */
 	.statbar {
 		display: flex;
 		align-items: center;
 		gap: 1.25rem;
+		max-width: 42rem;
+		margin: 0 auto;
 		padding: 1rem 1.25rem;
 		background: var(--bg-raised);
 		flex-wrap: wrap;
@@ -243,14 +249,25 @@
 		color: var(--negative);
 	}
 
+	/* Capped well short of the full remaining height (roughly two and a
+	   half entries) and top-masked so scrolled-past entries dissolve
+	   rather than get clipped -- leaves the screen's center and lower
+	   portion clear for the 3D climb behind it, instead of the log
+	   filling all available space the way it used to. */
+	/* Capped so story paragraphs don't stretch into unreadably long lines
+	   on wide/landscape viewports -- narrow enough to read comfortably,
+	   still leaves the 3D climb visible on both sides. */
 	.log {
-		flex: 1;
+		max-height: 30dvh;
+		max-width: 42rem;
+		margin: 0 auto;
 		overflow-y: auto;
 		padding: 1.25rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		cursor: pointer;
+		mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
 	}
 	.entry {
 		background: var(--bg-raised);
@@ -278,13 +295,6 @@
 		flex-wrap: wrap;
 		font-size: 0.95rem;
 	}
-	.hint {
-		text-align: center;
-		color: var(--text-dim);
-		font-size: 0.9rem;
-		margin: 0.5rem 0 0;
-	}
-
 	.controls {
 		padding: 1rem 1.25rem;
 		background: var(--bg-raised);

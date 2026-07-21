@@ -1,21 +1,13 @@
-import Main from './screens/Main.svelte';
-import Reborn from './screens/Reborn.svelte';
-import Mode from './screens/Mode.svelte';
-import SexOrientation from './screens/SexOrientation.svelte';
-import Talent from './screens/Talent.svelte';
-import PropertyText from './screens/PropertyText.svelte';
-import Property from './screens/Property.svelte';
+import CityIntro from './screens/CityIntro.svelte';
+import Plaza from './screens/Plaza.svelte';
+import Housing from './screens/Housing.svelte';
 import Trajectory from './screens/Trajectory.svelte';
 import Summary from './screens/Summary.svelte';
 
 const SCREENS = {
-	MAIN: Main,
-	REBORN: Reborn,
-	MODE: Mode,
-	SEXORIENTATION: SexOrientation,
-	TALENT: Talent,
-	PROPERTYTEXT: PropertyText,
-	PROPERTY: Property,
+	CITYINTRO: CityIntro,
+	PLAZA: Plaza,
+	HOUSING: Housing,
 	TRAJECTORY: Trajectory,
 	SUMMARY: Summary,
 };

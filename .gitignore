@@ -108,6 +108,7 @@ utils/xlsxTransform-*
 
 /.idea
 
+package-lock.json
 __localStorage.json
 
 .DS_Store
