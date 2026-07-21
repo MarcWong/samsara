@@ -24,11 +24,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: web/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        # package-lock.json isn't committed (gitignored), so `npm ci` and
+        # actions/setup-node's lockfile-based caching both have nothing to
+        # key off -- confirmed live, this is also why web-ci.yml has been
+        # failing since the git-lfs commit. Plain install, no cache.
+        run: npm install
 
       - name: Build
         # Overrides the /samsara base path baked into the main production
