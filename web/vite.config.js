@@ -5,8 +5,10 @@ import { sveltekit } from '@sveltejs/kit/vite';
 // Served as a GitHub Pages project site (https://marcwong.github.io/samsara/),
 // so production builds need every asset path prefixed with /samsara. Local
 // dev serves from the root instead, matching how the current webpack config
-// already relies on relative paths working under either.
-const base = process.env.NODE_ENV === 'production' ? '/samsara' : '';
+// already relies on relative paths working under either. BASE_PATH lets the
+// dev-branch test deploy (https://marcwong.github.io/samsara_test/) override
+// this to its own repo name without touching the main production build.
+const base = process.env.NODE_ENV === 'production' ? process.env.BASE_PATH || '/samsara' : '';
 
 export default defineConfig({
 	plugins: [
