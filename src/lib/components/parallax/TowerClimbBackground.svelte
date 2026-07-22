@@ -37,6 +37,9 @@
 	import { base } from '$app/paths';
 	import * as THREE from 'three';
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+	import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 	// Real-time playback rate, as a multiple of the clip's own authored
 	// speed (1 = exactly as animated) -- slower than authored: the climb
@@ -83,6 +86,7 @@
 	let containerEl;
 
 	let renderer, scene, camera;
+	let composer = null, bloomPass = null;
 	let mixer, action, clipDuration = 0;
 	let hips;
 	let hipsStart = new THREE.Vector3();
@@ -101,7 +105,8 @@
 	let destroyed = false;
 
 	function render() {
-		if (renderer && scene && camera) renderer.render(scene, camera);
+		if (composer) composer.render();
+		else if (renderer && scene && camera) renderer.render(scene, camera);
 	}
 
 	// Removes the animation's net directional drift from the Hips local
@@ -287,6 +292,7 @@
 		const w = containerEl.clientWidth;
 		const h = containerEl.clientHeight;
 		renderer.setSize(w, h);
+		composer?.setSize(w, h);
 		camera.aspect = w / h;
 		camera.updateProjectionMatrix();
 		render();
@@ -342,8 +348,8 @@
 		const pillarMat = new THREE.MeshStandardMaterial({ color: 0x262230, roughness: 0.85, metalness: 0.2 });
 		const stripMat = new THREE.MeshStandardMaterial({
 			color: 0x05080a,
-			emissive: 0x2a7a8a,
-			emissiveIntensity: 2.0,
+			emissive: 0x35c8de,
+			emissiveIntensity: 3.0,
 		});
 		const PILLARS = 5;
 		const pillarRing = 165;
@@ -396,7 +402,7 @@
 		// In the slab's local frame x runs along the tangent (stride) and z
 		// across the tread width -- the glowing edge strip spans the width.
 		const stripGeo = new THREE.BoxGeometry(2.5, LIP_HEIGHT, stairWidth);
-		const stripInstMat = new THREE.MeshBasicMaterial({ color: 0x2b7f8f });
+		const stripInstMat = new THREE.MeshBasicMaterial({ color: 0x5fe0f2 });
 		const helixStrips = new THREE.InstancedMesh(stripGeo, stripInstMat, count);
 		helixStrips.frustumCulled = false;
 		const dummy = new THREE.Object3D();
@@ -433,7 +439,7 @@
 		// basic material: reads as a faint self-lit line, not a lit surface.
 		const risePerTurn = Math.abs(climbVector.y * turnTiles);
 		const ringGeo = new THREE.CylinderGeometry(wallRadius - 6, wallRadius - 6, 3, 96, 1, true);
-		const ringMat = new THREE.MeshBasicMaterial({ color: 0x392952, side: THREE.DoubleSide });
+		const ringMat = new THREE.MeshBasicMaterial({ color: 0x7a4fd6, side: THREE.DoubleSide });
 		for (let y = tileOrigin.y - 3500; y < tileOrigin.y + 4500; y += risePerTurn) {
 			const ring = new THREE.Mesh(ringGeo, ringMat);
 			ring.position.y = y;
@@ -445,20 +451,38 @@
 
 	onMount(() => {
 		scene = new THREE.Scene();
-		scene.fog = new THREE.Fog(0x0e0c13, 380, 2300);
+		// Exponential fog in a deep violet: the cyberpunk haze. Density is
+		// scaled to this scene's units (a stride is ~90 units, the far wall
+		// ~1000 away) -- the textbook 0.05 is for meter-scale scenes and
+		// would white out everything here. Background matches the fog color
+		// so distant geometry dissolves into it seamlessly.
+		scene.background = new THREE.Color(0x130a20);
+		scene.fog = new THREE.FogExp2(0x130a20, 0.0016);
 
 		camera = new THREE.PerspectiveCamera(40, 1, 1, 3000);
 
 		renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: true });
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-		// Interior lighting: dim, cool, unified -- no warm exterior sun.
+		// Neon bloom: render through an EffectComposer with an
+		// UnrealBloomPass. The threshold sits above anything the dim
+		// ambient/key lighting produces on the dark surfaces, so only the
+		// self-lit neon (step lips, pillar strips, rings -- their colors
+		// are pushed bright specifically for this) grows a halo.
+		composer = new EffectComposer(renderer);
+		composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		composer.addPass(new RenderPass(scene, camera));
+		bloomPass = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.8, 0.55, 0.35);
+		composer.addPass(bloomPass);
+
+		// Interior lighting kept deliberately minimal (one ambient + one
+		// key light) -- the cyberpunk look comes from emissive neon + bloom,
+		// not from stacking realtime point lights, which is also what keeps
+		// the frame rate safe without a baked-lightmap pipeline.
 		const ambient = new THREE.AmbientLight(0x4a4460, 2.0);
-		const key = new THREE.DirectionalLight(0x9aa6c9, 1.4);
+		const key = new THREE.DirectionalLight(0x9aa6c9, 1.3);
 		key.position.set(-1.5, 3, -1);
-		const fill = new THREE.DirectionalLight(0x5a3f5c, 0.5);
-		fill.position.set(2, 1, 2);
-		scene.add(ambient, key, fill);
+		scene.add(ambient, key);
 
 		resizeObserver = new ResizeObserver(resize);
 		resizeObserver.observe(containerEl);
@@ -559,7 +583,9 @@
 					metalness: 0.05,
 					side: THREE.DoubleSide,
 				});
-				const lipMaterial = new THREE.MeshBasicMaterial({ color: 0x2b7f8f, side: THREE.DoubleSide });
+					// Bright enough to clear the bloom threshold -- these are the
+				// neon tubes of the scene.
+				const lipMaterial = new THREE.MeshBasicMaterial({ color: 0x5fe0f2, side: THREE.DoubleSide });
 				for (let k = 0; k < STEP_COUNT; k++) {
 					tileGroup.add(buildStepMesh(stepMaterial));
 					lipGroup.add(buildLipMesh(lipMaterial));
@@ -601,6 +627,8 @@
 		destroyed = true;
 		if (playRaf) cancelAnimationFrame(playRaf);
 		if (resizeObserver) resizeObserver.disconnect();
+		bloomPass?.dispose?.();
+		composer?.dispose?.();
 		if (renderer) renderer.dispose();
 		scene?.traverse(o => {
 			if (o.isMesh) {
@@ -622,7 +650,7 @@
 		inset: 0;
 		z-index: -1;
 		overflow: hidden;
-		background: radial-gradient(circle at 50% 30%, #1b1e26, #0d0f13 85%);
+		background: radial-gradient(circle at 50% 30%, #1c1230, #0e081a 85%);
 	}
 	canvas {
 		display: block;

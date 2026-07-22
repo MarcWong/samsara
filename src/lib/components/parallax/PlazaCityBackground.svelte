@@ -105,8 +105,9 @@
 
 		screenMesh.updateMatrixWorld(true);
 		const projected = glassCorners.map(local => {
-			const ndc = screenMesh.localToWorld(local.clone()).project(camera);
-			return { x: ((ndc.x + 1) / 2) * w, y: ((1 - ndc.y) / 2) * h };
+			const world = screenMesh.localToWorld(local.clone());
+			const ndc = world.clone().project(camera);
+			return { world, x: ((ndc.x + 1) / 2) * w, y: ((1 - ndc.y) / 2) * h };
 		});
 		// Label corners by their projected position rather than assuming
 		// which local axis is up/right -- the two smallest-y points are the
@@ -119,6 +120,14 @@
 		const topRight = t1.x <= t2.x ? t2 : t1;
 		const bottomLeft = b1.x <= b2.x ? b1 : b2;
 		const bottomRight = b1.x <= b2.x ? b2 : b1;
+
+		// True source aspect from the glass's *world-space* edge lengths of
+		// the labeled corners -- deriving it from local bbox axes guessed
+		// which axis was width vs height and had it inverted for this
+		// model's axis convention, which pre-stretched all overlay text.
+		const wLen = topLeft.world.distanceTo(topRight.world);
+		const hLen = topLeft.world.distanceTo(bottomLeft.world);
+		quadRefH = Math.round(QUAD_REF_W * (hLen / Math.max(wLen, 0.001))) || quadRefH;
 
 		const src = [
 			{ x: 0, y: 0 },
@@ -286,51 +295,76 @@
 					}
 				});
 
-				// Measure the glass straight off the geometry: the bounding
-				// box of the vertices the screen material group covers. The
-				// thinnest bbox axis is the glass normal; the outer face
-				// along it (the side pointing away from the model's own
-				// center) carries the four corner points.
+				// Measure the glass straight off the geometry the screen
+				// material group covers -- but as a *plane fit*, not a bbox:
+				// this model's monitor face is slightly rotated relative to
+				// the mesh's own axes, so bbox-face corners both missed the
+				// real glass rectangle and gave a wrong normal (confirmed
+				// live: overlay drifting off the glass, machine yawed
+				// off-axis). Area-weighted triangle normals give the true
+				// glass normal; the corners are the vertex extents along the
+				// two in-plane axes.
+				let glassNormalLocal = null;
 				if (screenMesh && screenMatIndex >= 0) {
 					const geo = screenMesh.geometry;
 					const pos = geo.attributes.position;
 					const idx = geo.index;
-					const min = new THREE.Vector3(Infinity, Infinity, Infinity);
-					const max = new THREE.Vector3(-Infinity, -Infinity, -Infinity);
-					const v = new THREE.Vector3();
+					const readV = (i, out) => {
+						const vi = idx ? idx.getX(i) : i;
+						out.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
+					};
+					const va = new THREE.Vector3();
+					const vb = new THREE.Vector3();
+					const vc = new THREE.Vector3();
+					const e1 = new THREE.Vector3();
+					const e2 = new THREE.Vector3();
+					const normal = new THREE.Vector3();
+					const centroid = new THREE.Vector3();
+					let vertCount = 0;
 					for (const g of geo.groups) {
 						if (g.materialIndex !== screenMatIndex) continue;
-						for (let i = g.start; i < g.start + g.count; i++) {
-							const vi = idx ? idx.getX(i) : i;
-							v.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
-							min.min(v);
-							max.max(v);
+						for (let i = g.start; i < g.start + g.count; i += 3) {
+							readV(i, va);
+							readV(i + 1, vb);
+							readV(i + 2, vc);
+							e1.subVectors(vb, va);
+							e2.subVectors(vc, va);
+							normal.add(e1.cross(e2)); // e1 becomes the cross product
+							centroid.add(va).add(vb).add(vc);
+							vertCount += 3;
 						}
 					}
-					const size = new THREE.Vector3().subVectors(max, min);
-					const axes = ['x', 'y', 'z'];
-					const thin = axes.reduce((a, b) => (size[a] <= size[b] ? a : b));
-					const [u, w2] = axes.filter(a => a !== thin);
-					geo.computeBoundingBox();
-					const bodyCenter = geo.boundingBox.getCenter(new THREE.Vector3());
-					const glassMid = (min[thin] + max[thin]) / 2;
-					const outer = glassMid >= bodyCenter[thin] ? max[thin] : min[thin];
-					glassCorners = [
-						[min[u], min[w2]],
-						[max[u], min[w2]],
-						[max[u], max[w2]],
-						[min[u], max[w2]],
-					].map(([a, b]) => {
-						const c = new THREE.Vector3();
-						c[thin] = outer;
-						c[u] = a;
-						c[w2] = b;
-						return c;
-					});
-					// Source-rect height for the homography follows the
-					// glass's real aspect so overlay content isn't
-					// pre-stretched.
-					quadRefH = Math.round(QUAD_REF_W * (size[w2] / Math.max(size[u], 0.001))) || quadRefH;
+					if (vertCount > 0) {
+						normal.normalize();
+						centroid.multiplyScalar(1 / vertCount);
+						const ref = Math.abs(normal.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+						const uAxis = new THREE.Vector3().crossVectors(ref, normal).normalize();
+						const vAxis = new THREE.Vector3().crossVectors(normal, uAxis).normalize();
+						let uMin = Infinity, uMax = -Infinity, vMin = Infinity, vMax = -Infinity;
+						const p = new THREE.Vector3();
+						for (const g of geo.groups) {
+							if (g.materialIndex !== screenMatIndex) continue;
+							for (let i = g.start; i < g.start + g.count; i++) {
+								readV(i, p);
+								p.sub(centroid);
+								const du = p.dot(uAxis);
+								const dv = p.dot(vAxis);
+								if (du < uMin) uMin = du;
+								if (du > uMax) uMax = du;
+								if (dv < vMin) vMin = dv;
+								if (dv > vMax) vMax = dv;
+							}
+						}
+						glassCorners = [
+							[uMin, vMin],
+							[uMax, vMin],
+							[uMax, vMax],
+							[uMin, vMax],
+						].map(([du, dv]) =>
+							centroid.clone().addScaledVector(uAxis, du).addScaledVector(vAxis, dv),
+						);
+						glassNormalLocal = normal.clone();
+					}
 				}
 
 				// Same measure-after-load approach as every other prop this
@@ -360,7 +394,12 @@
 					const preBox = new THREE.Box3().setFromObject(tvFbx);
 					glassWorldHeight = preBox.getSize(new THREE.Vector3()).y * 0.5;
 				}
-				const tvScale = (alleyRadius * 0.075) / Math.max(glassWorldHeight, 0.001);
+				// Pulled back from the 0.075 full-glass close-up: at that
+				// tightness the machine's dark body swallowed the whole
+				// frame and nothing read as "a computer" -- this keeps the
+				// screen comfortably readable while the monitor, tower and
+				// alley context stay in view.
+				const tvScale = (alleyRadius * 0.042) / Math.max(glassWorldHeight, 0.001);
 				tvFbx.scale.multiplyScalar(tvScale);
 
 				// Face the camera: the glass normal in world space is the
@@ -378,27 +417,50 @@
 				const glassCenterWorld = screenMesh
 					? screenMesh.localToWorld(glassCenterLocal.clone())
 					: new THREE.Vector3();
-				// The facing direction is the glass plane's own normal
-				// (cross product of two world-space edges), not the offset
-				// from the model's center -- this monitor sits at the side
-				// of the machine, so a center-to-glass vector points
-				// diagonally and yawed the whole thing off-axis (confirmed
-				// live). Sign disambiguated toward the outside of the body.
+				// The facing direction is the glass plane's fitted normal
+				// carried into world space (sign disambiguated toward the
+				// outside of the body) -- not an offset from the model's
+				// center: this monitor sits at the side of the machine, so a
+				// center-to-glass vector points diagonally and yawed the
+				// whole thing off-axis (confirmed live).
 				const tvBox = new THREE.Box3().setFromObject(tvFbx);
 				const tvCenter = tvBox.getCenter(new THREE.Vector3());
-				if (screenMesh && glassCorners) {
-					const wc = glassCorners.map(c => screenMesh.localToWorld(c.clone()));
-					const facing = new THREE.Vector3().crossVectors(
-						new THREE.Vector3().subVectors(wc[1], wc[0]),
-						new THREE.Vector3().subVectors(wc[3], wc[0]),
-					);
+				if (screenMesh && glassNormalLocal) {
+					const facing = screenMesh
+						.localToWorld(glassCenterLocal.clone().add(glassNormalLocal))
+						.sub(glassCenterWorld);
 					const outward = new THREE.Vector3().subVectors(glassCenterWorld, tvCenter);
 					if (facing.dot(outward) < 0) facing.negate();
-					facing.y = 0;
-					if (facing.lengthSq() > 0) {
-						rig.rotation.y = -Math.atan2(facing.x, facing.z);
+					const facingFlat = facing.clone();
+					facingFlat.y = 0;
+					if (facingFlat.lengthSq() > 0) {
+						rig.rotation.y = -Math.atan2(facingFlat.x, facingFlat.z);
 						rig.updateMatrixWorld(true);
 					}
+
+					// The monitor's glass is also pitched slightly (typical
+					// CRT ergonomics) -- yaw alone left it facing a bit
+					// down/up-and-inward relative to the level camera, so the
+					// overlay never sat perfectly flush. Tip it level with a
+					// further LOCAL-X rotation via rotateX(), which composes
+					// as "apply on top of the current (yawed) orientation" --
+					// unlike setting .rotation.x directly, which is a fixed
+					// Euler-XYZ component and does NOT mean "then also pitch"
+					// (it's evaluated before the yaw in that convention, so
+					// assigning it after yaw silently produced a wrong,
+					// wildly different combined rotation).
+					const n2 = screenMesh
+						.localToWorld(glassCenterLocal.clone().add(glassNormalLocal))
+						.sub(screenMesh.localToWorld(glassCenterLocal.clone()));
+					// Yawing about world Y never changes the Y component, so
+					// n2.y is already the local-Y (pitch-plane) component.
+					// The other pitch-plane axis is the rig's own *current*
+					// local Z direction in world space -- not world Z --
+					// since for a large yaw those diverge substantially.
+					const localZ = new THREE.Vector3(0, 0, 1).applyQuaternion(rig.quaternion);
+					const zComp = n2.dot(localZ);
+					rig.rotateX(Math.atan2(n2.y, zComp));
+					rig.updateMatrixWorld(true);
 				}
 
 				// Center the *screen* (not the whole machine) on the camera

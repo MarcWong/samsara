@@ -110,6 +110,9 @@
 		</div>
 	</div>
 
+	<!-- Horizontal band, mirroring the Trajectory statbar: label on top,
+	     value below -- five columns across instead of five stacked rows,
+	     so the whole page fits a 13" MacBook Air fullscreen untouched. -->
 	<div class="rows">
 		{#each ROWS as row (row.label)}
 			<div class="row grade-{row.grade}">
@@ -130,7 +133,10 @@
 			<h2>Random Events</h2>
 			<ul>
 				{#each talents as talent (talent.id)}
-					<li>{talent.name} ({talent.description})</li>
+					<li>
+						<span class="talent-name">{talent.name}</span>
+						<span class="talent-desc">{talent.description}</span>
+					</li>
 				{/each}
 			</ul>
 		</div>
@@ -162,8 +168,8 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 1.75rem;
-		padding: 3rem 1.5rem;
+		gap: 1.1rem;
+		padding: 1.75rem 1.5rem 1.25rem;
 		color: #ece3cb;
 	}
 	.title {
@@ -199,50 +205,53 @@
 	}
 	.rows {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		gap: 0.6rem;
 		width: 100%;
-		max-width: 28rem;
+		max-width: 34rem;
 	}
 	.row {
+		flex: 1;
 		display: flex;
-		justify-content: space-between;
+		flex-direction: column;
 		align-items: center;
+		gap: 0.15rem;
 		background: rgba(43, 40, 31, 0.88);
 		border-radius: 0.6rem;
-		padding: 0.6em 1.25em;
-		border-left: 4px solid #6d6553;
+		padding: 0.55em 0.5em 0.5em;
+		border-top: 3px solid #6d6553;
 	}
 	.stat-label {
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: #a89a72;
+		white-space: nowrap;
 	}
 	.stat-values {
 		display: flex;
 		align-items: baseline;
-		gap: 0.5rem;
+		gap: 0.35rem;
 	}
 	.stat-start {
-		font-size: 1rem;
+		font-size: 0.95rem;
 		color: #a89a72;
 	}
 	.stat-arrow {
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: #877a58;
 	}
 	.stat-value {
-		font-size: 1.4rem;
+		font-size: 1.35rem;
 		font-weight: bold;
 		color: #f0e6c8;
 	}
 	.row.grade-1 {
-		border-left-color: #e3c56b;
+		border-top-color: #e3c56b;
 	}
 	.row.grade-2 {
-		border-left-color: #a8a35e;
+		border-top-color: #a8a35e;
 	}
 	.row.grade-3 {
-		border-left-color: #c98a5a;
+		border-top-color: #c98a5a;
 	}
 	.talents {
 		width: 100%;
@@ -266,9 +275,19 @@
 	.talents li {
 		background: rgba(43, 40, 31, 0.88);
 		border-radius: 0.6rem;
-		padding: 0.6em 1em;
-		color: #e2d8ba;
-		font-size: 0.95rem;
+		padding: 0.7em 1em;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2em;
+	}
+	.talent-name {
+		font-size: 1.15rem;
+		font-weight: bold;
+		color: #f0e6c8;
+	}
+	.talent-desc {
+		font-size: 0.8rem;
+		color: #a89a72;
 	}
 	.actions {
 		display: flex;
