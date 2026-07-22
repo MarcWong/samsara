@@ -17,6 +17,12 @@
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+	// A 1x1 transparent PNG, used to swap out texture requests we want
+	// FBXLoader to just quietly drop (see the skyManager URL modifier
+	// below) instead of hitting the network for a path we know 404s.
+	const BLANK_PIXEL =
+		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 	let { flying = false } = $props();
 
 	let canvasEl;
@@ -118,7 +124,19 @@
 		resizeObserver.observe(containerEl);
 
 		const textureLoader = new THREE.TextureLoader();
-		const fbxLoader = new FBXLoader();
+		// skysphere.fbx bakes in a reference to a stock "MountainLake"
+		// texture that was never part of this project's asset set (see the
+		// comment at the top of this file) -- FBXLoader resolves and
+		// requests that path eagerly while parsing, well before the
+		// `.then()` below ever gets a chance to swap in the real panorama
+		// texture, so it 404s every load regardless. A URL modifier on a
+		// dedicated manager intercepts just that one request and hands
+		// back an inline 1x1 pixel instead of hitting the network, since
+		// we always replace the material wholesale anyway and never use
+		// whatever FBXLoader would have done with it.
+		const skyManager = new THREE.LoadingManager();
+		skyManager.setURLModifier(url => (url.includes('MountainLake') ? BLANK_PIXEL : url));
+		const fbxLoader = new FBXLoader(skyManager);
 		const gltfLoader = new GLTFLoader();
 
 		Promise.all([

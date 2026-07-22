@@ -53,8 +53,10 @@ node repl
 
 ## Credits
 
-- Story: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
+- Story design: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
 
 - Developer: Yao Wang
+
+- Audio design: Guanyu Xie
 
 - Code modified from Life Restart https://liferestart.syaro.io/

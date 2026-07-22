@@ -29,29 +29,18 @@
 	let renderer, scene, camera, resizeObserver;
 	let destroyed = false;
 
-	// The screen glass's four corners, as fractions of the TV model's own
-	// local bounding box (measured once, empirically, by projecting
-	// candidate corners and comparing against the glass boundary sampled
-	// directly off the rendered canvas -- see this file's git history for
-	// the pixel-scan this was calibrated against). Fractions of the mesh's
-	// own geometry are intrinsic to the model, so they hold regardless of
-	// how the object is later scaled, moved, or tilted -- only the *screen-
-	// space projection* of these four points needs to be redone whenever
-	// the camera or viewport changes, not the fractions themselves.
-	//
-	// Yaw-only rotation leaves local Y as world "up" untouched, so the
-	// height axis is unambiguous. The width/depth axes mix local X/Z
-	// through the yaw; empirically, local X is the front-facing (depth)
-	// axis (its max is the face closest to the camera) and local Z is the
-	// width axis, running screen-right at its local-Z minimum to
-	// screen-left at its local-Z maximum.
-	const GLASS_Y_TOP = 0.877;
-	const GLASS_Y_BOTTOM = 0.11;
-	const GLASS_Z_LEFT = 0.902;
-	const GLASS_Z_RIGHT = 0.274;
-	let tvMesh = null; // set once loaded; used to recompute the quad on resize
-	let tvBoxSize = null;
-	let tvBoxMin = null;
+	// The screen glass's four corners in the *screen mesh's own local
+	// space*, measured directly from the geometry: this model tags its
+	// screen with a dedicated material ("Screen.001") in a multi-material
+	// mesh, so the vertex range of that material group *is* the glass --
+	// its bounding box gives exact corners, no empirical pixel calibration
+	// needed (unlike the previous retro_tv, whose glass shared the body
+	// material). Local-space corners are intrinsic to the model, so they
+	// hold regardless of how the object is scaled, moved, or rotated --
+	// only their screen-space projection needs redoing on camera/viewport
+	// changes.
+	let screenMesh = null; // the mesh carrying the glass corners' local frame
+	let glassCorners = null; // 4 THREE.Vector3, mesh-local, unordered
 
 	// Solves the 8-DOF projective transform (3x3 homography, bottom-right
 	// fixed at 1) mapping 4 source points to 4 destination points, via
@@ -102,44 +91,46 @@
 	}
 
 	// Reference size for the *source* rectangle in the homography solve --
-	// arbitrary (any consistent W/H works), chosen close to the glass's own
-	// aspect ratio so the un-warped content inside doesn't get stretched
-	// before the perspective warp is even applied.
+	// width is arbitrary; height is derived from the glass's own measured
+	// aspect ratio after load, so the un-warped content inside doesn't get
+	// stretched before the perspective warp is even applied.
 	const QUAD_REF_W = 340;
-	const QUAD_REF_H = 175;
+	let quadRefH = 175;
 
 	function updateScreenQuad() {
-		if (!onScreenQuad || !tvMesh || !camera || !containerEl) return;
+		if (!onScreenQuad || !screenMesh || !glassCorners || !camera || !containerEl) return;
 		const w = containerEl.clientWidth;
 		const h = containerEl.clientHeight;
 		if (!w || !h) return;
 
-		const corner = (zFrac, yFrac) => {
-			const local = new THREE.Vector3(
-				tvBoxMin.x + tvBoxSize.x, // front face: local-X max
-				tvBoxMin.y + tvBoxSize.y * yFrac,
-				tvBoxMin.z + tvBoxSize.z * zFrac,
-			);
-			const world = tvMesh.localToWorld(local);
-			const ndc = world.project(camera);
+		screenMesh.updateMatrixWorld(true);
+		const projected = glassCorners.map(local => {
+			const ndc = screenMesh.localToWorld(local.clone()).project(camera);
 			return { x: ((ndc.x + 1) / 2) * w, y: ((1 - ndc.y) / 2) * h };
-		};
-		const topLeft = corner(GLASS_Z_LEFT, GLASS_Y_TOP);
-		const topRight = corner(GLASS_Z_RIGHT, GLASS_Y_TOP);
-		const bottomRight = corner(GLASS_Z_RIGHT, GLASS_Y_BOTTOM);
-		const bottomLeft = corner(GLASS_Z_LEFT, GLASS_Y_BOTTOM);
+		});
+		// Label corners by their projected position rather than assuming
+		// which local axis is up/right -- the two smallest-y points are the
+		// top edge, and within each edge smaller x is left. This holds for
+		// any model axis convention as long as the screen is roughly
+		// upright in frame (it is: the camera has no roll).
+		const byY = [...projected].sort((a, b) => a.y - b.y);
+		const [t1, t2, b1, b2] = byY;
+		const topLeft = t1.x <= t2.x ? t1 : t2;
+		const topRight = t1.x <= t2.x ? t2 : t1;
+		const bottomLeft = b1.x <= b2.x ? b1 : b2;
+		const bottomRight = b1.x <= b2.x ? b2 : b1;
 
 		const src = [
 			{ x: 0, y: 0 },
 			{ x: QUAD_REF_W, y: 0 },
-			{ x: QUAD_REF_W, y: QUAD_REF_H },
-			{ x: 0, y: QUAD_REF_H },
+			{ x: QUAD_REF_W, y: quadRefH },
+			{ x: 0, y: quadRefH },
 		];
 		const h_ = solveHomography(src, [topLeft, topRight, bottomRight, bottomLeft]);
 		onScreenQuad({
 			matrix3d: homographyToMatrix3d(h_),
 			width: QUAD_REF_W,
-			height: QUAD_REF_H,
+			height: quadRefH,
 		});
 	}
 
@@ -177,16 +168,16 @@
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 		// The alley sphere's own material is unlit (emissive-mapped), so it
-		// never needed lights -- the TV prop uses a normal PBR material and
-		// does. Cool ambient + a warm key light roughly matching the alley's
-		// practical-light color temperature seen in the photo. Both toned
-		// down from an earlier pass (1.1/1.8) -- confirmed live the TV's
-		// glossy housing was throwing a distractingly bright, sharp
-		// highlight blob across the screen glass and bezel, reading as a
-		// video-game specular hotspot rather than a lit object sitting in a
-		// dim alley.
+		// never needed lights -- only the TV prop's PBR material does. The
+		// key light used to be warm (0xffe2b0, an amber practical-light
+		// color) to match the alley photo's own color temperature, but that
+		// cast a distinct brown/amber tint across the TV's plastic housing
+		// and its ambient spill read as a warm haze over the whole shot --
+		// confirmed live, removed per request. Both lights now sit at a
+		// neutral-to-cool color temperature instead, so the housing reads
+		// as true dark plastic rather than tinted.
 		scene.add(new THREE.HemisphereLight(0x5a6b8f, 0x0a0710, 0.75));
-		const key = new THREE.DirectionalLight(0xffe2b0, 1.0);
+		const key = new THREE.DirectionalLight(0xdfe6f2, 1.0);
 		key.position.set(0.4, 1, 0.6);
 		scene.add(key);
 
@@ -201,23 +192,25 @@
 			new Promise((resolve, reject) =>
 				gltfLoader.load(`${base}/models/skybox_dystopian_alleyway_small.glb`, resolve, undefined, reject),
 			),
-			new Promise((resolve, reject) => fbxLoader.load(`${base}/models/retro_tv/SM_TV_01.fbx`, resolve, undefined, reject)),
 			new Promise((resolve, reject) =>
-				textureLoader.load(`${base}/models/retro_tv/Textures/2k/T_TV_01_2k_BaseColor.png`, resolve, undefined, reject),
+				fbxLoader.load(`${base}/models/low-poly-80s-computer-v3/source/Old Computer V3.fbx`, resolve, undefined, reject),
 			),
 			new Promise((resolve, reject) =>
-				textureLoader.load(`${base}/models/retro_tv/Textures/2k/T_TV_01_2k_Normal.png`, resolve, undefined, reject),
+				textureLoader.load(`${base}/models/low-poly-80s-computer-v3/textures/Old_Computer_V3.png`, resolve, undefined, reject),
 			),
 			new Promise((resolve, reject) =>
 				textureLoader.load(
-					`${base}/models/retro_tv/Textures/2k/T_TV_01_2k_OcclusionRoughnessMetallic.png`,
+					`${base}/models/low-poly-80s-computer-v3/textures/Screen_DiffuseColor.png`,
 					resolve,
 					undefined,
 					reject,
 				),
 			),
+			new Promise((resolve, reject) =>
+				textureLoader.load(`${base}/models/low-poly-80s-computer-v3/textures/Screen_Emit.png`, resolve, undefined, reject),
+			),
 		])
-			.then(([gltf, tvFbx, baseColor, normalMap, orm]) => {
+			.then(([gltf, tvFbx, bodyColor, screenColor, screenEmit]) => {
 				if (destroyed) return;
 				const sphere = gltf.scene;
 				scene.add(sphere);
@@ -249,84 +242,175 @@
 					if (node.isMesh) node.frustumCulled = false;
 				});
 
-				// The TV: FBXLoader can't resolve these textures on its own
+				// The computer: FBXLoader can't resolve textures on its own
 				// (the FBX's baked-in paths point at wherever the artist's
 				// disk had them, not this project), so they're loaded
-				// separately above and wired into a fresh material here. The
-				// OcclusionRoughnessMetallic texture is assigned to both
-				// roughnessMap and metalnessMap -- three.js independently
-				// reads the G channel for roughness and B channel for
-				// metalness from whatever texture occupies each slot, so one
-				// packed texture in both slots is the correct way to unpack
-				// it without a custom shader.
-				baseColor.colorSpace = THREE.SRGBColorSpace;
-				const tvMaterial = new THREE.MeshStandardMaterial({
-					map: baseColor,
-					normalMap,
-					roughnessMap: orm,
-					metalnessMap: orm,
-					roughness: 1,
-					metalness: 1,
+				// separately above and wired into fresh materials here --
+				// the body gets its atlas texture, the screen gets its own
+				// diffuse plus an emissive map so the glass reads as lit.
+				bodyColor.colorSpace = THREE.SRGBColorSpace;
+				screenColor.colorSpace = THREE.SRGBColorSpace;
+				screenEmit.colorSpace = THREE.SRGBColorSpace;
+				const bodyMaterial = new THREE.MeshStandardMaterial({
+					map: bodyColor,
+					roughness: 0.8,
+					metalness: 0.1,
 				});
+				const screenMaterial = new THREE.MeshStandardMaterial({
+					map: screenColor,
+					emissive: 0xffffff,
+					emissiveMap: screenEmit,
+					emissiveIntensity: 0.5,
+					roughness: 0.4,
+					metalness: 0.0,
+				});
+				// Multi-material mesh: the body and the screen are geometry
+				// groups on one mesh, distinguished by material name. Swap
+				// each slot for our own material and remember which slot is
+				// the screen -- its vertex group is measured below.
+				let screenMatIndex = -1;
 				tvFbx.traverse(node => {
-					if (node.isMesh) {
-						node.material = tvMaterial;
-						node.frustumCulled = false;
+					if (!node.isMesh) return;
+					node.frustumCulled = false;
+					if (Array.isArray(node.material)) {
+						node.material = node.material.map((m, i) => {
+							if (/screen/i.test(m.name)) {
+								screenMatIndex = i;
+								screenMesh = node;
+								return screenMaterial;
+							}
+							return bodyMaterial;
+						});
+					} else {
+						node.material = /screen/i.test(node.material?.name ?? '') ? screenMaterial : bodyMaterial;
 					}
 				});
 
+				// Measure the glass straight off the geometry: the bounding
+				// box of the vertices the screen material group covers. The
+				// thinnest bbox axis is the glass normal; the outer face
+				// along it (the side pointing away from the model's own
+				// center) carries the four corner points.
+				if (screenMesh && screenMatIndex >= 0) {
+					const geo = screenMesh.geometry;
+					const pos = geo.attributes.position;
+					const idx = geo.index;
+					const min = new THREE.Vector3(Infinity, Infinity, Infinity);
+					const max = new THREE.Vector3(-Infinity, -Infinity, -Infinity);
+					const v = new THREE.Vector3();
+					for (const g of geo.groups) {
+						if (g.materialIndex !== screenMatIndex) continue;
+						for (let i = g.start; i < g.start + g.count; i++) {
+							const vi = idx ? idx.getX(i) : i;
+							v.set(pos.getX(vi), pos.getY(vi), pos.getZ(vi));
+							min.min(v);
+							max.max(v);
+						}
+					}
+					const size = new THREE.Vector3().subVectors(max, min);
+					const axes = ['x', 'y', 'z'];
+					const thin = axes.reduce((a, b) => (size[a] <= size[b] ? a : b));
+					const [u, w2] = axes.filter(a => a !== thin);
+					geo.computeBoundingBox();
+					const bodyCenter = geo.boundingBox.getCenter(new THREE.Vector3());
+					const glassMid = (min[thin] + max[thin]) / 2;
+					const outer = glassMid >= bodyCenter[thin] ? max[thin] : min[thin];
+					glassCorners = [
+						[min[u], min[w2]],
+						[max[u], min[w2]],
+						[max[u], max[w2]],
+						[min[u], max[w2]],
+					].map(([a, b]) => {
+						const c = new THREE.Vector3();
+						c[thin] = outer;
+						c[u] = a;
+						c[w2] = b;
+						return c;
+					});
+					// Source-rect height for the homography follows the
+					// glass's real aspect so overlay content isn't
+					// pre-stretched.
+					quadRefH = Math.round(QUAD_REF_W * (size[w2] / Math.max(size[u], 0.001))) || quadRefH;
+				}
+
 				// Same measure-after-load approach as every other prop this
 				// session -- scale relative to the alley's own measured
-				// radius rather than a guessed absolute number.
-				const tvBox = new THREE.Box3().setFromObject(tvFbx);
-				const tvSize = tvBox.getSize(new THREE.Vector3());
-				// Captured *before* scale is applied -- this is genuine
-				// unscaled local-space geometry, the frame `localToWorld()`
-				// expects in updateScreenQuad() (it re-applies the object's
-				// full current matrix, scale included, so feeding it
-				// already-scaled coordinates would double the scale).
-				tvBoxMin = tvBox.min.clone();
-				tvBoxSize = tvSize.clone();
-				// Reworked into a full-screen close-up on the glass itself,
-				// per explicit request, rather than a TV sitting at a
-				// middle distance in the alley: at that middle distance the
-				// object read as floating (no floor/stand/context ever
-				// entered frame to ground it) and the screen was too small
-				// for a comfortable, larger country-list font. Framing this
-				// tight instead means only the screen and a thin margin of
-				// its own bezel are ever in view -- nothing below the TV
-				// needs to be "explained" because the shot never shows it.
-				const targetHeight = alleyRadius * 0.078;
-				const tvScale = targetHeight / Math.max(tvSize.y, 0.001);
+				// radius rather than a guessed absolute number. The framing
+				// target is the *glass's* own world height (not the whole
+				// machine's): this model is mostly tower unit, and sizing by
+				// overall height would leave the actual screen tiny. 0.055
+				// is the old TV's effective glass height (0.078 model x
+				// ~0.71 glass fraction), keeping the close-up equally tight.
+				// The FBX root carries the loader's own -PI/2 X correction
+				// (Z-up source), so yawing it directly composes on a tilted
+				// axis (Euler XYZ applies X *after* Y) -- confirmed live as
+				// a lying-back, skewed pose. A wrapper rig owns yaw and
+				// position on a clean world-Y axis; the FBX keeps its baked
+				// uprighting rotation untouched inside it.
+				const rig = new THREE.Group();
+				rig.add(tvFbx);
+				scene.add(rig);
+				rig.updateMatrixWorld(true);
+				let glassWorldHeight = 0;
+				if (screenMesh && glassCorners) {
+					const ys = glassCorners.map(c => screenMesh.localToWorld(c.clone()).y);
+					glassWorldHeight = Math.max(...ys) - Math.min(...ys);
+				}
+				if (!glassWorldHeight) {
+					const preBox = new THREE.Box3().setFromObject(tvFbx);
+					glassWorldHeight = preBox.getSize(new THREE.Vector3()).y * 0.5;
+				}
+				const tvScale = (alleyRadius * 0.075) / Math.max(glassWorldHeight, 0.001);
 				tvFbx.scale.multiplyScalar(tvScale);
-				tvBox.setFromObject(tvFbx);
-				const tvCenter = tvBox.getCenter(new THREE.Vector3());
-				// Centered on the TV's own middle, not its bottom edge --
-				// the camera here is fixed at eye-height (0,0,0) with no
-				// lookAt/tilt, so a bottom-anchored object (position.y -=
-				// tvBox.min.y, "stand it on the ground at y=0") puts its
-				// vertical center well *above* the camera once it's scaled
-				// up this much for a close-up, and the shot ends up looking
-				// up from underneath it at a patch of alley sky instead of
-				// square at the glass -- confirmed live. Centering keeps the
-				// screen in the middle of frame at any scale.
-				tvFbx.position.x -= tvCenter.x;
-				tvFbx.position.y -= tvCenter.y;
-				tvFbx.position.z -= tvCenter.z;
 
-				// Camera looks down -Z by default (no lookAt call on this
-				// camera). The model's own front (screen side) doesn't face
-				// its own -Z by default (confirmed live: first pass showed
-				// its side profile), so it needs a yaw to face the camera --
-				// kept at the same ~18° off dead-on as before (not squared
-				// up flat to the lens) so the housing still shows real
-				// depth/perspective at this much closer distance, rather
-				// than reading as a flat poster even in close-up.
-				tvFbx.rotation.y = -Math.PI / 2 + 0.32;
-				tvFbx.position.x -= alleyRadius * 0.01;
-				tvFbx.position.z -= alleyRadius * 0.1;
-				scene.add(tvFbx);
-				tvMesh = tvFbx;
+				// Face the camera: the glass normal in world space is the
+				// direction from the model's center to the glass's own
+				// center (projected to the ground plane); yaw the rig so
+				// that direction points at +Z, i.e. straight into the
+				// (fixed, -Z-looking) camera -- dead-on, matching the
+				// perpendicular framing requested for the old TV.
+				rig.updateMatrixWorld(true);
+				const glassCenterLocal = glassCorners
+					? glassCorners
+							.reduce((acc, c) => acc.add(c), new THREE.Vector3())
+							.multiplyScalar(0.25)
+					: new THREE.Vector3();
+				const glassCenterWorld = screenMesh
+					? screenMesh.localToWorld(glassCenterLocal.clone())
+					: new THREE.Vector3();
+				// The facing direction is the glass plane's own normal
+				// (cross product of two world-space edges), not the offset
+				// from the model's center -- this monitor sits at the side
+				// of the machine, so a center-to-glass vector points
+				// diagonally and yawed the whole thing off-axis (confirmed
+				// live). Sign disambiguated toward the outside of the body.
+				const tvBox = new THREE.Box3().setFromObject(tvFbx);
+				const tvCenter = tvBox.getCenter(new THREE.Vector3());
+				if (screenMesh && glassCorners) {
+					const wc = glassCorners.map(c => screenMesh.localToWorld(c.clone()));
+					const facing = new THREE.Vector3().crossVectors(
+						new THREE.Vector3().subVectors(wc[1], wc[0]),
+						new THREE.Vector3().subVectors(wc[3], wc[0]),
+					);
+					const outward = new THREE.Vector3().subVectors(glassCenterWorld, tvCenter);
+					if (facing.dot(outward) < 0) facing.negate();
+					facing.y = 0;
+					if (facing.lengthSq() > 0) {
+						rig.rotation.y = -Math.atan2(facing.x, facing.z);
+						rig.updateMatrixWorld(true);
+					}
+				}
+
+				// Center the *screen* (not the whole machine) on the camera
+				// axis, so the glass sits square in the middle of frame no
+				// matter where it lives on the model (this computer's
+				// monitor sits atop a tower unit, well off the model's own
+				// center).
+				const centeredGlass = screenMesh
+					? screenMesh.localToWorld(glassCenterLocal.clone())
+					: tvBox.getCenter(new THREE.Vector3());
+				rig.position.sub(centeredGlass);
+				rig.position.z -= alleyRadius * 0.1;
 				updateScreenQuad();
 
 				render();

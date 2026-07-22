@@ -2,40 +2,45 @@
 	// Treadmill technique: the character never actually moves up the Y axis --
 	// it plays its climbing animation in place (root motion measured, then
 	// subtracted out frame to frame) at a fixed spot on screen, while the
-	// stairs are a small repeating tile that scrolls the opposite way
-	// (backward/down, matching the character's measured stride) and gets
-	// teleported back to the top the instant it scrolls out of frame. This is
-	// deliberate: letting the character (or camera) actually climb without
-	// bound is exactly what causes float-precision drift and camera-follow
-	// bugs on a long playthrough, so nothing here ever accumulates -- every
-	// moving part's position is bounded to a few tile-lengths at all times.
+	// stairs scroll the opposite way (backward/down, matching the character's
+	// measured stride) and get teleported back to the top the instant they
+	// scroll out of frame. This is deliberate: letting the character (or
+	// camera) actually climb without bound is exactly what causes
+	// float-precision drift and camera-follow bugs on a long playthrough, so
+	// nothing here ever accumulates -- every moving part's position is bounded
+	// at all times.
 	//
-	// Free-running, not click-driven: earlier this scrubbed to a `progress`
-	// prop tied to the story's age, jumping (tweened) only when the story
-	// advanced. That read as choppy rather than someone actually walking --
-	// now it just plays continuously off its own clock for as long as this
-	// component is mounted, decoupled from story pacing entirely.
+	// The scene is the *inside* of the tower now, not its exterior: a
+	// cylindrical shaft whose wall the staircase hugs as a true helix, a
+	// bundle of square core pillars in the middle, and a decorative endless
+	// spiral of dimly glowing steps winding the full visible height of the
+	// shaft -- the classic sci-fi "infinite spiral stairwell" interior, kept
+	// in this app's dim indigo/teal palette. Everything is procedural
+	// geometry; this scene loads no skysphere or tower model at all anymore.
+	//
+	// Ascent illusion inside the shaft: the active steps under the character
+	// scroll via the same slot-based treadmill as before (now along the
+	// helix), while the decorative spiral + wall rings live in one group that
+	// rotates about the shaft axis and sinks, wrapped modulo exactly one full
+	// helix turn -- a helix is invariant under (rotate 2*PI, translate one
+	// turn's rise), so the wrap is invisible by construction. The wall level
+	// rings are spaced exactly one turn's rise apart for the same reason, and
+	// the core pillar group only rotates (a uniform vertical pillar shows no
+	// vertical motion anyway), so its wrap (exactly 2*PI) is invisible too.
 	//
 	// Character: "Ascending Stairs.fbx" (Mixamo, `mixamorig11:` skeleton,
-	// clip "mixamo.com"). Unlike the earlier "Eternal Ascent" placeholder
-	// mannequin (whose skin binding was corrupted -- see git history), this
-	// one's a clean, standard Mixamo export: 7 skinned parts (body, hair,
-	// shirt, pants, suit, heels, eyelashes), renders correctly out of the
-	// box. No stairs geometry ships in this file at all -- measured its root
-	// (Hips) motion directly (loads once, samples world position at t=0 and
-	// t=duration) and used that to size a small procedural stair tile built
-	// here, so each tile's rise/run matches the character's actual stride
-	// instead of an arbitrary guess.
+	// clip "mixamo.com") -- a clean, standard Mixamo export: 7 skinned parts,
+	// renders correctly out of the box. Its root (Hips) motion is measured
+	// once after load and used to size the stair steps, so each step's
+	// rise/run matches the character's actual stride instead of a guess.
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import * as THREE from 'three';
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
-	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 	// Real-time playback rate, as a multiple of the clip's own authored
-	// speed (1 = exactly as animated). Was 1.4 (faster than authored); now
-	// slower than authored by request -- the climb should read as a long,
-	// deliberate ascent, not a brisk walk.
+	// speed (1 = exactly as animated) -- slower than authored: the climb
+	// should read as a long, deliberate ascent, not a brisk walk.
 	const SPEED = 0.55;
 
 	// Number of stair tiles kept alive at once, and how many stair steps
@@ -43,49 +48,32 @@
 	// whatever's in the camera frustum plus margin -- tuned empirically.
 	const TILE_COUNT = 7;
 	const STEPS_PER_TILE = 2;
+	const STEP_COUNT = TILE_COUNT * STEPS_PER_TILE;
 
-	// Trajectory's story-text log panel covers most of the screen's
-	// vertical center, so the character is framed low rather than dead
-	// center -- same reasoning as the rest of this app's overlay-avoidance.
-	// Was -18, then -5, then +8 -- all still revealed the same flat,
-	// rooftop-like patch at the very bottom of frame where the skysphere's
-	// nadir distorts into a visible "floor." The issue isn't the *center*
-	// look direction so much as the *bottom edge* of a 40°-FOV frame, which
-	// sits (FOV/2) below whatever the center points at -- confirmed live
-	// that even nudging the center from ~11° down to ~9° down barely moved
-	// the bottom edge (31°->29° down) and changed nothing visible. +90
-	// (near-level) cleared it but overshot into looking mostly at open sky;
-	// +20 is the value that actually clears the nadir patch live while still
-	// keeping the character, city diorama, and tower sliver in frame.
-	const CAMERA_TARGET_Y_OFFSET = 20;
+	// Radius of the helical stair path around the shaft's central axis.
+	// Large relative to one stride (~90 units) so the path is near-straight
+	// right under the character's feet -- the mocap walks a straight line,
+	// and over one tile the arc deviates from that line by only
+	// tileAdvance^2 / (2 * R), a few units, well inside the stair width.
+	const STAIR_RADIUS = 520;
+	// Open gap between the stairs' outer edge and the shaft wall.
+	const WALL_CLEARANCE = 40;
+	// Glowing front-edge strip on each active step, in world units tall.
+	const LIP_HEIGHT = 4;
 
-	// Screen-right for this camera's fixed position/lookAt: forward's X/Z =
-	// (-210, 230) regardless of CAMERA_TARGET_Y_OFFSET (Y doesn't factor into
-	// a cross product with world-up), so right = normalize(-forward.z, 0,
-	// forward.x) is this constant -- same cross(forward, up) basis used for
-	// every other camera-relative placement this session, just precomputed
-	// since it never changes for this particular camera.
+	// Screen-right for the original exterior camera -- kept only to pick
+	// *which side* of the walk line the shaft axis sits on (same side the
+	// tower bulk used to be), so the framing keeps its old handedness.
 	const SCREEN_RIGHT = new THREE.Vector3(-0.7385, 0, -0.6742);
 
-	// The tower's core: a huge cylinder parked mostly off-frame to the right
-	// (only its near edge, closest to the stairs, actually visible -- "the
-	// tower is enormous relative to a person" per request), with the stairs
-	// curving to hug that edge as they climb (see CURVE_PER_TILE below)
-	// instead of running dead straight.
-	const CYLINDER_RADIUS = 5200;
-	const CYLINDER_HEIGHT = 9000;
-	// Radians of curve applied per tile-length (one full climbVector, i.e.
-	// STEPS_PER_TILE steps) of distance from the character -- 0 right at
-	// their feet (matching their actual, real, straight-line mocap stride
-	// exactly) growing further out, so the staircase reads as spiraling away
-	// into the distance without ever having to bend the animation itself.
-	const CURVE_PER_TILE = 0.075;
-	// Total individual step meshes kept alive -- each one is now its own
-	// rigid unit (see buildStepGeometry) rather than a shared multi-step
-	// tile, so the curve can be evaluated at every step boundary instead of
-	// once per tile.
-	const STEP_COUNT = TILE_COUNT * STEPS_PER_TILE;
-	let cylinderCenter = new THREE.Vector3();
+	// Helix parameters, all derived from the measured stride after the FBX
+	// loads: the shaft's central axis position, the angle of tileOrigin
+	// around it, and the (signed) angle swept per tile of stride.
+	let shaftCenter = new THREE.Vector3();
+	let theta0 = 0;
+	let anglePerTile = 0;
+	let turnTiles = 0; // tiles per full 2*PI turn of the helix
+
 	// riser/tread/width are measured from the character's own mocap stride
 	// once the FBX loads (see onMount) -- declared here so updateStairs can
 	// read them every frame without threading them through as arguments.
@@ -100,7 +88,9 @@
 	let hipsStart = new THREE.Vector3();
 	let hipsEnd = new THREE.Vector3();
 	let climbVector = new THREE.Vector3();
-	let tileGroup, tileOrigin;
+	let tileGroup, lipGroup, tileOrigin;
+	let helixGroup = null; // decorative spiral + wall rings; moves every frame
+	let coreGroup = null; // central square pillars; rotates every frame
 	let stepSlot = []; // per-step effective stack index (step units), only ever increases
 	const tmpVec = new THREE.Vector3();
 
@@ -124,26 +114,22 @@
 		hips.position.sub(tmpVec).add(hipsStart);
 	}
 
-	// Evaluates the curved centerline + width direction at a single point in
-	// the stride, in "tile units" (1.0 = one full climbVector, i.e. one full
-	// gait cycle) -- the exact same formula used everywhere in this file for
-	// "where does stackOffset s sit once swept around cylinderCenter."
+	// Evaluates the helical centerline at a single point in the stride, in
+	// "tile units" (1.0 = one full climbVector, i.e. one full gait cycle):
+	// a point on the circle of radius STAIR_RADIUS around shaftCenter, at
+	// angle theta0 + anglePerTile * s, risen by climbVector.y * s. rightX/Z
+	// is the width direction -- radially outward, unit length -- so the
+	// stairs always span from toward-the-core to toward-the-wall.
 	// Writing into a shared `out` object (not allocating a Vector3) since
-	// this runs twice per step, STEP_COUNT times, every frame.
+	// this runs multiple times per step, STEP_COUNT times, every frame.
 	function boundaryFrame(stackOffset, out) {
-		tmpVec.copy(climbVector).multiplyScalar(stackOffset);
-		const sx = tileOrigin.x + tmpVec.x;
-		const sy = tileOrigin.y + tmpVec.y;
-		const sz = tileOrigin.z + tmpVec.z;
-		const angle = CURVE_PER_TILE * stackOffset;
+		const angle = theta0 + anglePerTile * stackOffset;
 		const cosA = Math.cos(angle);
 		const sinA = Math.sin(angle);
-		const relX = sx - cylinderCenter.x;
-		const relZ = sz - cylinderCenter.z;
-		out.x = cylinderCenter.x + relX * cosA - relZ * sinA;
-		out.y = sy;
-		out.z = cylinderCenter.z + relX * sinA + relZ * cosA;
-		out.rightX = cosA; // curved width direction (rotated local +X), unit length
+		out.x = shaftCenter.x + cosA * STAIR_RADIUS;
+		out.y = tileOrigin.y + climbVector.y * stackOffset;
+		out.z = shaftCenter.z + sinA * STAIR_RADIUS;
+		out.rightX = cosA;
 		out.rightZ = sinA;
 	}
 
@@ -154,19 +140,10 @@
 	// and bottom are never in view, tucked inside the stack) straight into
 	// a step mesh's own position-attribute array.
 	//
-	// An earlier version gave each *tile* (a rigid block of several steps)
-	// one single rotation and swept the whole thing around cylinderCenter --
-	// simple, but every tile boundary showed a visible gap, because a rigid
-	// block rotated once by its own front angle doesn't reach the same
-	// point its neighbor's front edge computes independently. At this
-	// tower's radius (thousands of units), even a small per-tile angle
-	// difference is a gap hundreds of units wide.
-	//
-	// This version calls boundaryFrame() once per step *boundary* instead --
-	// and since adjacent steps are built with s1 of one exactly equal to s0
-	// of the next, both compute that shared edge from the identical
-	// function call, so the edge doesn't just nearly line up, it's the same
-	// point by construction, at any radius or curve rate.
+	// Adjacent steps are built with s1 of one exactly equal to s0 of the
+	// next, so both compute that shared edge from the identical
+	// boundaryFrame() call -- the edge doesn't just nearly line up, it's the
+	// same point by construction, at any radius or curve rate.
 	function buildStepGeometry(s0, s1, positions) {
 		boundaryFrame(s0, frameFront);
 		boundaryFrame(s1, frameBack);
@@ -204,6 +181,35 @@
 		put(ftrX, topFY, ftrZ); put(btrX, botBY, btrZ); put(btrX, topBY, btrZ);
 	}
 
+	// The glowing "cyber" strip along a step's front edge: one quad (6
+	// verts) sitting just proud of the riser face, rebuilt every frame from
+	// the same boundaryFrame the step itself uses. Rendered with an unlit
+	// basic material so it reads as emissive without needing a light.
+	function buildLipGeometry(s0, positions) {
+		boundaryFrame(s0, frameFront);
+		const halfW = stairWidth / 2;
+		// Tangent along increasing s (the direction of travel), used to
+		// push the quad a hair out of the riser face so it never z-fights.
+		const tSign = anglePerTile >= 0 ? 1 : -1;
+		const ox = frameFront.rightZ * tSign * 1.2;
+		const oz = -frameFront.rightX * tSign * 1.2;
+		const lx = frameFront.x - frameFront.rightX * halfW + ox;
+		const lz = frameFront.z - frameFront.rightZ * halfW + oz;
+		const rx = frameFront.x + frameFront.rightX * halfW + ox;
+		const rz = frameFront.z + frameFront.rightZ * halfW + oz;
+		const yT = frameFront.y + 0.6;
+		const yB = frameFront.y - LIP_HEIGHT;
+
+		let p = 0;
+		const put = (x, y, z) => {
+			positions[p++] = x;
+			positions[p++] = y;
+			positions[p++] = z;
+		};
+		put(lx, yT, lz); put(rx, yT, rz); put(rx, yB, rz);
+		put(lx, yT, lz); put(rx, yB, rz); put(lx, yB, lz);
+	}
+
 	// The treadmill: each step has a fixed "home" slot (0..STEP_COUNT-1, in
 	// step units) and a mutable `stepSlot[k]` that only ever jumps upward by
 	// STEP_COUNT. A step's front boundary is (slot - elapsedSteps) step
@@ -224,7 +230,25 @@
 			mesh.geometry.attributes.position.needsUpdate = true;
 			mesh.geometry.computeVertexNormals();
 			mesh.geometry.computeBoundingSphere();
+
+			const lip = lipGroup.children[k];
+			buildLipGeometry(s0, lip.geometry.attributes.position.array);
+			lip.geometry.attributes.position.needsUpdate = true;
 		}
+	}
+
+	// Rotates + sinks the decorative spiral (and rotates the core pillars)
+	// to match the active steps' scroll exactly -- same anglePerTile, same
+	// rise per tile -- wrapped modulo one full helix turn so nothing here
+	// accumulates either. The wrap jump is a whole-turn symmetry of the
+	// helix (and a full 2*PI for the pillars), so it's invisible.
+	function updateShaftMotion(elapsed) {
+		if (!helixGroup || turnTiles === 0) return;
+		const wrapped = elapsed % turnTiles;
+		const phi = anglePerTile * wrapped;
+		helixGroup.rotation.y = phi;
+		helixGroup.position.y = -climbVector.y * wrapped;
+		if (coreGroup) coreGroup.rotation.y = phi;
 	}
 
 	function scrubTo(e) {
@@ -236,6 +260,7 @@
 		cancelRootMotion(frac);
 
 		updateStairs(e);
+		updateShaftMotion(e);
 
 		render();
 	}
@@ -243,9 +268,9 @@
 	// Free-running, real-time playback: advances `elapsed` by real elapsed
 	// seconds (converted to "loops", scaled by SPEED) every frame, for as
 	// long as this component is mounted -- not tied to clicks or story
-	// progress at all anymore. `lastFrameTime` resets to null on stop/start
-	// so a pause (e.g. a slow frame after tab-switch) never produces one
-	// huge catch-up jump.
+	// progress at all. `lastFrameTime` resets to null on stop/start so a
+	// pause (e.g. a slow frame after tab-switch) never produces one huge
+	// catch-up jump.
 	function playFrame(now) {
 		if (destroyed) return;
 		if (lastFrameTime !== null) {
@@ -269,8 +294,8 @@
 
 	// One step mesh with an empty, preallocated position buffer -- the real
 	// vertices are written every frame by buildStepGeometry (they have to
-	// be: each step's curved shape depends on where it currently sits in
-	// the treadmill cycle). 4 open faces (top, front riser, left, right) x
+	// be: each step's shape depends on where it currently sits in the
+	// treadmill cycle). 4 open faces (top, front riser, left, right) x
 	// 2 triangles x 3 vertices, non-indexed so each face gets its own flat
 	// normal via computeVertexNormals() rather than smoothing across edges.
 	function buildStepMesh(material) {
@@ -283,148 +308,157 @@
 		return mesh;
 	}
 
-	// This staircase is *inside* the tower, not near a separate one --
-	// so the surrounding city is the skysphere backdrop CitySkyboxBackground
-	// uses (same technique: camera parked at the sphere's own center reads
-	// as an immersive infinite backdrop), scaled down to this scene's much
-	// smaller (human/stair) scale instead of CityIntro's huge one, and a
-	// central cylinder standing in for the tower's own core -- textured with
-	// centinel_beam's real material rather than a plain color -- runs
-	// alongside the stairs the way a spiral staircase wraps a central shaft.
-	function loadTowerScenery() {
-		const textureLoader = new THREE.TextureLoader();
-		const skyLoader = new FBXLoader();
-		const towerLoader = new GLTFLoader();
+	function buildLipMesh(material) {
+		const geometry = new THREE.BufferGeometry();
+		geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(2 * 3 * 3), 3));
+		const mesh = new THREE.Mesh(geometry, material);
+		mesh.frustumCulled = false;
+		return mesh;
+	}
 
-		Promise.all([
-			new Promise((resolve, reject) =>
-				textureLoader.load(
-					`${base}/models/stylized_skybox_cityskyline_001/Stylized_Skybox_CitySkyline_Panorama_001.png`,
-					resolve,
-					undefined,
-					reject,
-				),
-			),
-			new Promise((resolve, reject) => skyLoader.load(`${base}/models/skysphere.fbx`, resolve, undefined, reject)),
-			new Promise((resolve, reject) => towerLoader.load(`${base}/models/centinel_beam.glb`, resolve, undefined, reject)),
-		])
-			.then(([texture, skyFbx, towerGltf]) => {
-				if (destroyed) return;
+	// The shaft interior, all procedural: the enclosing wall, the central
+	// bundle of square pillars (each with one dim emissive strip on its
+	// outward face, which is also what makes the ascent rotation readable),
+	// the decorative endless spiral of glowing steps, and dim level rings on
+	// the wall spaced exactly one helix turn apart.
+	function buildShaftInterior() {
+		const wallRadius = STAIR_RADIUS + stairWidth / 2 + WALL_CLEARANCE;
 
-				texture.colorSpace = THREE.SRGBColorSpace;
-				texture.wrapS = THREE.RepeatWrapping;
-				texture.repeat.x = -1; // same seam-direction fix as CitySkyboxBackground
+		const wall = new THREE.Mesh(
+			new THREE.CylinderGeometry(wallRadius, wallRadius, 9000, 96, 1, true),
+			new THREE.MeshStandardMaterial({
+				color: 0x211e2b,
+				roughness: 0.95,
+				metalness: 0.1,
+				side: THREE.BackSide,
+			}),
+		);
+		wall.position.set(shaftCenter.x, tileOrigin.y, shaftCenter.z);
+		wall.frustumCulled = false;
+		scene.add(wall);
 
-				// DoubleSide (this FBX sphere's winding faces outward, confirmed
-				// in CitySkyboxBackground), depthWrite:false + renderOrder -1
-				// (standard skybox practice), and fog:false -- the whole point
-				// of a skysphere is to read as infinitely far away, so the
-				// scene's fog (tuned for the human-scale stairs a few hundred
-				// units out) shouldn't wash it out just because its geometry
-				// technically sits at a finite radius.
-				const skyMaterial = new THREE.MeshBasicMaterial({
-					map: texture,
-					side: THREE.DoubleSide,
-					depthWrite: false,
-					fog: false,
-				});
-				skyFbx.traverse(node => {
-					if (node.isMesh) {
-						node.material = skyMaterial;
-						node.frustumCulled = false;
-						node.renderOrder = -1;
-					}
-				});
-				scene.add(skyFbx);
+		coreGroup = new THREE.Group();
+		coreGroup.position.set(shaftCenter.x, 0, shaftCenter.z);
+		const pillarMat = new THREE.MeshStandardMaterial({ color: 0x262230, roughness: 0.85, metalness: 0.2 });
+		const stripMat = new THREE.MeshStandardMaterial({
+			color: 0x05080a,
+			emissive: 0x2a7a8a,
+			emissiveIntensity: 2.0,
+		});
+		const PILLARS = 5;
+		const pillarRing = 165;
+		const pillarSize = 85;
+		const pillarH = 9000;
+		for (let i = 0; i < PILLARS; i++) {
+			const a = (i / PILLARS) * Math.PI * 2;
+			const px = Math.cos(a) * pillarRing;
+			const pz = Math.sin(a) * pillarRing;
+			const pillar = new THREE.Mesh(new THREE.BoxGeometry(pillarSize, pillarH, pillarSize), pillarMat);
+			pillar.position.set(px, tileOrigin.y, pz);
+			pillar.rotation.y = -a;
+			pillar.frustumCulled = false;
+			coreGroup.add(pillar);
 
-				// Same measure-after-load approach as everywhere else this
-				// asset's been used: don't trust its native scale, size it
-				// relative to *this* scene instead (a few hundred units, not
-				// CityIntro's ~170,000) and recenter it on the camera -- the
-				// camera never moves in this scene, so a one-time recenter is
-				// enough, no per-frame follow needed.
-				const skyBox = new THREE.Box3().setFromObject(skyFbx);
-				const skySphere = new THREE.Sphere();
-				skyBox.getBoundingSphere(skySphere);
-				const targetSkyRadius = 800;
-				skyFbx.scale.multiplyScalar(targetSkyRadius / Math.max(skySphere.radius, 0.001));
-				skyBox.setFromObject(skyFbx);
-				skyBox.getBoundingSphere(skySphere);
-				skyFbx.position.sub(skySphere.center).add(camera.position);
+			const strip = new THREE.Mesh(new THREE.BoxGeometry(6, pillarH, 6), stripMat);
+			const out = pillarSize / 2 + 3.5;
+			strip.position.set(px + Math.cos(a) * out, tileOrigin.y, pz + Math.sin(a) * out);
+			strip.rotation.y = -a;
+			strip.frustumCulled = false;
+			coreGroup.add(strip);
+		}
+		scene.add(coreGroup);
 
-				// The tower's own emissive "light strip" material (mostly
-				// black with bright cyan/magenta emissive accents) rather
-				// than its metal hull -- confirmed live that the hull's
-				// material reads as a flat, undetailed brown on a plain
-				// cylinder, since stock CylinderGeometry UVs sample a mostly-
-				// uniform patch of that texture's atlas rather than its
-				// painted detail. The emissive strip material is forgiving of
-				// that mismatch (mostly-black-plus-bright-accents looks like
-				// glowing tech lines regardless of exact UV alignment) and
-				// matches the neon language used everywhere else in the app.
-				// Tall enough that its top/bottom are never in frame, so
-				// unlike the stairs it needs no treadmill recycling. Radius
-				// keeps it just behind/inside the stairs' own width (110)
-				// rather than swallowing them.
-				let coreMaterial = null;
-				towerGltf.scene.traverse(node => {
-					if (node.isMesh && node.material?.name?.includes('LIGHT')) coreMaterial = node.material;
-				});
-				if (!coreMaterial) {
-					towerGltf.scene.traverse(node => {
-						if (node.isMesh && !coreMaterial) coreMaterial = node.material;
-					});
-				}
-				if (coreMaterial) {
-					coreMaterial.side = THREE.DoubleSide;
-					// The source material's own KHR_texture_transform (repeat
-					// ~10x10, tuned for the actual tower mesh's UV layout) reads
-					// as fine TV-static noise stretched over a cylinder this
-					// large -- coarser tiling here reads as distinct glowing
-					// panels/lines instead, closer to how it looks on the real
-					// tower. Only a narrow arc of this cylinder is ever actually
-					// in frame (see CYLINDER_RADIUS/cylinderCenter), so the
-					// tiling only needs to look right across that small slice,
-					// not its full huge circumference.
-					if (coreMaterial.map) {
-						coreMaterial.map.wrapS = THREE.RepeatWrapping;
-						coreMaterial.map.wrapT = THREE.RepeatWrapping;
-						coreMaterial.map.repeat.set(3, 5);
-					}
-					if (coreMaterial.emissiveMap) {
-						coreMaterial.emissiveMap.wrapS = THREE.RepeatWrapping;
-						coreMaterial.emissiveMap.wrapT = THREE.RepeatWrapping;
-						coreMaterial.emissiveMap.repeat.set(3, 5);
-					}
-					const core = new THREE.Mesh(
-						new THREE.CylinderGeometry(CYLINDER_RADIUS, CYLINDER_RADIUS, CYLINDER_HEIGHT, 64, 1, true),
-						coreMaterial,
-					);
-					core.frustumCulled = false;
-					core.position.set(cylinderCenter.x, hipsStart.y, cylinderCenter.z);
-					scene.add(core);
-				}
+		helixGroup = new THREE.Group();
+		helixGroup.position.set(shaftCenter.x, 0, shaftCenter.z);
 
-				render();
-			})
-			.catch(err => console.error('[TowerClimb] scenery load failed', err));
+		// The decorative spiral: instanced step-sized slabs following the
+		// exact same helix as the active stairs, offset slightly outward and
+		// downward so the real treadmill steps sit just proud of them near
+		// the character (reading as a glowing under-lip rather than
+		// z-fighting). Extends far above and below the visible frame; the
+		// span's ends stay hidden by fog/framing across the wrap jump.
+		const sMinTiles = -60;
+		const sMaxTiles = 130;
+		const count = Math.floor((sMaxTiles - sMinTiles) * STEPS_PER_TILE);
+		// Same visual language as the active treadmill steps: a dark slab
+		// body with one thin glowing cyan strip along its leading edge --
+		// so the decorative spiral and the steps underfoot read as one
+		// continuous staircase, not two systems meeting at a seam.
+		const arcPerStep = (Math.abs(anglePerTile) * STAIR_RADIUS) / STEPS_PER_TILE + 3;
+		const slabGeo = new THREE.BoxGeometry(arcPerStep, riser, stairWidth);
+		const slabMat = new THREE.MeshStandardMaterial({
+			color: 0x211d24,
+			roughness: 0.85,
+			metalness: 0.05,
+		});
+		const helix = new THREE.InstancedMesh(slabGeo, slabMat, count);
+		helix.frustumCulled = false;
+		// In the slab's local frame x runs along the tangent (stride) and z
+		// across the tread width -- the glowing edge strip spans the width.
+		const stripGeo = new THREE.BoxGeometry(2.5, LIP_HEIGHT, stairWidth);
+		const stripInstMat = new THREE.MeshBasicMaterial({ color: 0x2b7f8f });
+		const helixStrips = new THREE.InstancedMesh(stripGeo, stripInstMat, count);
+		helixStrips.frustumCulled = false;
+		const dummy = new THREE.Object3D();
+		const tSign = anglePerTile >= 0 ? 1 : -1;
+		for (let i = 0; i < count; i++) {
+			const s = sMinTiles + i / STEPS_PER_TILE;
+			const angle = theta0 + anglePerTile * s;
+			// A full riser below the active steps' surface, so near the
+			// character the decorative layer reads as the staircase's
+			// understructure and never pokes through (or z-fights) the real
+			// treadmill steps sharing this stretch of helix.
+			const y = tileOrigin.y + climbVector.y * s - riser * 1.5 - 2.5;
+			dummy.position.set(Math.cos(angle) * (STAIR_RADIUS + 5), y, Math.sin(angle) * (STAIR_RADIUS + 5));
+			dummy.lookAt(0, y, 0);
+			dummy.updateMatrix();
+			helix.setMatrixAt(i, dummy.matrix);
+
+			// The strip straddles the slab's leading (downhill-facing) edge:
+			// centered on it, so it sits proud of the riser face rather than
+			// coplanar with it.
+			const tanX = -Math.sin(angle) * tSign;
+			const tanZ = Math.cos(angle) * tSign;
+			dummy.position.x -= tanX * (arcPerStep / 2);
+			dummy.position.z -= tanZ * (arcPerStep / 2);
+			dummy.position.y = y + riser / 2 - LIP_HEIGHT / 2 + 0.5;
+			dummy.updateMatrix();
+			helixStrips.setMatrixAt(i, dummy.matrix);
+		}
+		helixGroup.add(helix);
+		helixGroup.add(helixStrips);
+
+		// Dim level rings on the wall, spaced exactly one full turn's rise
+		// apart so the helix-turn wrap maps the pattern onto itself. Unlit
+		// basic material: reads as a faint self-lit line, not a lit surface.
+		const risePerTurn = Math.abs(climbVector.y * turnTiles);
+		const ringGeo = new THREE.CylinderGeometry(wallRadius - 6, wallRadius - 6, 3, 96, 1, true);
+		const ringMat = new THREE.MeshBasicMaterial({ color: 0x392952, side: THREE.DoubleSide });
+		for (let y = tileOrigin.y - 3500; y < tileOrigin.y + 4500; y += risePerTurn) {
+			const ring = new THREE.Mesh(ringGeo, ringMat);
+			ring.position.y = y;
+			ring.frustumCulled = false;
+			helixGroup.add(ring);
+		}
+		scene.add(helixGroup);
 	}
 
 	onMount(() => {
 		scene = new THREE.Scene();
-		scene.fog = new THREE.Fog(0x121018, 250, 1100);
+		scene.fog = new THREE.Fog(0x0e0c13, 380, 2300);
 
 		camera = new THREE.PerspectiveCamera(40, 1, 1, 3000);
 
 		renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: true });
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-		const ambient = new THREE.AmbientLight(0x4a3f5c, 1.6);
-		const warm = new THREE.DirectionalLight(0xe8b98a, 2.6);
-		warm.position.set(-2, 3, -1.5);
-		const cool = new THREE.DirectionalLight(0x6b4f66, 0.6);
-		cool.position.set(2, 1.5, 2.5);
-		scene.add(ambient, warm, cool);
+		// Interior lighting: dim, cool, unified -- no warm exterior sun.
+		const ambient = new THREE.AmbientLight(0x4a4460, 2.0);
+		const key = new THREE.DirectionalLight(0x9aa6c9, 1.4);
+		key.position.set(-1.5, 3, -1);
+		const fill = new THREE.DirectionalLight(0x5a3f5c, 0.5);
+		fill.position.set(2, 1, 2);
+		scene.add(ambient, key, fill);
 
 		resizeObserver = new ResizeObserver(resize);
 		resizeObserver.observe(containerEl);
@@ -462,9 +496,9 @@
 				clipDuration = clip.duration;
 
 				// Measure the clip's real root motion once, in *both* spaces
-				// -- world space sizes the stair tiles (a scene-space
-				// object unrelated to the bone hierarchy), local space is
-				// what root-motion cancellation actually manipulates
+				// -- world space sizes the stair steps (scene-space objects
+				// unrelated to the bone hierarchy), local space is what
+				// root-motion cancellation actually manipulates
 				// (`hips.position` is local). These aren't interchangeable
 				// by just adding one to the other: the bone chain above
 				// Hips can carry rotation, which a world-space delta
@@ -497,32 +531,27 @@
 				stairWidth = 110;
 
 				// tileOrigin anchors tread 0's surface to where the right foot
-				// is actually planted at the start of the clip (sampled above),
-				// rather than a guessed fraction of one riser -- an earlier,
-				// eyeballed offset put the tread about 8 units above the real
-				// planted foot (confirmed by sampling RightToeBase across the
-				// whole clip: it stays put at this exact point through the
-				// start of the stride, then swings forward/up to land one full
-				// climbVector higher, which is what fixes STEPS_PER_TILE at 2
-				// in the first place). Centered under the foot in Z as well.
+				// is actually planted at the start of the clip (sampled above).
 				tileGroup = new THREE.Group();
+				lipGroup = new THREE.Group();
 				tileOrigin = new THREE.Vector3(0, rightToeStart.y - riser, rightToeStart.z - tread / 2);
 
-				// The cylinder's near surface sits exactly at tileOrigin (so
-				// the first step, right at the character's feet, starts flush
-				// against it) with the rest of its huge bulk extending away in
-				// the screen-right direction, off-frame -- computed here
-				// (rather than inside loadTowerScenery's async callback)
-				// because updateStairs(0) below needs it immediately, well
-				// before the tower texture/material has even started loading.
-				// Confirmed live at this size (radius, no extra clearance) is
-				// the intended look -- a large glowing presence along the
-				// right edge of frame, not just a thin sliver.
-				cylinderCenter.set(
-					tileOrigin.x + SCREEN_RIGHT.x * CYLINDER_RADIUS,
-					0,
-					tileOrigin.z + SCREEN_RIGHT.z * CYLINDER_RADIUS,
-				);
+				// Helix setup: the shaft's axis sits STAIR_RADIUS to the side
+				// of the walk line (same side the old exterior tower bulk was,
+				// via SCREEN_RIGHT), the base angle points from that axis back
+				// at tileOrigin, and the signed angle per tile is whatever
+				// makes the helix's tangent at the character's feet match the
+				// mocap's actual straight-line stride direction.
+				const dHoriz = new THREE.Vector3(climbVector.x, 0, climbVector.z);
+				const tileAdvance = Math.max(dHoriz.length(), 0.001);
+				const d = dHoriz.normalize();
+				const perp = new THREE.Vector3(d.z, 0, -d.x);
+				if (perp.dot(SCREEN_RIGHT) < 0) perp.multiplyScalar(-1);
+				shaftCenter.set(tileOrigin.x + perp.x * STAIR_RADIUS, 0, tileOrigin.z + perp.z * STAIR_RADIUS);
+				theta0 = Math.atan2(tileOrigin.z - shaftCenter.z, tileOrigin.x - shaftCenter.x);
+				const tangentDot = -Math.sin(theta0) * d.x + Math.cos(theta0) * d.z;
+				anglePerTile = (tangentDot >= 0 ? 1 : -1) * (tileAdvance / STAIR_RADIUS);
+				turnTiles = (Math.PI * 2) / Math.abs(anglePerTile);
 
 				const stepMaterial = new THREE.MeshStandardMaterial({
 					color: 0x211d24,
@@ -530,20 +559,34 @@
 					metalness: 0.05,
 					side: THREE.DoubleSide,
 				});
+				const lipMaterial = new THREE.MeshBasicMaterial({ color: 0x2b7f8f, side: THREE.DoubleSide });
 				for (let k = 0; k < STEP_COUNT; k++) {
 					tileGroup.add(buildStepMesh(stepMaterial));
+					lipGroup.add(buildLipMesh(lipMaterial));
 					stepSlot[k] = k;
 				}
 				scene.add(tileGroup);
+				scene.add(lipGroup);
+
+				buildShaftInterior();
 				updateStairs(0);
 
-				// Side-on-ish framing: far enough back along -X/-Z to read
-				// as "a person on a staircase," not a close-up, angled in
-				// just enough to also show a few steps receding ahead.
-				camera.position.set(210, hipsStart.y + 55, -190);
-				camera.lookAt(0, hipsStart.y + CAMERA_TARGET_Y_OFFSET, 40);
-
-				loadTowerScenery();
+				// Behind-and-inside framing: camera trails the character along
+				// the walk direction, pulled slightly toward the shaft wall,
+				// looking up the spiral ahead -- so the frame reads
+				// character-low, glowing stairs curving away and up, core
+				// pillars on the inner side, shaft wall wrapping the far side.
+				const radialOut = new THREE.Vector3(Math.cos(theta0), 0, Math.sin(theta0));
+				camera.position
+					.copy(tileOrigin)
+					.addScaledVector(d, -560)
+					.addScaledVector(radialOut, 60);
+				camera.position.y = tileOrigin.y + 300;
+				camera.lookAt(
+					tileOrigin.x + d.x * 140 - radialOut.x * 170,
+					tileOrigin.y + 150,
+					tileOrigin.z + d.z * 140 - radialOut.z * 170,
+				);
 
 				resize();
 				scrubTo(0);
@@ -579,7 +622,7 @@
 		inset: 0;
 		z-index: -1;
 		overflow: hidden;
-		background: radial-gradient(circle at 50% 30%, #262b33, #101216 85%);
+		background: radial-gradient(circle at 50% 30%, #1b1e26, #0d0f13 85%);
 	}
 	canvas {
 		display: block;

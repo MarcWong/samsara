@@ -7,70 +7,111 @@
 </button>
 
 <style>
-	/* "Liquid Glass" pill: a translucent, backdrop-blurred slab with a
-	   bright inset highlight along the top edge and a soft inset shadow
-	   along the bottom -- the two together read as a convex glass dome
-	   catching light from above, the way iOS's current system controls
-	   do, rather than a flat tinted rectangle. The tint itself leans on
-	   this app's own --accent/--bg-raised blue-greys (not neutral white)
-	   so the glass reads as *this UI's* glass, not a generic iOS control
-	   pasted on top of a sci-fi scene. Text is uniformly Courier + the
-	   same phosphor green used by the CRT terminal screens elsewhere
-	   (Plaza's country/orientation pickers), so every clickable surface
-	   in the app now shares one accent color instead of blue pills next
-	   to green terminal text. */
+	/* "Liquid Glass" pill, take two: real glass reads by its *highlight*,
+	   not just its tint -- a soft, screen-blended gloss cap near the top
+	   (the `::before`) is what actually sells "light catching a convex
+	   surface," on top of a translucent backdrop-blurred body and a real
+	   drop shadow lifting it off the scene behind. mix-blend-mode:screen
+	   means that highlight brightens whatever tint is under it rather than
+	   washing it out to flat white, so it reads consistently across every
+	   variant's own color. The tint itself leans on this app's own
+	   --accent/--bg-raised blue-greys (not neutral white) so the glass
+	   reads as *this UI's* glass. Text is uniformly Courier + the same
+	   phosphor green used by the CRT terminal screens elsewhere, so every
+	   clickable surface in the app shares one accent color. */
 	.btn {
 		position: relative;
-		border: 1px solid rgba(238, 238, 238, 0.22);
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.35);
 		border-radius: 999px;
 		padding: 0.9em 2em;
 		font-family: 'Courier New', Courier, monospace;
 		font-size: 1.5rem;
 		font-weight: bold;
 		letter-spacing: 0.02em;
-		color: #39ff6a;
+		color: #ffffff;
 		text-shadow:
-			0 0 4px rgba(57, 255, 106, 0.85),
-			0 0 12px rgba(57, 255, 106, 0.45);
+			0 0 4px rgba(255, 255, 255, 0.75),
+			0 0 12px rgba(255, 255, 255, 0.35);
 		cursor: pointer;
-		-webkit-backdrop-filter: blur(18px) saturate(160%);
-		backdrop-filter: blur(18px) saturate(160%);
+		/* Higher saturate than blur radius -- Apple's Control Center tiles
+		   are genuinely see-through (the wallpaper's own colors read
+		   through clearly, just softened), not a frosted-over dark panel.
+		   Confirmed live against a reference screenshot that the previous
+		   pass read as too opaque/tinted; the fix is mostly about the tint
+		   layer below being much lower-opacity, not the blur itself. */
+		-webkit-backdrop-filter: blur(20px) saturate(200%);
+		backdrop-filter: blur(20px) saturate(200%);
 		box-shadow:
-			0 8px 20px rgba(0, 0, 0, 0.35),
-			inset 0 1px 1px rgba(255, 255, 255, 0.4),
-			inset 0 -8px 14px rgba(0, 0, 0, 0.22);
-		transition: background 150ms ease, box-shadow 150ms ease, transform 100ms ease, opacity 150ms ease;
+			0 10px 22px rgba(0, 0, 0, 0.3),
+			0 1px 2px rgba(0, 0, 0, 0.35),
+			inset 0 1px 1px rgba(255, 255, 255, 0.55),
+			inset 0 -10px 16px rgba(0, 0, 0, 0.14),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+		transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease, opacity 150ms ease;
+	}
+	/* The gloss cap: a bright ellipse hugging the top of the pill, blurred
+	   and blended so it reads as a reflection sliding across a domed
+	   surface rather than a flat highlight bar. */
+	.btn::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: radial-gradient(
+			120% 100% at 50% -20%,
+			rgba(255, 255, 255, 0.75) 0%,
+			rgba(255, 255, 255, 0.22) 35%,
+			rgba(255, 255, 255, 0) 65%
+		);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+	.btn:hover:not(:disabled) {
+		transform: translateY(-1px);
+		box-shadow:
+			0 14px 26px rgba(0, 0, 0, 0.35),
+			0 1px 2px rgba(0, 0, 0, 0.4),
+			inset 0 1px 1px rgba(255, 255, 255, 0.65),
+			inset 0 -10px 16px rgba(0, 0, 0, 0.14),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 	}
 	.btn:active:not(:disabled) {
-		transform: scale(0.97);
+		transform: scale(0.97) translateY(0);
 		box-shadow:
-			0 3px 8px rgba(0, 0, 0, 0.3),
-			inset 0 1px 1px rgba(255, 255, 255, 0.3),
-			inset 0 -4px 8px rgba(0, 0, 0, 0.3);
+			0 4px 10px rgba(0, 0, 0, 0.28),
+			inset 0 1px 1px rgba(255, 255, 255, 0.4),
+			inset 0 -5px 8px rgba(0, 0, 0, 0.18),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 	}
 	.btn:disabled {
 		cursor: default;
 		opacity: 0.4;
 	}
 
+	/* Tint layers dropped to roughly a third of the previous opacity --
+	   these exist only to give each variant its own color identity, the
+	   same way Apple's tiles read blue/orange/red depending on what's
+	   behind them; the actual "glass" body is the backdrop-filter above,
+	   which does the real seeing-through. */
 	.primary {
-		background: linear-gradient(180deg, rgba(135, 206, 250, 0.32) 0%, rgba(100, 149, 237, 0.22) 45%, rgba(57, 62, 70, 0.4) 100%);
+		background: linear-gradient(180deg, rgba(135, 206, 250, 0.14) 0%, rgba(100, 149, 237, 0.09) 45%, rgba(57, 62, 70, 0.16) 100%);
 	}
 	.primary:hover:not(:disabled) {
-		background: linear-gradient(180deg, rgba(135, 206, 250, 0.42) 0%, rgba(100, 149, 237, 0.3) 45%, rgba(57, 62, 70, 0.46) 100%);
+		background: linear-gradient(180deg, rgba(135, 206, 250, 0.2) 0%, rgba(100, 149, 237, 0.13) 45%, rgba(57, 62, 70, 0.2) 100%);
 	}
 
 	.ghost {
-		background: linear-gradient(180deg, rgba(238, 238, 238, 0.14) 0%, rgba(57, 62, 70, 0.18) 100%);
+		background: linear-gradient(180deg, rgba(238, 238, 238, 0.06) 0%, rgba(57, 62, 70, 0.08) 100%);
 	}
 	.ghost:hover:not(:disabled) {
-		background: linear-gradient(180deg, rgba(238, 238, 238, 0.22) 0%, rgba(57, 62, 70, 0.26) 100%);
+		background: linear-gradient(180deg, rgba(238, 238, 238, 0.1) 0%, rgba(57, 62, 70, 0.12) 100%);
 	}
 
 	.print {
-		background: linear-gradient(180deg, rgba(57, 255, 106, 0.16) 0%, rgba(7, 48, 101, 0.4) 55%, rgba(7, 48, 101, 0.55) 100%);
+		background: linear-gradient(180deg, rgba(57, 255, 106, 0.08) 0%, rgba(7, 48, 101, 0.18) 55%, rgba(7, 48, 101, 0.24) 100%);
 	}
 	.print:hover:not(:disabled) {
-		background: linear-gradient(180deg, rgba(57, 255, 106, 0.24) 0%, rgba(10, 63, 130, 0.46) 55%, rgba(10, 63, 130, 0.6) 100%);
+		background: linear-gradient(180deg, rgba(57, 255, 106, 0.12) 0%, rgba(10, 63, 130, 0.22) 55%, rgba(10, 63, 130, 0.28) 100%);
 	}
 </style>

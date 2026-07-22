@@ -9,12 +9,14 @@
 	// still uses this shader background; the other screens now have their
 	// own cinematic parallax scenes (see lib/components/parallax/).
 	const FALLBACK_GRADIENTS = {
-		SUMMARY: 'radial-gradient(circle at 50% 0%, #2e3a42, #1a1e24 70%)',
+		SUMMARY: 'radial-gradient(circle at 50% 0%, #2b3044, #14161f 70%)',
 	};
 
 	// Same "flowing sand" shader as before; [shadow, mid, highlight].
+	// SUMMARY: dusk blue-pink, darker than before, echoing the CityIntro
+	// panorama's blue-grey sky and pink-tinged cloud bank.
 	const PALETTES = {
-		SUMMARY: ['#20241f', '#4a4128', '#e2c877'],
+		SUMMARY: ['#171a24', '#39415c', '#b98aa4'],
 	};
 
 	function hexToRgb(hex) {

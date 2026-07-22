@@ -181,7 +181,14 @@
 	}
 
 	function goSummary() {
-		goToScreen('SUMMARY', { printText, talents });
+		// Country/orientation/final display age travel along so Summary can
+		// show them without re-deriving the AGE display mapping (the raw HAGE
+		// property is the internal 0-102 index, not the age the player saw).
+		const age = entries.length ? entries[entries.length - 1].age : 0;
+		// The starting (post-rebalance) allocation, so Summary can show
+		// "initial -> final" per stat.
+		const initial = Object.fromEntries(STAT_KEYS.map(key => [key, propertyAllocate[types[key]]]));
+		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial });
 	}
 
 	onMount(onNext);
@@ -342,9 +349,15 @@
 		flex-wrap: wrap;
 		font-size: 0.95rem;
 	}
+	/* Pinned to the very bottom of the viewport (the log column is fixed
+	   to the right, so normal flow would have floated this just under the
+	   statbar at the top instead). No background band -- the glass button
+	   floats over the climb scene on its own. */
 	.controls {
-		padding: 1rem 1.25rem;
-		background: var(--bg-raised);
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 1.5rem;
 		display: flex;
 		justify-content: center;
 	}
