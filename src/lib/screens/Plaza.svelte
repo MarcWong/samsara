@@ -47,19 +47,46 @@
 		step = 'orientation';
 	}
 
-	// Ported verbatim from the old drawTalentsSilently -- the lucky-charm
-	// draw has always happened immediately after the orientation choice,
-	// just silently (no dedicated UI).
+	// Talent pool indices (order matches talents.json: 0=Earthquake,
+	// 1=Airplane Crash, 2=Farewell Mom, 3=Bankruptcy, 4=Rape, 5=Helen of
+	// Troy, 6=Job opportunity, 7=You are beautiful, 8=A miracle of life,
+	// 9=Queen's gambit) -- a real plane crash is vastly rarer in a single
+	// life than the other events on this list, so it's drawn at 1/100th
+	// the weight of everything else instead of an equal 1-in-10 shot.
+	const TALENT_WEIGHTS = { 1: 0.01 };
+
+	// Ported from the old drawTalentsSilently (the lucky-charm draw has
+	// always happened immediately after the orientation choice, just
+	// silently, no dedicated UI), reworked from uniform-without-replacement
+	// to weighted-without-replacement so TALENT_WEIGHTS can bias the draw.
+	// Each of the 3 picks re-derives its candidate pool (respecting both
+	// what's already been picked and the 5/7 mutual-exclusion rule) and
+	// samples from it proportional to weight.
 	function drawTalents() {
 		const listTalents = core.talentRandom();
-		const selected = new Set();
-		while (selected.size < 3) {
-			const id = Math.floor(Math.random() * 10);
-			if (selected.has(5) && id == 7) continue;
-			if (selected.has(7) && id == 5) continue;
-			if (!selected.has(id)) selected.add(id);
+		const selected = [];
+		const available = new Set(listTalents.map((_, i) => i));
+		while (selected.length < 3) {
+			const candidates = [...available].filter(id => {
+				if (selected.includes(5) && id === 7) return false;
+				if (selected.includes(7) && id === 5) return false;
+				return true;
+			});
+			const totalWeight = candidates.reduce((sum, id) => sum + (TALENT_WEIGHTS[id] ?? 1), 0);
+			let r = Math.random() * totalWeight;
+			let pick = candidates[candidates.length - 1];
+			for (const id of candidates) {
+				const w = TALENT_WEIGHTS[id] ?? 1;
+				if (r < w) {
+					pick = id;
+					break;
+				}
+				r -= w;
+			}
+			selected.push(pick);
+			available.delete(pick);
 		}
-		return [...selected].map(index => listTalents[index]);
+		return selected.map(index => listTalents[index]);
 	}
 
 	// -- property allocation (verbatim Property/Housing logic) --

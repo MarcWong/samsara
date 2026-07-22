@@ -133,10 +133,7 @@
 			<h2>Random Events</h2>
 			<ul>
 				{#each talents as talent (talent.id)}
-					<li>
-						<span class="talent-name">{talent.name}</span>
-						<span class="talent-desc">{talent.description}</span>
-					</li>
+					<li>{talent.name} ({talent.description})</li>
 				{/each}
 			</ul>
 		</div>
@@ -275,19 +272,9 @@
 	.talents li {
 		background: rgba(43, 40, 31, 0.88);
 		border-radius: 0.6rem;
-		padding: 0.7em 1em;
-		display: flex;
-		flex-direction: column;
-		gap: 0.2em;
-	}
-	.talent-name {
-		font-size: 1.15rem;
-		font-weight: bold;
-		color: #f0e6c8;
-	}
-	.talent-desc {
-		font-size: 0.8rem;
-		color: #a89a72;
+		padding: 0.6em 1em;
+		color: #e2d8ba;
+		font-size: 0.95rem;
 	}
 	.actions {
 		display: flex;

@@ -199,16 +199,24 @@
 
 <div class="trajectory">
 	<div class="statbar">
-		<span class="country">{country}</span>
+		<span class="country">{country} <span class="sex">{sex}</span></span>
 		{#each STAT_KEYS as key (key)}
 			<div class="stat">
 				<span class="stat-label">{STAT_LABELS[key]}</span>
 				<span class="stat-value">{stats[types[key]] - effects[key]}</span>
-				{#if effects[key]}
-					<span class="stat-delta" class:positive={effects[key] > 0} class:negative={effects[key] < 0}>
-						{effects[key] > 0 ? '+' : ''}{effects[key]}
-					</span>
-				{/if}
+				<!-- Always rendered (never conditionally removed) so the row's
+				     total width -- and thus whether flex-wrap kicks in and
+				     the bar's own height -- never depends on whether a delta
+				     happens to be showing this frame. Zero-effect frames get
+				     a transparent placeholder occupying the exact same box. -->
+				<span
+					class="stat-delta"
+					class:placeholder={!effects[key]}
+					class:positive={effects[key] > 0}
+					class:negative={effects[key] < 0}
+				>
+					{effects[key] ? `${effects[key] > 0 ? '+' : ''}${effects[key]}` : '+0'}
+				</span>
 			</div>
 		{/each}
 	</div>
@@ -244,20 +252,33 @@
 		flex-direction: column;
 		height: 100dvh;
 	}
+	/* Fixed height (not just min-height): flex-wrap is off and every stat
+	   column always reserves the same delta-row height (see .stat-delta
+	   below), so this box's height genuinely never changes as effects
+	   appear/disappear -- both are needed, since either alone still leaves
+	   a path for the row to reflow. */
 	.statbar {
 		display: flex;
 		align-items: center;
 		gap: 1.25rem;
 		max-width: 42rem;
+		height: 5.25rem;
 		margin: 0 auto;
-		padding: 1rem 1.25rem;
+		padding: 0 1.25rem;
 		background: var(--bg-raised);
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
+		overflow: hidden;
 		font-size: 1rem;
 	}
 	.country {
 		font-weight: bold;
 		margin-right: auto;
+		white-space: nowrap;
+	}
+	.sex {
+		font-weight: normal;
+		font-size: 0.85rem;
+		color: var(--text-dim);
 	}
 	.stat {
 		display: flex;
@@ -274,6 +295,10 @@
 	}
 	.stat-delta {
 		font-size: 0.85rem;
+		line-height: 1.2;
+	}
+	.stat-delta.placeholder {
+		visibility: hidden;
 	}
 	.positive {
 		color: var(--positive);
@@ -293,9 +318,9 @@
 	.log {
 		position: fixed;
 		top: 50%;
-		right: 1.5rem;
+		right: 4.5rem;
 		transform: translateY(-50%);
-		width: min(26rem, 34vw);
+		width: min(52rem, 68vw);
 		max-height: 46dvh;
 		overflow-y: auto;
 		padding: 1.25rem;
@@ -319,7 +344,7 @@
 			right: auto;
 			transform: none;
 			width: auto;
-			max-width: 32rem;
+			max-width: 64rem;
 			margin: auto 1rem 0;
 		}
 	}

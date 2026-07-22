@@ -40,7 +40,17 @@
 	// only their screen-space projection needs redoing on camera/viewport
 	// changes.
 	let screenMesh = null; // the mesh carrying the glass corners' local frame
-	let glassCorners = null; // 4 THREE.Vector3, mesh-local, unordered
+	let glassCorners = null; // 4 THREE.Vector3, mesh-local, unordered -- fitted exactly to the "Screen" material's own geometry, used for framing math (tvScale, facing, centering)
+	let overlayCorners = null; // same center as glassCorners but scaled out to the model's visible bezel edges -- used only for the DOM overlay quad
+
+	// The "Screen" material's own geometry is measurably inset from the
+	// visible dark bezel opening on this model (confirmed live: the DOS
+	// overlay only covered a fraction of the glass, leaving a wide unlit
+	// margin) -- scale the fitted rectangle outward from its own center so
+	// the overlay reaches the real edges instead. Framing math still uses
+	// the unscaled glassCorners, since that ratio was tuned against the
+	// model's actual proportions, not the overlay's.
+	const GLASS_FIT_SCALE = 1.8;
 
 	// Solves the 8-DOF projective transform (3x3 homography, bottom-right
 	// fixed at 1) mapping 4 source points to 4 destination points, via
@@ -98,13 +108,13 @@
 	let quadRefH = 175;
 
 	function updateScreenQuad() {
-		if (!onScreenQuad || !screenMesh || !glassCorners || !camera || !containerEl) return;
+		if (!onScreenQuad || !screenMesh || !overlayCorners || !camera || !containerEl) return;
 		const w = containerEl.clientWidth;
 		const h = containerEl.clientHeight;
 		if (!w || !h) return;
 
 		screenMesh.updateMatrixWorld(true);
-		const projected = glassCorners.map(local => {
+		const projected = overlayCorners.map(local => {
 			const world = screenMesh.localToWorld(local.clone());
 			const ndc = world.clone().project(camera);
 			return { world, x: ((ndc.x + 1) / 2) * w, y: ((1 - ndc.y) / 2) * h };
@@ -363,6 +373,17 @@
 						].map(([du, dv]) =>
 							centroid.clone().addScaledVector(uAxis, du).addScaledVector(vAxis, dv),
 						);
+						overlayCorners = [
+							[uMin, vMin],
+							[uMax, vMin],
+							[uMax, vMax],
+							[uMin, vMax],
+						].map(([du, dv]) =>
+							centroid
+								.clone()
+								.addScaledVector(uAxis, du * GLASS_FIT_SCALE)
+								.addScaledVector(vAxis, dv * GLASS_FIT_SCALE),
+						);
 						glassNormalLocal = normal.clone();
 					}
 				}
@@ -472,7 +493,15 @@
 					? screenMesh.localToWorld(glassCenterLocal.clone())
 					: tvBox.getCenter(new THREE.Vector3());
 				rig.position.sub(centeredGlass);
-				rig.position.z -= alleyRadius * 0.1;
+				// Dolly the whole rig closer rather than re-touching tvScale
+				// (which sets the *body-to-glass* ratio, not the overall
+				// zoom): with the fixed 78deg-FOV camera at the origin,
+				// apparent size on screen is glassHeight/distance, so a
+				// smaller push-back here enlarges the machine and its DOS
+				// overlay together, in lockstep -- the computer stays fully
+				// visible (per the prior request) while the overlay content
+				// is no longer undersized relative to it.
+				rig.position.z -= alleyRadius * 0.075;
 				updateScreenQuad();
 
 				render();
