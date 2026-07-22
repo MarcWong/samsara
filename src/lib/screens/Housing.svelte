@@ -1,9 +1,9 @@
 <script>
-	// Consolidates the old SexOrientation -> Talent -> PropertyText -> Property
-	// chain into one persistent "housing cluster" scene with two visible
-	// steps, so the background doesn't remount/flash between them. The
-	// lucky-charm draw (formerly its own Talent screen) now runs silently
-	// between the two steps -- same selection logic, verbatim, just no UI.
+	// Formerly the SexOrientation -> Talent -> PropertyText -> Property
+	// chain; orientation now happens in Plaza.svelte (the second billboard,
+	// after the camera turns to the other side of the street), and its
+	// lucky-charm draw moved there with it. This screen is just the property
+	// allocation step now, using $draft.LBTQ/talents already set by Plaza.
 	import ParallaxScene from '../components/parallax/ParallaxScene.svelte';
 	import { skyline, housingCluster, DUSK_SKY } from '../components/parallax/art.js';
 	import { countryTone } from '../components/parallax/countryTones.js';
@@ -25,29 +25,7 @@
 		{ id: 'houses', depth: 0.5, svg: housingCluster({ seed: seed * 2, palette: [silhouette, accent] }), style: 'bottom:0; top:auto; height:40%;' },
 	];
 
-	let step = $state('sex');
-
-	// -- step 1: sex orientation --
-	function chooseSex(LBTQ) {
-		draft.update(d => ({ ...d, LBTQ }));
-		drawTalentsSilently();
-		step = 'property';
-	}
-
-	function drawTalentsSilently() {
-		const listTalents = core.talentRandom();
-		const selected = new Set();
-		while (selected.size < 3) {
-			const id = Math.floor(Math.random() * 10);
-			if (selected.has(5) && id == 7) continue;
-			if (selected.has(7) && id == 5) continue;
-			if (!selected.has(id)) selected.add(id);
-		}
-		const talents = [...selected].map(index => listTalents[index]);
-		draft.update(d => ({ ...d, talents }));
-	}
-
-	// -- step 2: property allocation (verbatim Property.svelte logic) --
+	// -- property allocation (verbatim Property.svelte logic) --
 	const STATS = [
 		{ type: types.MNY, label: 'Wealth' },
 		{ type: types.CHR, label: 'Appearance' },
@@ -59,20 +37,11 @@
 
 	let propertyPoints = $state(0);
 	let allocate = $state({ [types.CHR]: 0, [types.INT]: 0, [types.STR]: 0, [types.MNY]: 0, [types.SPR]: 0 });
-	let propertyReady = false;
-
-	function enterProperty() {
-		if (propertyReady) return;
-		propertyReady = true;
-		const replace = core.remake($draft.talents.map(t => t.id));
-		if (replace.length > 0) {
-			globalThis.$$event('message', [replace.map(v => ['F_TalentReplace', v])]);
-		}
-		propertyPoints = core.getPropertyPoints(country?.points);
+	const replace = core.remake($draft.talents.map(t => t.id));
+	if (replace.length > 0) {
+		globalThis.$$event('message', [replace.map(v => ['F_TalentReplace', v])]);
 	}
-	$effect(() => {
-		if (step === 'property') enterProperty();
-	});
+	propertyPoints = core.getPropertyPoints(country?.points);
 
 	let total = $derived(
 		allocate[types.CHR] + allocate[types.INT] + allocate[types.STR] + allocate[types.MNY] + allocate[types.SPR]
@@ -130,35 +99,27 @@
 <ParallaxScene {layers} {flying} />
 
 <div class="content" class:hidden={flying}>
-	{#if step === 'sex'}
-		<p class="intro">What's your choice of sexual orientation?</p>
-		<div class="choices">
-			<Button onclick={() => chooseSex(0)}>Straight</Button>
-			<Button onclick={() => chooseSex(1)}>LBTQ</Button>
-		</div>
-	{:else}
-		<p class="intro">
-			You have {propertyPoints} tokens to allocate: Wealth, Appearance, IQ, Health, and EQ. Choose carefully.
-		</p>
-		<p class="points">Remaining Property: {left}</p>
-		<div class="stats">
-			{#each STATS as { type, label } (type)}
-				<StatRow
-					{label}
-					value={allocate[type]}
-					canDecrease={allocate[type] > allocMin}
-					canIncrease={allocate[type] < allocMax && left > 0}
-					onincrease={() => adjustStat(type, 1)}
-					ondecrease={() => adjustStat(type, -1)}
-					onset={v => setStat(type, v)}
-				/>
-			{/each}
-		</div>
-		<div class="actions">
-			<Button variant="ghost" onclick={randomAllocate}>Random</Button>
-			<Button onclick={next}>Start</Button>
-		</div>
-	{/if}
+	<p class="intro">
+		You have {propertyPoints} tokens to allocate: Wealth, Appearance, IQ, Health, and EQ. Choose carefully.
+	</p>
+	<p class="points">Remaining Property: {left}</p>
+	<div class="stats">
+		{#each STATS as { type, label } (type)}
+			<StatRow
+				{label}
+				value={allocate[type]}
+				canDecrease={allocate[type] > allocMin}
+				canIncrease={allocate[type] < allocMax && left > 0}
+				onincrease={() => adjustStat(type, 1)}
+				ondecrease={() => adjustStat(type, -1)}
+				onset={v => setStat(type, v)}
+			/>
+		{/each}
+	</div>
+	<div class="actions">
+		<Button variant="ghost" onclick={randomAllocate}>Random</Button>
+		<Button onclick={next}>Start</Button>
+	</div>
 </div>
 
 <style>
@@ -186,12 +147,6 @@
 	.points {
 		font-size: 1.3rem;
 		margin: 0;
-	}
-	.choices {
-		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-		justify-content: center;
 	}
 	.stats {
 		display: flex;

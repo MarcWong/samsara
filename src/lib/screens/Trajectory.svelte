@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
 	import Button from '../components/Button.svelte';
@@ -83,17 +83,41 @@
 		});
 	}
 
+	// Auto-plays age-by-age instead of waiting on clicks -- a click still
+	// advances immediately (and reschedules from there), but the story
+	// progresses on its own by default now.
+	const AUTO_ADVANCE_MS = 3600;
+	let autoTimer = null;
+
+	function clearAutoTimer() {
+		if (autoTimer) {
+			clearTimeout(autoTimer);
+			autoTimer = null;
+		}
+	}
+
+	function scheduleAutoAdvance() {
+		clearAutoTimer();
+		if (isEnd) return;
+		autoTimer = setTimeout(onNext, AUTO_ADVANCE_MS);
+	}
+
 	function onNext() {
 		if (isEnd) return;
 		const { age, content, isEnd: ended } = core.next();
 		isEnd = ended;
 
+		// Some ages tick with no narrative content -- still worth scheduling
+		// the next auto-advance regardless, or an empty tick would silently
+		// stall the whole auto-play loop until someone happens to click.
 		const hasContent = Array.isArray(content) ? content.length > 0 : Object.keys(content || {}).length > 0;
-		if (!hasContent) return;
+		if (hasContent) {
+			renderTrajectory(age, content);
+			stats = core.propertys;
+			scrollToEnd();
+		}
 
-		renderTrajectory(age, content);
-		stats = core.propertys;
-		scrollToEnd();
+		scheduleAutoAdvance();
 	}
 
 	function renderTrajectory(age, content) {
@@ -151,17 +175,12 @@
 	}
 
 	onMount(onNext);
+	onDestroy(clearAutoTimer);
 </script>
 
 <TowerClimbBackground />
 
-<div
-	class="trajectory"
-	onclick={onNext}
-	onkeydown={e => (e.key === 'Enter' || e.key === ' ') && onNext()}
-	role="button"
-	tabindex="0"
->
+<div class="trajectory">
 	<div class="statbar">
 		<span class="country">{country}</span>
 		{#each STAT_KEYS as key (key)}
@@ -207,10 +226,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
-		cursor: pointer;
 	}
-	/* Matches .log's max-width below it so the two read as one centered
-	   column instead of a full-width bar sitting over a narrower one. */
 	.statbar {
 		display: flex;
 		align-items: center;
@@ -249,18 +265,21 @@
 		color: var(--negative);
 	}
 
-	/* Capped well short of the full remaining height (roughly two and a
-	   half entries) and top-masked so scrolled-past entries dissolve
-	   rather than get clipped -- leaves the screen's center and lower
-	   portion clear for the 3D climb behind it, instead of the log
-	   filling all available space the way it used to. */
-	/* Capped so story paragraphs don't stretch into unreadably long lines
-	   on wide/landscape viewports -- narrow enough to read comfortably,
-	   still leaves the 3D climb visible on both sides. */
+	/* Pinned to the right edge instead of centered -- the climbing figure
+	   sits left-of-center in TowerClimbBackground's framing, so a centered
+	   log used to sit right on top of them. Capped well short of full
+	   height (roughly two and a half entries) and top-masked so
+	   scrolled-past entries dissolve rather than get clipped, leaving the
+	   3D climb visible everywhere else. Scrollbar hidden (still scrolls,
+	   just no visible track/thumb) since this now auto-advances rather
+	   than being a manually-scrolled reading pane. */
 	.log {
-		max-height: 30dvh;
-		max-width: 42rem;
-		margin: 0 auto;
+		position: fixed;
+		top: 50%;
+		right: 1.5rem;
+		transform: translateY(-50%);
+		width: min(26rem, 34vw);
+		max-height: 46dvh;
 		overflow-y: auto;
 		padding: 1.25rem;
 		display: flex;
@@ -268,6 +287,24 @@
 		gap: 1rem;
 		mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
 		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.log::-webkit-scrollbar {
+		display: none;
+	}
+	@media (max-width: 640px) {
+		/* No room for a side column on narrow/portrait viewports -- falls
+		   back to a bottom band instead of overlapping the climb. */
+		.log {
+			position: static;
+			top: auto;
+			right: auto;
+			transform: none;
+			width: auto;
+			max-width: 32rem;
+			margin: auto 1rem 0;
+		}
 	}
 	.entry {
 		background: var(--bg-raised);

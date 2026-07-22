@@ -1,12 +1,14 @@
 <script>
 	import { onMount } from 'svelte';
 	import PlazaCityBackground from '../components/parallax/PlazaCityBackground.svelte';
-	import { goToScreen } from '../stores.js';
+	import { draft, goToScreen } from '../stores.js';
+	import { core } from '../game/core.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
-	// A small deterministic wobble per button so the board reads as
-	// hand-pinned notices, not a perfect CSS grid.
-	const TILTS = [-1.4, 0.8, -0.5, 1.6, -1, 0.5, 1.2, -1.7, 0.9, -0.4, 1.5, -1.1];
+	const ORIENTATIONS = [
+		{ value: 0, label: 'Straight' },
+		{ value: 1, label: 'LBTQ' },
+	];
 
 	// Settles in a beat after mount, same arrival cue every screen in this
 	// flow uses, independent of whatever the WebGL background behind it is
@@ -16,39 +18,84 @@
 		requestAnimationFrame(() => requestAnimationFrame(() => (settled = true)));
 	});
 
+	// The sexual-orientation choice used to be its own screen (Housing's
+	// former "sex" step, before that -- a standalone SexOrientation screen).
+	// It's folded in here now: the country and orientation billboards share
+	// this one scene, with the WebGL background turning 180° between them
+	// instead of a hard screen cut -- "walking to the other side of the
+	// street" rather than "next screen."
+	let country = $state(null);
+	let turned = $state(false);
+	let orientation = $state(null);
 	let flying = $state(false);
-	let chosen = $state(null);
 
-	function choose(code) {
-		if (flying) return;
-		chosen = code;
+	function chooseCountry(code) {
+		if (country) return;
+		country = code;
+		turned = true;
+	}
+
+	// Ported verbatim from Housing.svelte's drawTalentsSilently -- the
+	// lucky-charm draw has always happened immediately after the orientation
+	// choice, just silently (no dedicated UI), so it moves here with it.
+	function drawTalents() {
+		const listTalents = core.talentRandom();
+		const selected = new Set();
+		while (selected.size < 3) {
+			const id = Math.floor(Math.random() * 10);
+			if (selected.has(5) && id == 7) continue;
+			if (selected.has(7) && id == 5) continue;
+			if (!selected.has(id)) selected.add(id);
+		}
+		return [...selected].map(index => listTalents[index]);
+	}
+
+	function chooseOrientation(LBTQ) {
+		if (!turned || flying) return;
+		orientation = LBTQ;
 		flying = true;
-		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === code ? 1 : 0]));
-		setTimeout(() => goToScreen('HOUSING', nationality), 2400);
+		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === country ? 1 : 0]));
+		const talents = drawTalents();
+		setTimeout(() => goToScreen('HOUSING', { ...nationality, LBTQ, talents }), 2400);
 	}
 </script>
 
-<PlazaCityBackground {flying} />
+<PlazaCityBackground {flying} {turned} />
 
-<div class="content" class:hidden={flying} class:entering={!settled}>
+<!-- Country selection renders straight onto the retro TV's screen (see
+     PlazaCityBackground.svelte for the 3D prop) instead of a floating sign --
+     positioned/sized to line up with the screen glass at this scene's fixed
+     camera framing, phosphor-green CRT terminal styling instead of the
+     cyberpunk neon board look. -->
+<div class="crt-screen" class:hidden={turned || flying} class:entering={!settled}>
+	<div class="scanlines" aria-hidden="true"></div>
+	<div class="crt-glow" aria-hidden="true"></div>
+	<h2 class="crt-prompt">&gt; SELECT COUNTRY OF BIRTH_</h2>
+	<div class="crt-grid">
+		{#each COUNTRIES as { code, name } (code)}
+			<button type="button" class="crt-item" class:chosen={country === code} onclick={() => chooseCountry(code)}>
+				[{name}]
+			</button>
+		{/each}
+	</div>
+</div>
+
+<!-- No second TV on the far side of the street -- same green/Courier CRT
+     language carried over (per the standing "keep the styles consistent"
+     rule from Plaza's orientation step), just back to a standalone panel
+     since there's no screen prop to align to over there. -->
+<div class="content" class:hidden={!turned || flying}>
 	<div class="billboard">
-		<div class="lamps" aria-hidden="true">
-			<span class="lamp" style="left:18%"></span>
-			<span class="lamp" style="left:50%"></span>
-			<span class="lamp" style="left:82%"></span>
-		</div>
-		<div class="billboard-edge"></div>
-		<h2 class="prompt">Which country would you choose to be born in?</h2>
-		<div class="board">
-			{#each COUNTRIES as { code, name }, i (code)}
+		<h2 class="crt-prompt">&gt; SELECT ORIENTATION_</h2>
+		<div class="crt-grid orientation-grid">
+			{#each ORIENTATIONS as { value, label } (value)}
 				<button
 					type="button"
-					class="country"
-					class:chosen={chosen === code}
-					style="--tilt:{TILTS[i % TILTS.length]}deg"
-					onclick={() => choose(code)}
+					class="crt-item"
+					class:chosen={orientation === value}
+					onclick={() => chooseOrientation(value)}
 				>
-					{name}
+					[{label}]
 				</button>
 			{/each}
 		</div>
@@ -56,6 +103,110 @@
 </div>
 
 <style>
+	/* Phosphor-green CRT terminal look, shared by both the TV screen overlay
+	   and the standalone orientation panel. */
+	:global(.crt-screen),
+	:global(.billboard) {
+		font-family: 'Courier New', Courier, monospace;
+	}
+
+	.crt-screen {
+		position: fixed;
+		left: 13.5%;
+		top: 10.5%;
+		width: 57%;
+		height: 43%;
+		padding: 3% 4%;
+		background: radial-gradient(ellipse 90% 80% at 50% 40%, #0c1c0c 0%, #050a05 100%);
+		color: #39ff6a;
+		overflow: hidden;
+		box-shadow: inset 0 0 3vw rgba(0, 0, 0, 0.85);
+		transition: opacity 500ms ease;
+	}
+	.crt-screen.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+	.crt-screen.entering {
+		opacity: 0;
+	}
+
+	/* classic scanline texture, plus a soft central glow to sell "lit CRT
+	   glass" rather than a flat green rectangle */
+	.scanlines {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.35) 0px,
+			rgba(0, 0, 0, 0.35) 1px,
+			transparent 2px,
+			transparent 3px
+		);
+		mix-blend-mode: multiply;
+	}
+	.crt-glow {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(57, 255, 106, 0.14), transparent 70%);
+	}
+
+	.crt-prompt {
+		position: relative;
+		font-size: 1rem;
+		margin: 0 0 0.6rem;
+		text-align: left;
+		letter-spacing: 0.03em;
+		text-shadow:
+			0 0 4px rgba(57, 255, 106, 0.95),
+			0 0 14px rgba(57, 255, 106, 0.6);
+	}
+	.crt-grid {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.3em 0.5em;
+	}
+	.orientation-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.6em;
+		max-width: 22rem;
+	}
+
+	.crt-item {
+		border: none;
+		background: none;
+		color: #39ff6a;
+		font-family: inherit;
+		font-size: 0.72rem;
+		text-align: left;
+		padding: 0.2em 0.1em;
+		cursor: pointer;
+		text-shadow: 0 0 5px rgba(57, 255, 106, 0.75);
+		transition: color 120ms ease, text-shadow 120ms ease;
+	}
+	.crt-item:hover {
+		color: #baffc9;
+		text-shadow:
+			0 0 6px rgba(186, 255, 201, 0.95),
+			0 0 16px rgba(57, 255, 106, 0.8);
+	}
+	.crt-item.chosen {
+		color: #fff;
+		text-shadow:
+			0 0 8px #fff,
+			0 0 20px rgba(57, 255, 106, 1);
+	}
+	.orientation-grid .crt-item {
+		font-size: 1.1rem;
+		padding: 0.5em 0.2em;
+	}
+
+	/* the standalone orientation panel -- same green/Courier language, plain
+	   dark glass instead of a screen-aligned overlay since there's no TV
+	   prop on this side of the street. */
 	.content {
 		min-height: 100dvh;
 		display: flex;
@@ -64,164 +215,23 @@
 		justify-content: flex-end;
 		padding: 2rem 1.25rem 3rem;
 		transition: opacity 600ms ease;
-		perspective: 1400px;
 	}
 	.content.hidden {
 		opacity: 0;
 		pointer-events: none;
 	}
-	/* the billboard's own leg of the far-to-near arrival -- pulled back and
-	   faded so it grows into place alongside the buildings behind it rather
-	   than appearing instantly at full size. */
-	.content > .billboard {
-		transition: opacity 1400ms ease, transform 1800ms cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	.content.entering > .billboard {
-		opacity: 0;
-		transform: rotateX(6deg) rotateY(-11deg) scale(0.6) translateY(6%);
-	}
-
-	/* the board itself: a dark tech panel standing in the alley, low in the
-	   frame and viewed at a genuine angle (rotateY, not just tilted back).
-	   Cyan edge-lighting instead of the old warm-wood/amber treatment --
-	   this screen's background is now a real photographed alley (see
-	   PlazaCityBackground.svelte), and the neon-sign look integrates with
-	   that a lot better than a lamplit noticeboard would. */
 	.billboard {
-		position: relative;
 		width: 100%;
 		max-width: 23rem;
-		padding: 1.3rem 1.05rem 1.9rem;
-		background:
-			radial-gradient(ellipse 90% 55% at 50% -8%, rgba(0, 232, 255, 0.14), transparent 65%),
-			linear-gradient(155deg, #1a1030 0%, #100a22 55%, #050308 100%);
-		border: 2px solid rgba(0, 232, 255, 0.55);
+		padding: 1.3rem 1.4rem 1.6rem;
+		background: radial-gradient(ellipse 90% 80% at 50% 20%, #0c1c0c 0%, #050a05 100%);
+		border: 2px solid rgba(57, 255, 106, 0.55);
 		border-radius: 0.4rem;
 		box-shadow:
-			inset 0 0 0 1px rgba(0, 232, 255, 0.12),
+			inset 0 0 0 1px rgba(57, 255, 106, 0.12),
 			inset 0 3px 20px rgba(0, 0, 0, 0.7),
-			0 0 2px rgba(0, 232, 255, 0.8),
-			0 0 34px rgba(0, 232, 255, 0.3),
-			0 0 70px rgba(255, 0, 200, 0.18),
+			0 0 2px rgba(57, 255, 106, 0.8),
+			0 0 34px rgba(57, 255, 106, 0.3),
 			0 40px 45px -15px rgba(0, 0, 0, 0.75);
-		transform: rotateX(6deg) rotateY(-11deg);
-		transform-origin: center right;
-	}
-
-	/* a slim neon tube above the board instead of practical spotlights --
-	   alternating cyan/magenta, the classic two-tone cyberpunk sign cue */
-	.lamps {
-		position: absolute;
-		top: -1.1rem;
-		left: 6%;
-		right: 6%;
-		height: 0.3rem;
-		pointer-events: none;
-		border-radius: 999px;
-		background: linear-gradient(90deg, #00e8ff 0%, #00e8ff 45%, #ff2fd0 55%, #ff2fd0 100%);
-		box-shadow:
-			0 0 8px 2px rgba(0, 232, 255, 0.8),
-			0 0 22px 6px rgba(255, 47, 208, 0.45);
-	}
-	.lamp {
-		display: none;
-	}
-
-	/* the board's visible side thickness, revealed by the tilt */
-	.billboard-edge {
-		position: absolute;
-		left: 4px;
-		right: 4px;
-		bottom: -13px;
-		height: 13px;
-		background: linear-gradient(180deg, #0a0614, #020103);
-		border-radius: 0 0 4px 4px;
-		box-shadow: inset 0 1px 0 rgba(0, 232, 255, 0.25);
-	}
-	/* support legs planting the board in the ground */
-	.billboard::before,
-	.billboard::after {
-		content: '';
-		position: absolute;
-		bottom: -2.3rem;
-		width: 0.75rem;
-		height: 2.5rem;
-		background: linear-gradient(180deg, #0d0818, #020103);
-		border-radius: 0 0 3px 3px;
-		box-shadow: 0 8px 14px rgba(0, 0, 0, 0.55);
-	}
-	.billboard::before {
-		left: 16%;
-	}
-	.billboard::after {
-		right: 16%;
-	}
-
-	.prompt {
-		font-size: 1.05rem;
-		margin: 0 0 0.85rem;
-		text-align: center;
-		color: #d9faff;
-		text-shadow:
-			0 0 6px rgba(0, 232, 255, 0.9),
-			0 0 22px rgba(0, 232, 255, 0.5);
-	}
-	.board {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 0.45rem 0.4rem;
-	}
-
-	/* each country is its own small neon-edged plaque, pinned at a slight
-	   angle -- dark glass rather than the old warm wood plaque */
-	.country {
-		position: relative;
-		border: 1px solid rgba(0, 232, 255, 0.35);
-		border-radius: 0.35rem;
-		background: linear-gradient(155deg, #171025, #0a0714);
-		color: #d9faff;
-		font-family: inherit;
-		font-size: 0.8rem;
-		padding: 0.6em 0.35em;
-		cursor: pointer;
-		transform: rotate(var(--tilt, 0deg));
-		box-shadow:
-			0 5px 8px rgba(0, 0, 0, 0.5),
-			inset 0 1px 0 rgba(0, 232, 255, 0.08),
-			0 0 10px rgba(0, 232, 255, 0.12);
-		transition: background 150ms ease, border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
-	}
-	.country::before {
-		content: '';
-		position: absolute;
-		top: 0.3rem;
-		left: 50%;
-		width: 0.35rem;
-		height: 0.35rem;
-		border-radius: 50%;
-		background: radial-gradient(circle at 35% 35%, #baf9ff, #00c3dd);
-		transform: translateX(-50%);
-		box-shadow: 0 0 5px 1px rgba(0, 232, 255, 0.7);
-	}
-	.country:hover {
-		background: linear-gradient(155deg, #3a1240, #1c0a24);
-		border-color: rgba(255, 47, 208, 0.75);
-		transform: rotate(0deg) scale(1.05);
-		box-shadow:
-			0 8px 14px rgba(0, 0, 0, 0.55),
-			inset 0 1px 0 rgba(255, 47, 208, 0.15),
-			0 0 18px rgba(255, 47, 208, 0.45);
-	}
-	.country.chosen {
-		background: linear-gradient(155deg, #3a1240, #1c0a24);
-		border-color: rgba(255, 47, 208, 0.75);
-		transform: rotate(0deg) scale(1.05);
-		box-shadow:
-			0 8px 14px rgba(0, 0, 0, 0.55),
-			inset 0 1px 0 rgba(255, 47, 208, 0.15),
-			0 0 18px rgba(255, 47, 208, 0.45);
-	}
-	.country:active {
-		transform: rotate(0deg) scale(0.98);
 	}
 </style>
