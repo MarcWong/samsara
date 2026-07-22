@@ -1,10 +1,8 @@
 name: Deploy dev branch to samsara_test
 
-# Paused: triggered manually only for now (workflow_dispatch), while the
-# repo is mid-restructure (old LayaAir app removed, web/ moved to root).
-# Switch back to `push: branches: [dev]` to resume automatic deploys once
-# that settles and SAMSARA_TEST_DEPLOY_KEY is confirmed working.
 on:
+  push:
+    branches: [dev]
   workflow_dispatch:
 
 jobs:
