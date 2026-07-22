@@ -29,6 +29,15 @@
 	let orientation = $state(null);
 	let flying = $state(false);
 
+	// The TV's screen glass is a tilted quad in screen space, not an
+	// axis-aligned rectangle -- PlazaCityBackground projects its four
+	// corners every time the camera/viewport changes and hands back a CSS
+	// `matrix3d` homography that warps a flat width x height div onto
+	// exactly those four points, so the country list actually sits flush
+	// on the glass (perspective included) instead of a rectangle merely
+	// overlapping its general area.
+	let quad = $state(null);
+
 	function chooseCountry(code) {
 		if (country) return;
 		country = code;
@@ -60,14 +69,19 @@
 	}
 </script>
 
-<PlazaCityBackground {flying} {turned} />
+<PlazaCityBackground {flying} {turned} onScreenQuad={q => (quad = q)} />
 
 <!-- Country selection renders straight onto the retro TV's screen (see
      PlazaCityBackground.svelte for the 3D prop) instead of a floating sign --
      positioned/sized to line up with the screen glass at this scene's fixed
      camera framing, phosphor-green CRT terminal styling instead of the
      cyberpunk neon board look. -->
-<div class="crt-screen" class:hidden={turned || flying} class:entering={!settled}>
+<div
+	class="crt-screen"
+	class:hidden={turned || flying || !quad}
+	class:entering={!settled}
+	style={quad ? `width: ${quad.width}px; height: ${quad.height}px; transform: ${quad.matrix3d};` : ''}
+>
 	<div class="scanlines" aria-hidden="true"></div>
 	<div class="crt-glow" aria-hidden="true"></div>
 	<h2 class="crt-prompt">&gt; SELECT COUNTRY OF BIRTH_</h2>
@@ -110,17 +124,25 @@
 		font-family: 'Courier New', Courier, monospace;
 	}
 
+	/* Position/size/transform all come from PlazaCityBackground's per-frame
+	   homography (see `quad` in the script block and its `style` binding
+	   above) -- this fixes the div at the viewport origin with its
+	   transform-origin pinned there too, so the matrix3d alone places it
+	   exactly on the TV's screen glass, tilt and all. A plain %/vh-based
+	   rect (tried first) could only ever approximate an axis-aligned box
+	   around the glass; once the TV itself was tilted for depth, the glass
+	   became a trapezoid in screen space that no untransformed rectangle
+	   can actually sit flush inside. */
 	.crt-screen {
 		position: fixed;
-		left: 13.5%;
-		top: 10.5%;
-		width: 57%;
-		height: 43%;
-		padding: 3% 4%;
+		left: 0;
+		top: 0;
+		transform-origin: 0 0;
+		padding: 2.5% 3.5%;
 		background: radial-gradient(ellipse 90% 80% at 50% 40%, #0c1c0c 0%, #050a05 100%);
 		color: #39ff6a;
 		overflow: hidden;
-		box-shadow: inset 0 0 3vw rgba(0, 0, 0, 0.85);
+		box-shadow: inset 0 0 2vh rgba(0, 0, 0, 0.85);
 		transition: opacity 500ms ease;
 	}
 	.crt-screen.hidden {
@@ -159,15 +181,29 @@
 		margin: 0 0 0.6rem;
 		text-align: left;
 		letter-spacing: 0.03em;
+		white-space: nowrap;
 		text-shadow:
 			0 0 4px rgba(57, 255, 106, 0.95),
 			0 0 14px rgba(57, 255, 106, 0.6);
+	}
+	/* The TV screen's own glass is much smaller than the standalone
+	   orientation billboard on the far side of the street, so its prompt
+	   and 3x4 country grid need to run noticeably smaller/tighter to fit
+	   without wrapping or clipping -- scoped here rather than shrinking
+	   .crt-prompt/.crt-item globally, which would also shrink the
+	   billboard's own roomier layout unnecessarily. */
+	.crt-screen .crt-prompt {
+		font-size: 0.62rem;
+		margin-bottom: 0.4em;
 	}
 	.crt-grid {
 		position: relative;
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.3em 0.5em;
+	}
+	.crt-screen .crt-grid {
+		gap: 0.15em 0.4em;
 	}
 	.orientation-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -186,6 +222,11 @@
 		cursor: pointer;
 		text-shadow: 0 0 5px rgba(57, 255, 106, 0.75);
 		transition: color 120ms ease, text-shadow 120ms ease;
+		white-space: nowrap;
+	}
+	.crt-screen .crt-item {
+		font-size: 0.5rem;
+		padding: 0.1em 0.1em;
 	}
 	.crt-item:hover {
 		color: #baffc9;

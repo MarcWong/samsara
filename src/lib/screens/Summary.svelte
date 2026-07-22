@@ -20,7 +20,11 @@
 		return { label, value: data.value > 13 ? 13 : data.value, grade: data.grade };
 	});
 
-	const talents = $draft.talents ?? [];
+	// A drawn talent that never actually fired (its trigger count stays 0)
+	// means the trajectory ended -- almost always death -- before that
+	// talent's own age/condition was ever reached. Listing it under "Random
+	// Events" anyway would claim something happened that never did.
+	const talents = ($draft.talents ?? []).filter(talent => core.getTalentCurrentTriggerCount(talent.id) > 0);
 	const printText = $draft.printText ?? '';
 
 	function onAgain() {

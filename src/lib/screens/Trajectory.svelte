@@ -33,14 +33,24 @@
 	// total>=9 && max>7 stat-rebalance rule from this session's earlier work,
 	// carried over from the old trajectory.js (it lived in the UI layer, not
 	// src/modules/, so Phase 1's game-logic port didn't touch it).
+	//
+	// Low-starting-point countries (e.g. Afghanistan's 6) can never satisfy
+	// max>7 even if every point goes into one stat -- so the other four
+	// stats were left at a hard 0 with no rebalance ever kicking in. Added
+	// a second trigger: if every allocated point landed on a single stat
+	// (the rest are all 0), the same top-up applies regardless of the
+	// total/max thresholds above.
 	function initProperty(propertyAllocate) {
 		let max = 0;
+		let nonZeroCount = 0;
 		for (const key of STAT_KEYS) {
 			const t = types[key];
 			if (propertyAllocate[t] > max) max = propertyAllocate[t];
+			if (propertyAllocate[t] > 0) nonZeroCount++;
 		}
 		const total = STAT_KEYS.reduce((s, key) => s + propertyAllocate[types[key]], 0);
-		if (total >= 9 && max > 7) {
+		const allPointsInOneStat = total > 0 && nonZeroCount === 1;
+		if ((total >= 9 && max > 7) || allPointsInOneStat) {
 			for (const key of STAT_KEYS) {
 				const t = types[key];
 				if (propertyAllocate[t] < 8) {
