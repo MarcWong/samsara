@@ -53,35 +53,58 @@
 		align-items: center;
 		gap: 0.5rem;
 	}
+	/* Same "Liquid Glass" recipe as the shared Button component (blurred
+	   translucent glass, top highlight/bottom shadow for a convex-dome
+	   look, Courier + phosphor green) -- these +/- steppers are buttons
+	   too, and living right next to Button-driven controls elsewhere in
+	   this flow, they read as a mismatched leftover style otherwise. */
 	.step {
 		width: 2.5rem;
 		height: 2.5rem;
 		border-radius: 50%;
-		border: 2px solid var(--border);
-		background: transparent;
-		color: var(--text);
+		border: 1px solid rgba(238, 238, 238, 0.22);
+		background: linear-gradient(180deg, rgba(238, 238, 238, 0.16) 0%, rgba(57, 62, 70, 0.22) 100%);
+		color: #39ff6a;
+		font-family: 'Courier New', Courier, monospace;
 		font-size: 1.4rem;
+		font-weight: bold;
 		line-height: 1;
 		cursor: pointer;
+		-webkit-backdrop-filter: blur(14px) saturate(160%);
+		backdrop-filter: blur(14px) saturate(160%);
+		text-shadow:
+			0 0 4px rgba(57, 255, 106, 0.85),
+			0 0 10px rgba(57, 255, 106, 0.45);
+		box-shadow:
+			0 4px 10px rgba(0, 0, 0, 0.3),
+			inset 0 1px 1px rgba(255, 255, 255, 0.35),
+			inset 0 -5px 8px rgba(0, 0, 0, 0.22);
+		transition: background 150ms ease, box-shadow 150ms ease, transform 100ms ease;
+	}
+	.step:active:not(:disabled) {
+		transform: scale(0.94);
 	}
 	.step:disabled {
 		opacity: 0.3;
 		cursor: default;
 	}
 	.step:not(:disabled):hover {
-		background: var(--accent);
-		border-color: var(--accent);
+		background: linear-gradient(180deg, rgba(57, 255, 106, 0.22) 0%, rgba(57, 62, 70, 0.3) 100%);
 	}
 	.value {
 		width: 3.5rem;
 		text-align: center;
-		font-family: inherit;
+		font-family: 'Courier New', Courier, monospace;
 		font-size: 1.4rem;
-		background: var(--bg-raised);
-		color: var(--text);
-		border: none;
+		font-weight: bold;
+		background: rgba(57, 62, 70, 0.55);
+		color: #39ff6a;
+		text-shadow: 0 0 4px rgba(57, 255, 106, 0.7);
+		border: 1px solid rgba(238, 238, 238, 0.16);
 		border-radius: 0.5rem;
 		padding: 0.4em 0;
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
 	}
 	.value::-webkit-inner-spin-button,
 	.value::-webkit-outer-spin-button {

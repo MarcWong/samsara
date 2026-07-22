@@ -15,19 +15,18 @@
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
-	// `turned`: once the country is chosen, the camera yaws 180° to face the
-	// other side of the alley, where the orientation billboard "stands" --
-	// same photographed skybox, just looking the other way, so it reads as
-	// walking to the opposite side of the street rather than a scene cut.
 	// `onScreenQuad`: fires with the TV screen glass's own projected corners
 	// (as a CSS matrix3d + reference size) any time the camera/viewport
-	// changes, so Plaza.svelte can warp the country-select overlay to sit
+	// changes, so Plaza.svelte can warp its DOS-window overlays to sit
 	// flush on the glass instead of drifting off it once the TV is tilted.
-	let { flying = false, turned = false, onScreenQuad = null } = $props();
+	// The camera itself is otherwise completely static now -- country,
+	// orientation, and property allocation all play out as different
+	// window content on this one same screen, never a scene/view change.
+	let { flying = false, onScreenQuad = null } = $props();
 
 	let canvasEl;
 	let containerEl;
-	let renderer, scene, camera, raf, resizeObserver;
+	let renderer, scene, camera, resizeObserver;
 	let destroyed = false;
 
 	// The screen glass's four corners, as fractions of the TV model's own
@@ -142,40 +141,6 @@
 			width: QUAD_REF_W,
 			height: QUAD_REF_H,
 		});
-	}
-
-	const TURN_DURATION = 2000;
-	const TURN_TARGET = Math.PI;
-	let turnActive = false;
-	let turnStartAngle = 0;
-	let turnStartTime = 0;
-
-	function easeInOutQuad(t) {
-		return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-	}
-
-	$effect(() => {
-		if (turned && camera && !turnActive) {
-			turnActive = true;
-			turnStartAngle = camera.rotation.y;
-			turnStartTime = performance.now();
-			if (!raf) raf = requestAnimationFrame(turnFrame);
-		}
-	});
-
-	function turnFrame(now) {
-		if (destroyed) return;
-		if (turnActive) {
-			const t = Math.min((now - turnStartTime) / TURN_DURATION, 1);
-			camera.rotation.y = turnStartAngle + (TURN_TARGET - turnStartAngle) * easeInOutQuad(t);
-			render();
-			if (t >= 1) {
-				turnActive = false;
-				raf = null;
-				return;
-			}
-		}
-		raf = requestAnimationFrame(turnFrame);
 	}
 
 	function disposeMaterial(material) {
@@ -312,13 +277,7 @@
 
 				// Same measure-after-load approach as every other prop this
 				// session -- scale relative to the alley's own measured
-				// radius rather than a guessed absolute number, then park it
-				// close in front of the camera at a size that reads as an
-				// actual TV sitting in the alley, not a monument. Shrunk
-				// from an earlier 0.046 -- confirmed live at a wide desktop
-				// viewport that the old size filled most of the frame,
-				// overflowing the crt-screen DOM overlay well past the
-				// screen glass in every direction.
+				// radius rather than a guessed absolute number.
 				const tvBox = new THREE.Box3().setFromObject(tvFbx);
 				const tvSize = tvBox.getSize(new THREE.Vector3());
 				// Captured *before* scale is applied -- this is genuine
@@ -328,34 +287,44 @@
 				// already-scaled coordinates would double the scale).
 				tvBoxMin = tvBox.min.clone();
 				tvBoxSize = tvSize.clone();
-				// Shrunk again (0.046 -> 0.036 -> 0.028) -- confirmed live
-				// this still reads clearly as a TV, not a doll's-house
-				// miniature, while leaving real headroom between it and the
-				// alley around it.
-				const targetHeight = alleyRadius * 0.028;
+				// Reworked into a full-screen close-up on the glass itself,
+				// per explicit request, rather than a TV sitting at a
+				// middle distance in the alley: at that middle distance the
+				// object read as floating (no floor/stand/context ever
+				// entered frame to ground it) and the screen was too small
+				// for a comfortable, larger country-list font. Framing this
+				// tight instead means only the screen and a thin margin of
+				// its own bezel are ever in view -- nothing below the TV
+				// needs to be "explained" because the shot never shows it.
+				const targetHeight = alleyRadius * 0.078;
 				const tvScale = targetHeight / Math.max(tvSize.y, 0.001);
 				tvFbx.scale.multiplyScalar(tvScale);
 				tvBox.setFromObject(tvFbx);
 				const tvCenter = tvBox.getCenter(new THREE.Vector3());
+				// Centered on the TV's own middle, not its bottom edge --
+				// the camera here is fixed at eye-height (0,0,0) with no
+				// lookAt/tilt, so a bottom-anchored object (position.y -=
+				// tvBox.min.y, "stand it on the ground at y=0") puts its
+				// vertical center well *above* the camera once it's scaled
+				// up this much for a close-up, and the shot ends up looking
+				// up from underneath it at a patch of alley sky instead of
+				// square at the glass -- confirmed live. Centering keeps the
+				// screen in the middle of frame at any scale.
 				tvFbx.position.x -= tvCenter.x;
+				tvFbx.position.y -= tvCenter.y;
 				tvFbx.position.z -= tvCenter.z;
-				tvFbx.position.y -= tvBox.min.y;
 
 				// Camera looks down -Z by default (no lookAt call on this
-				// camera) -- straight ahead, at eye height, close enough to
-				// read as sitting right in front of the viewer. The model's
-				// own front (screen side) doesn't face its own -Z by default
-				// (confirmed live: first pass showed its side profile), so
-				// it needs a yaw to face the camera -- offset a further ~18°
-				// off dead-on (rather than the exact -90° that squares it up
-				// flat to the lens) so it reads as a TV standing at an angle
-				// in the alley, with real depth to its housing, instead of a
-				// flat billboard. Nudged left and further back to compose
-				// off-center now that it isn't spanning the whole frame.
+				// camera). The model's own front (screen side) doesn't face
+				// its own -Z by default (confirmed live: first pass showed
+				// its side profile), so it needs a yaw to face the camera --
+				// kept at the same ~18° off dead-on as before (not squared
+				// up flat to the lens) so the housing still shows real
+				// depth/perspective at this much closer distance, rather
+				// than reading as a flat poster even in close-up.
 				tvFbx.rotation.y = -Math.PI / 2 + 0.32;
-				tvFbx.position.y -= alleyRadius * 0.01;
 				tvFbx.position.x -= alleyRadius * 0.01;
-				tvFbx.position.z -= alleyRadius * 0.048;
+				tvFbx.position.z -= alleyRadius * 0.1;
 				scene.add(tvFbx);
 				tvMesh = tvFbx;
 				updateScreenQuad();
@@ -370,7 +339,6 @@
 
 	onDestroy(() => {
 		destroyed = true;
-		if (raf) cancelAnimationFrame(raf);
 		resizeObserver?.disconnect();
 		scene?.traverse(node => {
 			if (node.isMesh) {

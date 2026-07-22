@@ -1,6 +1,7 @@
 <script>
 	import CitySkyboxBackground from '../components/parallax/CitySkyboxBackground.svelte';
 	import WindText from '../components/parallax/WindText.svelte';
+	import Button from '../components/Button.svelte';
 	import { goToScreen } from '../stores.js';
 
 	let flying = $state(false);
@@ -18,7 +19,7 @@
 
 <div class="content" class:hidden={flying}>
 	<h1 class="title">♀Samsara</h1>
-	<button type="button" class="start" onclick={start}>Start</button>
+	<Button onclick={start}>Start</Button>
 </div>
 
 <style>
@@ -40,22 +41,5 @@
 		font-size: clamp(2.5rem, 7vw, 4rem);
 		margin: 0;
 		text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
-	}
-	.start {
-		border: none;
-		border-radius: 999px;
-		padding: 0.9em 2.5em;
-		font-size: 1.5rem;
-		font-family: inherit;
-		background: var(--accent);
-		color: #fff;
-		cursor: pointer;
-		transition: background 150ms ease, transform 100ms ease;
-	}
-	.start:hover {
-		background: var(--accent-hover);
-	}
-	.start:active {
-		transform: scale(0.97);
 	}
 </style>
