@@ -34,8 +34,12 @@
 	// window content on this one same TV screen, in this one same camera
 	// shot, with no turn and no scene cut at all -- `step` just picks which
 	// window is showing.
-	let step = $state('country');
-	let country = $state(null);
+	// The country is now normally chosen on the intro's morgue-wall frame
+	// (CityIntro passes it in as draft.countryCode), so this screen starts
+	// straight at the orientation window; its own country list remains only
+	// as a fallback for a draft without one.
+	let step = $state($draft.countryCode ? 'orientation' : 'country');
+	let country = $state($draft.countryCode ?? null);
 	let orientation = $state(null);
 	let talents = [];
 	let flying = $state(false);

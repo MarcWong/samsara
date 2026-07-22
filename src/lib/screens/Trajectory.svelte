@@ -251,6 +251,14 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
+		/* Shared by .log and .log-scrim so the two stay pixel-aligned --
+		   narrower than before (was min(52rem, 68vw)): that width read fine
+		   at a normal window but produced single huge-run-on-line entries
+		   on a wide desktop monitor, and pushed close enough to the right
+		   statbar/climb column to risk covering the stairs on some sizes. */
+		--log-width: min(32rem, 42vw);
+		--log-right: 4.5rem;
+		--log-max-height: 46dvh;
 	}
 	/* Fixed height (not just min-height): flex-wrap is off and every stat
 	   column always reserves the same delta-row height (see .stat-delta
@@ -314,21 +322,30 @@
 	   scrolled-past entries dissolve rather than get clipped, leaving the
 	   3D climb visible everywhere else. Scrollbar hidden (still scrolls,
 	   just no visible track/thumb) since this now auto-advances rather
-	   than being a manually-scrolled reading pane. */
+	   than being a manually-scrolled reading pane.
+
+	   The mask's own top stop floors at 85% opacity rather than fully
+	   transparent -- a separate solid scrim layered behind .log to darken
+	   this fade band was tried first, but it rendered as its own visible
+	   translucent box (worse than the problem it fixed). Raising the
+	   floor keeps entries readably "dissolving" as they scroll past
+	   without ever going fully see-through, so the bright neon shaft-light
+	   behind the climb can't shine through at full strength either --
+	   solved directly in the existing mask, no extra layer needed. */
 	.log {
 		position: fixed;
 		top: 50%;
-		right: 4.5rem;
+		right: var(--log-right);
 		transform: translateY(-50%);
-		width: min(52rem, 68vw);
-		max-height: 46dvh;
+		width: var(--log-width);
+		max-height: var(--log-max-height);
 		overflow-y: auto;
 		padding: 1.25rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 20%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 20%, black 100%);
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 	}

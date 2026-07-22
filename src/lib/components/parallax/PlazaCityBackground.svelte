@@ -204,7 +204,20 @@
 		resizeObserver.observe(containerEl);
 
 		const gltfLoader = new GLTFLoader();
-		const fbxLoader = new FBXLoader();
+		// The FBX bakes in texture paths relative to the artist's export
+		// folder ("source/..."); FBXLoader requests them eagerly while
+		// parsing, before the material override below ever runs, so they
+		// 404 on every load. A URL modifier swaps those requests for an
+		// inline blank pixel -- the real textures are loaded separately and
+		// wired into fresh materials anyway. (Same fix as the old
+		// skysphere/MountainLake 404.)
+		const BLANK_PIXEL =
+			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+		const fbxManager = new THREE.LoadingManager();
+		fbxManager.setURLModifier(url =>
+			url.includes('/low-poly-80s-computer-v3/source/') && !url.endsWith('.fbx') ? BLANK_PIXEL : url,
+		);
+		const fbxLoader = new FBXLoader(fbxManager);
 		const textureLoader = new THREE.TextureLoader();
 
 		Promise.all([
