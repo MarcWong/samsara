@@ -11,10 +11,15 @@
 	import { base } from '$app/paths';
 	import { webCodecsSupported, loadMp4, CanvasVideoPlayer } from '../videoPlayer.js';
 
-	// Fires the instant the clip ends and the spin starts -- Trajectory uses
-	// this to hold its statbar/log hidden until then, instead of them
-	// appearing over top of 5.mp4 while it's still mid-playback.
-	let { onSpin = null } = $props();
+	// onSpin fires the instant the clip ends and its last frame freezes --
+	// Trajectory uses this to hold its statbar/log hidden until then. The
+	// actual rotation is controlled separately by the `spin` prop (not
+	// self-triggered on end): Trajectory shows its stat-allocation panel
+	// over the freshly-frozen (but still motionless) frame first, and only
+	// sets `spin` once that's confirmed -- rotating the frame out from
+	// under a panel the player is still using would drift the sky
+	// highlight area the panel is anchored to right out from under it.
+	let { onSpin = null, spin = false } = $props();
 
 	const supported = webCodecsSupported();
 
@@ -25,15 +30,6 @@
 	let resizeObserver;
 	let player = null;
 	let destroyed = false;
-
-	// Rotation only starts once the clip has actually ended and its last
-	// frame is frozen -- while it's still playing, the frame stays put.
-	let spinning = $state(false);
-
-	function startSpinning() {
-		spinning = true;
-		onSpin?.();
-	}
 
 	onMount(() => {
 		if (!supported) return; // fallback <video> drives itself via markup
@@ -53,13 +49,12 @@
 			try {
 				const media = await loadMp4(`${base}/videos/5.mp4`);
 				if (destroyed) return;
-				player.play(media, { loop: false, onEnded: startSpinning });
+				player.play(media, { loop: false, onEnded: () => onSpin?.() });
 			} catch (err) {
-				// A missing/broken clip shouldn't leave the screen frozen on
-				// nothing -- start the (empty) spin state regardless so the
-				// rest of the scene still behaves.
+				// A missing/broken clip shouldn't leave the screen stuck with
+				// no signal to the rest of the scene -- notify regardless.
 				console.error('[StairwellBackground] video failed', err);
-				startSpinning();
+				onSpin?.();
 			}
 		})();
 
@@ -90,7 +85,7 @@
 
 <div class="bg-outer">
 	<div class="center" bind:this={stageEl}>
-		<div class="spin" class:spinning>
+		<div class="spin" class:spinning={spin}>
 			{#if supported}
 				<canvas bind:this={canvasEl}></canvas>
 			{:else}
@@ -100,7 +95,7 @@
 					src="{base}/videos/5.mp4"
 					autoplay
 					playsinline
-					onended={startSpinning}
+					onended={() => onSpin?.()}
 				></video>
 			{/if}
 		</div>

@@ -61,27 +61,65 @@
 		return propertyAllocate;
 	}
 
-	function countryName(property) {
-		return COUNTRIES.find(({ code }) => property[code] == 1)?.name;
+	// Country/orientation arrive as plain draft fields now (Plaza no longer
+	// resolves them into a full propertyAllocate object itself -- stat
+	// allocation happens here instead, once 5.mp4 ends, so the country's
+	// point budget and the "initial -> final" rebalance can't be computed
+	// until that allocation is actually made).
+	const talents = $draft.talents;
+	const countryCode = $draft.countryCode;
+	const countryData = COUNTRIES.find(({ code }) => code === countryCode);
+	const country = countryData?.name;
+	const sex = $draft.orientation == 1 ? 'LBTQ' : 'Straight';
+
+	// -- stat allocation (ported verbatim from Plaza's old property step,
+	// now shown over the stairwell's frozen sky highlight instead of a DOS
+	// popup -- see `allocating` below) --
+	const [allocMin, allocMax] = core.propertyAllocateLimit;
+	const propertyPoints = core.getPropertyPoints(countryData?.points);
+	const ALLOC_ROWS = STAT_KEYS.map(key => ({ type: types[key], label: STAT_LABELS[key] }));
+	let allocate = $state({ [types.CHR]: 0, [types.INT]: 0, [types.STR]: 0, [types.MNY]: 0, [types.SPR]: 0 });
+	let allocTotal = $derived(
+		allocate[types.CHR] + allocate[types.INT] + allocate[types.STR] + allocate[types.MNY] + allocate[types.SPR]
+	);
+	let allocLeft = $derived(propertyPoints - allocTotal);
+
+	function clampAlloc(type, rawValue) {
+		let value = Math.trunc(rawValue) || 0;
+		value = Math.max(allocMin, Math.min(allocMax, value));
+		const otherTotal = allocTotal - allocate[type];
+		value = Math.min(value, propertyPoints - otherTotal);
+		return Math.max(value, allocMin);
+	}
+	function adjustStat(type, delta) {
+		allocate = { ...allocate, [type]: clampAlloc(type, allocate[type] + delta) };
+	}
+	function randomAllocate() {
+		let t = propertyPoints;
+		const arr = new Array(5).fill(allocMax);
+		while (t > 0) {
+			const sub = Math.round(Math.random() * (Math.min(t, allocMax) - 1)) + 1;
+			// eslint-disable-next-line no-constant-condition
+			while (true) {
+				const select = Math.floor(Math.random() * 5) % 5;
+				if (arr[select] - sub < 0) continue;
+				arr[select] -= sub;
+				t -= sub;
+				break;
+			}
+		}
+		allocate = {
+			[types.CHR]: allocMax - arr[0],
+			[types.INT]: allocMax - arr[1],
+			[types.STR]: allocMax - arr[2],
+			[types.MNY]: allocMax - arr[3],
+			[types.SPR]: allocMax - arr[4],
+		};
 	}
 
-	const propertyAllocate = initProperty({ ...$draft.propertyAllocate });
-	const talents = $draft.talents;
-	const country = countryName(propertyAllocate);
-	const sex = propertyAllocate[types.LBTQ] == 1 ? 'LBTQ' : 'Straight';
-
-	let printText =
-		(country ? `Country: ${country}\n` : '') +
-		`Sex orientation: ${sex}\n` +
-		`Family wealth: ${propertyAllocate[types.MNY]}\n` +
-		`Appearance: ${propertyAllocate[types.CHR]}\n` +
-		`IQ: ${propertyAllocate[types.INT]}\n` +
-		`Healthy: ${propertyAllocate[types.STR]}\n` +
-		`EQ: ${propertyAllocate[types.SPR]}\n`;
-
-	core.start(propertyAllocate);
-
-	let stats = $state(core.propertys);
+	let propertyAllocate = null;
+	let printText = '';
+	let stats = $state(null);
 	let effects = $state({ CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 });
 	let entries = $state([]);
 	let isEnd = $state(false);
@@ -203,38 +241,113 @@
 		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial });
 	}
 
-	// Eyes-open arrival: Plaza blinks out to full black, the screen switch
-	// happens underneath, and this scene starts with the lids already shut,
-	// opening once. The overlay unmounts after the animation (1100ms run +
-	// a small margin) so it can't intercept anything afterwards.
-	let eyesOpening = $state(true);
-	onMount(() => {
-		const t = setTimeout(() => (eyesOpening = false), 1300);
-		return () => clearTimeout(t);
-	});
 	onDestroy(clearAutoTimer);
 
-	// The statbar/log used to start (and appear) the instant this screen
+	// Tracks the viewport so the stat-allocation panel can be pinned to
+	// 5.mp4's exact cover-fit rectangle (same formula CityIntro/Plaza use
+	// for their own door overlays) -- needed because that panel sits in
+	// the frame's sky highlight, not inside a fixed on-screen box.
+	const VIDEO_W = 1280;
+	const VIDEO_H = 720;
+	let cw = $state(0);
+	let ch = $state(0);
+	let overlayStyle = $derived.by(() => {
+		if (!cw || !ch) return 'display: none;';
+		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
+		const dw = VIDEO_W * s;
+		const dh = VIDEO_H * s;
+		return `left: ${(cw - dw) / 2}px; top: ${(ch - dh) / 2}px; width: ${dw}px; height: ${dh}px;`;
+	});
+	onMount(() => {
+		const resize = () => {
+			cw = window.innerWidth;
+			ch = window.innerHeight;
+		};
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
+	});
+
+	// The statbar/log/life-sim used to start the instant this screen
 	// mounted -- well before 5.mp4 (playing underneath, ~8.6s) had actually
 	// reached its last frame, so the UI was visibly floating over a scene
-	// still very much in motion. Held back now until StairwellBackground's
-	// own onSpin fires (the clip has ended and the frozen frame has begun
-	// its slow rotation): that's also the moment the life simulation itself
-	// starts (onNext was previously kicked off on mount instead), so no
-	// events silently accumulate off-screen while the UI is hidden.
+	// still very much in motion. Now: the clip ending (StairwellBackground's
+	// onSpin) reveals the stat-allocation panel instead, over the frame's
+	// sky highlight -- the frame itself stays motionless throughout (`spin`
+	// stays false) so the highlight doesn't drift out from under the panel
+	// mid-allocation. Only once allocation is confirmed does the frame
+	// start rotating and the life sim (onNext) actually begin.
+	let allocating = $state(false);
+	let spin = $state(false);
 	let started = $state(false);
 	function onSpin() {
+		allocating = true;
+	}
+
+	function confirmAllocation() {
+		if (allocLeft > 0) return;
+		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === countryCode ? 1 : 0]));
+		propertyAllocate = initProperty({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
+		printText =
+			(country ? `Country: ${country}\n` : '') +
+			`Sex orientation: ${sex}\n` +
+			`Family wealth: ${propertyAllocate[types.MNY]}\n` +
+			`Appearance: ${propertyAllocate[types.CHR]}\n` +
+			`IQ: ${propertyAllocate[types.INT]}\n` +
+			`Healthy: ${propertyAllocate[types.STR]}\n` +
+			`EQ: ${propertyAllocate[types.SPR]}\n`;
+		core.start(propertyAllocate);
+		stats = core.propertys;
+		allocating = false;
+		spin = true;
 		started = true;
 		onNext();
 	}
 </script>
 
-<StairwellBackground {onSpin} />
+<StairwellBackground {onSpin} {spin} />
 
-{#if eyesOpening}
-	<div class="eyes-open" aria-hidden="true">
-		<div class="lid lid-top"></div>
-		<div class="lid lid-bottom"></div>
+{#if allocating}
+	<!-- 5.mp4 has ended and its last frame is frozen (not yet spinning --
+	     see `spin` above); the stat-allocation panel sits in that frame's
+	     own sky highlight (the bright skylight shaft at the top of the
+	     stairwell), pinned to the video's cover-fit rectangle the same way
+	     CityIntro/Plaza pin their own door overlays. -->
+	<div class="corridor-overlay alloc-overlay" style={overlayStyle}>
+		<div class="alloc-panel" style="left: 50%; top: 24%;">
+			<p class="alloc-title">Allocate your attributes</p>
+			<p class="alloc-tokens">Tokens: {propertyPoints} &nbsp; Remaining: {allocLeft}</p>
+			<div class="alloc-stats">
+				{#each ALLOC_ROWS as { type, label } (type)}
+					<div class="alloc-row">
+						<span class="alloc-label">{label}</span>
+						<button
+							type="button"
+							class="alloc-step"
+							disabled={allocate[type] <= allocMin}
+							onclick={() => adjustStat(type, -1)}
+							aria-label="Decrease {label}"
+						>
+							−
+						</button>
+						<span class="alloc-value">{allocate[type]}</span>
+						<button
+							type="button"
+							class="alloc-step"
+							disabled={allocate[type] >= allocMax || allocLeft <= 0}
+							onclick={() => adjustStat(type, 1)}
+							aria-label="Increase {label}"
+						>
+							+
+						</button>
+					</div>
+				{/each}
+			</div>
+			<div class="alloc-actions">
+				<Button variant="ghost" onclick={randomAllocate}>Random</Button>
+				<Button onclick={confirmAllocation} disabled={allocLeft > 0}>Start</Button>
+			</div>
+		</div>
 	</div>
 {/if}
 
@@ -466,37 +579,135 @@
 		justify-content: center;
 	}
 
-	/* Eyes opening on arrival: the two black lids start shut (continuing
-	   Plaza's blink-out, which ended on full black) and slide off after a
-	   short hold. Mirrors Plaza's .lid styling; 52vh per lid overlaps the
-	   center so no seam shows while shut. */
-	.eyes-open {
+	/* Pinned to 5.mp4's own cover-fit rectangle (see overlayStyle in the
+	   script block), same technique CityIntro/Plaza use for their door
+	   overlays -- positions the panel in the frozen frame's sky highlight
+	   regardless of viewport shape. */
+	.corridor-overlay {
 		position: fixed;
+		animation: fade-in-overlay 500ms ease both;
+	}
+	@keyframes fade-in-overlay {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	/* "Liquid Glass" panel -- same recipe as Button.svelte's own pills
+	   (backdrop-blur + saturate, a soft white tint instead of an opaque
+	   fill, a gloss highlight, real depth via shadow), scaled up to a
+	   card. The old solid rgba(27,40,48,.88) panel read as a dark box
+	   pasted over a bright sky; this one instead lets that sky bleed
+	   through, blurred and brightened, so the panel reads as part of the
+	   light shaft rather than something dropped in front of it. Text
+	   flips to dark (the bright, blurred sky behind is the dominant tone
+	   here, not this screen's usual dark backdrop) for contrast. */
+	.alloc-panel {
+		position: relative;
+		overflow: hidden;
+		transform: translate(-50%, -50%);
+		width: min(80vw, 22rem);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(210, 228, 236, 0.16) 100%);
+		-webkit-backdrop-filter: blur(24px) saturate(180%);
+		backdrop-filter: blur(24px) saturate(180%);
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		border-radius: 1.5rem;
+		padding: 1.2rem 1.5rem;
+		color: #17262e;
+		text-align: center;
+		box-shadow:
+			0 14px 32px rgba(10, 20, 28, 0.22),
+			inset 0 1px 1px rgba(255, 255, 255, 0.75),
+			inset 0 -12px 18px rgba(20, 40, 55, 0.08);
+	}
+	/* Gloss cap, same trick as Button.svelte's ::before. */
+	.alloc-panel::before {
+		content: '';
+		position: absolute;
 		inset: 0;
-		z-index: 20;
+		border-radius: inherit;
+		background: radial-gradient(120% 80% at 50% -10%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.25) 40%, rgba(255, 255, 255, 0) 70%);
+		mix-blend-mode: screen;
 		pointer-events: none;
 	}
-	.lid {
-		position: absolute;
-		left: 0;
-		right: 0;
-		height: 52vh;
-		background: #000;
+	.alloc-title,
+	.alloc-tokens,
+	.alloc-stats,
+	.alloc-actions {
+		position: relative;
 	}
-	.lid-top {
-		top: 0;
-		animation: lid-top-open 1100ms ease-in-out forwards;
+	.alloc-title {
+		margin: 0 0 0.4rem;
+		font-size: 1.15rem;
+		font-weight: bold;
 	}
-	.lid-bottom {
-		bottom: 0;
-		animation: lid-bottom-open 1100ms ease-in-out forwards;
+	.alloc-tokens {
+		margin: 0 0 0.85rem;
+		font-size: 0.85rem;
+		color: #3c5563;
 	}
-	@keyframes lid-top-open {
-		0%, 25% { transform: translateY(0); }
-		100% { transform: translateY(-101%); }
+	.alloc-stats {
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+		margin-bottom: 1.1rem;
 	}
-	@keyframes lid-bottom-open {
-		0%, 25% { transform: translateY(0); }
-		100% { transform: translateY(101%); }
+	.alloc-row {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
 	}
+	.alloc-label {
+		flex: 1;
+		text-align: left;
+		font-size: 0.95rem;
+	}
+	.alloc-value {
+		width: 1.6em;
+		text-align: center;
+		font-size: 1.1rem;
+		font-weight: bold;
+	}
+	/* Mini liquid-glass pills, same recipe as .alloc-panel/Button.svelte
+	   scaled down to a circle: translucent white fill + blur (not the flat
+	   steel-blue tint used elsewhere), so these read as glass beads on the
+	   glass card rather than a differently-styled control bolted on. */
+	.alloc-step {
+		position: relative;
+		overflow: hidden;
+		width: 1.9em;
+		height: 1.9em;
+		line-height: 1;
+		border: 1px solid rgba(255, 255, 255, 0.6);
+		background: rgba(255, 255, 255, 0.28);
+		-webkit-backdrop-filter: blur(8px) saturate(180%);
+		backdrop-filter: blur(8px) saturate(180%);
+		color: #17262e;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 1rem;
+		padding: 0;
+		box-shadow:
+			0 2px 6px rgba(10, 20, 28, 0.18),
+			inset 0 1px 1px rgba(255, 255, 255, 0.85);
+		transition: background 150ms ease, transform 150ms ease;
+	}
+	.alloc-step:disabled {
+		opacity: 0.35;
+		cursor: default;
+	}
+	.alloc-step:not(:disabled):hover {
+		background: rgba(255, 255, 255, 0.42);
+	}
+	.alloc-step:not(:disabled):active {
+		transform: scale(0.92);
+	}
+	.alloc-actions {
+		display: flex;
+		gap: 0.75rem;
+		justify-content: center;
+	}
+
 </style>

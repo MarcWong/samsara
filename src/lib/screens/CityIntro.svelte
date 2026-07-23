@@ -404,7 +404,7 @@
 	}
 	.hint {
 		margin: 0;
-		font-size: 0.85rem;
+		font-size: 1rem;
 		letter-spacing: 0.12em;
 		color: rgba(255, 255, 255, 0.75);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
@@ -414,14 +414,16 @@
 	/* Same type treatment as .hint (family/tracking/color/shadow inherited,
 	   same breathing pulse) -- sits low, under 2.mp4's own baked-in text,
 	   rather than in .content's flex column (which is only laid out for
-	   the loop phase's title). */
+	   the loop phase's title). Sized a step above .hint (not just matching
+	   it): this is the second beat in the sequence, so it reads as a slight
+	   escalation rather than a repeat of the same prompt. */
 	.continue-hint {
 		position: absolute;
 		left: 50%;
 		bottom: 14%;
 		transform: translateX(-50%);
 		margin: 0;
-		font-size: 0.85rem;
+		font-size: 1.3rem;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
 		color: rgba(255, 255, 255, 0.75);
@@ -447,8 +449,15 @@
 		}
 	}
 	/* Same type family/tracking as .hint, one size up, engraved into a
-	   brushed silver-grey metal nameplate riveted to each door -- matching
-	   the small blank label plates the doors already carry. */
+	   nameplate riveted to each door -- matching the small blank label
+	   plates the doors already carry. Colors are sampled directly off
+	   those actual plates in 3.mp4's final frame (a cool steel blue-grey,
+	   not a neutral silver): body ~#7e95a2, its brightest bevel highlight
+	   ~#b0c9d6, its darkest bevel shadow ~#546b78, and the plate's own
+	   recessed interior reads as essentially the *same* tone as the door
+	   around it (just shadowed into a recess), not a contrasting light
+	   fill -- the previous near-white plate looked like a separate sticker
+	   glued on, rather than a cutout stamped into this same steel. */
 	/* Every plate is the same fixed size, sized to fit the longest country
 	   name ("Afghanistan" / "North Korea", both 11 characters) -- per the
 	   reference sketch, shorter names center within that same frame
@@ -467,17 +476,19 @@
 		   padding as a uniform outer bezel margin -- letting the label set
 		   the size (rather than fixing it here too and having the two
 		   paddings compound) is what was clipping "Afghanistan"/"North
-		   Korea" before. */
-		padding: 0.4em 0.45em;
+		   Korea" before. Tightened from 0.4em/0.45em -- the outer bezel
+		   read as oversized once the inner label itself was trimmed to fit
+		   the text exactly. */
+		padding: 0.22em 0.28em;
 		cursor: pointer;
 		font-family: inherit;
-		background: linear-gradient(180deg, #e2e5e8 0%, #b9bec3 45%, #9aa0a6 55%, #c7cbd0 100%);
-		border: 1px solid rgba(60, 65, 70, 0.55);
+		background: linear-gradient(180deg, #9bb0bc 0%, #7e95a2 50%, #6a8390 100%);
+		border: 1px solid rgba(34, 46, 54, 0.6);
 		border-radius: 3px;
 		box-shadow:
 			0 1px 3px rgba(0, 0, 0, 0.5),
-			inset 0 1px 0 rgba(255, 255, 255, 0.7),
-			inset 0 -1px 2px rgba(0, 0, 0, 0.25);
+			inset 0 1px 0 rgba(176, 201, 214, 0.8),
+			inset 0 -1px 2px rgba(20, 30, 38, 0.35);
 		transition: filter 150ms ease;
 	}
 	.cell:hover {
@@ -485,23 +496,30 @@
 	}
 	.cell-label {
 		display: block;
-		/* Sized to the longest name at this font/letter-spacing (measured
-		   live: "Afghanistan"/"North Korea" need ~14ch of box, not the 13ch
-		   originally guessed) with headroom, and no clipping (overflow
-		   visible) as a backstop even if a longer name is ever added. */
-		width: 15ch;
+		/* Sized to exactly fit the longest name at this font/letter-spacing
+		   ("Afghanistan"/"North Korea", both 11 characters -- measured
+		   live at ~14ch, no headroom beyond that), so the inner border
+		   hugs the text instead of leaving slack around it. overflow:
+		   visible stays as a backstop even if a longer name is ever added. */
+		width: 14ch;
 		text-align: center;
 		padding: 0.2em 0.3em;
 		font-size: 1rem;
 		letter-spacing: 0.12em;
 		white-space: nowrap;
 		overflow: visible;
-		color: #2e3338;
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
-		border: 1px solid rgba(50, 55, 60, 0.5);
+		color: #eef3f6;
+		text-shadow: 0 1px 1px rgba(10, 18, 24, 0.6);
+		border: 1px solid rgba(30, 42, 50, 0.55);
 		border-radius: 1px;
-		background: rgba(255, 255, 255, 0.15);
-		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+		background: #6a838f;
+		/* Bright rim at the top inner edge, dark shadow pooling at the
+		   bottom -- the recess's own light-from-above bevel, matching the
+		   real plates' bright-top/dark-bottom falloff instead of a flat
+		   inset darkening on every side. */
+		box-shadow:
+			inset 0 2px 3px rgba(15, 25, 32, 0.55),
+			inset 0 1px 1px rgba(176, 201, 214, 0.4);
 	}
 
 	/* "Painted on the floor": pitched back into the ground plane via a

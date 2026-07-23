@@ -5,26 +5,54 @@
 	import { core } from '../game/core.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
-	const types = core.PropertyTypes;
 	const ORIENTATIONS = [
 		{ value: 0, label: 'Straight' },
 		{ value: 1, label: 'LBTQ' },
 	];
-	const STATS = [
-		{ type: types.MNY, label: 'Wealth' },
-		{ type: types.CHR, label: 'Appearance' },
-		{ type: types.INT, label: 'IQ' },
-		{ type: types.STR, label: 'Health' },
-		{ type: types.SPR, label: 'EQ' },
-	];
-	const [allocMin, allocMax] = core.propertyAllocateLimit;
+
+	// Orientation selection now happens right on the corridor photo itself
+	// (4.mp4's final frame / corridor.jpg) instead of a DOS popup: the
+	// double doors' two crash-bar handles carry the two choices, and the
+	// prompt sits just below them. Same 1280x720 frame CityIntro's own door
+	// overlay uses; coordinates below are percentages of that frame,
+	// measured directly off the bars in corridor.jpg (left bar center
+	// ~x545/y392, right bar center ~x735/y392 out of 1280x720).
+	const VIDEO_W = 1280;
+	const VIDEO_H = 720;
+	const HANDLE_Y = 54.4;
+	const HANDLE_LEFT_X = 42.6;
+	const HANDLE_RIGHT_X = 57.4;
+	const PROMPT_Y = 64;
 
 	// Settles in a beat after mount, same arrival cue every screen in this
 	// flow uses, independent of whatever the WebGL background behind it is
 	// doing.
 	let settled = $state(false);
+
+	// Tracks the viewport so the orientation step's door-handle overlay can
+	// be pinned to corridor.jpg's exact cover-fit rectangle -- same formula
+	// CityIntro uses for its own door overlay, needed here because that
+	// step renders straight over the full-bleed corridor image instead of
+	// inside the fixed-aspect crt-screen panel.
+	let cw = $state(0);
+	let ch = $state(0);
+	let overlayStyle = $derived.by(() => {
+		if (!cw || !ch) return 'display: none;';
+		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
+		const dw = VIDEO_W * s;
+		const dh = VIDEO_H * s;
+		return `left: ${(cw - dw) / 2}px; top: ${(ch - dh) / 2}px; width: ${dw}px; height: ${dh}px;`;
+	});
+
 	onMount(() => {
 		requestAnimationFrame(() => requestAnimationFrame(() => (settled = true)));
+		const resize = () => {
+			cw = window.innerWidth;
+			ch = window.innerHeight;
+		};
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
 	});
 
 	// Country -> orientation -> property used to be three separate scenes
@@ -42,12 +70,6 @@
 	let country = $state($draft.countryCode ?? null);
 	let orientation = $state(null);
 	let talents = [];
-	let blinking = $state(false);
-
-	// Blink-out timing (see the lid keyframes below): two quick blinks, then
-	// the lids close for good -- the screen switch happens under full black,
-	// and Trajectory opens its own lids on mount ("eyes open" on the stairs).
-	const BLINK_TOTAL_MS = 2100;
 
 	function chooseCountry(code) {
 		if (step !== 'country') return;
@@ -97,47 +119,11 @@
 		return selected.map(index => listTalents[index]);
 	}
 
-	// -- property allocation (verbatim Property/Housing logic) --
-	let propertyPoints = $state(0);
-	let allocate = $state({ [types.CHR]: 0, [types.INT]: 0, [types.STR]: 0, [types.MNY]: 0, [types.SPR]: 0 });
-	let total = $derived(
-		allocate[types.CHR] + allocate[types.INT] + allocate[types.STR] + allocate[types.MNY] + allocate[types.SPR]
-	);
-	let left = $derived(propertyPoints - total);
-
-	function clamp(type, rawValue) {
-		let value = Math.trunc(rawValue) || 0;
-		value = Math.max(allocMin, Math.min(allocMax, value));
-		const otherTotal = total - allocate[type];
-		value = Math.min(value, propertyPoints - otherTotal);
-		return Math.max(value, allocMin);
-	}
-	function adjustStat(type, delta) {
-		allocate = { ...allocate, [type]: clamp(type, allocate[type] + delta) };
-	}
-	function randomAllocate() {
-		let t = propertyPoints;
-		const arr = new Array(5).fill(allocMax);
-		while (t > 0) {
-			const sub = Math.round(Math.random() * (Math.min(t, allocMax) - 1)) + 1;
-			// eslint-disable-next-line no-constant-condition
-			while (true) {
-				const select = Math.floor(Math.random() * 5) % 5;
-				if (arr[select] - sub < 0) continue;
-				arr[select] -= sub;
-				t -= sub;
-				break;
-			}
-		}
-		allocate = {
-			[types.CHR]: allocMax - arr[0],
-			[types.INT]: allocMax - arr[1],
-			[types.STR]: allocMax - arr[2],
-			[types.MNY]: allocMax - arr[3],
-			[types.SPR]: allocMax - arr[4],
-		};
-	}
-
+	// Stat allocation used to happen here too (a third DOS popup after
+	// orientation), but now happens in Trajectory instead, over the
+	// rotating stairwell frame's own sky highlight -- picking an
+	// orientation is the last thing this screen does; it goes straight to
+	// Trajectory (and 5.mp4) afterward, no transition animation.
 	function chooseOrientation(LBTQ) {
 		if (step !== 'orientation') return;
 		orientation = LBTQ;
@@ -146,24 +132,7 @@
 		if (replace.length > 0) {
 			globalThis.$$event('message', [replace.map(v => ['F_TalentReplace', v])]);
 		}
-		const countryData = COUNTRIES.find(({ code }) => code === country);
-		propertyPoints = core.getPropertyPoints(countryData?.points);
-		step = 'property';
-	}
-
-	function next() {
-		if (left > 0) {
-			globalThis.$$event('message', ['F_PropertyPointLeft', left]);
-			return;
-		}
-		blinking = true;
-		// Trajectory reads country/LBTQ back out of propertyAllocate itself
-		// (countryName(propertyAllocate), propertyAllocate[types.LBTQ]), so
-		// they need to be merged into that one object, not left alongside
-		// it -- same shape the old Housing screen produced.
-		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === country ? 1 : 0]));
-		const propertyAllocate = { ...nationality, [types.LBTQ]: orientation, ...allocate };
-		setTimeout(() => goToScreen('TRAJECTORY', { propertyAllocate, talents }), BLINK_TOTAL_MS);
+		goToScreen('TRAJECTORY', { countryCode: country, orientation: LBTQ, talents });
 	}
 </script>
 
@@ -175,7 +144,11 @@
 <div class="corridor-bg" style="background-image: url('{base}/images/corridor.jpg');"></div>
 
 <!-- One persistent phosphor-green CRT/DOS panel, floating centered over
-     the corridor backdrop -- `step` just swaps which window is showing. -->
+     the corridor backdrop -- `step` just swaps which window is showing.
+     Hidden entirely during 'orientation': that step now renders straight
+     onto the corridor photo itself (see the overlay below) instead of in
+     this popup. -->
+{#if step !== 'orientation'}
 <div class="crt-screen" class:entering={!settled}>
 	<div class="scanlines" aria-hidden="true"></div>
 	<div class="crt-pixels" aria-hidden="true"></div>
@@ -191,71 +164,28 @@
 				</button>
 			{/each}
 		</div>
-	{:else if step === 'orientation'}
-		<div class="dos-backdrop">
-			<div class="dos-window">
-				<div class="dos-titlebar">C:\SETUP\ORIENTATION.EXE</div>
-				<div class="dos-body">
-					<p class="dos-prompt">Select orientation:</p>
-					<div class="dos-menu dos-menu-2col">
-						{#each ORIENTATIONS as { value, label } (value)}
-							<button type="button" class="dos-item" onclick={() => chooseOrientation(value)}>
-								[{label}]
-							</button>
-						{/each}
-					</div>
-				</div>
-			</div>
-		</div>
-	{:else if step === 'property'}
-		<div class="dos-backdrop">
-			<div class="dos-window dos-window-wide">
-				<div class="dos-titlebar">C:\SETUP\ALLOCATE.EXE</div>
-				<div class="dos-body">
-					<p class="dos-prompt">Tokens: {propertyPoints}  Remaining: {left}</p>
-					<div class="dos-stats">
-						{#each STATS as { type, label } (type)}
-							<div class="dos-stat-row">
-								<span class="dos-stat-label">{label}</span>
-								<button
-									type="button"
-									class="dos-step"
-									disabled={allocate[type] <= allocMin}
-									onclick={() => adjustStat(type, -1)}
-									aria-label="Decrease {label}"
-								>
-									-
-								</button>
-								<span class="dos-stat-value">{allocate[type]}</span>
-								<button
-									type="button"
-									class="dos-step"
-									disabled={allocate[type] >= allocMax || left <= 0}
-									onclick={() => adjustStat(type, 1)}
-									aria-label="Increase {label}"
-								>
-									+
-								</button>
-							</div>
-						{/each}
-					</div>
-					<div class="dos-menu">
-						<button type="button" class="dos-item" onclick={randomAllocate}>[Random]</button>
-						<button type="button" class="dos-item" onclick={next}>[Start]</button>
-					</div>
-				</div>
-			</div>
-		</div>
 	{/if}
 </div>
+{/if}
 
-{#if blinking}
-	<!-- Falling asleep where you stand: two quick blinks, then the lids
-	     stay shut -- the switch to Trajectory happens under full black,
-	     which opens its own lids on the stairs ("waking up" there). -->
-	<div class="blink" aria-hidden="true">
-		<div class="lid lid-top"></div>
-		<div class="lid lid-bottom"></div>
+{#if step === 'orientation'}
+	<!-- Straight onto the corridor photo itself: the two crash-bar handles
+	     on the double doors carry the two choices, pinned to corridor.jpg's
+	     exact cover-fit rectangle so they land on the actual handles
+	     regardless of viewport shape (same technique as CityIntro's own
+	     door overlay). -->
+	<div class="corridor-overlay" style={overlayStyle}>
+		{#each ORIENTATIONS as { value, label } (value)}
+			<button
+				type="button"
+				class="handle-label"
+				style="left: {value === 0 ? HANDLE_LEFT_X : HANDLE_RIGHT_X}%; top: {HANDLE_Y}%;"
+				onclick={() => chooseOrientation(value)}
+			>
+				{label === 'LBTQ' ? 'LGBTQ' : label}
+			</button>
+		{/each}
+		<p class="orientation-prompt" style="left: 50%; top: {PROMPT_Y}%;">Select your orientation</p>
 	</div>
 {/if}
 
@@ -286,6 +216,57 @@
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+	}
+
+	/* Pinned to corridor.jpg's own cover-fit rectangle (see overlayStyle in
+	   the script block) so the handle labels and prompt land on the actual
+	   photo regardless of viewport shape -- same technique CityIntro uses
+	   for its door nameplates, which this reuses the exact palette of
+	   (sampled off that same corridor's door hardware) for visual
+	   continuity between the two consecutive corridor-based screens. */
+	.corridor-overlay {
+		position: fixed;
+		animation: fade-in-overlay 500ms ease both;
+	}
+	@keyframes fade-in-overlay {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+	/* Text color sampled directly off the corridor's own EXIT sign glow
+	   (~#72fd99) instead of the plain steel-plate white used elsewhere --
+	   these two buttons read as lit signage on the door, not engraved
+	   metal, so no border either (the glow does the framing). */
+	.handle-label {
+		position: absolute;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 1rem;
+		letter-spacing: 0.12em;
+		padding: 0.35em 0.9em;
+		color: #72fd99;
+		text-shadow:
+			0 0 4px rgba(114, 253, 153, 0.85),
+			0 0 12px rgba(114, 253, 153, 0.5);
+		background: none;
+		border: none;
+		transition: filter 150ms ease;
+	}
+	.handle-label:hover {
+		filter: brightness(1.25);
+	}
+	/* Same type treatment as CityIntro's own floor prompt/hint text --
+	   consistent font family, tracking, color, and shadow across both
+	   corridor-based screens. */
+	.orientation-prompt {
+		position: absolute;
+		transform: translate(-50%, -50%);
+		margin: 0;
+		font-size: 1rem;
+		letter-spacing: 0.12em;
+		color: rgba(255, 255, 255, 0.75);
+		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+		white-space: nowrap;
 	}
 
 	/* A plain centered panel now (used to be perspective-warped onto the
@@ -401,152 +382,4 @@
 			0 0 16px rgba(57, 255, 106, 0.8);
 	}
 
-	/* DOS-style popup window: a bordered, double-lined "dialog" centered on
-	   the same green screen, reverse-video title bar, for the orientation
-	   and property steps -- distinct from the full-bleed country list
-	   above, but sharing its exact font/color language. */
-	.dos-backdrop {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.dos-window {
-		width: 78%;
-		background: #04140a;
-		border: 3px double #39ff6a;
-		box-shadow: 0 0 1.5vh rgba(57, 255, 106, 0.35);
-	}
-	.dos-window-wide {
-		width: 92%;
-	}
-	.dos-titlebar {
-		background: #39ff6a;
-		color: #04140a;
-		font-size: 0.84rem;
-		font-weight: bold;
-		letter-spacing: 0.04em;
-		padding: 0.25em 0.5em;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.dos-body {
-		padding: 0.5em 0.6em 0.6em;
-	}
-	.dos-prompt {
-		margin: 0 0 0.5em;
-		font-size: 0.92rem;
-		white-space: nowrap;
-		text-shadow: 0 0 4px rgba(57, 255, 106, 0.8);
-	}
-	.dos-menu {
-		display: flex;
-		gap: 0.6em;
-	}
-	.dos-menu-2col {
-		gap: 1.2em;
-	}
-	.dos-item {
-		border: 1px solid rgba(57, 255, 106, 0.5);
-		background: rgba(57, 255, 106, 0.06);
-		color: #39ff6a;
-		font-family: inherit;
-		font-size: 0.92rem;
-		padding: 0.3em 0.7em;
-		cursor: pointer;
-		text-shadow: 0 0 5px rgba(57, 255, 106, 0.75);
-		transition: background 120ms ease, color 120ms ease;
-	}
-	.dos-item:hover {
-		background: rgba(57, 255, 106, 0.18);
-		color: #baffc9;
-	}
-
-	.dos-stats {
-		display: flex;
-		flex-direction: column;
-		gap: 0.28em;
-		margin-bottom: 0.6em;
-	}
-	.dos-stat-row {
-		display: flex;
-		align-items: center;
-		gap: 0.4em;
-		font-size: 0.88rem;
-	}
-	.dos-stat-label {
-		flex: 1;
-	}
-	.dos-stat-value {
-		width: 1.6em;
-		text-align: center;
-	}
-	.dos-step {
-		width: 1.1em;
-		height: 1.1em;
-		line-height: 1;
-		border: 1px solid rgba(57, 255, 106, 0.5);
-		background: rgba(57, 255, 106, 0.06);
-		color: #39ff6a;
-		font-family: inherit;
-		font-size: 0.88rem;
-		cursor: pointer;
-		padding: 0;
-	}
-	.dos-step:disabled {
-		opacity: 0.3;
-		cursor: default;
-	}
-	.dos-step:not(:disabled):hover {
-		background: rgba(57, 255, 106, 0.18);
-	}
-
-	/* Blink-out: each lid is a half-screen black panel sliding in from its
-	   own edge. Percentages below map onto BLINK_TOTAL_MS (2100ms; the
-	   keyframe animation itself runs 2000ms, leaving a beat of full black
-	   before the screen switch): closed at 12%, open, closed at 40%, open,
-	   then closed for good from 78% on. The lids overlap the viewport
-	   center slightly (52vh each) so no seam line shows when shut. */
-	.blink {
-		position: fixed;
-		inset: 0;
-		z-index: 20;
-		pointer-events: none;
-	}
-	.lid {
-		position: absolute;
-		left: 0;
-		right: 0;
-		height: 52vh;
-		background: #000;
-	}
-	.lid-top {
-		top: 0;
-		transform: translateY(-101%);
-		animation: lid-top-blink 2000ms ease-in-out forwards;
-	}
-	.lid-bottom {
-		bottom: 0;
-		transform: translateY(101%);
-		animation: lid-bottom-blink 2000ms ease-in-out forwards;
-	}
-	@keyframes lid-top-blink {
-		0% { transform: translateY(-101%); }
-		12% { transform: translateY(0); }
-		26% { transform: translateY(-101%); }
-		40% { transform: translateY(0); }
-		54% { transform: translateY(-101%); }
-		78%, 100% { transform: translateY(0); }
-	}
-	@keyframes lid-bottom-blink {
-		0% { transform: translateY(101%); }
-		12% { transform: translateY(0); }
-		26% { transform: translateY(101%); }
-		40% { transform: translateY(0); }
-		54% { transform: translateY(101%); }
-		78%, 100% { transform: translateY(0); }
-	}
 </style>
