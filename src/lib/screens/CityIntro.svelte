@@ -281,7 +281,7 @@
 						selectCountry(code);
 					}}
 				>
-					{name}
+					<span class="cell-label">{name}</span>
 				</button>
 			{/each}
 			<!-- The prompt lies "painted" on the morgue floor: a perspective
@@ -299,6 +299,13 @@
 		<h1 class="title">♀Samsara</h1>
 		<p class="hint">click anywhere to begin</p>
 	</div>
+
+	{#if phase === 'frozen'}
+		<!-- 2.mp4's own baked-in final frame reads "You are reborn today as
+		     a female" -- this sits just below it, same type treatment as
+		     .hint, so the two read as one continuous piece of UI. -->
+		<p class="continue-hint">continue</p>
+	{/if}
 </div>
 
 <style>
@@ -352,6 +359,24 @@
 		animation: pulse 2.4s ease-in-out infinite;
 	}
 
+	/* Same type treatment as .hint (family/tracking/color/shadow inherited,
+	   same breathing pulse) -- sits low, under 2.mp4's own baked-in text,
+	   rather than in .content's flex column (which is only laid out for
+	   the loop phase's title). */
+	.continue-hint {
+		position: absolute;
+		left: 50%;
+		bottom: 14%;
+		transform: translateX(-50%);
+		margin: 0;
+		font-size: 0.85rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.75);
+		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+		animation: pulse 2.4s ease-in-out infinite;
+	}
+
 	.select-overlay {
 		position: absolute;
 		pointer-events: none;
@@ -372,18 +397,28 @@
 	/* Same type family/tracking as .hint, one size up, engraved into a
 	   brushed silver-grey metal nameplate riveted to each door -- matching
 	   the small blank label plates the doors already carry. */
+	/* Every plate is the same fixed size, sized to fit the longest country
+	   name ("Afghanistan" / "North Korea", both 11 characters) -- per the
+	   reference sketch, shorter names center within that same frame
+	   rather than each plate shrink-wrapping its own text. The plate is
+	   two nested rectangles (outer bezel + inner engraved label), matching
+	   the sketch's double-border look; the brushed-steel gradient/bevel
+	   from the door hardware carries over unchanged. */
 	.cell {
 		position: absolute;
 		transform: translate(-50%, -50%);
 		pointer-events: auto;
-		padding: 0.3em 0.9em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* Width comes from .cell-label's own fixed width below, plus this
+		   padding as a uniform outer bezel margin -- letting the label set
+		   the size (rather than fixing it here too and having the two
+		   paddings compound) is what was clipping "Afghanistan"/"North
+		   Korea" before. */
+		padding: 0.4em 0.45em;
 		cursor: pointer;
 		font-family: inherit;
-		font-size: 1rem;
-		letter-spacing: 0.12em;
-		white-space: nowrap;
-		color: #2e3338;
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 		background: linear-gradient(180deg, #e2e5e8 0%, #b9bec3 45%, #9aa0a6 55%, #c7cbd0 100%);
 		border: 1px solid rgba(60, 65, 70, 0.55);
 		border-radius: 3px;
@@ -395,6 +430,26 @@
 	}
 	.cell:hover {
 		filter: brightness(1.12);
+	}
+	.cell-label {
+		display: block;
+		/* Sized to the longest name at this font/letter-spacing (measured
+		   live: "Afghanistan"/"North Korea" need ~14ch of box, not the 13ch
+		   originally guessed) with headroom, and no clipping (overflow
+		   visible) as a backstop even if a longer name is ever added. */
+		width: 15ch;
+		text-align: center;
+		padding: 0.2em 0.3em;
+		font-size: 1rem;
+		letter-spacing: 0.12em;
+		white-space: nowrap;
+		overflow: visible;
+		color: #2e3338;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+		border: 1px solid rgba(50, 55, 60, 0.5);
+		border-radius: 1px;
+		background: rgba(255, 255, 255, 0.15);
+		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
 	}
 
 	/* "Painted on the floor": pitched back into the ground plane via a
@@ -408,7 +463,7 @@
 		top: 85%;
 		width: max-content;
 		transform: translate(-50%, -50%) perspective(6em) rotateX(48deg);
-		font-size: 3.1cqh;
+		font-size: 4.1cqh;
 		line-height: 1.6;
 		letter-spacing: 0.12em;
 		text-align: center;

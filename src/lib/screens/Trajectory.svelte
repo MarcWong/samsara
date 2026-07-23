@@ -95,8 +95,16 @@
 
 	// Auto-plays age-by-age instead of waiting on clicks -- a click still
 	// advances immediately (and reschedules from there), but the story
-	// progresses on its own by default now.
-	const AUTO_ADVANCE_MS = 3600;
+	// progresses on its own by default now. The dwell time scales with how
+	// much there is to read instead of being one fixed duration: a fixed
+	// 3.6s made short entries (age 0's single sentence, most of all) sit on
+	// screen far longer than needed to read them, while cramming longer
+	// entries into the same window. ~230wpm reading speed, clamped to a
+	// floor (never flashes by too fast to register) and a ceiling (a long
+	// entry still eventually advances on its own).
+	const CHARS_PER_MS = 1000 / ((230 * 5) / 60); // ~230 wpm, ~5 chars/word
+	const MIN_ADVANCE_MS = 1800;
+	const MAX_ADVANCE_MS = 6000;
 	let autoTimer = null;
 
 	function clearAutoTimer() {
@@ -106,10 +114,10 @@
 		}
 	}
 
-	function scheduleAutoAdvance() {
+	function scheduleAutoAdvance(delay = MIN_ADVANCE_MS) {
 		clearAutoTimer();
 		if (isEnd) return;
-		autoTimer = setTimeout(onNext, AUTO_ADVANCE_MS);
+		autoTimer = setTimeout(onNext, delay);
 	}
 
 	function onNext() {
@@ -121,13 +129,15 @@
 		// the next auto-advance regardless, or an empty tick would silently
 		// stall the whole auto-play loop until someone happens to click.
 		const hasContent = Array.isArray(content) ? content.length > 0 : Object.keys(content || {}).length > 0;
+		let delay = MIN_ADVANCE_MS;
 		if (hasContent) {
-			renderTrajectory(age, content);
+			const text = renderTrajectory(age, content);
 			stats = core.propertys;
 			scrollToEnd();
+			delay = Math.min(MAX_ADVANCE_MS, Math.max(MIN_ADVANCE_MS, text.length * CHARS_PER_MS));
 		}
 
-		scheduleAutoAdvance();
+		scheduleAutoAdvance(delay);
 	}
 
 	function renderTrajectory(age, content) {
@@ -178,6 +188,8 @@
 				fatal,
 			},
 		];
+
+		return text;
 	}
 
 	function goSummary() {

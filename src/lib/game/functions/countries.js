@@ -15,11 +15,11 @@ const COUNTRIES = [
     { key: 'EGP', code: 'EGY', name: 'Egypt', points: 11 },
     { key: 'IND', code: 'IND', name: 'India', points: 9 },
     { key: 'JPN', code: 'JAP', name: 'Japan', points: 14 },
-    { key: 'USA', code: 'US', name: 'United States', points: 15 },
+    { key: 'USA', code: 'US', name: 'USA', points: 15 },
     { key: 'IRN', code: 'IRN', name: 'Iran', points: 7 },
     { key: 'UKR', code: 'UKR', name: 'Ukraine', points: 10 },
     { key: 'PRK', code: 'PRK', name: 'North Korea', points: 8 },
-    { key: 'GBR', code: 'GBR', name: 'United Kingdom', points: 15 },
+    { key: 'GBR', code: 'GBR', name: 'UK', points: 15 },
     { key: 'HTI', code: 'HTI', name: 'Haiti', points: 6 },
     { key: 'DNK', code: 'DNK', name: 'Denmark', points: 17 },
 ];
