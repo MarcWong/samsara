@@ -105,6 +105,8 @@ export class CanvasVideoPlayer {
 	// during the "frozen on last frame" phase there is no playback loop
 	// left to repaint it for us.
 	#lastFrame = null;
+	// Active clip-boundary alignment (see play()'s `align` option), or null.
+	#align = null;
 
 	constructor(canvas) {
 		this.#canvas = canvas;
@@ -124,9 +126,33 @@ export class CanvasVideoPlayer {
 		const fw = frame.displayWidth;
 		const fh = frame.displayHeight;
 		const s = Math.max(cw / fw, ch / fh);
-		const dw = fw * s;
-		const dh = fh * s;
-		this.#ctx.drawImage(frame, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+		let dw = fw * s;
+		let dh = fh * s;
+		let dx = (cw - dw) / 2;
+		let dy = (ch - dh) / 2;
+		// Clip-boundary alignment: warp this clip's early frames so its
+		// content starts exactly where the previous clip's content was, then
+		// ease the warp out -- the framing mismatch plays as a deliberate
+		// camera move instead of a snap. The warp is a video-pixel-space
+		// scale k about the origin plus offset u, composed with the cover
+		// transform: screen = off + s*(k*v + u). Any strip the warped rect
+		// leaves uncovered keeps the previous clip's pixels (the canvas is
+		// never cleared), which is the correct scene content there.
+		const a = this.#align;
+		if (a) {
+			const t = frame.timestamp / a.durationUs;
+			if (t >= 1) this.#align = null;
+			else {
+				const remain = Math.pow(1 - Math.max(0, t), 3); // easeOutCubic
+				const kx = 1 + (a.kx - 1) * remain;
+				const ky = 1 + (a.ky - 1) * remain;
+				dx += s * a.ux * remain;
+				dy += s * a.uy * remain;
+				dw *= kx;
+				dh *= ky;
+			}
+		}
+		this.#ctx.drawImage(frame, dx, dy, dw, dh);
 	}
 
 	#present(frame) {
@@ -141,8 +167,16 @@ export class CanvasVideoPlayer {
 	// frame stays frozen on the canvas and onEnded fires. rate scales the
 	// presentation clock (0.5 = half speed) -- decode order and frame
 	// selection are untouched, frames simply become due later.
-	play(media, { loop = false, onEnded = null, rate = 1 } = {}) {
+	//
+	// align: { kx, ky, ux, uy, durationMs } -- inverse of the measured
+	// affine mismatch between the previous clip's last frame and this
+	// clip's first frame (scale about the video origin plus pixel offset).
+	// Applied in full at t=0 and eased out over durationMs of media time,
+	// so consecutive clips shot with slightly different framing join as a
+	// continuous camera move. Not reapplied on loop restarts.
+	play(media, { loop = false, onEnded = null, rate = 1, align = null } = {}) {
 		this.stop(false); // keep #lastFrame: bridges the switch between clips
+		this.#align = align ? { ...align, durationUs: align.durationMs * 1000 } : null;
 		const { config, chunks } = media;
 
 		const session = { aborted: false, raf: 0, timer: 0, flushing: false };

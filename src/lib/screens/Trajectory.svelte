@@ -203,11 +203,27 @@
 		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial });
 	}
 
-	onMount(onNext);
+	// Eyes-open arrival: Plaza blinks out to full black, the screen switch
+	// happens underneath, and this scene starts with the lids already shut,
+	// opening once. The overlay unmounts after the animation (1100ms run +
+	// a small margin) so it can't intercept anything afterwards.
+	let eyesOpening = $state(true);
+	onMount(() => {
+		onNext();
+		const t = setTimeout(() => (eyesOpening = false), 1300);
+		return () => clearTimeout(t);
+	});
 	onDestroy(clearAutoTimer);
 </script>
 
 <TowerClimbBackground />
+
+{#if eyesOpening}
+	<div class="eyes-open" aria-hidden="true">
+		<div class="lid lid-top"></div>
+		<div class="lid lid-bottom"></div>
+	</div>
+{/if}
 
 <div class="trajectory">
 	<div class="statbar">
@@ -414,5 +430,39 @@
 		bottom: 1.5rem;
 		display: flex;
 		justify-content: center;
+	}
+
+	/* Eyes opening on arrival: the two black lids start shut (continuing
+	   Plaza's blink-out, which ended on full black) and slide off after a
+	   short hold. Mirrors Plaza's .lid styling; 52vh per lid overlaps the
+	   center so no seam shows while shut. */
+	.eyes-open {
+		position: fixed;
+		inset: 0;
+		z-index: 20;
+		pointer-events: none;
+	}
+	.lid {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 52vh;
+		background: #000;
+	}
+	.lid-top {
+		top: 0;
+		animation: lid-top-open 1100ms ease-in-out forwards;
+	}
+	.lid-bottom {
+		bottom: 0;
+		animation: lid-bottom-open 1100ms ease-in-out forwards;
+	}
+	@keyframes lid-top-open {
+		0%, 25% { transform: translateY(0); }
+		100% { transform: translateY(-101%); }
+	}
+	@keyframes lid-bottom-open {
+		0%, 25% { transform: translateY(0); }
+		100% { transform: translateY(101%); }
 	}
 </style>

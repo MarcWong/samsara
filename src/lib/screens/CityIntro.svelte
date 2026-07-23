@@ -33,6 +33,16 @@
 	const VIDEO_W = 1280;
 	const VIDEO_H = 720;
 
+	// The generated clips reprise the previous clip's scene with slightly
+	// different framing (2.mp4 opens ~7.5% zoomed out vs 1.mp4's steady
+	// camera; 3.mp4 opens ~19px lower than 2.mp4's end), which showed as a
+	// visible size snap on each click. These are the inverses of the affine
+	// mismatch measured between the boundary frames (OpenCV ECC, confidence
+	// >0.99): the incoming clip starts warped to line up exactly with the
+	// frozen frame, then eases to its natural framing as a camera move.
+	const ALIGN_2 = { kx: 1.0775, ky: 1.0893, ux: -49.1, uy: -21.5, durationMs: 1200 };
+	const ALIGN_3 = { kx: 0.998, ky: 1.0022, ux: 1.7, uy: 19.3, durationMs: 1200 };
+
 	// 3.mp4 ends on a morgue wall of cabinet doors: 5 full door columns
 	// across, 3 door rows down, with the center door of the third row
 	// standing open (black) -- that cell stays empty. The 12 countries sit
@@ -66,10 +76,13 @@
 	let audio1El = $state(null);
 	let audio2El = $state(null);
 	let audio3El = $state(null);
+	let audio4El = $state(null);
 
 	let player = null;
 	let media2Promise = null;
 	let media3Promise = null;
+	let media4Promise = null;
+	let pendingCountry = null; // set once a door is picked; consumed when 4.mp4 ends
 	let resizeObserver;
 
 	// 'loading' -> 'loop' -> 'transition' -> 'frozen' -> 'morgue' -> 'select'
@@ -117,6 +130,8 @@
 				media2Promise.catch(() => {}); // surfaced on click instead
 				media3Promise = loadMp4(`${base}/videos/3.mp4`);
 				media3Promise.catch(() => {});
+				media4Promise = loadMp4(`${base}/videos/4.mp4`);
+				media4Promise.catch(() => {});
 				player.play(media1, { loop: true, rate: LOOP_RATE });
 				phase = 'loop';
 				startLoopAudio();
@@ -134,6 +149,8 @@
 		player?.stop();
 		audio1El?.pause();
 		audio2El?.pause();
+		audio3El?.pause();
+		audio4El?.pause();
 	});
 
 	// Unmuted autoplay is blocked by every modern browser until the page
@@ -169,6 +186,7 @@
 					const media2 = await media2Promise;
 					player.play(media2, {
 						loop: false,
+						align: ALIGN_2,
 						onEnded: () => {
 							phase = 'frozen';
 						},
@@ -204,6 +222,7 @@
 					const media3 = await media3Promise;
 					player.play(media3, {
 						loop: false,
+						align: ALIGN_3,
 						onEnded: () => {
 							phase = 'select';
 						},
@@ -226,9 +245,38 @@
 		// clicks during 'loading'/'transition'/'morgue'/'select' are ignored
 	}
 
-	function selectCountry(code) {
+	// Picking a door no longer jumps straight to the Plaza: 4.mp4 first
+	// walks out of the morgue into the hospital corridor, and only its final
+	// frame (frozen) hands over to the PLAZA screen -- whose backdrop is a
+	// still of that exact frame, so the cut is invisible.
+	async function selectCountry(code) {
 		if (phase !== 'select') return;
-		goToScreen('PLAZA', { countryCode: code });
+		phase = 'exit';
+		audio3El?.pause();
+		if (audio4El) {
+			audio4El.currentTime = 0;
+			audio4El.play().catch(() => {});
+		}
+		pendingCountry = code;
+		const done = () => goToScreen('PLAZA', { countryCode: code });
+		if (supported) {
+			try {
+				const media4 = await media4Promise;
+				player.play(media4, { loop: false, onEnded: done });
+			} catch (err) {
+				console.error('[CityIntro] exit video failed', err);
+				done();
+			}
+		} else {
+			videoLoop = false;
+			videoSrc = `${base}/videos/4.mp4`;
+			videoEl?.load();
+			if (videoEl) {
+				videoEl.muted = false;
+				videoEl.playbackRate = 1;
+			}
+			videoEl?.play().catch(() => {});
+		}
 	}
 
 	function onKeydown(e) {
@@ -253,6 +301,7 @@
 		<audio bind:this={audio1El} src="{base}/videos/1.mp4" loop preload="auto"></audio>
 		<audio bind:this={audio2El} src="{base}/videos/2.mp4" preload="auto"></audio>
 		<audio bind:this={audio3El} src="{base}/videos/3.mp4" preload="auto"></audio>
+		<audio bind:this={audio4El} src="{base}/videos/4.mp4" preload="auto"></audio>
 	{:else}
 		<!-- svelte-ignore a11y_media_has_caption -->
 		<video
@@ -262,7 +311,10 @@
 			autoplay
 			muted
 			playsinline
-			onended={() => (phase = phase === 'morgue' ? 'select' : 'frozen')}
+			onended={() => {
+				if (phase === 'exit') goToScreen('PLAZA', { countryCode: pendingCountry });
+				else phase = phase === 'morgue' ? 'select' : 'frozen';
+			}}
 		></video>
 	{/if}
 

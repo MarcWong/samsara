@@ -323,10 +323,9 @@
 	}
 
 	// The shaft interior, all procedural: the enclosing wall, the central
-	// bundle of square pillars (each with one dim emissive strip on its
-	// outward face, which is also what makes the ascent rotation readable),
-	// the decorative endless spiral of glowing steps, and dim level rings on
-	// the wall spaced exactly one helix turn apart.
+	// bundle of square pillars, the decorative endless spiral of glowing
+	// steps, and dim level rings on the wall spaced exactly one helix turn
+	// apart.
 	function buildShaftInterior() {
 		const wallRadius = STAIR_RADIUS + stairWidth / 2 + WALL_CLEARANCE;
 
@@ -346,11 +345,10 @@
 		coreGroup = new THREE.Group();
 		coreGroup.position.set(shaftCenter.x, 0, shaftCenter.z);
 		const pillarMat = new THREE.MeshStandardMaterial({ color: 0x262230, roughness: 0.85, metalness: 0.2 });
-		const stripMat = new THREE.MeshStandardMaterial({
-			color: 0x05080a,
-			emissive: 0x35c8de,
-			emissiveIntensity: 3.0,
-		});
+		// The pillars used to each carry a bright emissive strip on their
+		// outward face; with bloom those read as a full-height light beam
+		// glaring mid-frame on entry -- removed per request. The ascent
+		// rotation stays readable from the helix spiral and wall rings.
 		const PILLARS = 5;
 		const pillarRing = 165;
 		const pillarSize = 85;
@@ -364,13 +362,6 @@
 			pillar.rotation.y = -a;
 			pillar.frustumCulled = false;
 			coreGroup.add(pillar);
-
-			const strip = new THREE.Mesh(new THREE.BoxGeometry(6, pillarH, 6), stripMat);
-			const out = pillarSize / 2 + 3.5;
-			strip.position.set(px + Math.cos(a) * out, tileOrigin.y, pz + Math.sin(a) * out);
-			strip.rotation.y = -a;
-			strip.frustumCulled = false;
-			coreGroup.add(strip);
 		}
 		scene.add(coreGroup);
 

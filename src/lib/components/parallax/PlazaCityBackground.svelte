@@ -1,18 +1,16 @@
 <script>
-	// A real photographed/rendered environment instead of the procedural
-	// SVG skyline: "skybox_dystopian_alleyway_small.glb" is a unit sphere
-	// (confirmed by reading its glTF accessors directly -- bounds exactly
-	// [-1,-1,-1] to [1,1,1], centered at the origin) with a single
-	// double-sided, emissive-mapped material, i.e. an ordinary 360 skybox
-	// meant to be viewed from its center. The billboard itself stays a
-	// plain HTML/CSS overlay (see Plaza.svelte) rather than becoming real
-	// WebGL geometry -- this is the same split Trajectory already uses
-	// (WebGL behind, DOM content in front), and keeps the billboard's
-	// click handling and CSS-driven restyling simple.
+	// The computer now sits in the hospital corridor where 4.mp4 ends: the
+	// backdrop is a still of that clip's final frame (corridor.jpg, plain
+	// CSS cover background on the container), and the WebGL canvas above it
+	// renders only the computer itself over a transparent clear color. The
+	// previous cyberpunk alley skybox (a 360 GLB sphere) is gone. The DOS
+	// screen stays a plain HTML/CSS overlay (see Plaza.svelte) rather than
+	// becoming real WebGL geometry -- the same split Trajectory already
+	// uses (WebGL behind, DOM content in front), keeping click handling
+	// and CSS-driven restyling simple.
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import * as THREE from 'three';
-	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 	// `onScreenQuad`: fires with the TV screen glass's own projected corners
@@ -22,7 +20,7 @@
 	// The camera itself is otherwise completely static now -- country,
 	// orientation, and property allocation all play out as different
 	// window content on this one same screen, never a scene/view change.
-	let { flying = false, onScreenQuad = null } = $props();
+	let { onScreenQuad = null } = $props();
 
 	let canvasEl;
 	let containerEl;
@@ -166,6 +164,10 @@
 		camera.aspect = w / h;
 		camera.updateProjectionMatrix();
 		updateScreenQuad();
+		// setSize clears the canvas, and nothing else repaints this static
+		// scene -- without an explicit render here, a resize arriving after
+		// the load-time render leaves the computer invisible.
+		render();
 	}
 
 	function render() {
@@ -173,28 +175,29 @@
 		renderer.render(scene, camera);
 	}
 
+	// Everything used to be sized off the alley sphere's measured radius;
+	// with the sphere gone, that world scale is simply pinned at 1 and all
+	// the derived ratios (tvScale, camera dolly distance, near/far) keep
+	// their old values relative to it.
+	const SCENE_R = 1;
+
 	onMount(() => {
 		scene = new THREE.Scene();
-		scene.background = new THREE.Color(0x0a0710);
 
-		// Wide, close to the sphere's own center -- reads as standing inside
-		// a narrow space, not viewing a distant landmark (contrast the
-		// tighter, more telephoto framing used for Trajectory/CityIntro).
-		camera = new THREE.PerspectiveCamera(78, 1, 0.01, 10);
+		// Wide and close, matching the corridor still's own perspective --
+		// the camera stares straight down the hallway at the computer.
+		camera = new THREE.PerspectiveCamera(78, 1, SCENE_R * 0.0005, SCENE_R * 1.5);
 		camera.position.set(0, 0, 0);
 
-		renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: false });
+		// alpha: the canvas clears transparent so the corridor still (the
+		// container's CSS background) shows through around the computer.
+		renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true, alpha: true });
+		renderer.setClearColor(0x000000, 0);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-		// The alley sphere's own material is unlit (emissive-mapped), so it
-		// never needed lights -- only the TV prop's PBR material does. The
-		// key light used to be warm (0xffe2b0, an amber practical-light
-		// color) to match the alley photo's own color temperature, but that
-		// cast a distinct brown/amber tint across the TV's plastic housing
-		// and its ambient spill read as a warm haze over the whole shot --
-		// confirmed live, removed per request. Both lights now sit at a
-		// neutral-to-cool color temperature instead, so the housing reads
-		// as true dark plastic rather than tinted.
+		// Only the computer's PBR material needs light. Neutral-to-cool
+		// color temperature, matching the corridor still's own blue-green
+		// fluorescent cast so the machine reads as standing in that light.
 		scene.add(new THREE.HemisphereLight(0x5a6b8f, 0x0a0710, 0.75));
 		const key = new THREE.DirectionalLight(0xdfe6f2, 1.0);
 		key.position.set(0.4, 1, 0.6);
@@ -203,7 +206,6 @@
 		resizeObserver = new ResizeObserver(resize);
 		resizeObserver.observe(containerEl);
 
-		const gltfLoader = new GLTFLoader();
 		// The FBX bakes in texture paths relative to the artist's export
 		// folder ("source/..."); FBXLoader requests them eagerly while
 		// parsing, before the material override below ever runs, so they
@@ -222,9 +224,6 @@
 
 		Promise.all([
 			new Promise((resolve, reject) =>
-				gltfLoader.load(`${base}/models/skybox_dystopian_alleyway_small.glb`, resolve, undefined, reject),
-			),
-			new Promise((resolve, reject) =>
 				fbxLoader.load(`${base}/models/low-poly-80s-computer-v3/source/Old Computer V3.fbx`, resolve, undefined, reject),
 			),
 			new Promise((resolve, reject) =>
@@ -242,37 +241,8 @@
 				textureLoader.load(`${base}/models/low-poly-80s-computer-v3/textures/Screen_Emit.png`, resolve, undefined, reject),
 			),
 		])
-			.then(([gltf, tvFbx, bodyColor, screenColor, screenEmit]) => {
+			.then(([tvFbx, bodyColor, screenColor, screenEmit]) => {
 				if (destroyed) return;
-				const sphere = gltf.scene;
-				scene.add(sphere);
-
-				// The geometry's own accessors are a clean unit sphere, but
-				// Sketchfab's export pipeline baked an large, arbitrary scale
-				// into an ancestor node in the hierarchy above the mesh --
-				// applying our own guessed scale on top of that (an earlier
-				// version did) put the sphere's surface at a ~250,000-unit
-				// radius, entirely past any reasonable camera far plane, so
-				// nothing rendered. Measuring the real world-space radius
-				// after adding it to the scene and sizing the camera's
-				// near/far to match is the only way that's actually robust
-				// to whatever scale ends up baked in.
-				const box = new THREE.Box3().setFromObject(sphere);
-				const boundingSphere = new THREE.Sphere();
-				box.getBoundingSphere(boundingSphere);
-				camera.near = boundingSphere.radius * 0.0005;
-				camera.far = boundingSphere.radius * 1.5;
-				camera.updateProjectionMatrix();
-				const alleyRadius = boundingSphere.radius;
-
-				// The mesh's cached local bounding volume doesn't reflect that
-				// huge baked-in scale either, so automatic frustum culling
-				// (checked against a wildly wrong transformed bounds) was
-				// discarding the whole sphere every frame -- confirmed by
-				// disabling it and watching the alley actually appear.
-				sphere.traverse(node => {
-					if (node.isMesh) node.frustumCulled = false;
-				});
 
 				// The computer: FBXLoader can't resolve textures on its own
 				// (the FBX's baked-in paths point at wherever the artist's
@@ -433,7 +403,7 @@
 				// frame and nothing read as "a computer" -- this keeps the
 				// screen comfortably readable while the monitor, tower and
 				// alley context stay in view.
-				const tvScale = (alleyRadius * 0.042) / Math.max(glassWorldHeight, 0.001);
+				const tvScale = (SCENE_R * 0.042) / Math.max(glassWorldHeight, 0.001);
 				tvFbx.scale.multiplyScalar(tvScale);
 
 				// Face the camera: the glass normal in world space is the
@@ -514,7 +484,7 @@
 				// overlay together, in lockstep -- the computer stays fully
 				// visible (per the prior request) while the overlay content
 				// is no longer undersized relative to it.
-				rig.position.z -= alleyRadius * 0.075;
+				rig.position.z -= SCENE_R * 0.075;
 				updateScreenQuad();
 
 				render();
@@ -538,22 +508,27 @@
 	});
 </script>
 
-<div class="plaza-city" class:departing={flying} bind:this={containerEl}>
+<div
+	class="plaza-city"
+	bind:this={containerEl}
+	style="background-image: url('{base}/images/corridor.jpg');"
+>
 	<canvas bind:this={canvasEl}></canvas>
 </div>
 
 <style>
+	/* The backdrop is the final frame of 4.mp4 (the hospital corridor the
+	   player just walked into), cover-fit exactly like the intro's video
+	   canvas so the handoff frame doesn't jump. */
 	.plaza-city {
 		position: fixed;
 		inset: 0;
 		z-index: -1;
 		overflow: hidden;
-		background: #0a0710;
-		transition: transform 2200ms cubic-bezier(0.4, 0, 0.2, 1), filter 2200ms ease;
-	}
-	.plaza-city.departing {
-		transform: scale(1.12) translateX(-8%);
-		filter: blur(3px);
+		background-color: #0a0710;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 	canvas {
 		display: block;

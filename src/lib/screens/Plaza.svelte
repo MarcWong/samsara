@@ -42,8 +42,13 @@
 	let country = $state($draft.countryCode ?? null);
 	let orientation = $state(null);
 	let talents = [];
-	let flying = $state(false);
+	let blinking = $state(false);
 	let quad = $state(null);
+
+	// Blink-out timing (see the lid keyframes below): two quick blinks, then
+	// the lids close for good -- the screen switch happens under full black,
+	// and Trajectory opens its own lids on mount ("eyes open" on the stairs).
+	const BLINK_TOTAL_MS = 2100;
 
 	function chooseCountry(code) {
 		if (step !== 'country') return;
@@ -152,18 +157,18 @@
 			globalThis.$$event('message', ['F_PropertyPointLeft', left]);
 			return;
 		}
-		flying = true;
+		blinking = true;
 		// Trajectory reads country/LBTQ back out of propertyAllocate itself
 		// (countryName(propertyAllocate), propertyAllocate[types.LBTQ]), so
 		// they need to be merged into that one object, not left alongside
 		// it -- same shape the old Housing screen produced.
 		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === country ? 1 : 0]));
 		const propertyAllocate = { ...nationality, [types.LBTQ]: orientation, ...allocate };
-		setTimeout(() => goToScreen('TRAJECTORY', { propertyAllocate, talents }), 2400);
+		setTimeout(() => goToScreen('TRAJECTORY', { propertyAllocate, talents }), BLINK_TOTAL_MS);
 	}
 </script>
 
-<PlazaCityBackground {flying} onScreenQuad={q => (quad = q)} />
+<PlazaCityBackground onScreenQuad={q => (quad = q)} />
 
 <!-- Everything renders straight onto the retro TV's screen (see
      PlazaCityBackground.svelte for the 3D prop and the homography that
@@ -173,7 +178,7 @@
      background. -->
 <div
 	class="crt-screen"
-	class:hidden={flying || !quad}
+	class:hidden={!quad}
 	class:entering={!settled}
 	style={quad ? `width: ${quad.width}px; height: ${quad.height}px; transform: ${quad.matrix3d};` : ''}
 >
@@ -247,6 +252,16 @@
 		</div>
 	{/if}
 </div>
+
+{#if blinking}
+	<!-- Falling asleep where you stand: two quick blinks, then the lids
+	     stay shut -- the switch to Trajectory happens under full black,
+	     which opens its own lids on the stairs ("waking up" there). -->
+	<div class="blink" aria-hidden="true">
+		<div class="lid lid-top"></div>
+		<div class="lid lid-bottom"></div>
+	</div>
+{/if}
 
 <style>
 	/* Phosphor-green CRT/DOS terminal look, shared by the full-screen
@@ -456,5 +471,51 @@
 	}
 	.dos-step:not(:disabled):hover {
 		background: rgba(57, 255, 106, 0.18);
+	}
+
+	/* Blink-out: each lid is a half-screen black panel sliding in from its
+	   own edge. Percentages below map onto BLINK_TOTAL_MS (2100ms; the
+	   keyframe animation itself runs 2000ms, leaving a beat of full black
+	   before the screen switch): closed at 12%, open, closed at 40%, open,
+	   then closed for good from 78% on. The lids overlap the viewport
+	   center slightly (52vh each) so no seam line shows when shut. */
+	.blink {
+		position: fixed;
+		inset: 0;
+		z-index: 20;
+		pointer-events: none;
+	}
+	.lid {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 52vh;
+		background: #000;
+	}
+	.lid-top {
+		top: 0;
+		transform: translateY(-101%);
+		animation: lid-top-blink 2000ms ease-in-out forwards;
+	}
+	.lid-bottom {
+		bottom: 0;
+		transform: translateY(101%);
+		animation: lid-bottom-blink 2000ms ease-in-out forwards;
+	}
+	@keyframes lid-top-blink {
+		0% { transform: translateY(-101%); }
+		12% { transform: translateY(0); }
+		26% { transform: translateY(-101%); }
+		40% { transform: translateY(0); }
+		54% { transform: translateY(-101%); }
+		78%, 100% { transform: translateY(0); }
+	}
+	@keyframes lid-bottom-blink {
+		0% { transform: translateY(101%); }
+		12% { transform: translateY(0); }
+		26% { transform: translateY(101%); }
+		40% { transform: translateY(0); }
+		54% { transform: translateY(101%); }
+		78%, 100% { transform: translateY(0); }
 	}
 </style>
