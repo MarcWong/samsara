@@ -175,10 +175,18 @@
 </div>
 
 <style>
-	/* This screen sits on the yellow-smoke backdrop, so everything here
-	   keys off a warm yellow-grey palette instead of the app's usual cool
-	   slate: warm charcoal panels, dim khaki captions, parchment values.
-	   Grade accents stay distinguishable but move to warm hues too. */
+	/* Recolored to match the 5 intro/trajectory clips' own cool, desaturated
+	   teal-blue tone (sampled directly from their footage: darkest shadow
+	   ~#0e1c2e, mid stairwell wall ~#2c4a57, pale skylight highlight
+	   ~#bcdce8 -- same values now driving Background.svelte's SUMMARY
+	   shader palette) instead of the previous warm khaki/parchment scheme,
+	   so this final screen reads as part of the same world the player just
+	   walked through rather than a differently-lit epilogue. Panel
+	   background and dim-caption color are shared with Trajectory's own
+	   scoped overrides for the same reason (visual continuity between the
+	   two screens that both sit over this footage). Grade accents keep
+	   the original's "brightest = best" logic, moved into this same cool
+	   family via lightness rather than a warm/cool hue split. */
 	.summary {
 		min-height: 100dvh;
 		display: flex;
@@ -186,21 +194,26 @@
 		align-items: center;
 		gap: 1.1rem;
 		padding: 1.75rem 1.5rem 1.25rem;
-		color: #ece3cb;
+		color: #dce8ee;
 	}
 	.title {
 		font-size: clamp(2rem, 6vw, 3rem);
 		margin: 0;
-		color: #f2ead4;
-		text-shadow: 0 2px 14px rgba(30, 26, 16, 0.55);
+		color: #eef6fa;
+		text-shadow: 0 2px 14px rgba(8, 16, 24, 0.6);
 	}
 	.idcard {
 		display: flex;
-		justify-content: center;
+		/* space-between (not center): now that this box is widened to match
+		   .rows's own max-width so the two panels' left/right edges align,
+		   staying centered would leave the 3 id items bunched in the middle
+		   with idle space at both sides -- spreading them out instead
+		   mirrors how .rows's 5 columns already fill their shared width. */
+		justify-content: space-between;
 		gap: 2.5rem;
 		width: 100%;
-		max-width: 28rem;
-		background: rgba(43, 40, 31, 0.88);
+		max-width: 34rem;
+		background: rgba(27, 40, 48, 0.88);
 		border-radius: 0.6rem;
 		padding: 0.8rem 1.5rem;
 	}
@@ -212,12 +225,12 @@
 	}
 	.id-label {
 		font-size: 0.8rem;
-		color: #a89a72;
+		color: #82a0ad;
 	}
 	.id-value {
 		font-size: 1.3rem;
 		font-weight: bold;
-		color: #f0e6c8;
+		color: #e4f0f5;
 	}
 	.rows {
 		display: flex;
@@ -232,14 +245,14 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 0.15rem;
-		background: rgba(43, 40, 31, 0.88);
+		background: rgba(27, 40, 48, 0.88);
 		border-radius: 0.6rem;
 		padding: 0.55em 0.5em 0.5em;
-		border-top: 3px solid #6d6553;
+		border-top: 3px solid #3f5c68;
 	}
 	.stat-label {
 		font-size: 0.85rem;
-		color: #a89a72;
+		color: #82a0ad;
 		white-space: nowrap;
 	}
 	.stat-values {
@@ -249,25 +262,25 @@
 	}
 	.stat-start {
 		font-size: 0.95rem;
-		color: #a89a72;
+		color: #82a0ad;
 	}
 	.stat-arrow {
 		font-size: 0.85rem;
-		color: #877a58;
+		color: #5f7d8a;
 	}
 	.stat-value {
 		font-size: 1.35rem;
 		font-weight: bold;
-		color: #f0e6c8;
+		color: #e4f0f5;
 	}
 	.row.grade-1 {
-		border-top-color: #e3c56b;
+		border-top-color: #bfe4f0;
 	}
 	.row.grade-2 {
-		border-top-color: #a8a35e;
+		border-top-color: #7fa8b8;
 	}
 	.row.grade-3 {
-		border-top-color: #c98a5a;
+		border-top-color: #4a6570;
 	}
 	.talents {
 		width: 100%;
@@ -276,7 +289,7 @@
 	}
 	.talents h2 {
 		font-size: 1.1rem;
-		color: #a89a72;
+		color: #82a0ad;
 		margin: 0 0 0.5rem;
 		font-weight: normal;
 	}
@@ -289,10 +302,10 @@
 		gap: 0.5rem;
 	}
 	.talents li {
-		background: rgba(43, 40, 31, 0.88);
+		background: rgba(27, 40, 48, 0.88);
 		border-radius: 0.6rem;
 		padding: 0.6em 1em;
-		color: #e2d8ba;
+		color: #cfe2ea;
 		font-size: 0.95rem;
 	}
 	.actions {
@@ -304,16 +317,27 @@
 	.hint {
 		margin: 0;
 		font-size: 0.75rem;
-		color: #a89a72;
+		color: #82a0ad;
 		opacity: 0.6;
 	}
+	/* Pinned to the very bottom of the screen (not just after the hint in
+	   normal flow) via margin-top: auto -- .summary is a flex column with
+	   min-height: 100dvh, so this eats all the leftover vertical space and
+	   sits flush against the bottom edge instead of floating right under
+	   the hint on tall viewports. */
 	.credits {
-		margin-top: 0.5rem;
+		margin-top: auto;
+		padding-top: 0.5rem;
 		text-align: center;
 	}
 	.credits p {
 		margin: 0.15em 0;
 		font-size: 0.7rem;
-		color: rgba(223, 212, 224, 0.55);
+		/* Higher opacity + a dark drop shadow (same treatment as .title)
+		   instead of a faint, nearly-see-through tint -- the old
+		   rgba(...,0.55) all but vanished against this screen's bright
+		   cloud-lit patches. */
+		color: rgba(226, 240, 245, 0.85);
+		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
 	}
 </style>

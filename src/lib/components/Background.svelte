@@ -9,14 +9,17 @@
 	// still uses this shader background; the other screens now have their
 	// own cinematic parallax scenes (see lib/components/parallax/).
 	const FALLBACK_GRADIENTS = {
-		SUMMARY: 'radial-gradient(circle at 50% 0%, #2b3044, #14161f 70%)',
+		SUMMARY: 'radial-gradient(circle at 50% 0%, #24404d, #0d1620 70%)',
 	};
 
 	// Same "flowing sand" shader as before; [shadow, mid, highlight].
-	// SUMMARY: dusk blue-pink, darker than before, echoing the CityIntro
-	// panorama's blue-grey sky and pink-tinged cloud bank.
+	// SUMMARY: cool desaturated teal-blue, sampled directly from the 5 intro
+	// clips' own footage (corridor tile, stairwell concrete, its skylight) --
+	// darkest shadow ~#0e1c2e, mid stairwell wall ~#2c4a57, brightest 2% of
+	// the stairwell's final frame (the skylight) ~#f7fbfe, toned down here to
+	// a pale ice-blue so it reads as a glow accent rather than flashing white.
 	const PALETTES = {
-		SUMMARY: ['#171a24', '#39415c', '#b98aa4'],
+		SUMMARY: ['#0e1c2e', '#2c4a57', '#bcdce8'],
 	};
 
 	function hexToRgb(hex) {

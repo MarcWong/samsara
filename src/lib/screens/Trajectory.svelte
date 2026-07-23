@@ -3,7 +3,7 @@
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
 	import Button from '../components/Button.svelte';
-	import TowerClimbBackground from '../components/parallax/TowerClimbBackground.svelte';
+	import StairwellBackground from '../components/parallax/StairwellBackground.svelte';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const types = core.PropertyTypes;
@@ -209,14 +209,27 @@
 	// a small margin) so it can't intercept anything afterwards.
 	let eyesOpening = $state(true);
 	onMount(() => {
-		onNext();
 		const t = setTimeout(() => (eyesOpening = false), 1300);
 		return () => clearTimeout(t);
 	});
 	onDestroy(clearAutoTimer);
+
+	// The statbar/log used to start (and appear) the instant this screen
+	// mounted -- well before 5.mp4 (playing underneath, ~8.6s) had actually
+	// reached its last frame, so the UI was visibly floating over a scene
+	// still very much in motion. Held back now until StairwellBackground's
+	// own onSpin fires (the clip has ended and the frozen frame has begun
+	// its slow rotation): that's also the moment the life simulation itself
+	// starts (onNext was previously kicked off on mount instead), so no
+	// events silently accumulate off-screen while the UI is hidden.
+	let started = $state(false);
+	function onSpin() {
+		started = true;
+		onNext();
+	}
 </script>
 
-<TowerClimbBackground />
+<StairwellBackground {onSpin} />
 
 {#if eyesOpening}
 	<div class="eyes-open" aria-hidden="true">
@@ -225,9 +238,13 @@
 	</div>
 {/if}
 
+{#if started}
 <div class="trajectory">
 	<div class="statbar">
-		<span class="country">{country} <span class="sex">{sex}</span></span>
+		<div class="country">
+			<span class="country-name">{country}</span>
+			<span class="sex">{sex}</span>
+		</div>
 		{#each STAT_KEYS as key (key)}
 			<div class="stat">
 				<span class="stat-label">{STAT_LABELS[key]}</span>
@@ -273,6 +290,7 @@
 		</div>
 	{/if}
 </div>
+{/if}
 
 <style>
 	.trajectory {
@@ -287,6 +305,16 @@
 		--log-width: min(32rem, 42vw);
 		--log-right: 4.5rem;
 		--log-max-height: 46dvh;
+		/* Local overrides of the app's global cyberpunk-neon palette (see
+		   app.css), scoped to this screen only: sampled from 5.mp4's own
+		   stairwell footage (average RGB across its first/mid/last frames
+		   landed between #244455 and #63798c) so the statbar and log panels
+		   read as part of that cool, desaturated blue-grey stairwell rather
+		   than clashing with it. */
+		--bg-raised: rgba(27, 40, 48, 0.88);
+		--text-dim: #82a0ad;
+		--positive: #7fd9b6;
+		--negative: #e8776a;
 	}
 	/* Fixed height (not just min-height): flex-wrap is off and every stat
 	   column always reserves the same delta-row height (see .stat-delta
@@ -306,14 +334,24 @@
 		overflow: hidden;
 		font-size: 1rem;
 	}
+	/* Stacked into two lines (name, then orientation) instead of one inline
+	   run, and centered like the 5 stat columns beside it, so this block
+	   reads as one more column in the same row rather than a differently-
+	   shaped label bolted onto the front of it. */
 	.country {
-		font-weight: bold;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		margin-right: auto;
 		white-space: nowrap;
 	}
+	.country-name {
+		font-size: 1.3rem;
+		font-weight: bold;
+	}
 	.sex {
 		font-weight: normal;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		color: var(--text-dim);
 	}
 	.stat {
@@ -343,23 +381,19 @@
 		color: var(--negative);
 	}
 
-	/* Pinned to the right edge instead of centered -- the climbing figure
-	   sits left-of-center in TowerClimbBackground's framing, so a centered
-	   log used to sit right on top of them. Capped well short of full
-	   height (roughly two and a half entries) and top-masked so
-	   scrolled-past entries dissolve rather than get clipped, leaving the
-	   3D climb visible everywhere else. Scrollbar hidden (still scrolls,
-	   just no visible track/thumb) since this now auto-advances rather
-	   than being a manually-scrolled reading pane.
+	/* Pinned to the right edge, capped well short of full height (roughly
+	   two and a half entries) and top-masked so scrolled-past entries
+	   dissolve rather than get clipped, leaving the rotating stairwell
+	   frame visible everywhere else. Scrollbar hidden (still scrolls, just
+	   no visible track/thumb) since this now auto-advances rather than
+	   being a manually-scrolled reading pane.
 
-	   The mask's own top stop floors at 85% opacity rather than fully
-	   transparent -- a separate solid scrim layered behind .log to darken
-	   this fade band was tried first, but it rendered as its own visible
-	   translucent box (worse than the problem it fixed). Raising the
-	   floor keeps entries readably "dissolving" as they scroll past
-	   without ever going fully see-through, so the bright neon shaft-light
-	   behind the climb can't shine through at full strength either --
-	   solved directly in the existing mask, no extra layer needed. */
+	   Fully transparent at the very top, ramping to fully opaque by 30% --
+	   a stronger fade than this used to have (an earlier pass floored it at
+	   85% opacity to stop the old neon cyberpunk backdrop bleeding through
+	   too brightly). That backdrop is gone now (StairwellBackground's calm
+	   video frame), so the full transparent-to-opaque fade reads clean
+	   without needing that floor. */
 	.log {
 		position: fixed;
 		top: 50%;
@@ -372,8 +406,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 20%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 20%, black 100%);
+		mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 	}
