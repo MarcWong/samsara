@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import PlazaCityBackground from '../components/parallax/PlazaCityBackground.svelte';
+	import { base } from '$app/paths';
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
 	import COUNTRIES from '../game/functions/countries.js';
@@ -43,7 +43,6 @@
 	let orientation = $state(null);
 	let talents = [];
 	let blinking = $state(false);
-	let quad = $state(null);
 
 	// Blink-out timing (see the lid keyframes below): two quick blinks, then
 	// the lids close for good -- the screen switch happens under full black,
@@ -168,20 +167,16 @@
 	}
 </script>
 
-<PlazaCityBackground onScreenQuad={q => (quad = q)} />
+<!-- The final frame of 4.mp4 (the hospital corridor CityIntro just walked
+     into), same still used as CityIntro's own handoff frame so there's no
+     visible cut arriving here. The computer prop that used to stand in
+     this corridor (and the screen-glass homography that warped the DOS
+     UI onto it) is gone -- the UI below is now a plain centered panel. -->
+<div class="corridor-bg" style="background-image: url('{base}/images/corridor.jpg');"></div>
 
-<!-- Everything renders straight onto the retro TV's screen (see
-     PlazaCityBackground.svelte for the 3D prop and the homography that
-     keeps this warped onto its glass) -- one persistent screen, `step`
-     just swaps which window is showing on it, phosphor-green CRT/DOS
-     styling throughout instead of a scene cut or a separate 2.5D parallax
-     background. -->
-<div
-	class="crt-screen"
-	class:hidden={!quad}
-	class:entering={!settled}
-	style={quad ? `width: ${quad.width}px; height: ${quad.height}px; transform: ${quad.matrix3d};` : ''}
->
+<!-- One persistent phosphor-green CRT/DOS panel, floating centered over
+     the corridor backdrop -- `step` just swaps which window is showing. -->
+<div class="crt-screen" class:entering={!settled}>
 	<div class="scanlines" aria-hidden="true"></div>
 	<div class="crt-glow" aria-hidden="true"></div>
 	<div class="crt-curve" aria-hidden="true"></div>
@@ -272,29 +267,39 @@
 		font-family: 'Courier New', Courier, monospace;
 	}
 
-	/* Position/size/transform all come from PlazaCityBackground's per-frame
-	   homography (see `quad` in the script block and its `style` binding
-	   above) -- this fixes the div at the viewport origin with its
-	   transform-origin pinned there too, so the matrix3d alone places it
-	   exactly on the TV's screen glass, tilt and all. */
+	/* Static backdrop -- no more WebGL scene behind this screen, just the
+	   corridor still (cover-fit, matching how CityIntro's own video canvas
+	   filled the frame, so the handoff has no jump). */
+	.corridor-bg {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		background-color: #0a0710;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	/* A plain centered panel now (used to be perspective-warped onto the
+	   removed computer prop's screen glass via a per-frame homography) --
+	   fixed aspect ratio matching that prop's old glass proportions so
+	   none of the DOS content's own layout needed retuning. */
 	.crt-screen {
 		position: fixed;
-		left: 0;
-		top: 0;
-		transform-origin: 0 0;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: min(92vw, 44rem);
+		aspect-ratio: 340 / 175;
 		padding: 2.5% 3.5%;
 		background: radial-gradient(ellipse 90% 80% at 50% 40%, #0c1c0c 0%, #050a05 100%);
 		color: #39ff6a;
 		overflow: hidden;
-		/* Rounded so this flat quad's own corners tuck in from the physical
-		   tube's real corner curvature. */
-		border-radius: 4% / 6%;
-		box-shadow: inset 0 0 2vh rgba(0, 0, 0, 0.85);
+		border-radius: 1.5% / 2.5%;
+		box-shadow:
+			0 2vh 4vh rgba(0, 0, 0, 0.55),
+			inset 0 0 2vh rgba(0, 0, 0, 0.85);
 		transition: opacity 500ms ease;
-	}
-	.crt-screen.hidden {
-		opacity: 0;
-		pointer-events: none;
 	}
 	.crt-screen.entering {
 		opacity: 0;
