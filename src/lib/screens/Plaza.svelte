@@ -178,6 +178,7 @@
      the corridor backdrop -- `step` just swaps which window is showing. -->
 <div class="crt-screen" class:entering={!settled}>
 	<div class="scanlines" aria-hidden="true"></div>
+	<div class="crt-pixels" aria-hidden="true"></div>
 	<div class="crt-glow" aria-hidden="true"></div>
 	<div class="crt-curve" aria-hidden="true"></div>
 
@@ -265,6 +266,13 @@
 	   this one screen. */
 	:global(.crt-screen) {
 		font-family: 'Courier New', Courier, monospace;
+		/* Enhances the blocky, unhinted terminal-font look (classic Unix
+		   console / BIOS setup utility) instead of the browser's default
+		   antialiased smoothing, which softened every glyph's edges into a
+		   blur at this font size. */
+		-webkit-font-smoothing: none;
+		font-smooth: never;
+		text-rendering: optimizeSpeed;
 	}
 
 	/* Static backdrop -- no more WebGL scene behind this screen, just the
@@ -282,20 +290,26 @@
 
 	/* A plain centered panel now (used to be perspective-warped onto the
 	   removed computer prop's screen glass via a per-frame homography) --
-	   fixed aspect ratio matching that prop's old glass proportions so
-	   none of the DOS content's own layout needed retuning. */
+	   4:3, the classic old-CRT-monitor/BIOS-utility aspect ratio (was a
+	   widescreen-ish 340:175, tuned to that removed prop's own glass
+	   proportions, no longer relevant now that it's a flat panel). Bezel
+	   corners squared off (was lightly rounded) -- BIOS/DOS setup screens
+	   are sharp rectangles, not curved glass. A blue BIOS-blue background
+	   was tried first, but that clashed against the green phosphor text --
+	   monochrome green (deepened slightly from the original CRT gradient,
+	   toward a flatter, more uniform "BIOS setup utility" fill) keeps the
+	   whole panel one coherent color family instead of two competing ones. */
 	.crt-screen {
 		position: fixed;
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
 		width: min(92vw, 44rem);
-		aspect-ratio: 340 / 175;
+		aspect-ratio: 4 / 3;
 		padding: 2.5% 3.5%;
-		background: radial-gradient(ellipse 90% 80% at 50% 40%, #0c1c0c 0%, #050a05 100%);
+		background: radial-gradient(ellipse 90% 80% at 50% 40%, #0a2410 0%, #041006 100%);
 		color: #39ff6a;
 		overflow: hidden;
-		border-radius: 1.5% / 2.5%;
 		box-shadow:
 			0 2vh 4vh rgba(0, 0, 0, 0.55),
 			inset 0 0 2vh rgba(0, 0, 0, 0.85);
@@ -320,6 +334,18 @@
 		);
 		mix-blend-mode: multiply;
 	}
+	/* Fine dot-matrix grid over the scanlines -- individual "pixel cells"
+	   rather than just horizontal scan bands, reinforcing the low-res
+	   terminal look the doubled font size and unhinted text now call for. */
+	.crt-pixels {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background:
+			repeating-linear-gradient(to right, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 1px, transparent 2px, transparent 3px),
+			repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0px, rgba(0, 0, 0, 0.25) 1px, transparent 2px, transparent 3px);
+		mix-blend-mode: multiply;
+	}
 	.crt-glow {
 		position: absolute;
 		inset: 0;
@@ -340,7 +366,7 @@
 
 	.crt-prompt {
 		position: relative;
-		font-size: 0.62rem;
+		font-size: 1.24rem;
 		margin: 0 0 0.4em;
 		text-align: left;
 		letter-spacing: 0.03em;
@@ -360,7 +386,7 @@
 		background: none;
 		color: #39ff6a;
 		font-family: inherit;
-		font-size: 0.5rem;
+		font-size: 1rem;
 		text-align: left;
 		padding: 0.1em 0.1em;
 		cursor: pointer;
@@ -399,7 +425,7 @@
 	.dos-titlebar {
 		background: #39ff6a;
 		color: #04140a;
-		font-size: 0.42rem;
+		font-size: 0.84rem;
 		font-weight: bold;
 		letter-spacing: 0.04em;
 		padding: 0.25em 0.5em;
@@ -412,7 +438,7 @@
 	}
 	.dos-prompt {
 		margin: 0 0 0.5em;
-		font-size: 0.46rem;
+		font-size: 0.92rem;
 		white-space: nowrap;
 		text-shadow: 0 0 4px rgba(57, 255, 106, 0.8);
 	}
@@ -428,7 +454,7 @@
 		background: rgba(57, 255, 106, 0.06);
 		color: #39ff6a;
 		font-family: inherit;
-		font-size: 0.46rem;
+		font-size: 0.92rem;
 		padding: 0.3em 0.7em;
 		cursor: pointer;
 		text-shadow: 0 0 5px rgba(57, 255, 106, 0.75);
@@ -449,7 +475,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.4em;
-		font-size: 0.44rem;
+		font-size: 0.88rem;
 	}
 	.dos-stat-label {
 		flex: 1;
@@ -466,7 +492,7 @@
 		background: rgba(57, 255, 106, 0.06);
 		color: #39ff6a;
 		font-family: inherit;
-		font-size: 0.44rem;
+		font-size: 0.88rem;
 		cursor: pointer;
 		padding: 0;
 	}
