@@ -55,10 +55,29 @@
 		window.location.reload();
 	}
 
+	// printText's own header block (built in Trajectory.svelte, before any
+	// of this screen's "initial -> final" arrow data existed) only has the
+	// starting allocation, e.g. "Family wealth: 5" -- rebuild that block
+	// here from ROWS so the print page shows the same before/after arrow
+	// the on-screen summary does, then splice back in printText's actual
+	// year-by-year story (everything from the first "Year " line on),
+	// which is untouched.
+	function printHeaderAndStory() {
+		const lines = printText.split('\n');
+		const storyStart = lines.findIndex(l => l.startsWith('Year '));
+		const story = storyStart === -1 ? [] : lines.slice(storyStart);
+		const header = [
+			country ? `Country: ${country}` : null,
+			sex ? `Sex orientation: ${sex}` : null,
+			...ROWS.map(r => `${r.label}: ${r.start != null ? `${r.start} → ${r.value}` : r.value}`),
+		].filter(Boolean);
+		return [...header, ...story];
+	}
+
 	function onPrintTxt() {
 		const win = window.open();
 		if (!win) return;
-		const txts = printText.split('\n');
+		const txts = printHeaderAndStory();
 		win.document.write(
 			"<p style='margin: 6px 0; width: 280px; font-size: 14px; font-family:Cascadia Code, Consolas, monospace'>Life Summary @Samsara</p>"
 		);
