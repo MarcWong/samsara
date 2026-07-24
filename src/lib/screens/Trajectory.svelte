@@ -230,7 +230,16 @@
 		return text;
 	}
 
+	// View Summary no longer cuts straight to the SUMMARY screen: it hides
+	// this screen's UI and plays 7.mp4 (opening on the same stair view the
+	// walking loop holds, fading out to black) -- only when that clip ends
+	// (onExited below) does the actual screen switch happen, from under
+	// full black.
 	function goSummary() {
+		exit = true;
+	}
+
+	function onExited() {
 		// Country/orientation/final display age travel along so Summary can
 		// show them without re-deriving the AGE display mapping (the raw HAGE
 		// property is the internal 0-102 index, not the age the player saw).
@@ -268,19 +277,18 @@
 		return () => window.removeEventListener('resize', resize);
 	});
 
-	// The statbar/log/life-sim used to start the instant this screen
-	// mounted -- well before 5.mp4 (playing underneath, ~8.6s) had actually
-	// reached its last frame, so the UI was visibly floating over a scene
-	// still very much in motion. Now: the clip ending (StairwellBackground's
-	// onSpin) reveals the stat-allocation panel instead, over the frame's
-	// sky highlight -- the frame itself stays motionless throughout (`spin`
-	// stays false) so the highlight doesn't drift out from under the panel
-	// mid-allocation. Only once allocation is confirmed does the frame
-	// start rotating and the life sim (onNext) actually begin.
+	// Staged against StairwellBackground's own three acts: the allocation
+	// panel appears only once 5.mp4 has ended (its frame frozen and
+	// motionless under the panel); confirming the allocation flips
+	// `advance`, which plays 6.mp4 (the descent to the stair flights); and
+	// the statbar/log/life-sim start only when that clip ends and the
+	// stair-climb walking loop begins (onWalking) -- so events always play
+	// over the loop, never over a clip still in motion.
 	let allocating = $state(false);
-	let spin = $state(false);
+	let advance = $state(false);
 	let started = $state(false);
-	function onSpin() {
+	let exit = $state(false);
+	function onAllocReady() {
 		allocating = true;
 	}
 
@@ -299,20 +307,23 @@
 		core.start(propertyAllocate);
 		stats = core.propertys;
 		allocating = false;
-		spin = true;
+		advance = true;
+	}
+
+	function onWalking() {
 		started = true;
 		onNext();
 	}
 </script>
 
-<StairwellBackground {onSpin} {spin} />
+<StairwellBackground {onAllocReady} {advance} {onWalking} {exit} {onExited} />
 
 {#if allocating}
-	<!-- 5.mp4 has ended and its last frame is frozen (not yet spinning --
-	     see `spin` above); the stat-allocation panel sits in that frame's
-	     own sky highlight (the bright skylight shaft at the top of the
-	     stairwell), pinned to the video's cover-fit rectangle the same way
-	     CityIntro/Plaza pin their own door overlays. -->
+	<!-- 5.mp4 has ended and its last frame is frozen and motionless; the
+	     stat-allocation panel sits in that frame's own sky highlight (the
+	     bright skylight shaft at the top of the stairwell), pinned to the
+	     video's cover-fit rectangle the same way CityIntro/Plaza pin their
+	     own door overlays. -->
 	<div class="corridor-overlay alloc-overlay" style={overlayStyle}>
 		<div class="alloc-panel" style="left: 50%; top: 24%;">
 			<p class="alloc-title">Allocate your attributes</p>
@@ -351,7 +362,7 @@
 	</div>
 {/if}
 
-{#if started}
+{#if started && !exit}
 <div class="trajectory">
 	<div class="statbar">
 		<div class="country">
@@ -496,7 +507,7 @@
 
 	/* Pinned to the right edge, capped well short of full height (roughly
 	   two and a half entries) and top-masked so scrolled-past entries
-	   dissolve rather than get clipped, leaving the rotating stairwell
+	   dissolve rather than get clipped, leaving the climbing stairwell
 	   frame visible everywhere else. Scrollbar hidden (still scrolls, just
 	   no visible track/thumb) since this now auto-advances rather than
 	   being a manually-scrolled reading pane.

@@ -121,7 +121,7 @@
 
 	// Stat allocation used to happen here too (a third DOS popup after
 	// orientation), but now happens in Trajectory instead, over the
-	// rotating stairwell frame's own sky highlight -- picking an
+	// stairwell frame's own sky highlight -- picking an
 	// orientation is the last thing this screen does; it goes straight to
 	// Trajectory (and 5.mp4) afterward, no transition animation.
 	function chooseOrientation(LBTQ) {

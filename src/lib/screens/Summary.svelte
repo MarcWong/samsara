@@ -51,7 +51,16 @@
 		'Built upon LifeRestart by VickScarlet',
 	];
 
+	// Play Again first rolls 8.mp4 (the rebirth bridge) full-screen over
+	// this page, and only reloads back to the title loop once it ends --
+	// the click itself is the user gesture, so unmuted autoplay on the
+	// just-mounted <video> is permitted. Any playback failure falls
+	// through to the reload rather than stranding the player here.
+	let replaying = $state(false);
 	function onAgain() {
+		replaying = true;
+	}
+	function restart() {
 		window.location.reload();
 	}
 
@@ -173,6 +182,19 @@
 		{/each}
 	</div>
 </div>
+
+{#if replaying}
+	<div class="replay">
+		<!-- svelte-ignore a11y_media_has_caption -->
+		<video
+			src="{base}/videos/8.mp4"
+			autoplay
+			playsinline
+			onended={restart}
+			onerror={restart}
+		></video>
+	</div>
+{/if}
 
 <style>
 	/* Recolored to match the 5 intro/trajectory clips' own cool, desaturated
@@ -339,5 +361,20 @@
 		   cloud-lit patches. */
 		color: rgba(226, 240, 245, 0.85);
 		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
+	}
+
+	/* Full-screen opaque cover for the Play Again bridge clip -- sits over
+	   everything on this page (including the fixed shader background). */
+	.replay {
+		position: fixed;
+		inset: 0;
+		z-index: 30;
+		background: #000;
+	}
+	.replay video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 </style>
