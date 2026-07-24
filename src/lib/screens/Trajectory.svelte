@@ -5,6 +5,7 @@
 	import Button from '../components/Button.svelte';
 	import StairwellBackground from '../components/parallax/StairwellBackground.svelte';
 	import COUNTRIES from '../game/functions/countries.js';
+	import { onSkip } from '../skip.js';
 
 	const types = core.PropertyTypes;
 	// Wealth first, matching this session's stat-ordering fix applied
@@ -252,6 +253,15 @@
 
 	onDestroy(clearAutoTimer);
 
+	// Debug double-space skip (see skip.js): while an event's reading pause
+	// is pending, jump straight to the next one instead of waiting out the
+	// dwell time -- a no-op once the story has ended (no pending timer).
+	onDestroy(
+		onSkip(() => {
+			if (autoTimer) onNext();
+		}),
+	);
+
 	// Tracks the viewport so the stat-allocation panel can be pinned to
 	// 5.mp4's exact cover-fit rectangle (same formula CityIntro/Plaza use
 	// for their own door overlays) -- needed because that panel sits in
@@ -275,81 +285,6 @@
 		resize();
 		window.addEventListener('resize', resize);
 		return () => window.removeEventListener('resize', resize);
-	});
-
-	// Solves the 8-DOF projective transform (3x3 homography, bottom-right
-	// fixed at 1) mapping 4 source points to 4 destination points --
-	// same dependency-free Gaussian-elimination solver the old computer-
-	// prop screen used, revived here to pin the allocation panel onto the
-	// stairwell footage's own geometry.
-	function solveHomography(src, dst) {
-		const A = [];
-		const b = [];
-		for (let i = 0; i < 4; i++) {
-			const { x: sx, y: sy } = src[i];
-			const { x: dx, y: dy } = dst[i];
-			A.push([sx, sy, 1, 0, 0, 0, -sx * dx, -sy * dx]);
-			b.push(dx);
-			A.push([0, 0, 0, sx, sy, 1, -sx * dy, -sy * dy]);
-			b.push(dy);
-		}
-		const n = 8;
-		const M = A.map((row, i) => [...row, b[i]]);
-		for (let col = 0; col < n; col++) {
-			let pivot = col;
-			for (let r = col + 1; r < n; r++) {
-				if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r;
-			}
-			[M[col], M[pivot]] = [M[pivot], M[col]];
-			const div = M[col][col];
-			for (let c = col; c <= n; c++) M[col][c] /= div;
-			for (let r = 0; r < n; r++) {
-				if (r === col) continue;
-				const factor = M[r][col];
-				if (factor === 0) continue;
-				for (let c = col; c <= n; c++) M[r][c] -= factor * M[col][c];
-			}
-		}
-		const h = M.map(row => row[n]);
-		return [...h, 1]; // h0..h7, h8=1
-	}
-	function homographyToMatrix3d(h) {
-		const [h0, h1, h2, h3, h4, h5, h6, h7, h8] = h;
-		return `matrix3d(${h0}, ${h3}, 0, ${h6}, ${h1}, ${h4}, 0, ${h7}, 0, 0, 1, 0, ${h2}, ${h5}, 0, ${h8})`;
-	}
-
-	// The allocation panel's edges land exactly on the largest rectangular
-	// stair edge visible toward the ceiling in 5.mp4's frozen final frame
-	// (the current floor's own ceiling opening) -- corners measured off
-	// that frame at 1280x720, as fractions of it, so the mapping holds at
-	// any viewport via the cover-fit rect.
-	// Wide at the top, narrowing toward the bottom (the perceived
-	// perspective of the ceiling opening receding upward) -- the first
-	// pass had the trapezoid inverted. Shrunk from the full ceiling-
-	// opening extent (which filled most of the frame): narrower on both
-	// sides and the top edge pulled well down from the frame's top, per
-	// request, while keeping the same trapezoid orientation and center. */
-	const ALLOC_QUAD = [
-		[389 / 1280, 101 / 720], // top-left
-		[799 / 1280, 99 / 720], // top-right
-		[741 / 1280, 623 / 720], // bottom-right
-		[447 / 1280, 634 / 720], // bottom-left
-	];
-	const ALLOC_REF_W = 360;
-	const ALLOC_REF_H = 520;
-	let allocMatrix = $derived.by(() => {
-		if (!cw || !ch) return null;
-		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
-		const dw = VIDEO_W * s;
-		const dh = VIDEO_H * s;
-		const src = [
-			{ x: 0, y: 0 },
-			{ x: ALLOC_REF_W, y: 0 },
-			{ x: ALLOC_REF_W, y: ALLOC_REF_H },
-			{ x: 0, y: ALLOC_REF_H },
-		];
-		const dst = ALLOC_QUAD.map(([fx, fy]) => ({ x: fx * dw, y: fy * dh }));
-		return homographyToMatrix3d(solveHomography(src, dst));
 	});
 
 	// Staged against StairwellBackground's own three acts: the allocation
@@ -395,15 +330,13 @@
 
 {#if allocating}
 	<!-- 5.mp4 has ended and its last frame is frozen and motionless; the
-	     stat-allocation panel is perspective-warped (see allocMatrix) so
-	     its four edges land exactly on the frame's own largest ceiling
-	     stair-edge rectangle -- the footage's geometry is the panel's
-	     frame, no border of its own. -->
+	     stat-allocation panel is a tall rounded glass card hugging the
+	     stairwell's central void (per the reference mockup -- straight
+	     sides, large corner radii, no perspective warp), pinned to the
+	     video's cover-fit rectangle and sized in cq units so it scales
+	     with the footage. -->
 	<div class="corridor-overlay alloc-overlay" style={overlayStyle}>
-		<div
-			class="alloc-panel"
-			style={allocMatrix ? `width: ${ALLOC_REF_W}px; height: ${ALLOC_REF_H}px; transform: ${allocMatrix};` : 'display: none;'}
-		>
+		<div class="alloc-panel">
 			<p class="alloc-title">Allocate your attributes</p>
 			<p class="alloc-tokens">Tokens: {propertyPoints} &nbsp; Remaining: {allocLeft}</p>
 			<div class="alloc-stats">
@@ -692,32 +625,37 @@
 	.corridor-overlay {
 		position: fixed;
 	}
+	/* Sized as a container so the panel's children can use cq units --
+	   everything scales with the footage's drawn rectangle, matching how
+	   the reference mockup was drawn against the frame itself. */
+	.alloc-overlay {
+		container-type: size;
+	}
 	/* "Liquid Glass" panel -- same recipe as Button.svelte's own pills
 	   (backdrop-blur + saturate, a soft white tint instead of an opaque
 	   fill, a gloss highlight, real depth via shadow), scaled up to a
-	   card. Perspective-warped (allocMatrix) so its edges lie exactly on
-	   the frame's largest ceiling stair-edge rectangle -- the footage's
-	   own geometry is the frame, so no border/rounding of its own. The
-	   width/height here are the pre-warp reference box (ALLOC_REF_W/H);
-	   every inner size is in px of that box and scales with the warp. */
+	   card. Per the reference mockup: a tall straight-sided card hugging
+	   the stairwell's central void, with large rounded corners --
+	   position/size measured off the mockup as fractions of the frame. */
 	.alloc-panel {
 		position: absolute;
-		left: 0;
-		top: 0;
-		transform-origin: 0 0;
+		left: 36.3%;
+		top: 13.6%;
+		width: 26.2%;
+		height: 62.8%;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-		/* Content clusters from the top with tight margins (was
-		   space-between, which stretched title/tokens/stats apart across
-		   the whole quad); only the actions stay pinned to the bottom
-		   edge, via their own margin-top: auto. */
+		/* Content clusters from the top with tight margins; only the
+		   actions stay pinned to the bottom edge, via their own
+		   margin-top: auto. */
 		justify-content: flex-start;
 		background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(210, 228, 236, 0.16) 100%);
 		-webkit-backdrop-filter: blur(24px) saturate(180%);
 		backdrop-filter: blur(24px) saturate(180%);
 		border: none;
-		padding: 26px 30px 24px;
+		border-radius: 8cqh;
+		padding: 3.4cqh 2.4cqw 3cqh;
 		color: #17262e;
 		text-align: center;
 		box-shadow:
@@ -741,35 +679,35 @@
 		position: relative;
 	}
 	.alloc-title {
-		margin: 0 0 0.25rem;
-		font-size: 1.15rem;
+		margin: 0 0 0.3cqh;
+		font-size: 3.4cqh;
 		font-weight: bold;
 	}
 	.alloc-tokens {
-		margin: 0 0 0.6rem;
-		font-size: 0.85rem;
+		margin: 0 0 2cqh;
+		font-size: 2.1cqh;
 		color: #3c5563;
 	}
 	.alloc-stats {
 		display: flex;
 		flex-direction: column;
-		gap: 0.55rem;
-		margin-bottom: 1.1rem;
+		gap: 2.4cqh;
+		margin-bottom: 2cqh;
 	}
 	.alloc-row {
 		display: flex;
 		align-items: center;
-		gap: 0.65rem;
+		gap: 1cqw;
 	}
 	.alloc-label {
 		flex: 1;
 		text-align: left;
-		font-size: 0.95rem;
+		font-size: 2.6cqh;
 	}
 	.alloc-value {
 		width: 1.6em;
 		text-align: center;
-		font-size: 1.1rem;
+		font-size: 2.8cqh;
 		font-weight: bold;
 	}
 	/* Mini liquid-glass pills, same recipe as .alloc-panel/Button.svelte
@@ -789,7 +727,7 @@
 		color: #17262e;
 		border-radius: 50%;
 		cursor: pointer;
-		font-size: 1rem;
+		font-size: 2.4cqh;
 		padding: 0;
 		box-shadow:
 			0 2px 6px rgba(10, 20, 28, 0.18),
@@ -868,20 +806,21 @@
 		width: 56%;
 		height: 14%;
 	}
-	/* Lies slanted along the railing's own top rail (same perspective
-	   trick as .age-tread on the treads) rather than floating upright
-	   above it -- which had it overlapping the panel's bottom edge. */
+	/* Sits flat on the handrail's own white strip (the bright band
+	   crossing the void's bottom, ~89% down the frame), horizontal and
+	   small per the reference mockup -- below the panel's rounded bottom
+	   edge, never overlapping it. */
 	.rail-hint-tip {
 		position: absolute;
 		left: 50%;
-		top: 22%;
-		transform: translate(-50%, -50%) perspective(28em) rotateX(48deg) rotateZ(-3deg);
+		top: 24%;
+		transform: translate(-50%, -50%);
 		margin: 0;
 		white-space: nowrap;
-		font-size: 1.1rem;
+		font-size: 1.9cqh;
 		letter-spacing: 0.12em;
-		color: rgba(255, 255, 255, 0.9);
-		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+		color: rgba(255, 255, 255, 0.85);
+		text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
 		opacity: 0;
 		transition: opacity 300ms ease;
 		pointer-events: none;

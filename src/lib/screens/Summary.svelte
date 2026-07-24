@@ -3,6 +3,7 @@
 	import { draft } from '../stores.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
+	import { skippable } from '../skip.js';
 
 	const { summary } = core;
 	const types = core.PropertyTypes;
@@ -102,6 +103,24 @@
 			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>Visit https://marcwong.github.io/samsara/ to play it at home.<br> © 2022 Yuwei Jiang</p>"
 		);
 		win.document.write(
+			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_ins.png' style='width: 150px;height:150px;'></div>`
+		);
+		win.document.write(
+			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Follow us on Instagram</p>"
+		);
+		win.document.write(
+			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_coffee.png' style='width: 150px;height:150px;'></div>`
+		);
+		win.document.write(
+			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Buy us a coffee</p>"
+		);
+		win.document.write(
+			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_discord.png' style='width: 150px;height:150px;'></div>`
+		);
+		win.document.write(
+			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Stay updated on Samsara</p>"
+		);
+		win.document.write(
 			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>Contact: sabinajiang0505@outlook.com</p>"
 		);
 		win.document.write(
@@ -192,6 +211,7 @@
 			playsinline
 			onended={restart}
 			onerror={restart}
+			use:skippable
 		></video>
 	</div>
 {/if}

@@ -24,6 +24,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { webCodecsSupported, loadMp4, CanvasVideoPlayer } from '../videoPlayer.js';
+	import { skippable } from '../../skip.js';
 
 	let { onAllocReady = null, advance = false, onWalking = null, exit = false, onExited = null } = $props();
 
@@ -188,6 +189,7 @@
 					else if (videoSrc.endsWith('6.mp4')) startWalking();
 					else onAllocReady?.();
 				}}
+				use:skippable
 			></video>
 		{/if}
 

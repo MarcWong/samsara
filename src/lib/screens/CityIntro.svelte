@@ -19,6 +19,7 @@
 	import { base } from '$app/paths';
 	import { goToScreen } from '../stores.js';
 	import { CanvasVideoPlayer, loadMp4, webCodecsSupported } from '../components/videoPlayer.js';
+	import { skippable } from '../skip.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const supported = webCodecsSupported();
@@ -315,6 +316,7 @@
 				if (phase === 'exit') goToScreen('PLAZA', { countryCode: pendingCountry });
 				else phase = phase === 'morgue' ? 'select' : 'frozen';
 			}}
+			use:skippable
 		></video>
 	{/if}
 

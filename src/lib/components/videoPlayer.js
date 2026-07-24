@@ -16,6 +16,7 @@
 // backpressure logic in play().
 
 import { createFile, DataStream, MP4BoxBuffer } from 'mp4box';
+import { onSkip } from '../skip.js';
 
 export function webCodecsSupported() {
 	return typeof VideoDecoder !== 'undefined';
@@ -198,6 +199,53 @@ export class CanvasVideoPlayer {
 		});
 		decoder.configure(config);
 
+		// Debug double-space skip (see skip.js): burst-decodes the whole clip
+		// with a throwaway decoder (no real-time pacing) to get its true last
+		// frame, presents that, and completes exactly as a normal end-of-clip
+		// would -- same onEnded/loop handling, just without the wait. A no-op
+		// on looping playback (nothing to "skip to" on a clip with no end).
+		const offSkip = onSkip(() => {
+			if (loop || session.aborted || ended) return;
+			ended = true;
+			cancelAnimationFrame(session.raf);
+			clearInterval(session.timer);
+			offSkip();
+			for (const f of frames) f.close();
+			frames.length = 0;
+			try {
+				decoder.close();
+			} catch {
+				/* already closed/closing */
+			}
+			let lastFrame = null;
+			const burst = new VideoDecoder({
+				output: f => {
+					lastFrame?.close();
+					lastFrame = f;
+				},
+				error: err => console.error('[videoPlayer] skip decode error', err),
+			});
+			burst.configure(config);
+			for (const c of chunks) burst.decode(c);
+			burst
+				.flush()
+				.catch(() => {})
+				.then(() => {
+					try {
+						burst.close();
+					} catch {
+						/* already closed */
+					}
+					if (session.aborted) {
+						lastFrame?.close();
+						return;
+					}
+					if (lastFrame) this.#present(lastFrame);
+					this.#session = null;
+					onEnded?.();
+				});
+		});
+
 		const pump = () => {
 			while (feedIndex < chunks.length && decoder.decodeQueueSize < 6 && frames.length < 6) {
 				decoder.decode(chunks[feedIndex++]);
@@ -234,6 +282,7 @@ export class CanvasVideoPlayer {
 				ended = true;
 				cancelAnimationFrame(session.raf);
 				clearInterval(session.timer);
+				offSkip();
 				try {
 					decoder.close();
 				} catch {
@@ -264,6 +313,7 @@ export class CanvasVideoPlayer {
 			session.aborted = true;
 			cancelAnimationFrame(session.raf);
 			clearInterval(session.timer);
+			offSkip();
 			for (const f of frames) f.close();
 			frames.length = 0;
 			try {
