@@ -404,7 +404,27 @@
 				<span>Tokens: {propertyPoints}</span>
 				<span>Remaining: {allocLeft}</span>
 			</p>
-			<button type="button" class="alloc-action random-row" onclick={randomAllocate}>Random</button>
+			<!-- Mirrors .alloc-row's own structure (empty label, ghost step,
+			     value-width slot, ghost step) purely so the Random button's
+			     slot lands in the exact same column as .alloc-value below --
+			     matching that by hand-tuned margins would drift the moment
+			     either row's sizing changes; sharing the row's own layout
+			     can't drift out of sync with it. -->
+			<div class="alloc-row random-align" aria-hidden="true">
+				<span class="alloc-label"></span>
+				<span class="alloc-step-ghost"></span>
+				<span class="value-slot">
+					<button
+						type="button"
+						class="alloc-action random-row"
+						aria-hidden="false"
+						onclick={randomAllocate}
+					>
+						Random
+					</button>
+				</span>
+				<span class="alloc-step-ghost"></span>
+			</div>
 			<div class="alloc-stats">
 				{#each ALLOC_ROWS as { type, label } (type)}
 					<div class="alloc-row">
@@ -525,34 +545,46 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
-		/* Local overrides of the app's global cyberpunk-neon palette (see
-		   app.css), scoped to this screen only: sampled from 5.mp4's own
-		   stairwell footage (average RGB across its first/mid/last frames
-		   landed between #244455 and #63798c) so the statbar and log panels
-		   read as part of that cool, desaturated blue-grey stairwell rather
-		   than clashing with it. */
-		--bg-raised: rgba(27, 40, 48, 0.88);
-		--text-dim: #82a0ad;
-		--positive: #7fd9b6;
-		--negative: #e8776a;
+		/* Unified with the allocation screen's own "liquid glass" language
+		   (see .alloc-panel/.alloc-glass) instead of the old dark cyberpunk
+		   statbar + flat cream cards: dark-navy text on a frosted, light
+		   glass tint reads as one continuous UI system across both screens
+		   now, rather than two different visual treatments bolted together. */
+		--positive: #1a7a5c;
+		--negative: #b8382a;
 	}
-	/* Fixed height (not just min-height): flex-wrap is off and every stat
-	   column always reserves the same delta-row height (see .stat-delta
-	   below), so this box's height genuinely never changes as effects
-	   appear/disappear -- both are needed, since either alone still leaves
-	   a path for the row to reflow. */
+	/* Positioned (not static) and stacked above .scene below purely so it
+	   can never end up rendered under a scrolled-up step card -- .scene is
+	   position:fixed, and a fixed sibling paints over a static one in DOM
+	   order regardless of who's visually "first" on screen, which is
+	   exactly the covering bug this fixes. Fixed height (not just
+	   min-height): flex-wrap is off and every stat column always reserves
+	   the same delta-row height (see .stat-delta below), so this box's
+	   height genuinely never changes as effects appear/disappear -- both
+	   are needed, since either alone still leaves a path for the row to
+	   reflow. */
 	.statbar {
+		position: relative;
+		z-index: 5;
 		display: flex;
 		align-items: center;
 		gap: 1.25rem;
 		max-width: 42rem;
 		height: 5.25rem;
-		margin: 0 auto;
-		padding: 0 1.25rem;
-		background: var(--bg-raised);
+		margin: 1rem auto 0;
+		padding: 0 1.5rem;
+		border-radius: 1.1rem;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(210, 228, 236, 0.62) 100%);
+		-webkit-backdrop-filter: blur(20px) saturate(160%);
+		backdrop-filter: blur(20px) saturate(160%);
+		box-shadow:
+			inset 0 1px 1px rgba(255, 255, 255, 0.55),
+			inset 0 -10px 16px rgba(20, 40, 55, 0.06),
+			0 6px 18px rgba(5, 12, 18, 0.3);
 		flex-wrap: nowrap;
 		overflow: hidden;
 		font-size: 1rem;
+		color: #17262e;
 	}
 	/* Stacked into two lines (name, then orientation) instead of one inline
 	   run, and centered like the 5 stat columns beside it, so this block
@@ -572,7 +604,7 @@
 	.sex {
 		font-weight: normal;
 		font-size: 0.8rem;
-		color: var(--text-dim);
+		color: #4b6068;
 	}
 	.stat {
 		display: flex;
@@ -582,10 +614,11 @@
 	}
 	.stat-label {
 		font-size: 0.8rem;
-		color: var(--text-dim);
+		color: #4b6068;
 	}
 	.stat-value {
 		font-size: 1.3rem;
+		font-weight: bold;
 	}
 	.stat-delta {
 		font-size: 0.85rem;
@@ -615,13 +648,20 @@
 	   receding plane (perspective + rotateY, left edge nearer) so the
 	   steps read as sitting on that flight rather than floating over it.
 	   Top-masked so scrolled-past steps dissolve rather than clip;
-	   scrollbar hidden since scrollToEnd() drives it. */
+	   scrollbar hidden since scrollToEnd() drives it. Starts well below
+	   .statbar's own screen position (a fixed rem offset stacked on top of
+	   the existing 5%, not just 5% alone) -- .statbar's height is a fixed
+	   rem value pinned to the viewport, but this box's own top is a percent
+	   of the (often taller, overscanned) cover-fit rect, so on most aspect
+	   ratios 5% alone landed above the statbar's actual bottom edge, and
+	   z-index alone would have still meant new steps spawned already
+	   sliding out from behind it instead of clearing it outright. */
 	.stair-log {
 		position: absolute;
 		left: 6%;
-		top: 5%;
+		top: calc(5% + 6.5rem);
 		width: 58%;
-		max-height: 90%;
+		max-height: calc(90% - 6.5rem);
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
@@ -649,24 +689,37 @@
 		transform: rotateZ(-2.5deg);
 		font-size: 2.6cqh;
 	}
+	/* Same frosted-glass recipe as .alloc-glass (tint + backdrop-blur +
+	   inset highlight), just tinted teal instead of neutral so the tread
+	   still reads as the stair's own surface rather than a UI chrome
+	   sitting on top of it. */
 	.step-tread {
-		background: linear-gradient(180deg, #4a8f81 0%, #2e5c53 100%);
+		background: linear-gradient(180deg, rgba(129, 214, 191, 0.55) 0%, rgba(37, 79, 71, 0.62) 100%);
+		-webkit-backdrop-filter: blur(14px) saturate(160%);
+		backdrop-filter: blur(14px) saturate(160%);
 		color: #f2fbf7;
 		font-weight: bold;
 		font-size: 0.9em;
 		white-space: nowrap;
 		padding: 0.25em 0.9em;
 		border-radius: 0.3em 0.9em 0 0;
-		box-shadow: 0 2px 8px rgba(5, 12, 18, 0.5);
+		box-shadow:
+			inset 0 1px 1px rgba(255, 255, 255, 0.4),
+			0 2px 8px rgba(5, 12, 18, 0.5);
 	}
 	.step-riser {
-		background: rgba(238, 240, 233, 0.94);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(210, 228, 236, 0.66) 100%);
+		-webkit-backdrop-filter: blur(16px) saturate(160%);
+		backdrop-filter: blur(16px) saturate(160%);
 		padding: 0.6em 1em 0.7em;
 		border-radius: 0 0.6em 0.6em 0.6em;
-		box-shadow: 0 3px 10px rgba(5, 12, 18, 0.4);
+		box-shadow:
+			inset 0 1px 1px rgba(255, 255, 255, 0.5),
+			inset 0 -8px 14px rgba(20, 40, 55, 0.05),
+			0 3px 10px rgba(5, 12, 18, 0.35);
 	}
 	.step.fatal .step-tread {
-		background: linear-gradient(180deg, #a8493c 0%, #7a2e24 100%);
+		background: linear-gradient(180deg, rgba(216, 106, 89, 0.55) 0%, rgba(101, 38, 28, 0.62) 100%);
 	}
 	.step.fatal .entry-text {
 		color: #7a1c12;
@@ -675,7 +728,7 @@
 		margin: 0;
 		white-space: pre-line;
 		line-height: 1.4;
-		color: #1c2b30;
+		color: #17262e;
 	}
 	.entry-deltas {
 		margin-top: 0.5em;
@@ -683,16 +736,6 @@
 		gap: 1em;
 		flex-wrap: wrap;
 		font-size: 0.85em;
-	}
-	/* .positive/.negative are shared with the (dark) statbar above, where
-	   the light teal/coral pair has plenty of contrast -- against the
-	   riser's near-white paper tone the same colors wash out, so darken
-	   both just within this light context. */
-	.step-riser .positive {
-		color: #1a7a5c;
-	}
-	.step-riser .negative {
-		color: #b8382a;
 	}
 	/* Pinned to the very bottom of the viewport. No background band -- the
 	   glass button floats over the climb scene on its own. */
@@ -842,6 +885,30 @@
 		font-size: 2.8cqh;
 		font-weight: bold;
 	}
+	/* The Random row: same width as .alloc-stats (its sibling below) so the
+	   shared .alloc-row flex math lines up identically, and the same ghost
+	   step/value-slot sizes so the slot Random sits in is pixel-identical
+	   to .alloc-value's own box -- see the markup comment for why this
+	   mirrors the row instead of computing an offset by hand. */
+	.random-align {
+		width: 80%;
+		margin: 0 0 1cqh;
+	}
+	.alloc-step-ghost {
+		/* em is relative to *this* element's own font-size, not .alloc-step's
+		   -- without matching font-size here, 1.9em resolves to a different
+		   px width than the real step buttons use and the slot drifts off
+		   .alloc-value's actual center. */
+		font-size: 2.4cqh;
+		width: 1.9em;
+		height: 1.9em;
+		visibility: hidden;
+	}
+	.value-slot {
+		position: relative;
+		font-size: 2.8cqh;
+		width: 1.6em;
+	}
 	/* Mini liquid-glass pills, same recipe as .alloc-panel/Button.svelte
 	   scaled down to a circle: translucent white fill + blur (not the flat
 	   steel-blue tint used elsewhere), so these read as glass beads on the
@@ -867,7 +934,10 @@
 		transition: background 150ms ease, transform 150ms ease;
 	}
 	.alloc-step:disabled {
-		opacity: 0.35;
+		/* Was 0.35 -- close enough to the glass panel's own tint that a
+		   disabled step nearly vanished into the background instead of
+		   reading as "present but not clickable right now". */
+		opacity: 0.6;
 		cursor: default;
 	}
 	.alloc-step:not(:disabled):hover {
@@ -880,9 +950,19 @@
 	   rows, per the requested reading order; Start sits on its own row
 	   below the stats, centered on the trapezoid's own axis via the
 	   parent's text-align/align-items: center -- neither needs the old
-	   flex-row wrapper now that they're stacked instead of paired. */
+	   flex-row wrapper now that they're stacked instead of paired.
+	   Random itself is absolutely centered on .value-slot (its ghost-row
+	   parent) rather than sized to it -- "Random" is far wider than the
+	   1.6em a digit needs, so it has to be free to overflow that slot
+	   while still sharing its center, which is what actually needs to
+	   land on the same vertical line as the stat values below. */
 	.alloc-action.random-row {
-		margin: 0 0 2.6cqh;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		white-space: nowrap;
+		font-size: 1.2rem;
 		/* Sits higher on the card now, over the bright sky/skylight rather
 		   than the dark railing the base .alloc-action color was tuned
 		   for -- dark text (matching the stat labels around it) instead of
@@ -893,7 +973,8 @@
 		text-shadow: none;
 	}
 	.alloc-action.start-row {
-		margin: auto 0 4cqh;
+		margin: 2cqh 0 2cqh;
+		font-size: 1.8rem;
 	}
 	/* Plain text, no border/background/pill -- same type family as every
 	   other label on this panel, just a size up. Only Start carries the
@@ -906,7 +987,6 @@
 		padding: 0;
 		cursor: pointer;
 		font-family: inherit;
-		font-size: 1.5rem;
 		letter-spacing: 0.06em;
 		/* Light base kept as the fallback for any row that doesn't override
 		   it; both Random and Start now sit over the glass card's own
@@ -928,8 +1008,26 @@
 		text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 	}
 	.alloc-action:disabled {
-		opacity: 0.45;
+		/* Was 0.45 -- fine for the +/- steps, but on Start it read as
+		   barely different from the enabled blink's own dim phase (see
+		   the more specific override below for why Start needs more than
+		   just an opacity bump). */
+		opacity: 0.6;
 		cursor: default;
+	}
+	/* Swaps Start's whole color story instead of just dimming it: enabled
+	   Start blinks between dark navy and a saturated teal (see
+	   action-blink below); at only an opacity difference, disabled Start's
+	   dimmed navy read too close to that same blink's own dark phase to
+	   register as "not clickable yet" at a glance. A flat, desaturated
+	   gray-blue with no color animation reads as inert on sight, which a
+	   dimmer version of the same blinking color didn't. More specific than
+	   .alloc-action.start above (three selectors vs. two), so this wins
+	   regardless of source order. */
+	.alloc-action.start:disabled {
+		animation: none;
+		color: #7c8a90;
+		text-shadow: none;
 	}
 	@keyframes action-blink {
 		0%,
