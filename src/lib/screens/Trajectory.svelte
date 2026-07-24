@@ -6,6 +6,7 @@
 	import StairwellBackground from '../components/parallax/StairwellBackground.svelte';
 	import COUNTRIES from '../game/functions/countries.js';
 	import { onSkip } from '../skip.js';
+	import { drawTalents as drawTalentsFrom } from '../game/talentDraw.js';
 
 	const types = core.PropertyTypes;
 	// Wealth first, matching this session's stat-ordering fix applied
@@ -36,7 +37,9 @@
 	// allocation happens here instead, once 5.mp4 ends, so the country's
 	// point budget and the "initial -> final" rebalance can't be computed
 	// until that allocation is actually made).
-	const talents = $draft.talents;
+	// Reassigned in confirmAllocation() if the free-allocation bonus
+	// triggers -- see GOOD_TALENT_POOL below.
+	let talents = $draft.talents;
 	const countryCode = $draft.countryCode;
 	const countryData = COUNTRIES.find(({ code }) => code === countryCode);
 	const country = countryData?.name;
@@ -190,7 +193,7 @@
 			.map(([prop, value]) => `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`)
 			.join('  ');
 
-		printText += `Year ${2022 + realAge}, age: ${realAge}\n${text}${statChangesText ? `\n${statChangesText}` : ''}\n`;
+		printText += `Age: ${realAge}\n${text}${statChangesText ? `\n${statChangesText}` : ''}\n`;
 
 		const fatal = content.some(c => (c.effect?.LIF ?? 0) < 0);
 
@@ -280,30 +283,61 @@
 		allocating = true;
 	}
 
+	// The single-stat trigger is scaled to each country's own point budget
+	// (a flat 8 either never fired for low-budget countries or fired too
+	// easily for high-budget ones) -- grouped into three tiers by budget,
+	// per explicit request. Denmark (17 pts, the single highest budget in
+	// the game) wasn't named in any of the three groups; it's folded into
+	// the top tier (same as Japan/UK/USA, 14-15 pts) since that's the only
+	// one its budget is actually close to.
+	const BONUS_TRIGGER = {
+		// Haiti, Afghanistan, Iran, North Korea (6-8 pts)
+		HTI: 5, AF: 5, IRN: 5, PRK: 5,
+		// India, Ukraine, Egypt, China (9-12 pts)
+		IND: 7, UKR: 7, EGY: 7, CH: 7,
+		// Japan, UK, USA (14-15 pts), plus Denmark (17 pts)
+		JAP: 9, GBR: 9, US: 9, DNK: 9,
+	};
+
 	// The rail hint's "see what happens" promise, and the Summary hint's own
-	// "+5 on all stats" line, are a real mechanic: reaching 8 in any single
-	// stat, or dumping every point into just one, tops up everything still
-	// under 5 to exactly 5 -- a free-allocation bonus, not the old
-	// initProperty()'s flat-8 stomp on the stat that triggered it (that was
-	// the Afghanistan bug: putting 6 points into MNY alone left it at a
-	// genuine 6, but the old code still forced it up to 8 because 6<8).
-	// Stats already at/above 5 (including whichever stat did the
-	// triggering) are left exactly as allocated.
+	// "+5 on all stats" line, are a real mechanic: reaching this country's
+	// own trigger value in any single stat tops up everything still under 5
+	// to exactly 5 -- a free-allocation bonus, not the old initProperty()'s
+	// flat-8 stomp on the stat that triggered it (that was the Afghanistan
+	// bug: putting 6 points into MNY alone left it at a genuine 6, but the
+	// old code still forced it up to 8 because 6<8). Stats already at/above
+	// 5 (including whichever stat did the triggering) are left exactly as
+	// allocated. Every group's trigger value is at or below that group's
+	// own point budget, so dumping every point into one stat always meets
+	// it -- no separate "all in one stat" fallback needed.
+	// Returns {propertyAllocate, triggered} -- confirmAllocation() needs the
+	// flag too, to decide whether to re-roll this life's lucky charms.
 	function applyBonus(propertyAllocate) {
+		const trigger = BONUS_TRIGGER[countryCode] ?? 8;
 		let max = 0;
-		let nonZeroCount = 0;
 		for (const key of STAT_KEYS) {
 			const value = propertyAllocate[types[key]];
 			if (value > max) max = value;
-			if (value > 0) nonZeroCount++;
 		}
-		if (max < 8 && nonZeroCount !== 1) return propertyAllocate;
-		for (const key of STAT_KEYS) {
-			const t = types[key];
-			if (propertyAllocate[t] < 5) propertyAllocate[t] = 5;
+		const triggered = max >= trigger;
+		if (triggered) {
+			for (const key of STAT_KEYS) {
+				const t = types[key];
+				if (propertyAllocate[t] < 5) propertyAllocate[t] = 5;
+			}
 		}
-		return propertyAllocate;
+		return { propertyAllocate, triggered };
 	}
+
+	// Talent-list indices (see talentDraw.js) of the 4 lucky charms with a
+	// purely positive effect and nothing else attached: Helen of Troy
+	// (CHR+10), Job opportunity (MNY+3), You are beautiful (CHR+3),
+	// Queen's gambit (INT+3). Earthquake, Airplane Crash, Bankruptcy, Rape,
+	// and Farewell Mom are all excluded -- either they harm/kill outright,
+	// or (Farewell Mom, Rape) carry no stat effect but are unambiguously
+	// bad turns for the character. A miracle of life is also excluded: its
+	// STR+3 comes bundled with MNY-3, not a clean positive.
+	const GOOD_TALENT_POOL = [5, 6, 7, 9];
 
 	function confirmAllocation() {
 		if (allocLeft > 0) return;
@@ -312,7 +346,19 @@
 		// everything up to 5 -- Summary needs this to know whether the
 		// trick was actually used (post-bonus, every stat reads nonzero).
 		triedAllInOneStat = STAT_KEYS.filter(key => allocate[types[key]] > 0).length === 1;
-		propertyAllocate = applyBonus({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
+		const bonus = applyBonus({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
+		propertyAllocate = bonus.propertyAllocate;
+		if (bonus.triggered) {
+			// The free-allocation trick already handed her an easier start --
+			// re-roll this life's 3 lucky charms from the good-only pool so
+			// none of the random misfortunes (earthquake, bankruptcy, rape,
+			// a plane crash) can also land on top of it. core.remake() was
+			// already called once in Plaza with the original draw; calling
+			// it again here fully replaces that selection before core.start()
+			// ever applies any of it.
+			talents = drawTalentsFrom(core.talentRandom(), { pool: GOOD_TALENT_POOL });
+			core.remake(talents.map(t => t.id));
+		}
 		printText =
 			(country ? `Country: ${country}\n` : '') +
 			`Sex orientation: ${sex}\n` +
@@ -320,7 +366,7 @@
 			`Appearance: ${propertyAllocate[types.CHR]}\n` +
 			`IQ: ${propertyAllocate[types.INT]}\n` +
 			`Healthy: ${propertyAllocate[types.STR]}\n` +
-			`EQ: ${propertyAllocate[types.SPR]}\n`;
+			`EQ: ${propertyAllocate[types.SPR]}\n\n`;
 		core.start(propertyAllocate);
 		stats = core.propertys;
 		allocating = false;
@@ -354,7 +400,11 @@
 			     parent's overflow:hidden + clip-path can crop from outside. -->
 			<div class="alloc-glass" aria-hidden="true"></div>
 			<p class="alloc-title">Allocate your attributes</p>
-			<p class="alloc-tokens">Tokens: {propertyPoints} &nbsp; Remaining: {allocLeft}</p>
+			<p class="alloc-tokens">
+				<span>Tokens: {propertyPoints}</span>
+				<span>Remaining: {allocLeft}</span>
+			</p>
+			<button type="button" class="alloc-action random-row" onclick={randomAllocate}>Random</button>
 			<div class="alloc-stats">
 				{#each ALLOC_ROWS as { type, label } (type)}
 					<div class="alloc-row">
@@ -381,12 +431,14 @@
 					</div>
 				{/each}
 			</div>
-			<div class="alloc-actions">
-				<button type="button" class="alloc-action" onclick={randomAllocate}>Random</button>
-				<button type="button" class="alloc-action start" disabled={allocLeft > 0} onclick={confirmAllocation}>
-					Start
-				</button>
-			</div>
+			<button
+				type="button"
+				class="alloc-action start start-row"
+				disabled={allocLeft > 0}
+				onclick={confirmAllocation}
+			>
+				Start
+			</button>
 		</div>
 		<!-- Hidden-in-plain-sight strategy tip: hovering the foreground
 		     railing along the frame's bottom edge (below the panel's quad)
@@ -425,33 +477,36 @@
 		{/each}
 	</div>
 
-	<!-- Both pieces of the event display sit inside the video frame's own
-	     geometry (no panels/borders -- the stair structure is the frame):
-	     the CURRENT age lies flat on the foreground staircase's treads
-	     (perspective-pitched into that plane, slightly slanted along the
-	     steps' own rise), and the event text runs on the vertical plane
-	     to the right (rotated about Y to match the receding wall). Pinned
-	     to the walking loop's cover-fit rectangle so both stay glued to
-	     the footage regardless of viewport shape. -->
+	<!-- The event log reads as the foreground staircase itself: each entry
+	     is one step, age set on its tread (the teal-green horizontal
+	     surface underfoot in stairwell.jpg) and that year's events on the
+	     riser directly below (the white vertical face), the pair sharing
+	     one rotateZ tilt so they read as a single step rather than two
+	     unrelated bars. Successive steps nudge sideways (a repeating
+	     sawtooth via --step, since a real ascending flight alternates
+	     which way each tread outsets) so the list reads as climbing, not
+	     a plain vertical list; scrollToEnd() then drives the whole thing
+	     upward as each new step appends at the bottom -- the same motion
+	     a film's end credits make. Pinned to the walking loop's cover-fit
+	     rectangle so it stays glued to the footage regardless of viewport
+	     shape. -->
 	<div class="scene" style={overlayStyle}>
-		{#if entries.length}
-			<div class="age-tread" aria-hidden="true">
-				{entries[entries.length - 1].year} · Age {entries[entries.length - 1].age}
-			</div>
-		{/if}
-		<div class="log" bind:this={logEl}>
-			{#each entries as entry (entry.id)}
-				<div class="entry" class:fatal={entry.fatal}>
-					<p class="entry-text">{entry.text}</p>
-					{#if entry.statChanges.length}
-						<div class="entry-deltas">
-							{#each entry.statChanges as [prop, value] (prop)}
-								<span class:positive={value > 0} class:negative={value < 0}>
-									{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
-								</span>
-							{/each}
-						</div>
-					{/if}
+		<div class="stair-log" bind:this={logEl}>
+			{#each entries as entry, i (entry.id)}
+				<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
+					<div class="step-tread">{entry.year} · Age {entry.age}</div>
+					<div class="step-riser">
+						<p class="entry-text">{entry.text}</p>
+						{#if entry.statChanges.length}
+							<div class="entry-deltas">
+								{#each entry.statChanges as [prop, value] (prop)}
+									<span class:positive={value > 0} class:negative={value < 0}>
+										{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
+									</span>
+								{/each}
+							</div>
+						{/if}
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -556,64 +611,71 @@
 		container-type: size;
 	}
 
-	/* The current age, lying flat on the foreground staircase's treads:
-	   perspective-pitched into the horizontal plane and slightly slanted
-	   (rotateZ) to run along the steps' own rise. Values tuned live
-	   against stairwell.jpg at 1280x720. */
-	.age-tread {
+	/* The whole climb log, angled into the foreground staircase's own
+	   receding plane (perspective + rotateY, left edge nearer) so the
+	   steps read as sitting on that flight rather than floating over it.
+	   Top-masked so scrolled-past steps dissolve rather than clip;
+	   scrollbar hidden since scrollToEnd() drives it. */
+	.stair-log {
 		position: absolute;
-		left: 20%;
-		top: 47%;
-		transform: translate(-50%, -50%) perspective(40em) rotateX(50deg) rotateZ(-9deg);
-		font-size: 6cqh;
-		white-space: nowrap;
-		color: rgba(240, 248, 252, 0.92);
-		text-shadow: 0 2px 10px rgba(5, 12, 18, 0.8);
-	}
-
-	/* The event log, on the vertical plane: rotated about Y (left edge
-	   nearer) so the text recedes with the right-hand wall the way a
-	   painted notice would. No cards, no borders -- the stair structure
-	   itself frames the text; a strong dark glow keeps it legible over
-	   the busy railings. Top-masked so scrolled-past entries dissolve
-	   rather than clip; scrollbar hidden (auto-advances). */
-	.log {
-		position: absolute;
-		left: 56%;
-		top: 8%;
-		width: 30%;
-		max-height: 64%;
+		left: 6%;
+		top: 5%;
+		width: 58%;
+		max-height: 90%;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		gap: 3.2cqh;
-		transform: perspective(60em) rotateY(-16deg);
+		gap: 1.6cqh;
+		transform: perspective(60em) rotateY(-14deg);
 		transform-origin: left center;
-		mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 	}
-	.log::-webkit-scrollbar {
+	.stair-log::-webkit-scrollbar {
 		display: none;
 	}
-	.entry {
-		font-size: 2.8cqh;
+	/* One step = one entry: the tread (age) and riser (event) share a
+	   single tilt so they read as one physical step, and each step
+	   outsets sideways from the last on a 5-step sawtooth -- a real
+	   ascending flight alternates which way a tread juts relative to the
+	   one below it; a plain vertical stack read as a list, not stairs. */
+	.step {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		margin-left: calc(var(--step, 0) * 2.6cqw);
+		transform: rotateZ(-2.5deg);
+		font-size: 2.6cqh;
 	}
-	.entry.fatal .entry-text {
-		color: #ffc4bb;
-		text-shadow:
-			0 1px 6px rgba(5, 12, 18, 0.9),
-			0 0 14px rgba(180, 40, 30, 0.55);
+	.step-tread {
+		background: linear-gradient(180deg, #4a8f81 0%, #2e5c53 100%);
+		color: #f2fbf7;
+		font-weight: bold;
+		font-size: 0.9em;
+		white-space: nowrap;
+		padding: 0.25em 0.9em;
+		border-radius: 0.3em 0.9em 0 0;
+		box-shadow: 0 2px 8px rgba(5, 12, 18, 0.5);
+	}
+	.step-riser {
+		background: rgba(238, 240, 233, 0.94);
+		padding: 0.6em 1em 0.7em;
+		border-radius: 0 0.6em 0.6em 0.6em;
+		box-shadow: 0 3px 10px rgba(5, 12, 18, 0.4);
+	}
+	.step.fatal .step-tread {
+		background: linear-gradient(180deg, #a8493c 0%, #7a2e24 100%);
+	}
+	.step.fatal .entry-text {
+		color: #7a1c12;
 	}
 	.entry-text {
 		margin: 0;
 		white-space: pre-line;
-		line-height: 1.5;
-		color: rgba(235, 244, 249, 0.95);
-		text-shadow:
-			0 1px 6px rgba(5, 12, 18, 0.9),
-			0 0 14px rgba(5, 12, 18, 0.6);
+		line-height: 1.4;
+		color: #1c2b30;
 	}
 	.entry-deltas {
 		margin-top: 0.5em;
@@ -621,7 +683,16 @@
 		gap: 1em;
 		flex-wrap: wrap;
 		font-size: 0.85em;
-		text-shadow: 0 1px 6px rgba(5, 12, 18, 0.9);
+	}
+	/* .positive/.negative are shared with the (dark) statbar above, where
+	   the light teal/coral pair has plenty of contrast -- against the
+	   riser's near-white paper tone the same colors wash out, so darken
+	   both just within this light context. */
+	.step-riser .positive {
+		color: #1a7a5c;
+	}
+	.step-riser .negative {
+		color: #b8382a;
 	}
 	/* Pinned to the very bottom of the viewport. No background band -- the
 	   glass button floats over the climb scene on its own. */
@@ -656,26 +727,44 @@
 	   card so the stairwell stays visible through it. */
 	.alloc-panel {
 		position: absolute;
-		left: 34.5%;
-		top: 13.6%;
-		width: 30%;
-		height: 62.8%;
+		/* Measured against the live stairwell footage (canvas pixel-scanned,
+		   not eyeballed): the void's outer opening sits at roughly x 28.8%-
+		   61.7%, y ~6% of the cover-fit frame at its widest (top), narrowing
+		   fast toward the vanishing point well below the card's own bottom
+		   edge -- a literal pixel match to that vanishing point would leave
+		   no room for legible content, so the box below hugs the top opening
+		   closely and the taper (in the clip-path) only approximates the
+		   rest of the convergence. */
+		left: 32%;
+		top: 8.5%;
+		width: 27%;
+		height: 72.5%;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
-		/* Content clusters from the top with tight margins; only the
-		   actions stay pinned to the bottom edge, via their own
-		   margin-top: auto. */
-		justify-content: flex-start;
+		align-items: center;
 		border: none;
-		/* The trapezoid itself: 14% taper per side at the bottom. The
-		   horizontal padding (3cqw = 10% of the panel's own width) keeps
-		   every stat row inside the slanted edges down to where the rows
-		   end; only the centered Random/Start pair sits lower, well clear
-		   of the corners. Only crops .alloc-glass/::before below -- see
-		   the note on .alloc-glass for why the blur itself can't live on
-		   this same clipped element. */
-		clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+		/* The trapezoid itself: 18% taper per side at the bottom (up from
+		   the previous 10%, to read as a much more deliberate wide-top/
+		   narrow-bottom wedge), corners chamfered with a fixed pixel offset
+		   at each vertex (calc(% ± px), resolved against this element's own
+		   box) to soften them into an approximate rounded corner -- true
+		   arcs aren't expressible in a clip-path polygon without knowing
+		   the box's pixel size, and this reads as rounded at the card's
+		   actual on-screen size without needing a JS-measured radius. Only
+		   crops .alloc-glass/::before below -- see the note on .alloc-glass
+		   for why the blur itself can't live on this same clipped element. */
+		--chamfer: 16px;
+		clip-path: polygon(
+			var(--chamfer) 0%,
+			calc(100% - var(--chamfer)) 0%,
+			100% var(--chamfer),
+			85% calc(100% - var(--chamfer)),
+			calc(85% - var(--chamfer)) 100%,
+			calc(15% + var(--chamfer)) 100%,
+			15% calc(100% - var(--chamfer)),
+			0% var(--chamfer)
+		);
 		padding: 3.4cqh 3cqw 3cqh;
 		color: #17262e;
 		text-align: center;
@@ -690,9 +779,13 @@
 	.alloc-glass {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(210, 228, 236, 0.08) 100%);
-		-webkit-backdrop-filter: blur(14px) saturate(160%);
-		backdrop-filter: blur(14px) saturate(160%);
+		/* Split the difference between the earlier, heavier glass (too
+		   opaque to read the stairwell through) and the 14px/0.18 pass that
+		   followed it (too clear -- the card stopped reading as glass at
+		   all). */
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(210, 228, 236, 0.6) 100%);
+		-webkit-backdrop-filter: blur(20px) saturate(160%);
+		backdrop-filter: blur(20px) saturate(160%);
 		box-shadow:
 			inset 0 1px 1px rgba(255, 255, 255, 0.55),
 			inset 0 -12px 18px rgba(20, 40, 55, 0.06);
@@ -710,8 +803,7 @@
 	}
 	.alloc-title,
 	.alloc-tokens,
-	.alloc-stats,
-	.alloc-actions {
+	.alloc-stats {
 		position: relative;
 	}
 	.alloc-title {
@@ -720,14 +812,18 @@
 		font-weight: bold;
 	}
 	.alloc-tokens {
+		display: flex;
+		justify-content: center;
+		gap: 1.4em;
 		margin: 0 0 2cqh;
 		font-size: 2.1cqh;
-		color: #3c5563;
+		color: #17262e;
 	}
 	.alloc-stats {
 		display: flex;
 		flex-direction: column;
 		gap: 2.4cqh;
+		width: 80%;
 		margin-bottom: 2cqh;
 	}
 	.alloc-row {
@@ -780,21 +876,28 @@
 	.alloc-step:not(:disabled):active {
 		transform: scale(0.92);
 	}
-	.alloc-actions {
-		display: flex;
-		gap: 1.6rem;
-		justify-content: center;
-		/* Keeps the two actions clustered toward the bottom while the rest
-		   of the content sits at the top -- a real bottom margin (not
-		   flush at margin-top:auto's full push) so the row lands above
-		   the trapezoid's narrowest point instead of getting clipped by
-		   the tapered edges. */
-		margin-top: auto;
-		margin-bottom: 4cqh;
+	/* Random sits on its own row between the tokens line and the stat
+	   rows, per the requested reading order; Start sits on its own row
+	   below the stats, centered on the trapezoid's own axis via the
+	   parent's text-align/align-items: center -- neither needs the old
+	   flex-row wrapper now that they're stacked instead of paired. */
+	.alloc-action.random-row {
+		margin: 0 0 2.6cqh;
+		/* Sits higher on the card now, over the bright sky/skylight rather
+		   than the dark railing the base .alloc-action color was tuned
+		   for -- dark text (matching the stat labels around it) instead of
+		   the light one Start still uses lower down. Same specificity as
+		   .alloc-action alone, so the compound selector (not source order)
+		   is what makes this win. */
+		color: #17262e;
+		text-shadow: none;
+	}
+	.alloc-action.start-row {
+		margin: auto 0 4cqh;
 	}
 	/* Plain text, no border/background/pill -- same type family as every
 	   other label on this panel, just a size up. Only Start carries the
-	   color blink (slowed to a calm breath); Random stays a steady light
+	   color blink (slowed to a calm breath); Random stays a steady dark
 	   tone so the blink singles out the one action that moves the story
 	   forward. Disabled Start: dim and steady, no blink. */
 	.alloc-action {
@@ -805,18 +908,24 @@
 		font-family: inherit;
 		font-size: 1.5rem;
 		letter-spacing: 0.06em;
-		/* Light base: this row lands on the quad's bottom edge, over the
-		   dark railing texture, where the panel's other (dark) text color
-		   would vanish. */
+		/* Light base kept as the fallback for any row that doesn't override
+		   it; both Random and Start now sit over the glass card's own
+		   near-white tint (not the dark railing this was originally tuned
+		   for) and override to a dark color below. */
 		color: #cfe7f2;
 		text-shadow: 0 1px 4px rgba(8, 18, 26, 0.55);
 	}
 	/* Blinks in every state (gating it on :not(:disabled) made the panel
 	   open with no blink anywhere until all tokens were spent, which read
 	   as the animation being missing) -- disabled just dims the whole
-	   thing, the pulse continuing faintly underneath. */
+	   thing, the pulse continuing faintly underneath. Darkened (was a
+	   light-blue-to-white blink, tuned for the dark railing background)
+	   since the panel's own semi-transparent glass reads as near-white --
+	   white-on-white was nearly invisible. */
 	.alloc-action.start {
 		animation: action-blink 3.2s ease-in-out infinite;
+		color: #17262e;
+		text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 	}
 	.alloc-action:disabled {
 		opacity: 0.45;
@@ -825,13 +934,13 @@
 	@keyframes action-blink {
 		0%,
 		100% {
-			color: #9fcfe3;
+			color: #17262e;
 		}
 		50% {
-			color: #ffffff;
+			color: #0d5f78;
 			text-shadow:
-				0 1px 4px rgba(8, 18, 26, 0.55),
-				0 0 12px rgba(255, 255, 255, 0.85);
+				0 1px 2px rgba(255, 255, 255, 0.5),
+				0 0 10px rgba(13, 95, 120, 0.5);
 		}
 	}
 
@@ -840,8 +949,8 @@
 	   pointing at it fades in the strategy tip. */
 	.rail-hint {
 		position: absolute;
-		left: 25%;
-		top: 77%;
+		left: 22%;
+		top: 82%;
 		width: 50%;
 		height: 11%;
 	}
@@ -856,9 +965,9 @@
 		transform: translate(-50%, -50%);
 		margin: 0;
 		white-space: nowrap;
-		font-size: 1.9cqh;
+		font-size: 1.5cqh;
 		letter-spacing: 0.12em;
-		color: rgba(18, 32, 40, 0.9);
+		color: rgba(64, 64, 64, 0.92);
 		text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35);
 		opacity: 0;
 		transition: opacity 300ms ease;

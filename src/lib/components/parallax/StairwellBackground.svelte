@@ -30,8 +30,8 @@
 
 	const supported = webCodecsSupported();
 
-	let stageEl;
-	let canvasEl;
+	let stageEl = $state();
+	let canvasEl = $state();
 	let videoEl = $state(null); // fallback path only
 	let audio5El = $state(null);
 	let audio6El = $state(null);

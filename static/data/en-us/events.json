@@ -20,8 +20,17 @@
         "event": "You can’t afford the hospital bill.",
         "include": "MNY<3",
         "branch": [
+            "STR>5:10003",
             "MNY<3:10000"
         ]
+    },
+    "10003": {
+        "id": 10003,
+        "event": "You give up on treatment and walk out of the hospital. Your health takes a serious hit.",
+        "effect": {
+            "STR": -5
+        },
+        "NoRandom": 1
     },
     "810001": {
         "id": 810001,
@@ -112,6 +121,7 @@
         "event": "The hospital bill alone is more than you’ll ever have.",
         "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0)))",
         "branch": [
+            "STR>5:10003",
             "MNY>2&MNY<4:10000"
         ]
     },
@@ -165,6 +175,7 @@
         "event": "The hospital bill alone is more than you’ll ever have.",
         "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))",
         "branch": [
+            "STR>5:10003",
             "MNY>3&MNY<5:10000"
         ]
     },
@@ -1032,17 +1043,26 @@
     "831101": {
         "id": 831101,
         "event": "You’re pretty enough, young enough, to become a child star.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "MNY":1
+        }
     },
     "831102": {
         "id": 831102,
         "event": "You’ve already starred in several films, and school keeps losing out to work.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "MNY":3
+        }
     },
     "831103": {
         "id": 831103,
         "event": "Somehow, against the odds, you become a superstar.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "MNY":5
+        }
     },
     "831104": {
         "id": 831104,
@@ -1052,22 +1072,34 @@
     "831105": {
         "id": 831105,
         "event": "You start having surgery just to hold your looks in place.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "MNY":-3
+        }
     },
     "831106": {
         "id": 831106,
         "event": "New stars take your place, one by one. The offers dry up.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "MNY":-3
+        }
     },
     "831107": {
         "id": 831107,
         "event": "Without the money to keep up the surgeries, your looks fall apart fast.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "CHR":-3
+        }
     },
     "831108": {
         "id": 831108,
         "event": "Your own face becomes unrecognisable to you.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
+        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
+        "effect":{
+            "CHR":-5
+        }
     },
     "840001": {
         "id": 840001,
@@ -2179,6 +2211,7 @@
     },
     "11000": {
         "id": 11000,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "You hear the Netherlands is building floating neighbourhoods along its coast — half the world’s flood-prone cities want to copy them now."
     },
     "11001": {
@@ -2195,6 +2228,7 @@
     },
     "11004": {
         "id": 11004,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "After the 35th Olympics, they scrap the whole committee. Too many athletes competing on bioengineered limbs — nobody could agree where fair play ends."
     },
     "11005": {
@@ -2203,10 +2237,12 @@
     },
     "11006": {
         "id": 11006,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "New “resilience” building codes go up everywhere. Beijing, Shanghai, Tokyo, Delhi seal themselves under smog domes now — assuming you can afford to live inside one."
     },
     "11007": {
         "id": 11007,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Most of your protein comes from a lab now. Everyone’s saving the planet, and nobody’s noticed a whole generation coming down with the same deficiencies."
     },
     "11008": {
@@ -2219,6 +2255,7 @@
     },
     "11010": {
         "id": 11010,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "The big concrete manufacturers pledge 100% renewable energy. You’ll believe it when you see it."
     },
     "11011": {
@@ -2235,14 +2272,17 @@
     },
     "11014": {
         "id": 11014,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Virgin plastic gets banned worldwide. Everything you own is made from something that already existed once."
     },
     "11015": {
         "id": 11015,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Oranges grow in Scandinavia now. Nobody where you live seems to find that as strange as you do."
     },
     "11016": {
         "id": 11016,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Female life expectancy climbs ten years — assuming you’ve got the bank account to match a healthy body."
     },
     "11017": {
@@ -2255,26 +2295,32 @@
     },
     "11019": {
         "id": 11019,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Five billion of us wear mind-reading helmets now, just to change the channel without lifting a finger."
     },
     "11020": {
         "id": 11020,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "You haven’t held a pen in three years. Neither has most of the world, apparently."
     },
     "11021": {
         "id": 11021,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Retirement age climbs to seventy almost everywhere. You do the maths on how many more years that is."
     },
     "11022": {
         "id": 11022,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "School is a database now. A system decides exactly what you should know and by when — the only children who still get a real teacher are the rich ones."
     },
     "11023": {
         "id": 11023,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Everyone you know wears a sensor that already knows what disease might kill them, and roughly when."
     },
     "11024": {
         "id": 11024,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "One in three newborns is genetically engineered now. The rich countries panic and pass laws — a little late to close a gap that wide."
     },
     "11025": {
@@ -2283,6 +2329,7 @@
     },
     "11026": {
         "id": 11026,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Digital doctors take over most diagnoses now — fewer mistakes, they say, and somehow kinder ones too."
     },
     "11027": {
@@ -2291,14 +2338,17 @@
     },
     "11028": {
         "id": 11028,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Digital lawyers make the courts faster and fairer. Millions of very educated people join you in having nothing useful left to sell."
     },
     "11029": {
         "id": 11029,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Three billion people have a sleep implant now, timing their rest down to the minute. You still just lie awake."
     },
     "11030": {
         "id": 11030,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Twenty-five million people a year swap a body part for something that works better. Even hearts. Even brains."
     },
     "11031": {
@@ -2307,6 +2357,7 @@
     },
     "11032": {
         "id": 11032,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Two-thirds of the artists you know use an AI implant now, just to make “better” art. You still can’t tell whose work is whose anymore."
     },
     "11033": {
@@ -2315,14 +2366,17 @@
     },
     "11034": {
         "id": 11034,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "Humans aren’t allowed to drive anymore. Every car on the road is networked now — nobody you know has seen a crash in years."
     },
     "11035": {
         "id": 11035,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "You realise you can’t survive anymore without staying connected to the network that already knows everything about everyone."
     },
     "11036": {
         "id": 11036,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0",
         "event": "They call it Cyber 911 — the day governments try to shut the global network down for twenty-four hours, just to prove they still can. They can’t."
     },
     "11037": {
@@ -2339,6 +2393,7 @@
     },
     "11040": {
         "id": 11040,
+        "exclude": "AF>0|HTI>0|IRN>0|PRK>0|IND>0|UKR>0|EGY>0",
         "event": "Night vision, a sharper sense of smell, better dreams — all products on a shelf now. Your memory’s going, so you buy the cloud drive everyone else has."
     },
     "21001": {
@@ -3146,6 +3201,50 @@
         "event": "Nursing was the last door left open to you — until they close that too. With no income and nowhere to hide, staying invisible gets harder every year. Invisible is the only way you’re safe.",
         "include": "AF>0&LBTQ>0"
     },
+    "74001": {
+        "id": 74001,
+        "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.",
+        "include": "PRK>0&LBTQ>0",
+        "effect": {
+            "LIF": -1
+        }
+    },
+    "74002": {
+        "id": 74002,
+        "event": "You’ve been shut out and shoved aside your whole life. Then, by chance, a friend’s phone shows you a video of another world outside the border. You decide to risk everything and try to slip across into China.",
+        "include": "PRK>0&EVT![86001,86002]",
+        "exclude": "EVT?[74002]",
+        "branch": [
+            "MNY>4:74003",
+            "MNY>2:74004",
+            "MNY<=2:74005"
+        ]
+    },
+    "74003": {
+        "id": 74003,
+        "event": "You make it across, into China, and keep moving until North Korea shrinks into a story you tell in a language it took you years to learn.",
+        "NoRandom": 1,
+        "effect": {
+            "PRK": -1
+        }
+    },
+    "74004": {
+        "id": 74004,
+        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. Your family manages to bribe the guards — the only reason you’re not one of the ones who disappear.",
+        "NoRandom": 1,
+        "effect": {
+            "STR": -2,
+            "MNY": -2
+        }
+    },
+    "74005": {
+        "id": 74005,
+        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. No one ever hears from you again. You’re dead.",
+        "NoRandom": 1,
+        "effect": {
+            "LIF": -1
+        }
+    },
     "21015": {
         "id": 21015,
         "event": "Roe falls. Within a year, your state bans abortion almost entirely. When you need one, you order pills online from a clinic three states over and pray your phone never gets subpoenaed.",
@@ -3174,6 +3273,11 @@
     "32018": {
         "id": 32018,
         "event": "You post something small and rainbow-coloured for Pride. By morning it’s gone, and so is the account of the group that shared it. Nobody official ever explains why.",
+        "include": "CH>0&LBTQ>0"
+    },
+    "32019": {
+        "id": 32019,
+        "event": "The WeChat account of the only LGBT support group you’d ever found gets suspended overnight, along with dozens of others just like it — no warning, no explanation. The group chat goes quiet. You don’t know where else to look.",
         "include": "CH>0&LBTQ>0"
     },
     "51010": {
@@ -3323,20 +3427,34 @@
     "86001": {
         "id": 86001,
         "event": "Your family moved to Finland to avoid political persecution. You finally don't have to worry about what to eat on the next day, and the teachers in your school treat every student equally.",
-        "include": "MNY>4&MNY<8&(AF>0|CH>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
+        "include": "MNY>4&MNY<8&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
         "exclude": "EVT?[86001,86002]",
         "effect": {
             "INT": 3,
-            "STR": 3
+            "STR": 3,
+            "AF": -1,
+            "EGY": -1,
+            "IND": -1,
+            "IRN": -1,
+            "PRK": -1,
+            "UKR": -1,
+            "HTI": -1
         }
     },
     "86002": {
         "id": 86002,
         "event": "Your family moved to Australia. Your parents bought a big house nearby the sea, and sent you to a private school. There you met the son of a well-known company's CEO.",
-        "include": "MNY>7&(AF>0|CH>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
+        "include": "MNY>7&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
         "exclude": "EVT?[86001,86002]",
         "effect": {
-            "CHR": 5
+            "CHR": 5,
+            "AF": -1,
+            "EGY": -1,
+            "IND": -1,
+            "IRN": -1,
+            "PRK": -1,
+            "UKR": -1,
+            "HTI": -1
         }
     },
     "87001": {

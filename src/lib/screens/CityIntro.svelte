@@ -68,8 +68,8 @@
 			y: DOOR_ROWS[DOOR_SLOTS[i][1]],
 		}));
 
-	let canvasEl;
-	let containerEl;
+	let canvasEl = $state();
+	let containerEl = $state();
 	let videoEl = $state(null); // fallback path only
 	// The WebCodecs path renders video only, so the clips' AAC tracks play
 	// through plain <audio> elements alongside the canvas (frame-exact sync

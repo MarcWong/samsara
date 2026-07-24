@@ -54,10 +54,10 @@
 	const age = $draft.age ?? summary[types.HAGE].value;
 
 	const CREDITS = [
-		'Lead Direction and Narrative Design: Yuwei Jiang',
-		'Developer: Yao Wang',
+		'Lead Direction & \n Narrative Design: Yuwei Jiang',
+		'Developer & Co-Design: Yao Wang',
 		'Audio Design: Guanyu Xie',
-		'Built upon LifeRestart by VickScarlet',
+		'Built upon the open-source codebase \n of LifeRestart by VickScarlet',
 		'Contact: sabinajiang0505@outlook.com',
 		'© 2022 Yuwei Jiang'
 	];
@@ -119,7 +119,7 @@
 	// which is untouched.
 	function printHeaderAndStory() {
 		const lines = printText.split('\n');
-		const storyStart = lines.findIndex(l => l.startsWith('Year '));
+		const storyStart = lines.findIndex(l => l.startsWith('Age: '));
 		const story = storyStart === -1 ? [] : lines.slice(storyStart);
 		const header = [
 			country ? `Country: ${country}` : null,
@@ -128,7 +128,6 @@
 		].filter(Boolean);
 		return [...header, ...story];
 	}
-
 	function onPrintTxt() {
 		const win = window.open();
 		if (!win) return;
@@ -141,32 +140,27 @@
 				`<p style='margin:3px 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>${line}</p>`
 			);
 		}
+		win.document.write("<br>")
+		const qrOrigin = `${window.location.origin}${base}/images`;
+		const qrs = [
+			['qrcode.png', 'Play it at home'],
+			['qr-code_ins.png', 'Follow on Instagram'],
+			['qr-code_coffee.png', 'Buy us a coffee'],
+			['qr-code_discord.png', 'Stay updated on Discord'],
+		];
 		win.document.write(
-			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qrcode.png' style='width: 150px;height:150px;'></div>`
+			`<div style='margin: 8px 0 0; width: 280px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;'>${qrs
+				.map(
+					([file, caption]) =>
+						`<div style='width: 130px; text-align: center;'>` +
+						`<img src='${qrOrigin}/${file}' style='width: 130px; height: 130px;'>` +
+						`<p style='margin: 4px 0 0; font-size: 11px; font-family:Cascadia Code, Consolas, monospace;'>${caption}</p>` +
+						`</div>`
+				)
+				.join('')}</div>`
 		);
 		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Play it at home</p>"
-		);
-		win.document.write(
-			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_ins.png' style='width: 150px;height:150px;'></div>`
-		);
-		win.document.write(
-			"<p style='margin: 8px 0 0; width: 300px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Follow on Instagram</p>"
-		);
-		win.document.write(
-			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_coffee.png' style='width: 150px;height:150px;'></div>`
-		);
-		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Buy us a coffee</p>"
-		);
-		win.document.write(
-			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_discord.png' style='width: 150px;height:150px;'></div>`
-		);
-		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Stay updated on Discord</p>"
-		);
-		win.document.write(
-			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace'>${CREDITS.join('<br>')}</p>`
+			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>${CREDITS.join('<br>')}</p>`
 		);
 		win.focus();
 		win.document.close();

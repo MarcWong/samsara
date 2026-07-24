@@ -4,6 +4,7 @@
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
 	import { loadMp4, webCodecsSupported } from '../components/videoPlayer.js';
+	import { drawTalents as drawTalentsFrom } from '../game/talentDraw.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const ORIENTATIONS = [
@@ -90,36 +91,12 @@
 
 	// Ported from the old drawTalentsSilently (the lucky-charm draw has
 	// always happened immediately after the orientation choice, just
-	// silently, no dedicated UI), reworked from uniform-without-replacement
-	// to weighted-without-replacement so TALENT_WEIGHTS can bias the draw.
-	// Each of the 3 picks re-derives its candidate pool (respecting both
-	// what's already been picked and the 5/7 mutual-exclusion rule) and
-	// samples from it proportional to weight.
+	// silently, no dedicated UI). The actual weighted-without-replacement
+	// draw (respecting TALENT_WEIGHTS and the 5/7 mutual-exclusion rule) now
+	// lives in talentDraw.js, shared with Trajectory's good-only re-draw for
+	// the free-allocation bonus.
 	function drawTalents() {
-		const listTalents = core.talentRandom();
-		const selected = [];
-		const available = new Set(listTalents.map((_, i) => i));
-		while (selected.length < 3) {
-			const candidates = [...available].filter(id => {
-				if (selected.includes(5) && id === 7) return false;
-				if (selected.includes(7) && id === 5) return false;
-				return true;
-			});
-			const totalWeight = candidates.reduce((sum, id) => sum + (TALENT_WEIGHTS[id] ?? 1), 0);
-			let r = Math.random() * totalWeight;
-			let pick = candidates[candidates.length - 1];
-			for (const id of candidates) {
-				const w = TALENT_WEIGHTS[id] ?? 1;
-				if (r < w) {
-					pick = id;
-					break;
-				}
-				r -= w;
-			}
-			selected.push(pick);
-			available.delete(pick);
-		}
-		return selected.map(index => listTalents[index]);
+		return drawTalentsFrom(core.talentRandom(), { weights: TALENT_WEIGHTS });
 	}
 
 	// Stat allocation used to happen here too (a third DOS popup after
