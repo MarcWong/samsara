@@ -24,11 +24,6 @@
 	const HANDLE_RIGHT_X = 57.4;
 	const PROMPT_Y = 64;
 
-	// Settles in a beat after mount, same arrival cue every screen in this
-	// flow uses, independent of whatever the WebGL background behind it is
-	// doing.
-	let settled = $state(false);
-
 	// Tracks the viewport so the orientation step's door-handle overlay can
 	// be pinned to corridor.jpg's exact cover-fit rectangle -- same formula
 	// CityIntro uses for its own door overlay, needed here because that
@@ -45,7 +40,6 @@
 	});
 
 	onMount(() => {
-		requestAnimationFrame(() => requestAnimationFrame(() => (settled = true)));
 		const resize = () => {
 			cw = window.innerWidth;
 			ch = window.innerHeight;
@@ -149,7 +143,7 @@
      onto the corridor photo itself (see the overlay below) instead of in
      this popup. -->
 {#if step !== 'orientation'}
-<div class="crt-screen" class:entering={!settled}>
+<div class="crt-screen">
 	<div class="scanlines" aria-hidden="true"></div>
 	<div class="crt-pixels" aria-hidden="true"></div>
 	<div class="crt-glow" aria-hidden="true"></div>
@@ -226,11 +220,6 @@
 	   continuity between the two consecutive corridor-based screens. */
 	.corridor-overlay {
 		position: fixed;
-		animation: fade-in-overlay 500ms ease both;
-	}
-	@keyframes fade-in-overlay {
-		from { opacity: 0; }
-		to { opacity: 1; }
 	}
 	/* Text color sampled directly off the corridor's own EXIT sign glow
 	   (~#72fd99) instead of the plain steel-plate white used elsewhere --
@@ -294,10 +283,6 @@
 		box-shadow:
 			0 2vh 4vh rgba(0, 0, 0, 0.55),
 			inset 0 0 2vh rgba(0, 0, 0, 0.85);
-		transition: opacity 500ms ease;
-	}
-	.crt-screen.entering {
-		opacity: 0;
 	}
 
 	/* classic scanline texture, plus a soft central glow to sell "lit CRT

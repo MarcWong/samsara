@@ -6,7 +6,6 @@
 	import SCREENS from '$lib/screens.js';
 	import Background from '$lib/components/Background.svelte';
 	import NotificationHost from '$lib/components/NotificationHost.svelte';
-	import TransitionFlash from '$lib/components/parallax/TransitionFlash.svelte';
 
 	let ready = $state(false);
 	let Current = $derived(SCREENS[$screen]);
@@ -26,10 +25,6 @@
 	<Current />
 {:else}
 	<div class="loading">♀Samsara</div>
-{/if}
-
-{#if ready}
-	<TransitionFlash screen={$screen} />
 {/if}
 
 <NotificationHost />

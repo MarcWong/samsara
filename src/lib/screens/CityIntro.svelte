@@ -392,7 +392,6 @@
 		padding-bottom: 12vh;
 		gap: 1rem;
 		pointer-events: none;
-		transition: opacity 600ms ease;
 	}
 	.content.hidden {
 		opacity: 0;
@@ -434,19 +433,10 @@
 	.select-overlay {
 		position: absolute;
 		pointer-events: none;
-		animation: fade-in 900ms ease both;
 		/* Lets children size themselves in cq units, i.e. relative to the
 		   video's drawn rectangle -- the floor text must scale with the
 		   footage, unlike the fixed-rem door labels. */
 		container-type: size;
-	}
-	@keyframes fade-in {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
 	}
 	/* Same type family/tracking as .hint, one size up, engraved into a
 	   nameplate riveted to each door -- matching the small blank label

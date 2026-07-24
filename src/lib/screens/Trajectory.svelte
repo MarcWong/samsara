@@ -277,6 +277,81 @@
 		return () => window.removeEventListener('resize', resize);
 	});
 
+	// Solves the 8-DOF projective transform (3x3 homography, bottom-right
+	// fixed at 1) mapping 4 source points to 4 destination points --
+	// same dependency-free Gaussian-elimination solver the old computer-
+	// prop screen used, revived here to pin the allocation panel onto the
+	// stairwell footage's own geometry.
+	function solveHomography(src, dst) {
+		const A = [];
+		const b = [];
+		for (let i = 0; i < 4; i++) {
+			const { x: sx, y: sy } = src[i];
+			const { x: dx, y: dy } = dst[i];
+			A.push([sx, sy, 1, 0, 0, 0, -sx * dx, -sy * dx]);
+			b.push(dx);
+			A.push([0, 0, 0, sx, sy, 1, -sx * dy, -sy * dy]);
+			b.push(dy);
+		}
+		const n = 8;
+		const M = A.map((row, i) => [...row, b[i]]);
+		for (let col = 0; col < n; col++) {
+			let pivot = col;
+			for (let r = col + 1; r < n; r++) {
+				if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r;
+			}
+			[M[col], M[pivot]] = [M[pivot], M[col]];
+			const div = M[col][col];
+			for (let c = col; c <= n; c++) M[col][c] /= div;
+			for (let r = 0; r < n; r++) {
+				if (r === col) continue;
+				const factor = M[r][col];
+				if (factor === 0) continue;
+				for (let c = col; c <= n; c++) M[r][c] -= factor * M[col][c];
+			}
+		}
+		const h = M.map(row => row[n]);
+		return [...h, 1]; // h0..h7, h8=1
+	}
+	function homographyToMatrix3d(h) {
+		const [h0, h1, h2, h3, h4, h5, h6, h7, h8] = h;
+		return `matrix3d(${h0}, ${h3}, 0, ${h6}, ${h1}, ${h4}, 0, ${h7}, 0, 0, 1, 0, ${h2}, ${h5}, 0, ${h8})`;
+	}
+
+	// The allocation panel's edges land exactly on the largest rectangular
+	// stair edge visible toward the ceiling in 5.mp4's frozen final frame
+	// (the current floor's own ceiling opening) -- corners measured off
+	// that frame at 1280x720, as fractions of it, so the mapping holds at
+	// any viewport via the cover-fit rect.
+	// Wide at the top, narrowing toward the bottom (the perceived
+	// perspective of the ceiling opening receding upward) -- the first
+	// pass had the trapezoid inverted. Shrunk from the full ceiling-
+	// opening extent (which filled most of the frame): narrower on both
+	// sides and the top edge pulled well down from the frame's top, per
+	// request, while keeping the same trapezoid orientation and center. */
+	const ALLOC_QUAD = [
+		[389 / 1280, 101 / 720], // top-left
+		[799 / 1280, 99 / 720], // top-right
+		[741 / 1280, 623 / 720], // bottom-right
+		[447 / 1280, 634 / 720], // bottom-left
+	];
+	const ALLOC_REF_W = 360;
+	const ALLOC_REF_H = 520;
+	let allocMatrix = $derived.by(() => {
+		if (!cw || !ch) return null;
+		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
+		const dw = VIDEO_W * s;
+		const dh = VIDEO_H * s;
+		const src = [
+			{ x: 0, y: 0 },
+			{ x: ALLOC_REF_W, y: 0 },
+			{ x: ALLOC_REF_W, y: ALLOC_REF_H },
+			{ x: 0, y: ALLOC_REF_H },
+		];
+		const dst = ALLOC_QUAD.map(([fx, fy]) => ({ x: fx * dw, y: fy * dh }));
+		return homographyToMatrix3d(solveHomography(src, dst));
+	});
+
 	// Staged against StairwellBackground's own three acts: the allocation
 	// panel appears only once 5.mp4 has ended (its frame frozen and
 	// motionless under the panel); confirming the allocation flips
@@ -320,12 +395,15 @@
 
 {#if allocating}
 	<!-- 5.mp4 has ended and its last frame is frozen and motionless; the
-	     stat-allocation panel sits in that frame's own sky highlight (the
-	     bright skylight shaft at the top of the stairwell), pinned to the
-	     video's cover-fit rectangle the same way CityIntro/Plaza pin their
-	     own door overlays. -->
+	     stat-allocation panel is perspective-warped (see allocMatrix) so
+	     its four edges land exactly on the frame's own largest ceiling
+	     stair-edge rectangle -- the footage's geometry is the panel's
+	     frame, no border of its own. -->
 	<div class="corridor-overlay alloc-overlay" style={overlayStyle}>
-		<div class="alloc-panel" style="left: 50%; top: 24%;">
+		<div
+			class="alloc-panel"
+			style={allocMatrix ? `width: ${ALLOC_REF_W}px; height: ${ALLOC_REF_H}px; transform: ${allocMatrix};` : 'display: none;'}
+		>
 			<p class="alloc-title">Allocate your attributes</p>
 			<p class="alloc-tokens">Tokens: {propertyPoints} &nbsp; Remaining: {allocLeft}</p>
 			<div class="alloc-stats">
@@ -355,9 +433,17 @@
 				{/each}
 			</div>
 			<div class="alloc-actions">
-				<Button variant="ghost" onclick={randomAllocate}>Random</Button>
-				<Button onclick={confirmAllocation} disabled={allocLeft > 0}>Start</Button>
+				<button type="button" class="alloc-action" onclick={randomAllocate}>Random</button>
+				<button type="button" class="alloc-action start" disabled={allocLeft > 0} onclick={confirmAllocation}>
+					Start
+				</button>
 			</div>
+		</div>
+		<!-- Hidden-in-plain-sight strategy tip: hovering the foreground
+		     railing along the frame's bottom edge (below the panel's quad)
+		     reveals it, floating just above the balusters. -->
+		<div class="rail-hint">
+			<p class="rail-hint-tip">See what will happen to put all tokens into one attribute</p>
 		</div>
 	</div>
 {/if}
@@ -390,22 +476,36 @@
 		{/each}
 	</div>
 
-	<div class="log" bind:this={logEl}>
-		{#each entries as entry (entry.id)}
-			<div class="entry" class:fatal={entry.fatal}>
-				<div class="entry-age">{entry.year} · Age {entry.age}</div>
-				<p class="entry-text">{entry.text}</p>
-				{#if entry.statChanges.length}
-					<div class="entry-deltas">
-						{#each entry.statChanges as [prop, value] (prop)}
-							<span class:positive={value > 0} class:negative={value < 0}>
-								{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
-							</span>
-						{/each}
-					</div>
-				{/if}
+	<!-- Both pieces of the event display sit inside the video frame's own
+	     geometry (no panels/borders -- the stair structure is the frame):
+	     the CURRENT age lies flat on the foreground staircase's treads
+	     (perspective-pitched into that plane, slightly slanted along the
+	     steps' own rise), and the event text runs on the vertical plane
+	     to the right (rotated about Y to match the receding wall). Pinned
+	     to the walking loop's cover-fit rectangle so both stay glued to
+	     the footage regardless of viewport shape. -->
+	<div class="scene" style={overlayStyle}>
+		{#if entries.length}
+			<div class="age-tread" aria-hidden="true">
+				{entries[entries.length - 1].year} · Age {entries[entries.length - 1].age}
 			</div>
-		{/each}
+		{/if}
+		<div class="log" bind:this={logEl}>
+			{#each entries as entry (entry.id)}
+				<div class="entry" class:fatal={entry.fatal}>
+					<p class="entry-text">{entry.text}</p>
+					{#if entry.statChanges.length}
+						<div class="entry-deltas">
+							{#each entry.statChanges as [prop, value] (prop)}
+								<span class:positive={value > 0} class:negative={value < 0}>
+									{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
+								</span>
+							{/each}
+						</div>
+					{/if}
+				</div>
+			{/each}
+		</div>
 	</div>
 
 	{#if isEnd}
@@ -421,14 +521,6 @@
 		display: flex;
 		flex-direction: column;
 		height: 100dvh;
-		/* Shared by .log and .log-scrim so the two stay pixel-aligned --
-		   narrower than before (was min(52rem, 68vw)): that width read fine
-		   at a normal window but produced single huge-run-on-line entries
-		   on a wide desktop monitor, and pushed close enough to the right
-		   statbar/climb column to risk covering the stairs on some sizes. */
-		--log-width: min(32rem, 42vw);
-		--log-right: 4.5rem;
-		--log-max-height: 46dvh;
 		/* Local overrides of the app's global cyberpunk-neon palette (see
 		   app.css), scoped to this screen only: sampled from 5.mp4's own
 		   stairwell footage (average RGB across its first/mid/last frames
@@ -505,31 +597,49 @@
 		color: var(--negative);
 	}
 
-	/* Pinned to the right edge, capped well short of full height (roughly
-	   two and a half entries) and top-masked so scrolled-past entries
-	   dissolve rather than get clipped, leaving the climbing stairwell
-	   frame visible everywhere else. Scrollbar hidden (still scrolls, just
-	   no visible track/thumb) since this now auto-advances rather than
-	   being a manually-scrolled reading pane.
-
-	   Fully transparent at the very top, ramping to fully opaque by 30% --
-	   a stronger fade than this used to have (an earlier pass floored it at
-	   85% opacity to stop the old neon cyberpunk backdrop bleeding through
-	   too brightly). That backdrop is gone now (StairwellBackground's calm
-	   video frame), so the full transparent-to-opaque fade reads clean
-	   without needing that floor. */
-	.log {
+	/* The event display's stage: the walking loop's cover-fit rectangle
+	   (position/size injected via overlayStyle), sized as a container so
+	   children can use cq units -- everything below scales with the
+	   footage, not the viewport. */
+	.scene {
 		position: fixed;
-		top: 50%;
-		right: var(--log-right);
-		transform: translateY(-50%);
-		width: var(--log-width);
-		max-height: var(--log-max-height);
+		pointer-events: none;
+		container-type: size;
+	}
+
+	/* The current age, lying flat on the foreground staircase's treads:
+	   perspective-pitched into the horizontal plane and slightly slanted
+	   (rotateZ) to run along the steps' own rise. Values tuned live
+	   against stairwell.jpg at 1280x720. */
+	.age-tread {
+		position: absolute;
+		left: 20%;
+		top: 47%;
+		transform: translate(-50%, -50%) perspective(40em) rotateX(50deg) rotateZ(-9deg);
+		font-size: 6cqh;
+		white-space: nowrap;
+		color: rgba(240, 248, 252, 0.92);
+		text-shadow: 0 2px 10px rgba(5, 12, 18, 0.8);
+	}
+
+	/* The event log, on the vertical plane: rotated about Y (left edge
+	   nearer) so the text recedes with the right-hand wall the way a
+	   painted notice would. No cards, no borders -- the stair structure
+	   itself frames the text; a strong dark glow keeps it legible over
+	   the busy railings. Top-masked so scrolled-past entries dissolve
+	   rather than clip; scrollbar hidden (auto-advances). */
+	.log {
+		position: absolute;
+		left: 56%;
+		top: 8%;
+		width: 30%;
+		max-height: 64%;
 		overflow-y: auto;
-		padding: 1.25rem;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 3.2cqh;
+		transform: perspective(60em) rotateY(-16deg);
+		transform-origin: left center;
 		mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
 		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
 		scrollbar-width: none;
@@ -538,49 +648,34 @@
 	.log::-webkit-scrollbar {
 		display: none;
 	}
-	@media (max-width: 640px) {
-		/* No room for a side column on narrow/portrait viewports -- falls
-		   back to a bottom band instead of overlapping the climb. */
-		.log {
-			position: static;
-			top: auto;
-			right: auto;
-			transform: none;
-			width: auto;
-			max-width: 64rem;
-			margin: auto 1rem 0;
-		}
-	}
 	.entry {
-		background: var(--bg-raised);
-		border-radius: 0.75rem;
-		padding: 1rem 1.25rem;
-		border: 1px solid transparent;
+		font-size: 2.8cqh;
 	}
-	.entry.fatal {
-		border-color: var(--negative);
-	}
-	.entry-age {
-		font-size: 0.9rem;
-		color: var(--text-dim);
-		margin-bottom: 0.35rem;
+	.entry.fatal .entry-text {
+		color: #ffc4bb;
+		text-shadow:
+			0 1px 6px rgba(5, 12, 18, 0.9),
+			0 0 14px rgba(180, 40, 30, 0.55);
 	}
 	.entry-text {
 		margin: 0;
 		white-space: pre-line;
 		line-height: 1.5;
+		color: rgba(235, 244, 249, 0.95);
+		text-shadow:
+			0 1px 6px rgba(5, 12, 18, 0.9),
+			0 0 14px rgba(5, 12, 18, 0.6);
 	}
 	.entry-deltas {
-		margin-top: 0.6rem;
+		margin-top: 0.5em;
 		display: flex;
-		gap: 1rem;
+		gap: 1em;
 		flex-wrap: wrap;
-		font-size: 0.95rem;
+		font-size: 0.85em;
+		text-shadow: 0 1px 6px rgba(5, 12, 18, 0.9);
 	}
-	/* Pinned to the very bottom of the viewport (the log column is fixed
-	   to the right, so normal flow would have floated this just under the
-	   statbar at the top instead). No background band -- the glass button
-	   floats over the climb scene on its own. */
+	/* Pinned to the very bottom of the viewport. No background band -- the
+	   glass button floats over the climb scene on its own. */
 	.controls {
 		position: fixed;
 		left: 0;
@@ -596,40 +691,36 @@
 	   regardless of viewport shape. */
 	.corridor-overlay {
 		position: fixed;
-		animation: fade-in-overlay 500ms ease both;
-	}
-	@keyframes fade-in-overlay {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
 	}
 	/* "Liquid Glass" panel -- same recipe as Button.svelte's own pills
 	   (backdrop-blur + saturate, a soft white tint instead of an opaque
 	   fill, a gloss highlight, real depth via shadow), scaled up to a
-	   card. The old solid rgba(27,40,48,.88) panel read as a dark box
-	   pasted over a bright sky; this one instead lets that sky bleed
-	   through, blurred and brightened, so the panel reads as part of the
-	   light shaft rather than something dropped in front of it. Text
-	   flips to dark (the bright, blurred sky behind is the dominant tone
-	   here, not this screen's usual dark backdrop) for contrast. */
+	   card. Perspective-warped (allocMatrix) so its edges lie exactly on
+	   the frame's largest ceiling stair-edge rectangle -- the footage's
+	   own geometry is the frame, so no border/rounding of its own. The
+	   width/height here are the pre-warp reference box (ALLOC_REF_W/H);
+	   every inner size is in px of that box and scales with the warp. */
 	.alloc-panel {
-		position: relative;
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform-origin: 0 0;
 		overflow: hidden;
-		transform: translate(-50%, -50%);
-		width: min(80vw, 22rem);
+		display: flex;
+		flex-direction: column;
+		/* Content clusters from the top with tight margins (was
+		   space-between, which stretched title/tokens/stats apart across
+		   the whole quad); only the actions stay pinned to the bottom
+		   edge, via their own margin-top: auto. */
+		justify-content: flex-start;
 		background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(210, 228, 236, 0.16) 100%);
 		-webkit-backdrop-filter: blur(24px) saturate(180%);
 		backdrop-filter: blur(24px) saturate(180%);
-		border: 1px solid rgba(255, 255, 255, 0.5);
-		border-radius: 1.5rem;
-		padding: 1.2rem 1.5rem;
+		border: none;
+		padding: 26px 30px 24px;
 		color: #17262e;
 		text-align: center;
 		box-shadow:
-			0 14px 32px rgba(10, 20, 28, 0.22),
 			inset 0 1px 1px rgba(255, 255, 255, 0.75),
 			inset 0 -12px 18px rgba(20, 40, 55, 0.08);
 	}
@@ -650,12 +741,12 @@
 		position: relative;
 	}
 	.alloc-title {
-		margin: 0 0 0.4rem;
+		margin: 0 0 0.25rem;
 		font-size: 1.15rem;
 		font-weight: bold;
 	}
 	.alloc-tokens {
-		margin: 0 0 0.85rem;
+		margin: 0 0 0.6rem;
 		font-size: 0.85rem;
 		color: #3c5563;
 	}
@@ -717,8 +808,85 @@
 	}
 	.alloc-actions {
 		display: flex;
-		gap: 0.75rem;
+		gap: 2.2rem;
 		justify-content: center;
+		/* Keeps the two actions on the quad's bottom edge while the rest
+		   of the content clusters at the top. */
+		margin-top: auto;
+	}
+	/* Plain text, no border/background/pill -- same type family as every
+	   other label on this panel, just a size up. Only Start carries the
+	   color blink (slowed to a calm breath); Random stays a steady light
+	   tone so the blink singles out the one action that moves the story
+	   forward. Disabled Start: dim and steady, no blink. */
+	.alloc-action {
+		border: none;
+		background: none;
+		padding: 0;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 1.5rem;
+		letter-spacing: 0.06em;
+		/* Light base: this row lands on the quad's bottom edge, over the
+		   dark railing texture, where the panel's other (dark) text color
+		   would vanish. */
+		color: #cfe7f2;
+		text-shadow: 0 1px 4px rgba(8, 18, 26, 0.55);
+	}
+	/* Blinks in every state (gating it on :not(:disabled) made the panel
+	   open with no blink anywhere until all tokens were spent, which read
+	   as the animation being missing) -- disabled just dims the whole
+	   thing, the pulse continuing faintly underneath. */
+	.alloc-action.start {
+		animation: action-blink 3.2s ease-in-out infinite;
+	}
+	.alloc-action:disabled {
+		opacity: 0.45;
+		cursor: default;
+	}
+	@keyframes action-blink {
+		0%,
+		100% {
+			color: #9fcfe3;
+		}
+		50% {
+			color: #ffffff;
+			text-shadow:
+				0 1px 4px rgba(8, 18, 26, 0.55),
+				0 0 12px rgba(255, 255, 255, 0.85);
+		}
 	}
 
+	/* Hover zone over the foreground railing along the frame's bottom edge
+	   (below the panel's quad) -- invisible itself; pointing at it fades in
+	   the strategy tip just above the balusters. Same type treatment as
+	   the other in-footage prompts (orientation-prompt etc.). */
+	.rail-hint {
+		position: absolute;
+		left: 22%;
+		top: 86%;
+		width: 56%;
+		height: 14%;
+	}
+	/* Lies slanted along the railing's own top rail (same perspective
+	   trick as .age-tread on the treads) rather than floating upright
+	   above it -- which had it overlapping the panel's bottom edge. */
+	.rail-hint-tip {
+		position: absolute;
+		left: 50%;
+		top: 22%;
+		transform: translate(-50%, -50%) perspective(28em) rotateX(48deg) rotateZ(-3deg);
+		margin: 0;
+		white-space: nowrap;
+		font-size: 1.1rem;
+		letter-spacing: 0.12em;
+		color: rgba(255, 255, 255, 0.9);
+		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+		opacity: 0;
+		transition: opacity 300ms ease;
+		pointer-events: none;
+	}
+	.rail-hint:hover .rail-hint-tip {
+		opacity: 1;
+	}
 </style>

@@ -168,12 +168,12 @@
 	{/if}
 
 	<div class="actions">
-		<Button onclick={onAgain}>Play Again</Button>
 		<Button variant="print" onclick={onPrintTxt}>Print</Button>
+		<Button onclick={onAgain}>Restart Life</Button>
 	</div>
 
 	{#if age < 18}
-		<p class="hint">Hint: try putting all your points into a single stat.</p>
+		<p class="hint">Throw all your tokens into one attribute, get +5 on all stats automatically, and boom -- you've just unlocked easy mode for life.</p>
 	{/if}
 
 	<div class="credits">
