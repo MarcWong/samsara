@@ -31,37 +31,6 @@
 		92: 68, 93: 70, 94: 77, 95: 78, 96: 80, 97: 89, 98: 97, 102: 102,
 	};
 
-	// total>=9 && max>7 stat-rebalance rule from this session's earlier work,
-	// carried over from the old trajectory.js (it lived in the UI layer, not
-	// src/modules/, so Phase 1's game-logic port didn't touch it).
-	//
-	// Low-starting-point countries (e.g. Afghanistan's 6) can never satisfy
-	// max>7 even if every point goes into one stat -- so the other four
-	// stats were left at a hard 0 with no rebalance ever kicking in. Added
-	// a second trigger: if every allocated point landed on a single stat
-	// (the rest are all 0), the same top-up applies regardless of the
-	// total/max thresholds above.
-	function initProperty(propertyAllocate) {
-		let max = 0;
-		let nonZeroCount = 0;
-		for (const key of STAT_KEYS) {
-			const t = types[key];
-			if (propertyAllocate[t] > max) max = propertyAllocate[t];
-			if (propertyAllocate[t] > 0) nonZeroCount++;
-		}
-		const total = STAT_KEYS.reduce((s, key) => s + propertyAllocate[types[key]], 0);
-		const allPointsInOneStat = total > 0 && nonZeroCount === 1;
-		if ((total >= 9 && max > 7) || allPointsInOneStat) {
-			for (const key of STAT_KEYS) {
-				const t = types[key];
-				if (propertyAllocate[t] < 8) {
-					propertyAllocate[t] = propertyAllocate[t] < 4 ? propertyAllocate[t] + 5 : 8;
-				}
-			}
-		}
-		return propertyAllocate;
-	}
-
 	// Country/orientation arrive as plain draft fields now (Plaza no longer
 	// resolves them into a full propertyAllocate object itself -- stat
 	// allocation happens here instead, once 5.mp4 ends, so the country's
@@ -76,8 +45,13 @@
 	// -- stat allocation (ported verbatim from Plaza's old property step,
 	// now shown over the stairwell's frozen sky highlight instead of a DOS
 	// popup -- see `allocating` below) --
-	const [allocMin, allocMax] = core.propertyAllocateLimit;
+	const [allocMin] = core.propertyAllocateLimit;
 	const propertyPoints = core.getPropertyPoints(countryData?.points);
+	// Per-stat ceiling is the country's own point budget, not the app-wide
+	// config's fixed cap -- that fixed cap (13) is too low for high-budget
+	// countries (Japan 14, USA/UK 15, Denmark 17) and blocks free single-stat
+	// allocation for them.
+	const allocMax = propertyPoints;
 	const ALLOC_ROWS = STAT_KEYS.map(key => ({ type: types[key], label: STAT_LABELS[key] }));
 	let allocate = $state({ [types.CHR]: 0, [types.INT]: 0, [types.STR]: 0, [types.MNY]: 0, [types.SPR]: 0 });
 	let allocTotal = $derived(
@@ -120,6 +94,7 @@
 
 	let propertyAllocate = null;
 	let printText = '';
+	let triedAllInOneStat = false;
 	let stats = $state(null);
 	let effects = $state({ CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 });
 	let entries = $state([]);
@@ -140,10 +115,13 @@
 	// screen far longer than needed to read them, while cramming longer
 	// entries into the same window. ~230wpm reading speed, clamped to a
 	// floor (never flashes by too fast to register) and a ceiling (a long
-	// entry still eventually advances on its own).
-	const CHARS_PER_MS = 1000 / ((230 * 5) / 60); // ~230 wpm, ~5 chars/word
-	const MIN_ADVANCE_MS = 1800;
-	const MAX_ADVANCE_MS = 6000;
+	// entry still eventually advances on its own). Everything here is scaled
+	// by /1.5 (a flat 1.5x speedup of how fast events appear) on top of the
+	// underlying ~230wpm reading-speed model.
+	const SPEEDUP = 1.5;
+	const CHARS_PER_MS = 1000 / ((230 * 5) / 60) / SPEEDUP; // ~230 wpm, ~5 chars/word
+	const MIN_ADVANCE_MS = 1800 / SPEEDUP;
+	const MAX_ADVANCE_MS = 6000 / SPEEDUP;
 	let autoTimer = null;
 
 	function clearAutoTimer() {
@@ -248,7 +226,7 @@
 		// The starting (post-rebalance) allocation, so Summary can show
 		// "initial -> final" per stat.
 		const initial = Object.fromEntries(STAT_KEYS.map(key => [key, propertyAllocate[types[key]]]));
-		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial });
+		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial, triedAllInOneStat });
 	}
 
 	onDestroy(clearAutoTimer);
@@ -302,10 +280,39 @@
 		allocating = true;
 	}
 
+	// The rail hint's "see what happens" promise, and the Summary hint's own
+	// "+5 on all stats" line, are a real mechanic: reaching 8 in any single
+	// stat, or dumping every point into just one, tops up everything still
+	// under 5 to exactly 5 -- a free-allocation bonus, not the old
+	// initProperty()'s flat-8 stomp on the stat that triggered it (that was
+	// the Afghanistan bug: putting 6 points into MNY alone left it at a
+	// genuine 6, but the old code still forced it up to 8 because 6<8).
+	// Stats already at/above 5 (including whichever stat did the
+	// triggering) are left exactly as allocated.
+	function applyBonus(propertyAllocate) {
+		let max = 0;
+		let nonZeroCount = 0;
+		for (const key of STAT_KEYS) {
+			const value = propertyAllocate[types[key]];
+			if (value > max) max = value;
+			if (value > 0) nonZeroCount++;
+		}
+		if (max < 8 && nonZeroCount !== 1) return propertyAllocate;
+		for (const key of STAT_KEYS) {
+			const t = types[key];
+			if (propertyAllocate[t] < 5) propertyAllocate[t] = 5;
+		}
+		return propertyAllocate;
+	}
+
 	function confirmAllocation() {
 		if (allocLeft > 0) return;
 		const nationality = Object.fromEntries(COUNTRIES.map(({ code: c }) => [c, c === countryCode ? 1 : 0]));
-		propertyAllocate = initProperty({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
+		// Captured from the player's raw choices, before applyBonus tops
+		// everything up to 5 -- Summary needs this to know whether the
+		// trick was actually used (post-bonus, every stat reads nonzero).
+		triedAllInOneStat = STAT_KEYS.filter(key => allocate[types[key]] > 0).length === 1;
+		propertyAllocate = applyBonus({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
 		printText =
 			(country ? `Country: ${country}\n` : '') +
 			`Sex orientation: ${sex}\n` +
@@ -337,6 +344,15 @@
 	     with the footage. -->
 	<div class="corridor-overlay alloc-overlay" style={overlayStyle}>
 		<div class="alloc-panel">
+			<!-- The trapezoid clip lives on .alloc-panel itself; the actual
+			     glass fill (background + backdrop-filter) is this separate
+			     layer instead of sharing the clipped element directly --
+			     Chromium doesn't crop a backdrop-filter by its own
+			     clip-path (confirmed live: the shape only appeared once
+			     backdrop-filter was removed from the same element), so the
+			     blur has to sit on an absolutely-positioned child that the
+			     parent's overflow:hidden + clip-path can crop from outside. -->
+			<div class="alloc-glass" aria-hidden="true"></div>
 			<p class="alloc-title">Allocate your attributes</p>
 			<p class="alloc-tokens">Tokens: {propertyPoints} &nbsp; Remaining: {allocLeft}</p>
 			<div class="alloc-stats">
@@ -633,15 +649,16 @@
 	}
 	/* "Liquid Glass" panel -- same recipe as Button.svelte's own pills
 	   (backdrop-blur + saturate, a soft white tint instead of an opaque
-	   fill, a gloss highlight, real depth via shadow), scaled up to a
-	   card. Per the reference mockup: a tall straight-sided card hugging
-	   the stairwell's central void, with large rounded corners --
-	   position/size measured off the mockup as fractions of the frame. */
+	   fill, a gloss highlight), cut as a trapezoid: top edge wide, bottom
+	   edge narrow, matching the stairwell void's own receding shape in
+	   this frame so the card reads as wedged into that space rather than
+	   floating over it. Tint/blur are dialed well down from the earlier
+	   card so the stairwell stays visible through it. */
 	.alloc-panel {
 		position: absolute;
-		left: 36.3%;
+		left: 34.5%;
 		top: 13.6%;
-		width: 26.2%;
+		width: 30%;
 		height: 62.8%;
 		overflow: hidden;
 		display: flex;
@@ -650,25 +667,44 @@
 		   actions stay pinned to the bottom edge, via their own
 		   margin-top: auto. */
 		justify-content: flex-start;
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(210, 228, 236, 0.16) 100%);
-		-webkit-backdrop-filter: blur(24px) saturate(180%);
-		backdrop-filter: blur(24px) saturate(180%);
 		border: none;
-		border-radius: 8cqh;
-		padding: 3.4cqh 2.4cqw 3cqh;
+		/* The trapezoid itself: 14% taper per side at the bottom. The
+		   horizontal padding (3cqw = 10% of the panel's own width) keeps
+		   every stat row inside the slanted edges down to where the rows
+		   end; only the centered Random/Start pair sits lower, well clear
+		   of the corners. Only crops .alloc-glass/::before below -- see
+		   the note on .alloc-glass for why the blur itself can't live on
+		   this same clipped element. */
+		clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+		padding: 3.4cqh 3cqw 3cqh;
 		color: #17262e;
 		text-align: center;
-		box-shadow:
-			inset 0 1px 1px rgba(255, 255, 255, 0.75),
-			inset 0 -12px 18px rgba(20, 40, 55, 0.08);
 	}
-	/* Gloss cap, same trick as Button.svelte's ::before. */
+	/* The actual glass fill -- background tint + backdrop-blur + inset
+	   shadow -- separated from .alloc-panel's own box because Chromium
+	   doesn't crop a backdrop-filter by clip-path on the same element
+	   (confirmed live: the trapezoid only rendered once backdrop-filter
+	   was removed from .alloc-panel directly). .alloc-panel's own
+	   overflow:hidden + clip-path crop this absolutely-positioned child
+	   from the outside instead, which does work. */
+	.alloc-glass {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(210, 228, 236, 0.08) 100%);
+		-webkit-backdrop-filter: blur(14px) saturate(160%);
+		backdrop-filter: blur(14px) saturate(160%);
+		box-shadow:
+			inset 0 1px 1px rgba(255, 255, 255, 0.55),
+			inset 0 -12px 18px rgba(20, 40, 55, 0.06);
+		pointer-events: none;
+	}
+	/* Gloss cap, same trick as Button.svelte's ::before -- softened to
+	   match the thinner glass. */
 	.alloc-panel::before {
 		content: '';
 		position: absolute;
 		inset: 0;
-		border-radius: inherit;
-		background: radial-gradient(120% 80% at 50% -10%, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.25) 40%, rgba(255, 255, 255, 0) 70%);
+		background: radial-gradient(120% 80% at 50% -10%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.14) 40%, rgba(255, 255, 255, 0) 70%);
 		mix-blend-mode: screen;
 		pointer-events: none;
 	}
@@ -746,11 +782,15 @@
 	}
 	.alloc-actions {
 		display: flex;
-		gap: 2.2rem;
+		gap: 1.6rem;
 		justify-content: center;
-		/* Keeps the two actions on the quad's bottom edge while the rest
-		   of the content clusters at the top. */
+		/* Keeps the two actions clustered toward the bottom while the rest
+		   of the content sits at the top -- a real bottom margin (not
+		   flush at margin-top:auto's full push) so the row lands above
+		   the trapezoid's narrowest point instead of getting clipped by
+		   the tapered edges. */
 		margin-top: auto;
+		margin-bottom: 4cqh;
 	}
 	/* Plain text, no border/background/pill -- same type family as every
 	   other label on this panel, just a size up. Only Start carries the
@@ -795,32 +835,31 @@
 		}
 	}
 
-	/* Hover zone over the foreground railing along the frame's bottom edge
-	   (below the panel's quad) -- invisible itself; pointing at it fades in
-	   the strategy tip just above the balusters. Same type treatment as
-	   the other in-footage prompts (orientation-prompt etc.). */
+	/* Hover zone over the brightly lit horizontal wall band crossing the
+	   frame just below the panel's bottom edge -- invisible itself;
+	   pointing at it fades in the strategy tip. */
 	.rail-hint {
 		position: absolute;
-		left: 22%;
-		top: 86%;
-		width: 56%;
-		height: 14%;
+		left: 25%;
+		top: 77%;
+		width: 50%;
+		height: 11%;
 	}
-	/* Sits flat on the handrail's own white strip (the bright band
-	   crossing the void's bottom, ~89% down the frame), horizontal and
-	   small per the reference mockup -- below the panel's rounded bottom
-	   edge, never overlapping it. */
+	/* Centered on that bright band's own midpoint. Dark ink instead of the
+	   white used elsewhere: this strip is the single brightest surface in
+	   the frame, so light text washed out against it -- dark text is what
+	   actually contrasts here. */
 	.rail-hint-tip {
 		position: absolute;
 		left: 50%;
-		top: 24%;
+		top: 50%;
 		transform: translate(-50%, -50%);
 		margin: 0;
 		white-space: nowrap;
 		font-size: 1.9cqh;
 		letter-spacing: 0.12em;
-		color: rgba(255, 255, 255, 0.85);
-		text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+		color: rgba(18, 32, 40, 0.9);
+		text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35);
 		opacity: 0;
 		transition: opacity 300ms ease;
 		pointer-events: none;

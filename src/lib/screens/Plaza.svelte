@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
+	import { loadMp4, webCodecsSupported } from '../components/videoPlayer.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const ORIENTATIONS = [
@@ -46,6 +47,14 @@
 		};
 		resize();
 		window.addEventListener('resize', resize);
+
+		// Kicked off as early as this screen mounts (not on the orientation
+		// click) so 5.mp4 has the longest possible head start -- StairwellBackground's
+		// own loadMp4() call for the same URL then just awaits this same
+		// cached promise instead of starting a fresh fetch, closing the gap
+		// that used to show as a black flash while Trajectory waited on it.
+		if (webCodecsSupported()) loadMp4(`${base}/videos/5.mp4`).catch(() => {});
+
 		return () => window.removeEventListener('resize', resize);
 	});
 

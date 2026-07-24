@@ -94,5 +94,16 @@
         "effect": {
             "INT": 3
         }
+    },
+    "90011": {
+        "id": "90011",
+        "name": "Menopause",
+        "description": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
+        "condition": "AGE?[72]",
+        "grade": 0,
+        "exclusive": true,
+        "effect": {
+            "CHR": -3
+        }
     }
 }

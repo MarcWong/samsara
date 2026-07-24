@@ -39,10 +39,29 @@ function extractDescription(file, trackId) {
 	return undefined;
 }
 
+// Keyed by URL so a clip prefetched ahead of need (e.g. while an earlier
+// screen is still on screen) and the same clip's own later loadMp4() call
+// share one fetch+demux instead of racing two -- the second caller just
+// awaits whatever's already in flight or resolved.
+const mediaCache = new Map();
+
 // fetch -> ArrayBuffer -> demux. Resolves to a reusable media object
 // ({ config, chunks }) that can be handed to CanvasVideoPlayer.play() any
 // number of times -- chunks are just compressed samples, cheap to keep.
-export async function loadMp4(url) {
+export function loadMp4(url) {
+	let promise = mediaCache.get(url);
+	if (!promise) {
+		promise = fetchAndDemux(url);
+		mediaCache.set(url, promise);
+		// A failed load shouldn't poison the cache forever -- a later retry
+		// (or a different caller) should get a fresh fetch, not the same
+		// rejection replayed.
+		promise.catch(() => mediaCache.delete(url));
+	}
+	return promise;
+}
+
+async function fetchAndDemux(url) {
 	const resp = await fetch(url);
 	if (!resp.ok) throw new Error(`fetch ${url}: HTTP ${resp.status}`);
 	const buffer = await resp.arrayBuffer();

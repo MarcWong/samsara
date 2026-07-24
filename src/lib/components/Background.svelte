@@ -1,8 +1,15 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { Renderer, Program, Mesh, Triangle } from 'ogl';
+	import { restartProgress } from '../stores.js';
 
 	let { screen } = $props();
+
+	// Fades out (and ripples via the shared #ripple-disperse filter defined
+	// in Summary.svelte) in lockstep with Summary's own Restart Life
+	// transition -- see restartProgress in stores.js for why this has to be
+	// a store rather than a prop.
+	let bgOpacity = $derived(1 - $restartProgress);
 
 	// CSS fallback for prefers-reduced-motion, no-WebGL, or context loss --
 	// also what's shown for a frame before the canvas mounts. Only SUMMARY
@@ -212,9 +219,13 @@
 </script>
 
 {#if !ready}
-	<div class="fallback" style:background={FALLBACK_GRADIENTS[screen] ?? FALLBACK_GRADIENTS.MAIN}></div>
+	<div
+		class="fallback"
+		style:background={FALLBACK_GRADIENTS[screen] ?? FALLBACK_GRADIENTS.MAIN}
+		style:opacity={bgOpacity}
+	></div>
 {/if}
-<canvas bind:this={canvasEl} class="bg-canvas" class:hidden={!ready}></canvas>
+<canvas bind:this={canvasEl} class="bg-canvas" class:hidden={!ready} style:opacity={bgOpacity}></canvas>
 
 <style>
 	.fallback,
@@ -227,6 +238,11 @@
 		width: 100%;
 		height: 100%;
 		display: block;
+		/* Referenced by url() regardless of restartProgress -- the filter's
+		   own feDisplacementMap scale (bound in Summary.svelte, the only
+		   place that ever touches restartProgress) is 0 at rest, so this is
+		   a no-op until Restart Life actually drives it. */
+		filter: url(#ripple-disperse);
 	}
 	.bg-canvas.hidden {
 		display: none;

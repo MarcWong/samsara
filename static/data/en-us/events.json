@@ -3665,5 +3665,51 @@
         "event": "Your granddaughter asks what a tomato tasted like before it became a luxury variety.",
         "include": "MNY>5",
         "effect": { "SPR": 1 }
+    },
+    "96900": {
+        "id": 96900,
+        "event": "You audition for a girl-group trainee program with thousands of other hopefuls, and against the odds, your name gets called.",
+        "include": "CHR>13",
+        "exclude": "EVT?[96900,96901]"
+    },
+    "96901": {
+        "id": 96901,
+        "event": "You audition for a girl-group trainee program with thousands of other hopefuls. Your name never gets called, and the agency stops returning your calls.",
+        "include": "CHR>13",
+        "exclude": "EVT?[96900,96901]"
+    },
+    "96902": {
+        "id": 96902,
+        "event": "Your group debuts, and within the year you're headlining a world tour. The money that pours in stops feeling real.",
+        "include": "EVT?[96900]",
+        "exclude": "EVT?[96902]",
+        "effect": { "MNY": 5 }
+    },
+    "96903": {
+        "id": 96903,
+        "event": "A conglomerate heir takes you home as his wife. He hands you more money than you could ever spend, but his private life stays exactly as chaotic as it was before you arrived.",
+        "include": "EVT?[96900]",
+        "exclude": "EVT?[96903,96904]",
+        "effect": { "MNY": 5 }
+    },
+    "96904": {
+        "id": 96904,
+        "event": "The tour winds down and no billionaire comes calling. You bank the royalties yourself and call it a career.",
+        "include": "EVT?[96900]",
+        "exclude": "EVT?[96903,96904]"
+    },
+    "96905": {
+        "id": 96905,
+        "event": "The tour looks glamorous from the outside, but the agency has boxed you in with nowhere left to run — they know exactly what to hold over you, and force you into a private party you can't refuse. You choose to end your life rather than live through another one.",
+        "include": "EVT?[96900]",
+        "exclude": "EVT?[96905,96906]",
+        "effect": { "LIF": -1 }
+    },
+    "96906": {
+        "id": 96906,
+        "event": "The agency leans on you harder than anyone outside the industry could imagine. You grit your teeth and stay in the group anyway.",
+        "include": "EVT?[96900]",
+        "exclude": "EVT?[96905,96906]",
+        "effect": { "SPR": -1 }
     }
 }

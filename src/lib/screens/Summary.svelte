@@ -1,15 +1,13 @@
 <script>
+	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
-	import { draft } from '../stores.js';
+	import { draft, goToScreen, emptyDraft, restartProgress } from '../stores.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
-	import { skippable } from '../skip.js';
 
 	const { summary } = core;
 	const types = core.PropertyTypes;
 
-	// Already in the Wealth/Appearance/IQ/Health/EQ order from this session's
-	// earlier ordering pass -- ported as-is.
 	// `initial` is the starting (post-rebalance) allocation passed through
 	// from Trajectory, keyed by the plain stat key -- shown as
 	// "initial -> final" per row when available.
@@ -37,6 +35,16 @@
 	const talents = ($draft.talents ?? []).filter(talent => core.getTalentCurrentTriggerCount(talent.id) > 0);
 	const printText = $draft.printText ?? '';
 
+	// Whether every allocated token went into a single attribute at setup --
+	// the "what happens if I dump it all in one stat" trick the rail hint on
+	// the allocation panel points at. Once discovered there's nothing left to
+	// tip the player toward, so the summary hint only shows for playthroughs
+	// that didn't try it. Captured in Trajectory from the player's raw
+	// choices, before the free-allocation bonus tops every stat under 5 up
+	// to 5 -- deriving this from `initial` itself wouldn't work post-bonus,
+	// since every stat reads nonzero regardless of whether the trick fired.
+	const triedAllInOneStat = $draft.triedAllInOneStat ?? false;
+
 	// Passed through from Trajectory: the country/orientation chosen at setup
 	// and the final *display* age (post AGE-table mapping, i.e. the age the
 	// player actually watched themselves die at) -- the raw HAGE property is
@@ -50,19 +58,56 @@
 		'Developer: Yao Wang',
 		'Audio Design: Guanyu Xie',
 		'Built upon LifeRestart by VickScarlet',
+		'Contact: sabinajiang0505@outlook.com',
+		'© 2022 Yuwei Jiang'
 	];
 
-	// Play Again first rolls 8.mp4 (the rebirth bridge) full-screen over
-	// this page, and only reloads back to the title loop once it ends --
-	// the click itself is the user gesture, so unmuted autoplay on the
-	// just-mounted <video> is permitted. Any playback failure falls
-	// through to the reload rather than stranding the player here.
-	let replaying = $state(false);
+	// Restart Life no longer bridges through a dedicated clip (8.mp4, since
+	// removed) or a hard page reload -- instead 1.mp4 (the title loop
+	// CityIntro itself opens on) plays muted underneath this whole screen
+	// from the moment Summary mounts, invisible until Restart is clicked.
+	// Clicking it drives restartProgress 0->1 (a shared store, not local
+	// state -- Background.svelte's own shader canvas is a sibling under
+	// +page.svelte, not something Summary can pass props into, so both
+	// read the same store to fade/ripple in lockstep), revealing the
+	// already-playing loop underneath, then hands off to CITYINTRO once it
+	// completes -- CityIntro's own loadMp4('1.mp4') call resolves instantly
+	// from videoPlayer.js's cache, so its canvas has content the instant it
+	// mounts, no black gap.
+	const DURATION_MS = 2600;
+	let restarting = $state(false);
+	let revealVideoEl = $state(null);
+
+	// Derived purely from $restartProgress (already eased -- see the
+	// smoothstep in onAgain below) so every visual reads off one number:
+	// foreground/shader fade out linearly with it, the reveal video fades
+	// in the same way, and the ripple distortion follows a bell curve
+	// (0 at both ends, peaking mid-transition) so the final revealed frame
+	// is undistorted rather than warping the new scene along with it.
+	let fgOpacity = $derived(1 - $restartProgress);
+	let videoOpacity = $derived($restartProgress);
+	let blurPx = $derived($restartProgress * 16);
+	let scaleAmt = $derived(1 + $restartProgress * 0.04);
+	let rippleScale = $derived(Math.sin(Math.min(1, $restartProgress) * Math.PI) * 70);
+
+	onMount(() => {
+		revealVideoEl?.play().catch(() => {});
+	});
+
 	function onAgain() {
-		replaying = true;
-	}
-	function restart() {
-		window.location.reload();
+		if (restarting) return;
+		restarting = true;
+		const start = performance.now();
+		function tick(now) {
+			const t = Math.min(1, (now - start) / DURATION_MS);
+			restartProgress.set(t * t * (3 - 2 * t)); // smoothstep
+			if (t < 1) requestAnimationFrame(tick);
+			else {
+				draft.set(emptyDraft());
+				goToScreen('CITYINTRO');
+			}
+		}
+		requestAnimationFrame(tick);
 	}
 
 	// printText's own header block (built in Trajectory.svelte, before any
@@ -100,13 +145,13 @@
 			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qrcode.png' style='width: 150px;height:150px;'></div>`
 		);
 		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>Visit https://marcwong.github.io/samsara/ to play it at home.<br> © 2022 Yuwei Jiang</p>"
+			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Play it at home</p>"
 		);
 		win.document.write(
 			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_ins.png' style='width: 150px;height:150px;'></div>`
 		);
 		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Follow us on Instagram</p>"
+			"<p style='margin: 8px 0 0; width: 300px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Follow on Instagram</p>"
 		);
 		win.document.write(
 			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_coffee.png' style='width: 150px;height:150px;'></div>`
@@ -118,10 +163,7 @@
 			`<div style='margin: 8px 0 0; width: 280px; text-align: center;'><img src='${window.location.origin}${base}/images/qr-code_discord.png' style='width: 150px;height:150px;'></div>`
 		);
 		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Stay updated on Samsara</p>"
-		);
-		win.document.write(
-			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>Contact: sabinajiang0505@outlook.com</p>"
+			"<p style='margin: 8px 0 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>Stay updated on Discord</p>"
 		);
 		win.document.write(
 			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace'>${CREDITS.join('<br>')}</p>`
@@ -132,8 +174,46 @@
 	}
 </script>
 
-<div class="summary">
-	<h1 class="title">♀Samsara</h1>
+<div class="summary-outer">
+	<!-- Shared with Background.svelte's shader canvas via url(#ripple-disperse)
+	     -- feDisplacementMap's scale is the only thing driven reactively
+	     (rippleScale, bound to $restartProgress), so this filter is a no-op
+	     everywhere it's referenced until Restart Life actually runs. -->
+	<svg class="filter-defs" aria-hidden="true">
+		<defs>
+			<filter id="ripple-disperse" x="-20%" y="-20%" width="140%" height="140%">
+				<feTurbulence type="fractalNoise" baseFrequency="0.011 0.018" numOctaves="2" seed="7" result="noise">
+					<animate
+						attributeName="baseFrequency"
+						values="0.008 0.014;0.014 0.022;0.008 0.014"
+						dur="3.2s"
+						repeatCount="indefinite"
+					/>
+				</feTurbulence>
+				<feDisplacementMap in="SourceGraphic" in2="noise" scale={rippleScale} xChannelSelector="R" yChannelSelector="G" />
+			</filter>
+		</defs>
+	</svg>
+
+	<!-- svelte-ignore a11y_media_has_caption -->
+	<video
+		bind:this={revealVideoEl}
+		class="reveal-video"
+		src="{base}/videos/1.mp4"
+		muted
+		loop
+		autoplay
+		playsinline
+		preload="auto"
+		style="opacity: {videoOpacity}; filter: url(#ripple-disperse);"
+	></video>
+
+	<div
+		class="summary"
+		class:restarting
+		style="opacity: {fgOpacity}; filter: blur({blurPx}px) url(#ripple-disperse); transform: scale({scaleAmt});"
+	>
+		<h1 class="title">♀Samsara</h1>
 
 	<!-- Who this life was: country, orientation, and how long it lasted --
 	     laid out like the Trajectory statbar (dim caption above, big value
@@ -191,8 +271,8 @@
 		<Button onclick={onAgain}>Restart Life</Button>
 	</div>
 
-	{#if age < 18}
-		<p class="hint">Throw all your tokens into one attribute, get +5 on all stats automatically, and boom -- you've just unlocked easy mode for life.</p>
+	{#if !triedAllInOneStat}
+		<p class="hint">Throw all your tokens into one attribute,<br/>get +5 on all stats automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
 	{/if}
 
 	<div class="credits">
@@ -200,21 +280,8 @@
 			<p>{line}</p>
 		{/each}
 	</div>
-</div>
-
-{#if replaying}
-	<div class="replay">
-		<!-- svelte-ignore a11y_media_has_caption -->
-		<video
-			src="{base}/videos/8.mp4"
-			autoplay
-			playsinline
-			onended={restart}
-			onerror={restart}
-			use:skippable
-		></video>
 	</div>
-{/if}
+</div>
 
 <style>
 	/* Recolored to match the 5 intro/trajectory clips' own cool, desaturated
@@ -237,6 +304,13 @@
 		gap: 1.1rem;
 		padding: 1.75rem 1.5rem 1.25rem;
 		color: #dce8ee;
+		/* opacity/filter/transform are driven per-frame from $restartProgress
+		   (see fgOpacity/blurPx/scaleAmt in the script) rather than a CSS
+		   transition -- a transition would lag a frame behind and fight the
+		   already-smooth rAF-driven values. */
+	}
+	.summary.restarting {
+		pointer-events: none;
 	}
 	.title {
 		font-size: clamp(2rem, 6vw, 3rem);
@@ -254,7 +328,7 @@
 		justify-content: space-between;
 		gap: 2.5rem;
 		width: 100%;
-		max-width: 34rem;
+		max-width: 28rem;
 		background: rgba(27, 40, 48, 0.88);
 		border-radius: 0.6rem;
 		padding: 0.8rem 1.5rem;
@@ -279,7 +353,7 @@
 		flex-direction: row;
 		gap: 0.6rem;
 		width: 100%;
-		max-width: 34rem;
+		max-width: 28rem;
 	}
 	.row {
 		flex: 1;
@@ -347,8 +421,8 @@
 		background: rgba(27, 40, 48, 0.88);
 		border-radius: 0.6rem;
 		padding: 0.6em 1em;
-		color: #cfe2ea;
-		font-size: 0.95rem;
+		color: #ffffff;
+		font-size: 1.15rem;
 	}
 	.actions {
 		display: flex;
@@ -358,8 +432,8 @@
 	}
 	.hint {
 		margin: 0;
-		font-size: 0.75rem;
-		color: #82a0ad;
+		font-size: 1.15rem;
+		color: #ffffff;
 		opacity: 0.6;
 	}
 	/* Pinned to the very bottom of the screen (not just after the hint in
@@ -383,18 +457,26 @@
 		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
 	}
 
-	/* Full-screen opaque cover for the Play Again bridge clip -- sits over
-	   everything on this page (including the fixed shader background). */
-	.replay {
+	/* 1.mp4 plays muted underneath the whole screen from the moment Summary
+	   mounts, at opacity 0 (see videoOpacity in the script) -- z-index -1
+	   keeps it just above Background.svelte's own shader canvas (also -1,
+	   but earlier in the DOM, so it paints first/lower) and below .summary,
+	   invisible at rest and only fading in as Restart Life runs. */
+	.reveal-video {
 		position: fixed;
 		inset: 0;
-		z-index: 30;
-		background: #000;
-	}
-	.replay video {
+		z-index: -1;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		display: block;
+	}
+	/* Zero-size host for the #ripple-disperse filter def -- shared by
+	   reference (url(#ripple-disperse)) with both .reveal-video/.summary
+	   here and Background.svelte's shader canvas. */
+	.filter-defs {
+		position: absolute;
+		width: 0;
+		height: 0;
 	}
 </style>
