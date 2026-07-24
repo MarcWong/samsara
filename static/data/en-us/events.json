@@ -3829,5 +3829,365 @@
         "include": "EVT?[96900]",
         "exclude": "EVT?[96905,96906]",
         "effect": { "SPR": -1 }
+    },
+    "81001": {
+        "id": 81001,
+        "event": "You spend your first hurricane season sleeping beside your mother on a mattress that must be lifted whenever rainwater enters the room. The house has two dependable walls and a roof repaired with plastic sheeting.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1 }
+    },
+    "81002": {
+        "id": 81002,
+        "event": "A fever and diarrhea leave you frighteningly thin. Your mother carries you to a mobile clinic because the neighborhood health post has no nurse, fuel or medicine.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1 }
+    },
+    "81003": {
+        "id": 81003,
+        "event": "You learn to recognize gunfire before you learn to read. When shooting begins, you lie flat behind the thickest remaining wall and wait for the adults to decide whether this is a passing fight or another reason to flee.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": -1 }
+    },
+    "81004": {
+        "id": 81004,
+        "event": "You begin school late. Your family pays a small private school because there is no functioning free school nearby, but you miss many weeks whenever tuition, transport or security becomes impossible.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "INT": 1 }
+    },
+    "81005": {
+        "id": 81005,
+        "event": "An armed group takes over the road to your school. Classes move into a church courtyard, where one teacher shares a few damaged books among dozens of children.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "INT": -1 }
+    },
+    "81006": {
+        "id": 81006,
+        "event": "Your family is displaced after several houses in your neighborhood are burned. You carry clothes in a rice sack and spend months in an overcrowded school building converted into a shelter.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": -1, "SPR": -1 }
+    },
+    "81007": {
+        "id": 81007,
+        "event": "You stop using the shelter toilet after dark because it has no lock or light. You and the other girls go together during daylight and quietly warn one another about dangerous men.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": -1 }
+    },
+    "81008": {
+        "id": 81008,
+        "event": "You leave regular school to help your mother sell water sachets, charcoal and fried food. You can read Creole and some French, but your education has been repeatedly broken into pieces.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "INT": -1, "MNY": 1 }
+    },
+    "81009": {
+        "id": 81009,
+        "event": "A cousin lends you a cheap secondhand phone. Electricity is irregular and data is expensive, so you charge it at a shop and download messages whenever a signal appears.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": 1 }
+    },
+    "81010": {
+        "id": 81010,
+        "event": "You begin living with a young mechanic because combining two small incomes feels safer than surviving alone. Neither of you has formal employment or a bank account.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": 1 }
+    },
+    "81011": {
+        "id": 81011,
+        "event": "You become pregnant. The nearest maternity service closes after staff receive threats, so most prenatal advice comes from an older woman in the neighborhood.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1 }
+    },
+    "81012": {
+        "id": 81012,
+        "event": "You give birth during a fuel shortage. You survive, but the delivery leaves you weak for months, and the hospital asks your family to purchase supplies outside before treating you.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -2, "MNY": -1 }
+    },
+    "81013": {
+        "id": 81013,
+        "event": "Your partner disappears while traveling through a gang-controlled checkpoint. You never learn with certainty whether he was recruited, kidnapped, killed or escaped abroad.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": -2 }
+    },
+    "81014": {
+        "id": 81014,
+        "event": "You support your child by washing clothes, reselling food and receiving occasional money from a relative in the Dominican Republic. A deportation campaign later sends that relative back with debt and no savings.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": -1 }
+    },
+    "81015": {
+        "id": 81015,
+        "event": "A powerful hurricane tears away your roof and contaminates the local water supply. Aid arrives briefly; the blue tarpaulin remains long after the foreign vehicles leave.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1, "MNY": -1 }
+    },
+    "81016": {
+        "id": 81016,
+        "event": "Solar charging and low-bandwidth satellite connections finally reach local merchants. You begin receiving mobile payments, although service disappears whenever equipment is stolen or damaged.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": 1 }
+    },
+    "81017": {
+        "id": 81017,
+        "event": "Your daughter reaches the age at which you left school. You sell your best cooking pot to keep her enrolled for another term and insist that she never walk home alone.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": -1, "SPR": 1 }
+    },
+    "81018": {
+        "id": 81018,
+        "event": "Several armed coalitions have become unofficial local governments. You pay separate “fees” for market access, transport and protection, none of which guarantees actual safety.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": -1 }
+    },
+    "81019": {
+        "id": 81019,
+        "event": "Extreme heat makes daytime street selling unbearable. You wake before sunrise, rest through the hottest hours and return to work in the evening, when violence is more likely.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1 }
+    },
+    "81020": {
+        "id": 81020,
+        "event": "Another period of international intervention improves security around ports and a few major roads. Your neighborhood sees patrols and new project signs, but still no sewer system or reliable rubbish collection.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": 1 }
+    },
+    "81021": {
+        "id": 81021,
+        "event": "Floodwater destroys the low-lying settlement where you live. This time you move inland permanently, joining relatives on eroded farmland that can barely support another household.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": -1, "STR": -1 }
+    },
+    "81022": {
+        "id": 81022,
+        "event": "You develop high blood pressure. Medicine is available some months and unaffordable in others, so you ration tablets and use herbal remedies when the pharmacy shelves are empty.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "STR": -1 }
+    },
+    "81023": {
+        "id": 81023,
+        "event": "Your daughter migrates through several countries and eventually finds care work abroad. Her remittances buy you a metal roof, a water tank and, for the first time, a door that locks properly.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "MNY": 2, "SPR": 1 }
+    },
+    "81024": {
+        "id": 81024,
+        "event": "Younger people know you as the woman who remembers which families lived where before repeated fires, floods and displacement erased the old neighborhood. You help settle arguments and watch children while their mothers trade.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": 1 }
+    },
+    "81025": {
+        "id": 81025,
+        "event": "You sit outside before the afternoon heat becomes dangerous. Haiti has better solar power and pockets of functioning local government, but safe water, hospitals and secure roads still depend heavily on where you live and whom you know. Reaching seventy feels less like an ordinary birthday than an achievement assembled from luck, caution and other women’s help.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "SPR": 1 }
+    },
+    "81901": {
+        "id": 81901,
+        "event": "You die from dehydration after contaminated water causes severe diarrhea and transport to a working clinic cannot be found.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "LIF": -1 }
+    },
+    "81902": {
+        "id": 81902,
+        "event": "A bullet passes through the thin wall of the room where you are sheltering during a gang battle.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "LIF": -1 }
+    },
+    "81903": {
+        "id": 81903,
+        "event": "You die from postpartum hemorrhage because the maternity ward has no blood, electricity or surgeon available in time.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "LIF": -1 }
+    },
+    "81904": {
+        "id": 81904,
+        "event": "A flash flood sweeps through your settlement at night after intense hurricane rainfall; there is no effective warning or organized evacuation.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "LIF": -1 }
+    },
+    "81905": {
+        "id": 81905,
+        "event": "Years of untreated hypertension lead to a stroke. Your family finds a vehicle, but the road to emergency care is blocked.",
+        "include": "HTI>0&MNY<4",
+        "effect": { "LIF": -1 }
+    },
+    "82001": {
+        "id": 82001,
+        "event": "You sleep behind a locked gate in a concrete house with a generator, water tanks and an armed night guard. Your parents still move your crib away from windows when shooting approaches.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82002": {
+        "id": 82002,
+        "event": "Your illnesses are treated by a private pediatrician. Medicine can usually be found because your family pays someone to search several pharmacies or bring it from abroad.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "STR": 1 }
+    },
+    "82003": {
+        "id": 82003,
+        "event": "You enter a private bilingual school. You learn French and English alongside Creole, and your parents treat English as both an education and a possible exit route.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "INT": 2 }
+    },
+    "82004": {
+        "id": 82004,
+        "event": "School closes after a kidnapping nearby. Lessons continue online, but the connection fails repeatedly and the generator is turned off when fuel becomes scarce.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "INT": -1 }
+    },
+    "82005": {
+        "id": 82005,
+        "event": "You notice that every foreign guest leaving your family’s guesthouse is accompanied by a trusted local man. Adults tell you never to reveal your route, school or surname to strangers.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82006": {
+        "id": 82006,
+        "event": "Armed men seize a nearby neighborhood. Your family relocates temporarily to Cap-Haïtien or the Dominican Republic, while an employee stays behind to watch the property.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": -1 }
+    },
+    "82007": {
+        "id": 82007,
+        "event": "You visit Miami or Montréal for the first time and are shocked that children walk outside without guards. Returning home feels emotionally familiar but physically tense.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82008": {
+        "id": 82008,
+        "event": "A close friend is withdrawn from school after threats are made against her family. You learn that money buys distance from danger, not immunity from it.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82009": {
+        "id": 82009,
+        "event": "You finish secondary school through a mixture of classroom teaching and remote lessons. Your passport, recommendations and family contacts make overseas university possible.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "INT": 1 }
+    },
+    "82010": {
+        "id": 82010,
+        "event": "You study nursing, business or computer science abroad. You feel guilty when relatives praise you for “escaping,” because your tuition is partly financed by income earned in a country most people cannot leave.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "INT": 1, "SPR": -1 }
+    },
+    "82011": {
+        "id": 82011,
+        "event": "You return for a family emergency and see that several childhood streets are now inaccessible. Your parents send a driver and security escort to collect you from the airport.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82012": {
+        "id": 82012,
+        "event": "You begin working between Haiti and another country, managing bookings, payments or medical supplies remotely. Most of the operation depends on solar panels, satellite internet and personal trust rather than public infrastructure.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": 1 }
+    },
+    "82013": {
+        "id": 82013,
+        "event": "A hurricane damages the family business. Insurance covers little or nothing, but diaspora savings allow repairs while poorer neighbors remain under tarpaulins.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": -1 }
+    },
+    "82014": {
+        "id": 82014,
+        "event": "You marry a Haitian professional who also has residency abroad. The wedding is carefully timed, guarded and smaller than planned because guests fear road travel.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": 1 }
+    },
+    "82015": {
+        "id": 82015,
+        "event": "You give birth in Miami, Santo Domingo or a well-equipped Haitian private hospital. The decision is less about luxury than ensuring that blood, anesthesia and emergency surgery will exist if needed.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "STR": 1 }
+    },
+    "82016": {
+        "id": 82016,
+        "event": "You help fund a small school, clinic or women’s cooperative. You soon discover that paying for a building is easier than keeping staff safe, supplied and consistently paid.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": -1, "SPR": 1 }
+    },
+    "82017": {
+        "id": 82017,
+        "event": "Your family receives an extortion demand. You change phone numbers, routes and employees, then spend several months abroad while trusted relatives negotiate quietly.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": -1, "SPR": -1 }
+    },
+    "82018": {
+        "id": 82018,
+        "event": "Improved solar networks and digital payments let your business reach customers outside the capital. For a few years, you feel that Haiti may be developing around the state rather than through it.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": 1 }
+    },
+    "82019": {
+        "id": 82019,
+        "event": "A new political settlement reduces open fighting in some districts, but former armed leaders now hold contracts and local offices. You must decide whether cooperation is practical survival or complicity.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82020": {
+        "id": 82020,
+        "event": "Rising heat, flooding and coastal erosion lower the value of family property. You sell one vulnerable building and reinvest inland before another storm makes it worthless.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "MNY": -1 }
+    },
+    "82021": {
+        "id": 82021,
+        "event": "Your children choose to remain abroad. They speak Creole with an accent and know Haiti through holidays, family stories and emergency messages arriving in the night.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82022": {
+        "id": 82022,
+        "event": "You divide your year between Haiti and another country. Abroad you feel safe but peripheral; in Haiti you feel at home but continuously alert.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": -1 }
+    },
+    "82023": {
+        "id": 82023,
+        "event": "You use your connections to organize medicine deliveries and scholarships. People call you influential, although a blocked road or armed checkpoint can still cancel months of planning.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": 1 }
+    },
+    "82024": {
+        "id": 82024,
+        "event": "You undergo treatment abroad for diabetes, cancer or heart disease. You recognize that your greatest privilege is no longer the house or generator — it is the ability to reach a functioning hospital.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "STR": -1, "MNY": -1 }
+    },
+    "82025": {
+        "id": 82025,
+        "event": "You return for extended periods to a greener, solar-powered family compound inland. Parts of Haiti are safer and better connected, while other districts remain abandoned or ruled through informal force. Your life has been protected by passports, education and money, but shaped throughout by contingency and exile.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "SPR": 1 }
+    },
+    "82901": {
+        "id": 82901,
+        "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "LIF": -1 }
+    },
+    "82902": {
+        "id": 82902,
+        "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "LIF": -1 }
+    },
+    "82903": {
+        "id": 82903,
+        "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "LIF": -1 }
+    },
+    "82904": {
+        "id": 82904,
+        "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "LIF": -1 }
+    },
+    "82905": {
+        "id": 82905,
+        "event": "A treatable cancer becomes fatal after repeated insecurity, flight cancellations and border restrictions interrupt care for too long.",
+        "include": "HTI>0&MNY>3",
+        "effect": { "LIF": -1 }
     }
 }
