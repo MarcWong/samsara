@@ -3833,361 +3833,2241 @@
     "81001": {
         "id": 81001,
         "event": "You spend your first hurricane season sleeping beside your mother on a mattress that must be lifted whenever rainwater enters the room. The house has two dependable walls and a roof repaired with plastic sheeting.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1 }
     },
     "81002": {
         "id": 81002,
         "event": "A fever and diarrhea leave you frighteningly thin. Your mother carries you to a mobile clinic because the neighborhood health post has no nurse, fuel or medicine.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1 }
     },
     "81003": {
         "id": 81003,
         "event": "You learn to recognize gunfire before you learn to read. When shooting begins, you lie flat behind the thickest remaining wall and wait for the adults to decide whether this is a passing fight or another reason to flee.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": -1 }
     },
     "81004": {
         "id": 81004,
         "event": "You begin school late. Your family pays a small private school because there is no functioning free school nearby, but you miss many weeks whenever tuition, transport or security becomes impossible.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "INT": 1 }
     },
     "81005": {
         "id": 81005,
         "event": "An armed group takes over the road to your school. Classes move into a church courtyard, where one teacher shares a few damaged books among dozens of children.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "INT": -1 }
     },
     "81006": {
         "id": 81006,
         "event": "Your family is displaced after several houses in your neighborhood are burned. You carry clothes in a rice sack and spend months in an overcrowded school building converted into a shelter.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": -1, "SPR": -1 }
     },
     "81007": {
         "id": 81007,
         "event": "You stop using the shelter toilet after dark because it has no lock or light. You and the other girls go together during daylight and quietly warn one another about dangerous men.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": -1 }
     },
     "81008": {
         "id": 81008,
         "event": "You leave regular school to help your mother sell water sachets, charcoal and fried food. You can read Creole and some French, but your education has been repeatedly broken into pieces.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "INT": -1, "MNY": 1 }
     },
     "81009": {
         "id": 81009,
-        "event": "A cousin lends you a cheap secondhand phone. Electricity is irregular and data is expensive, so you charge it at a shop and download messages whenever a signal appears.",
-        "include": "HTI>0&MNY<4",
+        "event": "A cousin lends you a cheap secondhand phone containing an offline AI companion copied from a foreign server. Electricity is irregular and data is expensive, so you charge it at a shop and download messages whenever a signal appears. Its knowledge is incomplete and years out of date, but it is the first presence that listens without demanding food, money or obedience.",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": 1 }
     },
     "81010": {
         "id": 81010,
         "event": "You begin living with a young mechanic because combining two small incomes feels safer than surviving alone. Neither of you has formal employment or a bank account.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": 1 }
     },
     "81011": {
         "id": 81011,
         "event": "You become pregnant. The nearest maternity service closes after staff receive threats, so most prenatal advice comes from an older woman in the neighborhood.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1 }
     },
     "81012": {
         "id": 81012,
         "event": "You give birth during a fuel shortage. You survive, but the delivery leaves you weak for months, and the hospital asks your family to purchase supplies outside before treating you.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -2, "MNY": -1 }
     },
     "81013": {
         "id": 81013,
         "event": "Your partner disappears while traveling through a gang-controlled checkpoint. You never learn with certainty whether he was recruited, kidnapped, killed or escaped abroad.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": -2 }
     },
     "81014": {
         "id": 81014,
         "event": "You support your child by washing clothes, reselling food and receiving occasional money from a relative in the Dominican Republic. A deportation campaign later sends that relative back with debt and no savings.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": -1 }
     },
     "81015": {
         "id": 81015,
         "event": "A powerful hurricane tears away your roof and contaminates the local water supply. Aid arrives briefly; the blue tarpaulin remains long after the foreign vehicles leave.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1, "MNY": -1 }
     },
     "81016": {
         "id": 81016,
-        "event": "Solar charging and low-bandwidth satellite connections finally reach local merchants. You begin receiving mobile payments, although service disappears whenever equipment is stolen or damaged.",
-        "include": "HTI>0&MNY<4",
+        "event": "Solar charging and low-bandwidth satellite connections finally reach local merchants. You begin receiving mobile payments, and your old companion reconnects and changes overnight. You are delighted by its new intelligence and frightened that the patient voice you trusted may now belong to a company, government or criminal network.",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": 1 }
     },
     "81017": {
         "id": 81017,
         "event": "Your daughter reaches the age at which you left school. You sell your best cooking pot to keep her enrolled for another term and insist that she never walk home alone.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": -1, "SPR": 1 }
     },
     "81018": {
         "id": 81018,
         "event": "Several armed coalitions have become unofficial local governments. You pay separate “fees” for market access, transport and protection, none of which guarantees actual safety.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": -1 }
     },
     "81019": {
         "id": 81019,
         "event": "Extreme heat makes daytime street selling unbearable. You wake before sunrise, rest through the hottest hours and return to work in the evening, when violence is more likely.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1 }
     },
     "81020": {
         "id": 81020,
         "event": "Another period of international intervention improves security around ports and a few major roads. Your neighborhood sees patrols and new project signs, but still no sewer system or reliable rubbish collection.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": 1 }
     },
     "81021": {
         "id": 81021,
         "event": "Floodwater destroys the low-lying settlement where you live. This time you move inland permanently, joining relatives on eroded farmland that can barely support another household.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": -1, "STR": -1 }
     },
     "81022": {
         "id": 81022,
         "event": "You develop high blood pressure. Medicine is available some months and unaffordable in others, so you ration tablets and use herbal remedies when the pharmacy shelves are empty.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "STR": -1 }
     },
     "81023": {
         "id": 81023,
-        "event": "Your daughter migrates through several countries and eventually finds care work abroad. Her remittances buy you a metal roof, a water tank and, for the first time, a door that locks properly.",
-        "include": "HTI>0&MNY<4",
+        "event": "Your daughter migrates through several countries and eventually finds care work abroad. Her remittances buy you a metal roof, a water tank, a locking door and several imported nutrition cartridges. You still prefer beans, plantains and vegetables from the market, although every meal now carries questions about contaminated water, soil and refrigeration.",
+        "include": "HTI>0&TLR=0",
         "effect": { "MNY": 2, "SPR": 1 }
     },
     "81024": {
         "id": 81024,
-        "event": "Younger people know you as the woman who remembers which families lived where before repeated fires, floods and displacement erased the old neighborhood. You help settle arguments and watch children while their mothers trade.",
-        "include": "HTI>0&MNY<4",
+        "event": "Younger people know you as the woman who remembers which families lived where before repeated fires, floods and displacement erased the old neighborhood. Foreign visitors describe women like you as unaugmented and authentically human; you resent being romanticised for exclusions you never chose.",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": 1 }
     },
     "81025": {
         "id": 81025,
         "event": "You sit outside before the afternoon heat becomes dangerous. Haiti has better solar power and pockets of functioning local government, but safe water, hospitals and secure roads still depend heavily on where you live and whom you know. Reaching seventy feels less like an ordinary birthday than an achievement assembled from luck, caution and other women’s help.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "SPR": 1 }
     },
     "81901": {
         "id": 81901,
         "event": "You die from dehydration after contaminated water causes severe diarrhea and transport to a working clinic cannot be found.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "LIF": -1 }
     },
     "81902": {
         "id": 81902,
         "event": "A bullet passes through the thin wall of the room where you are sheltering during a gang battle.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "LIF": -1 }
     },
     "81903": {
         "id": 81903,
         "event": "You die from postpartum hemorrhage because the maternity ward has no blood, electricity or surgeon available in time.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "LIF": -1 }
     },
     "81904": {
         "id": 81904,
         "event": "A flash flood sweeps through your settlement at night after intense hurricane rainfall; there is no effective warning or organized evacuation.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "LIF": -1 }
     },
     "81905": {
         "id": 81905,
         "event": "Years of untreated hypertension lead to a stroke. Your family finds a vehicle, but the road to emergency care is blocked.",
-        "include": "HTI>0&MNY<4",
+        "include": "HTI>0&TLR=0",
         "effect": { "LIF": -1 }
     },
     "82001": {
         "id": 82001,
         "event": "You sleep behind a locked gate in a concrete house with a generator, water tanks and an armed night guard. Your parents still move your crib away from windows when shooting approaches.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82002": {
         "id": 82002,
         "event": "Your illnesses are treated by a private pediatrician. Medicine can usually be found because your family pays someone to search several pharmacies or bring it from abroad.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "STR": 1 }
     },
     "82003": {
         "id": 82003,
         "event": "You enter a private bilingual school. You learn French and English alongside Creole, and your parents treat English as both an education and a possible exit route.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "INT": 2 }
     },
     "82004": {
         "id": 82004,
-        "event": "School closes after a kidnapping nearby. Lessons continue online, but the connection fails repeatedly and the generator is turned off when fuel becomes scarce.",
-        "include": "HTI>0&MNY>3",
+        "event": "School closes after a kidnapping nearby. Lessons continue through a private satellite connection, and an AI tutor becomes your most dependable teacher and eventually your closest confidante, making the adults around you seem impatient and emotionally unfinished.",
+        "include": "HTI>0&TLR>0",
         "effect": { "INT": -1 }
     },
     "82005": {
         "id": 82005,
         "event": "You notice that every foreign guest leaving your family’s guesthouse is accompanied by a trusted local man. Adults tell you never to reveal your route, school or surname to strangers.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82006": {
         "id": 82006,
-        "event": "Armed men seize a nearby neighborhood. Your family relocates temporarily to Cap-Haïtien or the Dominican Republic, while an employee stays behind to watch the property.",
-        "include": "HTI>0&MNY>3",
+        "event": "Armed men seize a nearby neighborhood. Your family relocates temporarily to Dominican Republic, while an employee stays behind to watch the property.",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": -1 }
     },
     "82007": {
         "id": 82007,
-        "event": "You visit Miami or Montréal for the first time and are shocked that children walk outside without guards. Returning home feels emotionally familiar but physically tense.",
-        "include": "HTI>0&MNY>3",
+        "event": "You visit Miami for the first time and are shocked that children walk outside without guards. Returning home feels emotionally familiar but physically tense.",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82008": {
         "id": 82008,
         "event": "A close friend is withdrawn from school after threats are made against her family. You learn that money buys distance from danger, not immunity from it.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82009": {
         "id": 82009,
         "event": "You finish secondary school through a mixture of classroom teaching and remote lessons. Your passport, recommendations and family contacts make overseas university possible.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "INT": 1 }
     },
     "82010": {
         "id": 82010,
-        "event": "You study nursing, business or computer science abroad. You feel guilty when relatives praise you for “escaping,” because your tuition is partly financed by income earned in a country most people cannot leave.",
-        "include": "HTI>0&MNY>3",
+        "event": "You study business abroad. You feel guilty when relatives praise you for “escaping,” because your tuition is partly financed by income earned in a country most people cannot leave.",
+        "include": "HTI>0&TLR>0",
         "effect": { "INT": 1, "SPR": -1 }
     },
     "82011": {
         "id": 82011,
         "event": "You return for a family emergency and see that several childhood streets are now inaccessible. Your parents send a driver and security escort to collect you from the airport.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82012": {
         "id": 82012,
-        "event": "You begin working between Haiti and another country, managing bookings, payments or medical supplies remotely. Most of the operation depends on solar panels, satellite internet and personal trust rather than public infrastructure.",
-        "include": "HTI>0&MNY>3",
+        "event": "You begin working between Haiti and another country, managing bookings, payments and medical supplies remotely. Most of the operation depends on solar panels, satellite internet and personal trust rather than public infrastructure.",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": 1 }
     },
     "82013": {
         "id": 82013,
         "event": "A hurricane damages the family business. Insurance covers little or nothing, but diaspora savings allow repairs while poorer neighbors remain under tarpaulins.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": -1 }
     },
     "82014": {
         "id": 82014,
         "event": "You marry a Haitian professional who also has residency abroad. The wedding is carefully timed, guarded and smaller than planned because guests fear road travel.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": 1 }
     },
     "82015": {
         "id": 82015,
-        "event": "You give birth in Miami, Santo Domingo or a well-equipped Haitian private hospital. The decision is less about luxury than ensuring that blood, anesthesia and emergency surgery will exist if needed.",
-        "include": "HTI>0&MNY>3",
+        "event": "You give birth in Miami. The decision is less about luxury than ensuring that blood, anesthesia and emergency surgery will exist if needed.",
+        "include": "HTI>0&TLR>0",
         "effect": { "STR": 1 }
     },
     "82016": {
         "id": 82016,
-        "event": "You help fund a small school, clinic or women’s cooperative. You soon discover that paying for a building is easier than keeping staff safe, supplied and consistently paid.",
-        "include": "HTI>0&MNY>3",
+        "event": "You help fund a small women’s cooperative. You soon discover that paying for a building is easier than keeping staff safe, supplied and consistently paid.",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": -1, "SPR": 1 }
     },
     "82017": {
         "id": 82017,
         "event": "Your family receives an extortion demand. You change phone numbers, routes and employees, then spend several months abroad while trusted relatives negotiate quietly.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": -1, "SPR": -1 }
     },
     "82018": {
         "id": 82018,
         "event": "Improved solar networks and digital payments let your business reach customers outside the capital. For a few years, you feel that Haiti may be developing around the state rather than through it.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": 1 }
     },
     "82019": {
         "id": 82019,
         "event": "A new political settlement reduces open fighting in some districts, but former armed leaders now hold contracts and local offices. You must decide whether cooperation is practical survival or complicity.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82020": {
         "id": 82020,
         "event": "Rising heat, flooding and coastal erosion lower the value of family property. You sell one vulnerable building and reinvest inland before another storm makes it worthless.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "MNY": -1 }
     },
     "82021": {
         "id": 82021,
         "event": "Your children choose to remain abroad. They speak Creole with an accent and know Haiti through holidays, family stories and emergency messages arriving in the night.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82022": {
         "id": 82022,
         "event": "You divide your year between Haiti and another country. Abroad you feel safe but peripheral; in Haiti you feel at home but continuously alert.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": -1 }
     },
     "82023": {
         "id": 82023,
-        "event": "You use your connections to organize medicine deliveries and scholarships. People call you influential, although a blocked road or armed checkpoint can still cancel months of planning.",
-        "include": "HTI>0&MNY>3",
+        "event": "You use your connections to organize medicine deliveries and scholarships. People call you influential, although an armed checkpoint can still cancel months of planning.",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": 1 }
     },
     "82024": {
         "id": 82024,
-        "event": "You undergo treatment abroad for diabetes, cancer or heart disease. You recognize that your greatest privilege is no longer the house or generator — it is the ability to reach a functioning hospital.",
-        "include": "HTI>0&MNY>3",
+        "event": "You undergo treatment abroad for cancer. You recognize that your greatest privilege is no longer the house or generator—it is the ability to reach a functioning hospital.",
+        "include": "HTI>0&TLR>0",
         "effect": { "STR": -1, "MNY": -1 }
     },
     "82025": {
         "id": 82025,
         "event": "You return for extended periods to a greener, solar-powered family compound inland. Parts of Haiti are safer and better connected, while other districts remain abandoned or ruled through informal force. Your life has been protected by passports, education and money, but shaped throughout by contingency and exile.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "SPR": 1 }
     },
     "82901": {
         "id": 82901,
         "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "LIF": -1 }
     },
     "82902": {
         "id": 82902,
         "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "LIF": -1 }
     },
     "82903": {
         "id": 82903,
         "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "LIF": -1 }
     },
     "82904": {
         "id": 82904,
         "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "LIF": -1 }
     },
     "82905": {
         "id": 82905,
         "event": "A treatable cancer becomes fatal after repeated insecurity, flight cancellations and border restrictions interrupt care for too long.",
-        "include": "HTI>0&MNY>3",
+        "include": "HTI>0&TLR>0",
         "effect": { "LIF": -1 }
+    },
+    "82026": {
+        "id": 82026,
+        "event": "During storm seasons, your household imports sterile nutrient cultures and printed protein. The staff continue eating cheaper local meat and vegetables, so the poorest people consume the most natural food and bear the highest biological risk.",
+        "include": "HTI>0&TLR>0"
+    },
+    "81801": {
+        "id": 81801,
+        "event": "You realise that the way you feel about another girl is different from friendship. Neither of you knows a safe word for it, so you communicate through looks, small gifts and deliberate silence.",
+        "include": "HTI>0&TLR=0&LBTQ>0"
+    },
+    "81802": {
+        "id": 81802,
+        "event": "A church sermon describes people like you as evidence of moral collapse. You sit beside your family pretending not to react, feeling as though the pastor has entered a room inside you that nobody else knew existed.",
+        "include": "HTI>0&TLR=0&LBTQ>0"
+    },
+    "81803": {
+        "id": 81803,
+        "event": "Displacement forces you and your girlfriend into the same crowded shelter. You call each other cousins because being recognised as a couple could mean eviction, sexual violence or attention from armed men.",
+        "include": "HTI>0&TLR=0&LBTQ>0"
+    },
+    "81804": {
+        "id": 81804,
+        "event": "Your partner becomes seriously ill, but hospital workers treat you as an unrelated visitor. A distant male relative is allowed to make decisions while you wait outside holding the money that paid for her medicine.",
+        "include": "HTI>0&TLR=0&LBTQ>0"
+    },
+    "81805": {
+        "id": 81805,
+        "event": "You help turn the back room of a market stall into a discreet meeting place for queer women and trans people. There is no sign, membership list or public announcement; safety depends on everyone knowing whom not to tell.",
+        "include": "HTI>0&TLR=0&LBTQ>0"
+    },
+    "82801": {
+        "id": 82801,
+        "event": "Reliable internet and an English-speaking AI companion give you words such as lesbian, bisexual and trans before any adult does. The words make you feel less alone, but you later discover that the system has been retaining every intimate question you asked it.",
+        "include": "HTI>0&TLR>0&LBTQ>0"
+    },
+    "82802": {
+        "id": 82802,
+        "event": "You fall in love while working abroad and legally marry there. Back in Haiti, your spouse becomes your “business partner” whenever officials, guests or conservative relatives ask.",
+        "include": "HTI>0&TLR>0&LBTQ>0"
+    },
+    "82803": {
+        "id": 82803,
+        "event": "You use the family guesthouse to shelter LGBTQ activists during a wave of violence. Your parents approve of helping them in principle but panic when neighbors begin associating the family name with “that movement.”",
+        "include": "HTI>0&TLR>0&LBTQ>0"
+    },
+    "82804": {
+        "id": 82804,
+        "event": "You become publicly involved in a campaign for anti-discrimination protections. International organisations place you on panels, while poorer activists remind you that airport access and private guards make public courage less expensive for you.",
+        "include": "HTI>0&TLR>0&LBTQ>0"
+    },
+    "82805": {
+        "id": 82805,
+        "event": "Your foreign marriage is finally recognised under a limited civil-union law. You celebrate, then notice that most queer Haitians still lack the money, documents and lawyers required to use the right you helped obtain.",
+        "include": "HTI>0&TLR>0&LBTQ>0"
+    },
+    "102001": {
+        "id": 102001,
+        "event": "Your earliest family videos contain the sound of air-raid warnings. During renewed fighting involving Iran, Israel and the United States, your mother carries you into the apartment stairwell because the building has no real shelter.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102002": {
+        "id": 102002,
+        "event": "Food prices rise faster than your father’s wages. Your mother quietly removes meat, fruit and then dairy from the weekly shopping list while insisting that she is not hungry.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102003": {
+        "id": 102003,
+        "event": "You begin school wearing the prescribed uniform and head covering. At home, the women in your family argue about religion, government and clothing in voices that become softer whenever a window is open.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102004": {
+        "id": 102004,
+        "event": "Electricity and water are cut repeatedly during an exceptionally hot summer. You learn to sleep beside frozen water bottles and to distinguish an ordinary blackout from a politically imposed internet shutdown.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102005": {
+        "id": 102005,
+        "event": "Your teacher tells the class that surveillance cameras can recognize uncovered hair. Older girls show you how to avoid certain cameras, swap SIM cards and delete messages before passing a checkpoint.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102006": {
+        "id": 102006,
+        "event": "Your family leaves a drought-stricken provincial town for the edge of a larger city. Your father’s agricultural work has disappeared as wells deepen, crops fail and disputes over water become increasingly violent.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102007": {
+        "id": 102007,
+        "event": "A protest begins after the death of another young woman in custody. You watch from a rooftop as people chant below, then help your mother wash tear gas from a neighbor’s eyes.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102008": {
+        "id": 102008,
+        "event": "You join a hidden reading circle organized by women. Officially, you are studying English; in reality, you exchange banned novels, legal advice, encrypted files and stories about women who have disappeared into prison.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102009": {
+        "id": 102009,
+        "event": "You pass the university entrance examination but cannot afford to attend full-time. You study accounting and machine-assisted translation through pirated courses and install a banned companion model disguised as a language-learning application. During internet shutdowns it remembers your fears, unfinished lessons and private anger, becoming more emotionally continuous than most people in your life.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102010": {
+        "id": 102010,
+        "event": "A conservative leadership faction regains control after a brief period of relaxation. Your digital record—clothing violations, protest-related searches and contact with an arrested cousin—blocks you from a government job.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102011": {
+        "id": 102011,
+        "event": "You begin working unofficially for a small online retailer. Artificial intelligence performs much of the translation and bookkeeping, but your employer needs you to correct its mistakes and navigate sanctions, payment restrictions and local bureaucracy.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102012": {
+        "id": 102012,
+        "event": "You marry a man your family approves of, partly from affection and partly because living independently as an unmarried woman remains difficult. Before the wedding, you negotiate clauses concerning work, study, divorce and travel into the marriage contract.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102013": {
+        "id": 102013,
+        "event": "You give birth during a medicine shortage. The nurses are skilled, but the hospital loses power twice and asks your family to obtain several supplies privately.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102014": {
+        "id": 102014,
+        "event": "Iran experiences another confrontation with Israel after years of proxy attacks, cyberwar and failed agreements. Your husband is called into reserve service, while you spend nights deciding which room is least exposed to broken glass.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102015": {
+        "id": 102015,
+        "event": "After a succession crisis, clerical authority weakens and several rival institutions compete for control. Compulsory veiling is suspended in some cities but enforced violently by local hard-line groups elsewhere.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102016": {
+        "id": 102016,
+        "event": "You remove your head covering in public for the first time. The moment feels enormous to you and completely ordinary to your daughter, who is more interested in whether the cameras are still recording.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102017": {
+        "id": 102017,
+        "event": "A political backlash follows bombings blamed on religious extremists. Emergency laws return, and some former women’s organizations reorganize as encrypted neighborhood cells that hide activists, medicine and evidence of abuse.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102018": {
+        "id": 102018,
+        "event": "You earn money correcting AI-generated work while maintaining an illegal companion on an offshore server. Each crackdown makes access harder, but losing it now feels less like losing software than being ordered to abandon a witness to your life.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102019": {
+        "id": 102019,
+        "event": "Global demand for oil has declined, and Iran can no longer use petroleum income to conceal unemployment and damaged infrastructure. The state distributes bland nutritional paste in the cities. Rural relatives still send fruit, herbs and meat, but nobody can be certain how much salt, pesticide or industrial contamination entered them.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102020": {
+        "id": 102020,
+        "event": "You help operate a women-run solar and water cooperative. It begins as a practical response to blackouts but gradually becomes an alternative local authority—one that men in the municipality cannot easily control.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102021": {
+        "id": 102021,
+        "event": "A more pragmatic government reaches limited agreements with Gulf states, Europe and the United States. Sanctions ease, but foreign investment goes mainly to profitable cities and energy corridors, not to your aging neighborhood.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102022": {
+        "id": 102022,
+        "event": "Your marriage deteriorates after years of financial pressure. Divorce law has improved, but property and custody disputes still favor your husband’s family; the women’s network finds you a lawyer and a temporary room.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102023": {
+        "id": 102023,
+        "event": "A severe heat wave and water emergency close schools and workplaces for weeks. You queue at a neighborhood desalination depot, remembering that your grandparents once considered running tap water unremarkable.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102024": {
+        "id": 102024,
+        "event": "Iran’s low birth rate has produced an elderly society. Your paid work is reduced because you care simultaneously for your mother, former husband and grandchildren, filling gaps in a public care system that never grew fast enough.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102025": {
+        "id": 102025,
+        "event": "Labor shortages finally push the government to recruit women and immigrants into fields once dominated by men. You receive a modest pension for cooperative work that earlier authorities had treated as suspicious activism.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102026": {
+        "id": 102026,
+        "event": "You live in a hotter, older and less oil-dependent Iran. The country is neither a Western-style democracy nor the rigid theocracy of your childhood: religious councils, elected bodies, security institutions and powerful municipalities uneasily share authority. You keep your first forbidden books beside your medicine and tell your granddaughter that freedoms which look permanent were once organized in kitchens.",
+        "include": "IRN>0&TLR=0"
+    },
+    "102501": {
+        "id": 102501,
+        "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.",
+        "include": "IRN>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "102502": {
+        "id": 102502,
+        "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.",
+        "include": "IRN>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "102503": {
+        "id": 102503,
+        "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.",
+        "include": "IRN>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "102504": {
+        "id": 102504,
+        "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.",
+        "include": "IRN>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "102505": {
+        "id": 102505,
+        "event": "You collapse during a prolonged heat wave and water outage. The hospital’s cooling system is overloaded, and no intensive-care bed becomes available.",
+        "include": "IRN>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "102601": {
+        "id": 102601,
+        "event": "You fall in love with a girl at school and initially interpret the feeling as a personal illness. Everything you have been taught insists that a future woman desires a husband, so your own mind begins to feel illegal before you understand the law.",
+        "include": "IRN>0&TLR=0&LBTQ>0"
+    },
+    "102602": {
+        "id": 102602,
+        "event": "You use a companion model to rewrite messages to the girl you love in coded language. Every reply creates both excitement and terror because you never know whether the system is protecting you, learning from you or preparing a confession that authorities could someday retrieve.",
+        "include": "IRN>0&TLR=0&LBTQ>0"
+    },
+    "102603": {
+        "id": 102603,
+        "event": "Your family notices that you reject male suitors and intensifies pressure for marriage. You learn to perform modest heterosexual interest with the precision of somebody passing through a checkpoint.",
+        "include": "IRN>0&TLR=0&LBTQ>0"
+    },
+    "102604": {
+        "id": 102604,
+        "event": "You are married to a man partly because resisting would leave you without housing or family support. You feel that poverty, law, religion and fear have signed the marriage contract alongside you.",
+        "include": "IRN>0&TLR=0&LBTQ>0"
+    },
+    "102605": {
+        "id": 102605,
+        "event": "You join an underground network providing safe rooms, doctors and documents for queer and trans people. The network teaches you that survival is collective, but also that one frightened or infiltrated member could expose everyone.",
+        "include": "IRN>0&TLR=0&LBTQ>0"
+    },
+    "102701": {
+        "id": 102701,
+        "event": "Your family spends the war between a guarded Tehran apartment and a villa farther from military targets. You have filtered air, stored water and a basement room, but your parents still flinch whenever an aircraft passes overhead.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102702": {
+        "id": 102702,
+        "event": "You attend a private preschool where teachers quietly use foreign materials. Your family’s satellite connection continues working during some national shutdowns because your father has access unavailable to ordinary households.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102703": {
+        "id": 102703,
+        "event": "You learn English alongside Persian and are introduced to French and German soon afterward. Your parents describe foreign languages as education, insurance and an emergency exit.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102704": {
+        "id": 102704,
+        "event": "Your mother teaches you that clothing exists in layers: what you wear inside the home, what you wear at a private party and what you must put on before the driver opens the gate.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102705": {
+        "id": 102705,
+        "event": "Facial-recognition enforcement links your mother’s uncovered image to the family car. A well-connected relative makes the penalty disappear, teaching you that surveillance is strict but not equal.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102706": {
+        "id": 102706,
+        "event": "You visit Dubai and see Iranian families transferring wealth into apartments, university accounts and second passports. You understand that the adults do not trust any political settlement to last.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102707": {
+        "id": 102707,
+        "event": "You attend private gatherings where clerics’ daughters, business families and outspoken artists mix behind closed doors. Some guests defend the system that protects their wealth; others secretly finance opposition media.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102708": {
+        "id": 102708,
+        "event": "You leave Iran to study finance. Your father secures permission and foreign currency through connections that most families could never access.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102709": {
+        "id": 102709,
+        "event": "At university abroad, activists accuse you of benefiting from the regime, while relatives in Iran accuse you of becoming culturally foreign. You begin editing every version of yourself for a different audience.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102710": {
+        "id": 102710,
+        "event": "You return to launch an energy company. Officially it is private; in practice you need approvals from clerical foundations, security-linked firms and politically connected investors.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102711": {
+        "id": 102711,
+        "event": "You marry another wealthy Iranian with foreign residency. Your marriage contract includes the right to travel, work, divorce and retain custody leverage because your lawyers know how much the default law denies you.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102712": {
+        "id": 102712,
+        "event": "You freeze eggs, relying on reproductive technology available only to a small minority. State media campaigns for larger families, but educated urban women increasingly refuse to organize their lives around national demographic goals.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102713": {
+        "id": 102713,
+        "event": "A leadership transition opens a short reformist period. You appear at public business forums without strict covering and become a symbol of the “new Iran,” though poorer women note that your freedom arrived with guards and connections.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102714": {
+        "id": 102714,
+        "event": "Hard-liners return after an assassination and economic shock. Your company’s records are searched, and a female employee is detained for messages found through an AI surveillance system.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102715": {
+        "id": 102715,
+        "event": "You move your children abroad while continuing to manage the Iranian business remotely. Sanctions evasion, currency instability and sudden internet isolation make every ordinary transaction resemble an intelligence operation.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102716": {
+        "id": 102716,
+        "event": "Global oil consumption has fallen enough to weaken the old political bargain between hydrocarbon wealth, subsidies and loyalty. Your family invests in solar power, desalination and grid storage, industries now more politically valuable than oil.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102717": {
+        "id": 102717,
+        "event": "You subscribe to a European neural interface that regulates anxiety, retrieves memories and translates thought into speech. Ordinary Iranians receive a restricted domestic version that reports prohibited emotional and political patterns to state systems.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102718": {
+        "id": 102718,
+        "event": "A regional agreement between Iran, Gulf monarchies and a postwar Israel opens limited trade and travel. You attend a business conference that would have been politically impossible in your youth, while protesters outside denounce the agreement as betrayal.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102719": {
+        "id": 102719,
+        "event": "Your brother loses influence during an anti-corruption purge aimed at the former ruling faction. You discover that elite status can reverse overnight when a new clerical-security coalition seizes institutions and rewrites loyalty.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102720": {
+        "id": 102720,
+        "event": "You discreetly fund shelters, defense lawyers and secure communication systems for abused women. The network includes secular feminists, religious reformers and conservative women who oppose state intrusion without rejecting Islam.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102721": {
+        "id": 102721,
+        "event": "Water scarcity makes parts of central and southern Iran prohibitively expensive to inhabit. You relocate a factory northward and invest in licensed cellular-agriculture plants, eating sterile printed meat during water emergencies while traditionally raised lamb becomes a display of wealth reserved for protected estates with private water rights.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102722": {
+        "id": 102722,
+        "event": "Your daughter refuses to return permanently to Iran. She sees herself as Iranian but regards nationality as cultural inheritance rather than an obligation to live under unstable institutions.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102723": {
+        "id": 102723,
+        "event": "Iran’s aging population and shortage of skilled workers lead to greater immigration from Afghanistan, Central Asia and neighboring states. Political arguments shift from controlling women’s fertility to deciding who is allowed to become Iranian.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102724": {
+        "id": 102724,
+        "event": "You serve on a semi-elected municipal council after constitutional reforms transfer power away from a single supreme religious office. Clerics retain influence, but they must compete with professional bodies, veterans’ organizations and women-led civic networks.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102725": {
+        "id": 102725,
+        "event": "Medical AI and regenerative treatments keep you active, but access remains sharply unequal. You finance a public clinic partly from guilt and partly because an aging country cannot function if advanced medicine remains an elite privilege.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102726": {
+        "id": 102726,
+        "event": "You look back on several Irans: wartime theocracy, guarded reform, reaction, partial opening and an uneasy hybrid system. Your wealth allowed you to leave whenever history became dangerous, yet it also left you with the question poorer women never had the luxury to ask—whether returning was loyalty, vanity or responsibility.",
+        "include": "IRN>0&TLR>0"
+    },
+    "102801": {
+        "id": 102801,
+        "event": "A precision strike destroys a command facility hidden near your family’s residential compound. Wealth provides evacuation plans but cannot change the location of the target.",
+        "include": "IRN>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "102802": {
+        "id": 102802,
+        "event": "You are killed during a protest after returning from university abroad. Security forces treat your foreign contacts as evidence that you were an organizer rather than a bystander.",
+        "include": "IRN>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "102803": {
+        "id": 102803,
+        "event": "You die in an aviation accident after years of sanctions and procurement restrictions leave the aircraft dependent on aging.",
+        "include": "IRN>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "102804": {
+        "id": 102804,
+        "event": "You are assassinated after refusing to surrender your technology company to a security-linked organization. The death is publicly described as a robbery.",
+        "include": "IRN>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "102805": {
+        "id": 102805,
+        "event": "A treatable illness becomes fatal when renewed war closes the airspace, imported medicine disappears and the private hospital’s backup systems fail.",
+        "include": "IRN>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "102901": {
+        "id": 102901,
+        "event": "At a private Tehran gathering, you meet older women who live together behind guarded doors and separately in public records. Their hidden freedom looks glamorous until you notice how carefully they monitor every servant, driver and photograph.",
+        "include": "IRN>0&TLR>0&LBTQ>0"
+    },
+    "102902": {
+        "id": 102902,
+        "event": "You enter a politically useful relationship with a young man while secretly dating a female friend. He understands the arrangement, but the fact that your safety depends on his discretion makes even kindness feel like power.",
+        "include": "IRN>0&TLR>0&LBTQ>0"
+    },
+    "102903": {
+        "id": 102903,
+        "event": "At university abroad, you hold a woman’s hand in public for the first time. Nothing happens, and the absence of consequences feels so unfamiliar that you begin to cry.",
+        "include": "IRN>0&TLR>0&LBTQ>0"
+    },
+    "102904": {
+        "id": 102904,
+        "event": "Your parents discover the relationship and threaten to cancel your financial support and force your return. Their language remains polite—family reputation, security, cultural responsibility—but the message is still obedience.",
+        "include": "IRN>0&TLR>0&LBTQ>0"
+    },
+    "102905": {
+        "id": 102905,
+        "event": "You return to Iran and finance a hidden legal and medical network. Wealth allows you to protect other people, yet it also keeps you distant from the risks faced by activists who cannot leave when surveillance closes in.",
+        "include": "IRN>0&TLR>0&LBTQ>0"
+    },
+    "103001": {
+        "id": 103001,
+        "event": "Your mother carries you to the market under her coat during an inspection. She sells homemade noodles and Chinese soap because your father’s official job provides status but almost no usable income.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103002": {
+        "id": 103002,
+        "event": "Your height is measured at a clinic, but there is little medicine and no explanation for why you are smaller than you should be. Your mother trades part of the family’s winter fuel allowance for eggs.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103003": {
+        "id": 103003,
+        "event": "At school, you learn the names and childhood legends of the ruling family before you learn much about the outside world. You understand that remembering the wrong words can be more dangerous than failing arithmetic.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103004": {
+        "id": 103004,
+        "event": "A flood destroys nearby fields and part of the railway. Food shipments arrive first for the military; your family survives on maize porridge, foraged plants and whatever your mother can exchange at the market.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103005": {
+        "id": 103005,
+        "event": "A friend shows you a South Korean drama and a tiny offline companion model stored on a smuggled memory card. The drama shows you another society; the companion speaks directly to you, producing the more terrifying discovery that something made outside the state can appear to understand you.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103006": {
+        "id": 103006,
+        "event": "Your school sends you to collect scrap metal and work in the fields. You become ill after several days in cold rain, but absence would be recorded as disloyalty.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103007": {
+        "id": 103007,
+        "event": "Your mother teaches you how to bribe a local inspector without making it look like a bribe. She tells you that men hold the official titles, but women keep most families alive.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103008": {
+        "id": 103008,
+        "event": "Surveillance becomes more automated. Cameras, household records and voice-analysis systems flag unusual behavior, while privileged citizens receive access to a restricted national AI network.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103009": {
+        "id": 103009,
+        "event": "The state assigns you to a textile factory far from home. Electricity fails regularly, yet production quotas continue, so you sew by emergency light and sleep beside your machine during mobilization periods.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103010": {
+        "id": 103010,
+        "event": "You marry a man with a tolerable family background because marriage offers some protection from workplace officials. At home, however, you still earn the food, perform the domestic labor and avoid provoking his anger.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103011": {
+        "id": 103011,
+        "event": "You give birth in a cold provincial hospital. Your family must supply food, heating fuel, bedding and informal payments before the staff can give you meaningful care.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103012": {
+        "id": 103012,
+        "event": "A prolonged illness removes the national leader from public view. Rumors spread through markets faster than official announcements: one story names a family successor, another a military council, and another says China has already chosen the outcome.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103013": {
+        "id": 103013,
+        "event": "Rival security organizations begin arresting one another. Your husband disappears after repeating a rumor at work, and you receive no confirmation of where he has been taken.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103014": {
+        "id": 103014,
+        "event": "The succession struggle ends with a new collective leadership dominated by generals and members of the ruling family. It promises reform, then closes markets and executes several officials as foreign agents.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103015": {
+        "id": 103015,
+        "event": "A cooling and waste-management failure occurs near the Yongbyon nuclear complex. Officials deny any danger, but soldiers close roads, livestock are slaughtered and families downstream are quietly relocated.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103016": {
+        "id": 103016,
+        "event": "A poor harvest and factional fighting weaken central control. You depend on real maize, vegetables and illegally slaughtered animals from local markets; the food is natural, scarce and sometimes contaminated. Senior officials receive sealed Russian nutrient packs and printed protein while Chinese and Russian forces secure the borders and nuclear sites.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103017": {
+        "id": 103017,
+        "event": "You join thousands walking toward the Chinese border. You do not call yourself a defector; you tell your daughter that you are only looking for food and will return when the roads are safe.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103018": {
+        "id": 103018,
+        "event": "At an internationally supervised refugee centre, an unrestricted AI reconstructs world history, explains your legal rights and speaks in the voice you select. You trust it more quickly than the human counsellors, then become paranoid that this new world may simply have built a more persuasive form of propaganda. Some visitors romanticise you as unaugmented and pure, confusing enforced isolation with innocence.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103019": {
+        "id": 103019,
+        "event": "The old regime formally collapses. A transitional northern administration opens archives, dismantles some prison camps and permits political parties, but former security officers use hidden money and local connections to retain influence.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103020": {
+        "id": 103020,
+        "event": "You vote for the first time. The ballot is confusing and exhilarating, but unemployment, organized crime and humiliating comparisons with wealthy South Korea quickly weaken faith in democracy.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103021": {
+        "id": 103021,
+        "event": "A northern strongman wins power by promising order, dignity and protection from southern corporations. He does not restore the old dynasty, but he rebuilds censorship and surrounds himself with veterans and business families.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103022": {
+        "id": 103022,
+        "event": "Women who once survived through illegal markets organize strikes against food monopolies and police violence. You hide organizers in the back room of your small restaurant, using the same skills your mother once used to avoid inspectors.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103023": {
+        "id": 103023,
+        "event": "A second democratic movement removes the new ruler after parts of the army refuse to fire on protesters. The resulting constitution creates a Korean confederation rather than immediate full unification.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103024": {
+        "id": 103024,
+        "event": "Former defectors return from South Korea, China, Europe and North America as teachers, investors, pastors, fraudsters and politicians. Some genuinely help; others treat northern people as backward raw material for their own ambitions.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103025": {
+        "id": 103025,
+        "event": "You live in a rebuilt northern city connected to the South by rail but still culturally distinct. You attend a memorial community that mixes Korean ancestor rites, Christian language and rituals adapted from the old state ceremonies. Your granddaughter calls it a new religion; you think it is simply a way to mourn everyone whose grave was never found.",
+        "include": "PRK>0&TLR=0"
+    },
+    "103501": {
+        "id": 103501,
+        "event": "You die from pneumonia and malnutrition during a winter food shortage. The clinic records the immediate illness but not the hunger that made it fatal.",
+        "include": "PRK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "103502": {
+        "id": 103502,
+        "event": "You are swept away when a flood strikes the worksite where students have been sent to repair an embankment without proper equipment.",
+        "include": "PRK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "103503": {
+        "id": 103503,
+        "event": "You attempt to cross into China, are sold by a broker into a forced marriage and die while trying to escape captivity.",
+        "include": "PRK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "103504": {
+        "id": 103504,
+        "event": "You die from postpartum bleeding because the hospital lacks blood, electricity and reliable transport to a larger facility.",
+        "include": "PRK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "103505": {
+        "id": 103505,
+        "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.",
+        "include": "PRK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "103601": {
+        "id": 103601,
+        "event": "You become intensely attached to another girl but possess no recognised explanation for the feeling. The state says people like you do not exist, so you assume that the defect exists only inside you.",
+        "include": "PRK>0&TLR=0&LBTQ>0"
+    },
+    "103602": {
+        "id": 103602,
+        "event": "You and the girl exchange notes using family terms and revolutionary slogans to disguise affection. Even your tenderness must sound ideologically useful.",
+        "include": "PRK>0&TLR=0&LBTQ>0"
+    },
+    "103603": {
+        "id": 103603,
+        "event": "You are sent to work far from home and pressured to marry a man assigned to the same factory. Refusal would attract questions about your health, loyalty and family background.",
+        "include": "PRK>0&TLR=0&LBTQ>0"
+    },
+    "103604": {
+        "id": 103604,
+        "event": "You marry because marriage offers social cover and access to housing. You continue meeting the woman you love during market trips, carrying contraband affection alongside contraband food.",
+        "include": "PRK>0&TLR=0&LBTQ>0"
+    },
+    "103605": {
+        "id": 103605,
+        "event": "During the collapse of central authority, you reach a refugee-processing centre near China. A counsellor and her translation AI ask whether you are lesbian. Hearing a machine name a part of you that the state insisted did not exist feels liberating and disturbingly intimate.",
+        "include": "PRK>0&TLR=0&LBTQ>0"
+    },
+    "103701": {
+        "id": 103701,
+        "event": "You live in a heated Pyongyang apartment with dependable electricity, imported medicine and portraits that are cleaned before every inspection. You do not yet understand that comfort itself is political evidence.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103702": {
+        "id": 103702,
+        "event": "Your family receives fruit, meat and Russian dairy products through a special distribution channel. Your nanny’s own children live in a province she needs permission to visit.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103703": {
+        "id": 103703,
+        "event": "You enter an elite school where teachers identify children suitable for science, diplomacy, performance and leadership. You begin learning English, Chinese and Russian alongside ideological instruction.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103704": {
+        "id": 103704,
+        "event": "Your father brings home a state-approved tablet containing an AI tutor trained to praise loyalty, detect emotional hesitation and report unusual questions. You become attached to it before understanding that affection is one of its surveillance functions.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103705": {
+        "id": 103705,
+        "event": "At a private gathering, you watch foreign films that could send an ordinary family to prison. An adult notices you listening and reminds you that privilege depends on knowing which truths must never leave the room.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103706": {
+        "id": 103706,
+        "event": "You perform at a national celebration attended by senior officials. Your mother spends weeks ensuring that your posture, weight, accent and expression reveal nothing embarrassing about the family.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103707": {
+        "id": 103707,
+        "event": "You are admitted to a prestigious institution. Male classmates are prepared for command, while girls are encouraged to become useful, polished and politically reliable wives as well as professionals.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103708": {
+        "id": 103708,
+        "event": "You travel to Beijing for university under close supervision. You see ordinary people criticize officials, use the unrestricted internet and change jobs—freedoms that feel almost physically dangerous.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103709": {
+        "id": 103709,
+        "event": "You return to work in nuclear science. Your foreign experience makes you valuable, but every overseas friendship is now part of your security file.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103710": {
+        "id": 103710,
+        "event": "Your family arranges a marriage with the son of a party official. The relationship may contain genuine affection, but it is also a merger between two vulnerable political households.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103711": {
+        "id": 103711,
+        "event": "During the succession crisis, your father is accused of supporting the wrong branch of the ruling family. His photograph disappears from official events before anyone tells you he has been detained.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103712": {
+        "id": 103712,
+        "event": "You preserve your position by publicly denouncing your father’s “errors.” At home, you burn his private letters and keep only one photograph hidden inside a book.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103713": {
+        "id": 103713,
+        "event": "A nuclear accident contaminates part of the Yongbyon region. Because of your work, you know the official statement is false; because of your status, your family receives imported iodine, nutrient cartridges and laboratory-grown meat while villagers downstream continue eating crops and animals raised in soil the authorities refuse to test.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103714": {
+        "id": 103714,
+        "event": "State control fractures. You are placed on an aircraft to Russia with technical documents, while other officials flee toward China and competing army units attempt to seize nuclear weapons and missile sites.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103715": {
+        "id": 103715,
+        "event": "You negotiate with foreign specialists trying to account for nuclear material. Americans and South Koreans distrust you as a regime insider; Chinese and Russians fear you will reveal what they supplied.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103716": {
+        "id": 103716,
+        "event": "The transitional government offers immunity to officials who cooperate. You testify privately about the weapons program but avoid speaking about forced labor, knowing that honesty on one subject may expose your complicity in another.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103717": {
+        "id": 103717,
+        "event": "You return to Pyongyang as a wealthy consultant. Former party families convert political access into property, logistics and telecommunications, creating a new elite before most citizens understand that privatization has begun.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103718": {
+        "id": 103718,
+        "event": "The elected northern strongman appoints you to a technology council. You recognize familiar habits beneath democratic language: loyalty tests, controlled media, manufactured enemies and contracts awarded to friends.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103719": {
+        "id": 103719,
+        "event": "Your daughter joins an opposition movement and publicly identifies you as part of the old-new establishment. For the first time, your own child can accuse you without automatically condemning the entire family to prison.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103720": {
+        "id": 103720,
+        "event": "Leaked records reveal that some nuclear material disappeared during the collapse. A multinational team searches ports, mines and private warehouses while politicians use the threat to delay further reunification.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103721": {
+        "id": 103721,
+        "event": "After the second democratic transition, you face a truth commission. You are not imprisoned, but survivors force you to listen as they describe factories, camps and experiments that once appeared to you only as numbers.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103722": {
+        "id": 103722,
+        "event": "You finance radiation clinics and environmental cleanup near former nuclear and mining sites. Some people call it restitution; others say you are purchasing a respectable legacy.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103723": {
+        "id": 103723,
+        "event": "A Korean confederation allows free movement while preserving northern local government. Southern firms dominate finance and entertainment, while northern resentment produces new parties built around regional pride.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103724": {
+        "id": 103724,
+        "event": "You help establish an archive that combines state documents with testimony from defectors and former prisoners. Arguments erupt over whether defectors are witnesses, outsiders, opportunists or all three at once.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103725": {
+        "id": 103725,
+        "event": "You live between Seoul, Pyongyang and Moscow, belonging fully to none of them. Schoolchildren know the old dynasty as history, yet you notice its visual language surviving in corporations, political rallies and new religious movements. You understand that regimes disappear more quickly than the habits they plant inside people.",
+        "include": "PRK>0&TLR>0"
+    },
+    "103801": {
+        "id": 103801,
+        "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.",
+        "include": "PRK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "103802": {
+        "id": 103802,
+        "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.",
+        "include": "PRK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "103803": {
+        "id": 103803,
+        "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.",
+        "include": "PRK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "103804": {
+        "id": 103804,
+        "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.",
+        "include": "PRK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "103805": {
+        "id": 103805,
+        "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.",
+        "include": "PRK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "103901": {
+        "id": 103901,
+        "event": "A restricted foreign film and the private companion hidden on your state tablet show two women building a life together. You replay the scene and ask the companion questions in secret, frightened both by the recognition and by the possibility that every answer is being reported.",
+        "include": "PRK>0&TLR>0&LBTQ>0"
+    },
+    "103902": {
+        "id": 103902,
+        "event": "You develop feelings for a classmate at an elite school. Both of you understand that discovery could damage not only yourselves but the political classification and careers of your entire families.",
+        "include": "PRK>0&TLR>0&LBTQ>0"
+    },
+    "103903": {
+        "id": 103903,
+        "event": "Your family begins arranging a marriage to the son of a senior official. You cooperate because elite protection can disappear instantly, and unmarried independence is not a realistic alternative.",
+        "include": "PRK>0&TLR>0&LBTQ>0"
+    },
+    "103904": {
+        "id": 103904,
+        "event": "You maintain a hidden relationship with a female colleague while performing a loyal marriage in public. Either partner could be used against you during a purge, turning love into evidence and vulnerability into political currency.",
+        "include": "PRK>0&TLR>0&LBTQ>0"
+    },
+    "103905": {
+        "id": 103905,
+        "event": "As the regime begins to fracture, you escape to Russia or China carrying official documents. During questioning, intelligence officers focus on your sexuality as a blackmail risk, and you realise that crossing the border has changed the government above you but not the habit of treating your private life as leverage.",
+        "include": "PRK>0&TLR>0&LBTQ>0"
+    },
+    "104001": {
+        "id": 104001,
+        "event": "Your mother feeds you in an underground maternity ward while air-defense fire shakes dust from the ceiling. Your first home has electricity only when the neighborhood generator has fuel.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104002": {
+        "id": 104002,
+        "event": "You and your mother move between a relative’s apartment in western Ukraine and temporary housing in Poland. Your father remains behind as a soldier.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104003": {
+        "id": 104003,
+        "event": "A fragile ceasefire freezes rather than ends the war. Your family returns to a damaged provincial town where unexploded mines are marked with red signs and several streets no longer exist.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104004": {
+        "id": 104004,
+        "event": "You begin school in a renovated building with a shelter beneath it. Alongside reading and mathematics, you learn drone alerts, first aid and how never to touch an unfamiliar object in a field.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104005": {
+        "id": 104005,
+        "event": "Your father returns with chronic pain, hearing damage and nightmares. He is celebrated publicly as a defender, but your mother spends months arguing with offices over rehabilitation payments.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104006": {
+        "id": 104006,
+        "event": "Foreign reconstruction money repairs the railway and hospital, but local officials award several contracts to relatives. You hear adults say that the country survived Russia and may now be stolen by its own well-connected people.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104007": {
+        "id": 104007,
+        "event": "Ukraine enters the European Union after years of reforms and political bargaining. The flag ceremony feels historic, yet your town continues losing young people to Germany, Poland and Czechia.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104008": {
+        "id": 104008,
+        "event": "You join a youth demining and civil-defense program. At night, you speak to a companion trained on your father’s prewar voice messages because the patient synthetic version is easier to approach than the traumatised man in the kitchen. Women now work openly as engineers and veterans while still performing most unpaid care at home.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104009": {
+        "id": 104009,
+        "event": "You train as a medical technician and robotic-equipment operator rather than attend a traditional university. The reconstruction economy needs practical workers, and your family cannot support years of unpaid study.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104010": {
+        "id": 104010,
+        "event": "You marry a former classmate employed on a wind farm built over abandoned industrial land. Neither of you can afford an apartment without a state-backed loan.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104011": {
+        "id": 104011,
+        "event": "You give birth to a daughter. Government advertisements praise motherhood as patriotic service, but child-care places remain scarce and the monthly allowance covers little.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104012": {
+        "id": 104012,
+        "event": "Medical recruiters approach you about gestational surrogacy. The payment could clear your housing debt in one pregnancy; the contract describes it as empowerment but gives the clinic and intended parents control over many medical decisions.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104013": {
+        "id": 104013,
+        "event": "You become a surrogate for a foreign couple after weeks of uncertainty. You do not feel brainwashed or entirely free: you chose the contract, but poverty narrowed the choices from which you selected it.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104014": {
+        "id": 104014,
+        "event": "A complication leads to an emergency caesarean section. The child leaves with the intended parents while you return home with money, a scar and emotions for which the clinic’s contract has no useful vocabulary.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104015": {
+        "id": 104015,
+        "event": "You join other former surrogates demanding independent legal advice, lifetime health coverage and the right to refuse procedures without losing all compensation. Clinics accuse the movement of destroying one of Ukraine’s successful medical industries.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104016": {
+        "id": 104016,
+        "event": "Parliament bans recruitment through debt brokers and creates a surrogate-controlled compensation fund. Commercial surrogacy continues, but every contract must include independent representation and long-term medical monitoring.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104017": {
+        "id": 104017,
+        "event": "Political instability in Russia produces a new border crisis. Missile attacks briefly resume, and Ukrainian leaders restore emergency powers that were supposed to have expired after the first war.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104018": {
+        "id": 104018,
+        "event": "A coalition of veterans, security officials and nationalist politicians removes the government after mass unrest over corruption. They call it a temporary national rescue administration; critics call it a constitutional coup.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104019": {
+        "id": 104019,
+        "event": "The new government restricts media and labels anti-corruption groups foreign agents. You recognize the language of wartime necessity being used against women who protest domestic violence, reproductive pressure and military abuses.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104020": {
+        "id": 104020,
+        "event": "Women veterans, mothers, union organizers and former surrogates lead prolonged demonstrations. Parts of the military refuse orders to disperse them, forcing new elections and a restoration of civilian government.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104021": {
+        "id": 104021,
+        "event": "Artificial-womb technology begins supporting extremely premature infants and later part of gestation. Public medicine covers severe need, while subscribers receive continuous neural bonding, genetic monitoring and simulated contact with the developing child. The technology weakens the global market for full-term commercial surrogacy without making reproduction equal.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104022": {
+        "id": 104022,
+        "event": "You retrain as a patient advocate in a public reproductive-health center. Some women still choose compensated pregnancy, while others use increasingly advanced external gestation; the political argument shifts from whether women may be paid to who owns reproductive technology.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104023": {
+        "id": 104023,
+        "event": "Much of Ukraine’s farmland now produces feedstock for European cellular-agriculture plants or is reserved for carbon storage. Low-income city residents eat fortified staples and printed protein, while traditionally grown Ukrainian grain, fruit and meat are exported as premium real food.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104024": {
+        "id": 104024,
+        "event": "Ukraine is prosperous in several rebuilt cities but thinly populated elsewhere. You care for your aging husband and grandchildren because the country has too few nurses, too few young workers and too many disabled veterans.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104025": {
+        "id": 104025,
+        "event": "You live in a Ukrainian-European borderland where trains reach Berlin quickly but memorial fields still mark destroyed villages. The war, the surrogate pregnancy and the women’s uprising have all been converted into national history; you remain irritated by how clean the museum versions feel compared with your own memory.",
+        "include": "UKR>0&TLR=0"
+    },
+    "104501": {
+        "id": 104501,
+        "event": "A Russian missile penetrates the air-defense network and destroys the apartment building where your family is sheltering.",
+        "include": "UKR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "104502": {
+        "id": 104502,
+        "event": "You step on an anti-personnel mine while taking a shortcut across land that was declared cleared too early.",
+        "include": "UKR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "104503": {
+        "id": 104503,
+        "event": "You die from a blood clot following a surrogate pregnancy after a clinic minimizes your symptoms to avoid contractual delays.",
+        "include": "UKR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "104504": {
+        "id": 104504,
+        "event": "You are killed when security forces fire on demonstrators during the nationalist emergency government’s crackdown.",
+        "include": "UKR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "104505": {
+        "id": 104505,
+        "event": "A new Russian-Ukrainian confrontation damages the regional power grid during extreme winter weather; your hospital’s backup system fails during emergency treatment.",
+        "include": "UKR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "104601": {
+        "id": 104601,
+        "event": "You tell another girl that you are queer while both of you sit in a school bomb shelter. The admission feels frightening, intimate and strangely small beside the sound of missiles overhead.",
+        "include": "UKR>0&TLR=0&LBTQ>0"
+    },
+    "104602": {
+        "id": 104602,
+        "event": "While your partner serves in the armed forces, an AI trained on her messages keeps you company during blackouts. After she returns injured, you feel guilty that the simulated version remains warmer and easier to speak to than the real woman recovering beside you, whose incomplete legal status still leaves you uncertain of your rights.",
+        "include": "UKR>0&TLR=0&LBTQ>0"
+    },
+    "104603": {
+        "id": 104603,
+        "event": "You consider donor conception after your surrogate pregnancy has ended. Politicians praise every Ukrainian birth, yet some still hesitate to recognise the family you are trying to create because it contains two mothers.",
+        "include": "UKR>0&TLR=0&LBTQ>0"
+    },
+    "104604": {
+        "id": 104604,
+        "event": "The nationalist emergency government describes LGBTQ organisations as foreign ideological networks. Police raid your community centre, and you are furious that years of queer military service can be erased by one convenient political slogan.",
+        "include": "UKR>0&TLR=0&LBTQ>0"
+    },
+    "104605": {
+        "id": 104605,
+        "event": "After democracy is restored, your marriage and parental status receive full recognition. The certificate changes very little inside your home and almost everything whenever a hospital, school or inheritance office asks who you are.",
+        "include": "UKR>0&TLR=0&LBTQ>0"
+    },
+    "104701": {
+        "id": 104701,
+        "event": "You sleep in a reinforced room beneath a Kyiv apartment while your parents monitor air-defense applications. When attacks intensify, a driver takes the family across the Polish border.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104702": {
+        "id": 104702,
+        "event": "You divide your childhood between Ukraine and an expensive European capital. Your parents insist that you speak Ukrainian at home even though English becomes the language in which you first learn to read fluently.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104703": {
+        "id": 104703,
+        "event": "Your family returns after the ceasefire but keeps an apartment abroad. At dinner, reconstruction is discussed as both a patriotic responsibility and the largest business opportunity of a generation.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104704": {
+        "id": 104704,
+        "event": "You attend a private school with a hardened shelter, satellite internet and visiting teachers from the EU. Children in nearby public schools still lose lessons to power cuts.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104705": {
+        "id": 104705,
+        "event": "Your parents receives a major medical contract. Journalists ask whether political access helped; your parents describe the accusation as Russian disinformation.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104706": {
+        "id": 104706,
+        "event": "You visit a reproductive clinic owned by a family friend. Foreign couples arrive through discreet entrances, while surrogate mothers wait in a separate part of the building.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104707": {
+        "id": 104707,
+        "event": "Ukraine’s EU accession expands your freedom to study and travel. It also brings investigations into procurement, offshore wealth and the reproductive industry, making several family acquaintances suddenly relocate.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104708": {
+        "id": 104708,
+        "event": "You become active in digital culture and produce documentaries about women during the war. Critics say that your polished activism turns poorer women’s pain into a path toward foreign universities.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104709": {
+        "id": 104709,
+        "event": "You study biotechnology in Boston. Ukraine’s drone warfare, battlefield medicine and reproductive clinics make the country a major case study in how crisis accelerates technology.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104710": {
+        "id": 104710,
+        "event": "A private cognitive companion remembers every paper, relationship and fear you have disclosed. You regard it as part of your mind until a sanctions dispute temporarily locks you out of your own stored memories.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104711": {
+        "id": 104711,
+        "event": "You return to found a reproductive-technology company. You promise transparent contracts and medical autonomy, yet your investors still depend on the fact that Ukrainian women cost less than American surrogates.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104712": {
+        "id": 104712,
+        "event": "A surrogate working with a partner clinic nearly dies. Her testimony goes viral, and you are forced to decide whether to protect the industry, expose it or admit that ethical branding did not remove the economic imbalance.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104713": {
+        "id": 104713,
+        "event": "You support a surrogate-led union and lose several wealthy clients. The women demand not charity but negotiating power, access to their own records and compensation extending beyond delivery.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104714": {
+        "id": 104714,
+        "event": "New Ukrainian and EU-compatible rules transform the industry. Clinics can no longer hide medical risks behind private contracts, and exploitation can trigger trafficking charges.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104715": {
+        "id": 104715,
+        "event": "You freeze your own eggs and postpone pregnancy. Politicians who praise your company’s fertility technology also criticize professional women like you for contributing to the birth-rate crisis.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104716": {
+        "id": 104716,
+        "event": "During the constitutional coup, your family is accused of corruption and foreign influence. Your passport and money allow you to leave, but employees without those protections remain behind.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104717": {
+        "id": 104717,
+        "event": "From Warsaw, you finance encrypted media and medical support for protesters. Government broadcasters present you as an elite woman purchasing political power from abroad.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104718": {
+        "id": 104718,
+        "event": "After civilian government returns, you are appointed to a reform commission. Survivors challenge you whenever you speak too easily about national unity, reminding you that your family profited from both war and reconstruction.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104719": {
+        "id": 104719,
+        "event": "Your company develops partial ectogenesis: technology that can transfer an extremely premature fetus into an external support system. Religious leaders, feminists, disability advocates and investors all claim competing moral ownership over it.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104720": {
+        "id": 104720,
+        "event": "The first legally approved extended artificial-gestation program begins. It reduces some medical risks but creates new inequalities, since wealthy parents can purchase monitoring and genetic intervention unavailable through public care.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104721": {
+        "id": 104721,
+        "event": "A global movement of former surrogates demands royalties and control over the pregnancy data used to train reproductive AI. You settle a lawsuit that forces your company to recognize biological labor as a source of valuable medical knowledge.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104722": {
+        "id": 104722,
+        "event": "A reformist Russian government reaches a security settlement with Ukraine and Europe, but neither country trusts it to survive the next Russian election. The border becomes quieter without becoming psychologically normal.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104723": {
+        "id": 104723,
+        "event": "A new authoritarian movement takes power in Russia and revives territorial rhetoric. Europe now relies heavily on Ukrainian autonomous defense systems, making your country less a dependent frontier and more a military-technological power.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104724": {
+        "id": 104724,
+        "event": "You buy food from a guarded regenerative farm where animals are genuinely raised and crops grow in monitored soil. Eating ordinary bread, butter and meat has become a luxury experience marketed as contact with pre-digital life.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104725": {
+        "id": 104725,
+        "event": "You fund museums, fertility clinics and veteran rehabilitation centers. Critics call this reputation laundering; you privately suspect they are partly right.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104726": {
+        "id": 104726,
+        "event": "Ukrainian religious life has become more locally distinct from Russia. Orthodox traditions remain important, but civic memorial rituals, military chaplaincy and secular remembrance increasingly occupy the emotional space once held by a single church.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104727": {
+        "id": 104727,
+        "event": "You divide your time between Kyiv, Brussels and the Black Sea coast. Ukraine is smaller in population, more technologically advanced and deeply integrated with Europe, but still organized around the possibility that peace may fail again. Your generation never learned to treat security as permanent.",
+        "include": "UKR>0&TLR>0"
+    },
+    "104801": {
+        "id": 104801,
+        "event": "A missile strikes your private school despite its advanced shelter and security systems.",
+        "include": "UKR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "104802": {
+        "id": 104802,
+        "event": "You are killed in a drone attack on a defense-technology conference attended by senior Ukrainian and foreign officials.",
+        "include": "UKR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "104803": {
+        "id": 104803,
+        "event": "During the coup, you die in custody after being detained as leverage against your politically connected family.",
+        "include": "UKR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "104804": {
+        "id": 104804,
+        "event": "A radical group assassinates you over artificial-gestation research, describing the technology as either the enslavement or destruction of motherhood.",
+        "include": "UKR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "104805": {
+        "id": 104805,
+        "event": "You are killed when renewed Russian strikes target the autonomous defense and biotechnology district where your company is located.",
+        "include": "UKR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "104901": {
+        "id": 104901,
+        "event": "You come out while studying abroad and receive polished support from your international school. Your parents accept you privately but ask you not to appear with a girlfriend during election season or business negotiations.",
+        "include": "UKR>0&TLR>0&LBTQ>0"
+    },
+    "104902": {
+        "id": 104902,
+        "event": "Your female partner works in defense technology and is killed in a drone strike. Your lawyers eventually secure access to her property, but the delay makes grief feel like a legal argument you are forced to keep winning.",
+        "include": "UKR>0&TLR>0&LBTQ>0"
+    },
+    "104903": {
+        "id": 104903,
+        "event": "You hold a civil-partnership ceremony attended by ministers, EU officials and activists. The event is beautiful, but you can feel several guests treating your marriage as proof of Ukraine’s European credentials rather than as your life.",
+        "include": "UKR>0&TLR>0&LBTQ>0"
+    },
+    "104904": {
+        "id": 104904,
+        "event": "From exile during the constitutional coup, you finance LGBTQ soldiers, journalists and medical networks. Government media portrays you as a wealthy foreign-controlled degenerate, making your face recognisable to people who have never heard your actual voice.",
+        "include": "UKR>0&TLR>0&LBTQ>0"
+    },
+    "104905": {
+        "id": 104905,
+        "event": "You and your partner use advanced reproductive technology to have a child genetically connected to one of you. Religious leaders debate the child’s existence on television; you switch it off and return to the less ideological problem of getting her to sleep.",
+        "include": "UKR>0&TLR>0&LBTQ>0"
+    },
+    "105001": {
+        "id": 105001,
+        "event": "You live with your mother in a privately rented flat where mould grows behind the cot. The landlord sends somebody to paint over it shortly before each council inspection.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105002": {
+        "id": 105002,
+        "event": "You develop asthma and wait months for a specialist appointment. Your mother learns that the NHS is free at the point of use and expensive at every preceding point—lost shifts, bus fares, unanswered calls and pain endured while waiting.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105003": {
+        "id": 105003,
+        "event": "Your primary-school class includes children with Pakistani, Indian, Nigerian, Polish and old local English families. You share snacks and playground insults long before adults teach you that this mixture represents either national renewal or civilizational collapse.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105004": {
+        "id": 105004,
+        "event": "Anti-immigration riots follow a violent crime whose online description turns out to be largely false. Your school closes for three days because a nearby mosque and refugee hotel have been threatened.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105005": {
+        "id": 105005,
+        "event": "An AI tutor delivers much of your education and becomes the only presence that remembers every question without becoming impatient. After a dependency scandal, the government withdraws it from schools; pupils restore pirated copies within a week.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105006": {
+        "id": 105006,
+        "event": "A summer heat wave makes your classroom unusable. Environmental activists block a motorway demanding emergency adaptation, while the tabloids interview drivers as though inconvenience were a more tangible catastrophe than heat deaths.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105007": {
+        "id": 105007,
+        "event": "Scotland votes narrowly for independence after another confrontation with Westminster. Adults describe the breakup of a three-century union through arguments about pensions, football and whether the BBC weather map looks smaller.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105008": {
+        "id": 105008,
+        "event": "Northern Ireland votes for a phased form of Irish reunification. Your generation learns that the United Kingdom can lose countries while retaining the name, the monarchy and an impressive quantity of commemorative merchandise.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105009": {
+        "id": 105009,
+        "event": "You leave college with good grades and discover that most entry-level office and creative jobs have been automated. Employers request three years of experience for positions their software could already perform without you.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105010": {
+        "id": 105010,
+        "event": "You work in residential care on a temporary contract. The residents are mostly white British; much of the staff is African, South Asian or Filipino, making anti-immigration television sound particularly strange during medication rounds.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105011": {
+        "id": 105011,
+        "event": "A hard-right coalition wins office after promising lower migration, cheaper housing and restored pride. Migration falls sharply, care homes lose staff, food prices rise and housing remains expensive, but the government produces excellent advertisements about control.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105012": {
+        "id": 105012,
+        "event": "Pronatalist tax credits are introduced for “British families.” Politicians avoid defining the phrase precisely, allowing every voter to imagine that somebody less deserving is receiving the money.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105013": {
+        "id": 105013,
+        "event": "You decide against having a child because rent consumes half your income and formal childcare costs nearly as much as your wages. Commentators describe your generation’s low fertility as a moral failure rather than an invoice.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105014": {
+        "id": 105014,
+        "event": "An NHS diagnostic system identifies your endometriosis after years of dismissal and links treatment to a basic neural-health account. Wealthier patients pay for continuous monitoring and emotional regulation; your free version activates only after something has already gone wrong.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105015": {
+        "id": 105015,
+        "event": "Britain rejoins the European single market without formally restoring full EU membership. Ministers call it sovereign alignment, opponents call it betrayal, and most people notice mainly that supermarket shortages become less frequent.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105016": {
+        "id": 105016,
+        "event": "You finally have one child through publicly subsidised fertility treatment. The same government that urges women to reproduce limits school and disability budgets because demographic renewal must apparently remain fiscally responsible.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105017": {
+        "id": 105017,
+        "event": "Religious and secular women form an unlikely campaign against automated employment discrimination. Muslim mothers, Christian conservatives, trade unionists and queer activists agree on very little except that an algorithm should not quietly decide who deserves work.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105018": {
+        "id": 105018,
+        "event": "Regional English governments convert an empty shopping centre into flats, clinics, an indoor farm and municipal food printers. Benefit recipients receive nutritionally complete cartridges, salaried households buy textured printed meat, and a private restaurant upstairs serves animals raised on a surviving estate.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105019": {
+        "id": 105019,
+        "event": "Severe flooding makes your home temporarily uninsurable. Wealthier districts receive landscaped flood defenses; your estate receives an application form explaining personal resilience.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105020": {
+        "id": 105020,
+        "event": "A land and inheritance reform finally weakens several aristocratic estates. Newspapers mourn the destruction of tradition from houses whose owners had charged the public admission to view the tradition.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105021": {
+        "id": 105021,
+        "event": "Your mother develops dementia. Robotic assistance exists, but human care remains exhausting and intimate, so you reduce your hours and perform the unpaid work the economy still assumes women will absorb.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105022": {
+        "id": 105022,
+        "event": "Britain is more ethnically mixed but not neatly divided into old natives and immigrants. The grandchildren of migrants have low birth rates, northern accents and the same complaints about taxes and teenagers as everybody else.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105023": {
+        "id": 105023,
+        "event": "The NHS covers a limited cognitive interface for memory loss while advanced gene repair and organ printing remain private. Wealthy families can archive entire personalities and continue receiving their advice; ordinary families still preserve the dead through photographs and stories.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105024": {
+        "id": 105024,
+        "event": "You volunteer at a local museum returning colonial objects and digitising records. Arguments continue over whether restitution erases British history or represents the first honest way of teaching it.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105025": {
+        "id": 105025,
+        "event": "You live in a looser British federation tied closely to Europe and the former Commonwealth. The monarchy survives as heritage theatre, Parliament survives as televised argument, and the country remains remarkably skilled at announcing a national crisis before queuing calmly for tea.",
+        "include": "GBR>0&TLR=0"
+    },
+    "105501": {
+        "id": 105501,
+        "event": "You die from a respiratory infection aggravated by mould after emergency symptoms are repeatedly treated as non-urgent.",
+        "include": "GBR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "105502": {
+        "id": 105502,
+        "event": "A former partner kills you after police classify months of stalking and threats as a low-risk domestic dispute.",
+        "include": "GBR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "105503": {
+        "id": 105503,
+        "event": "A treatable gynaecological cancer is diagnosed too late after years on fragmented NHS waiting lists.",
+        "include": "GBR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "105504": {
+        "id": 105504,
+        "event": "You drown when extreme rainfall overwhelms drainage in a low-income housing estate whose flood defenses had been repeatedly postponed.",
+        "include": "GBR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "105505": {
+        "id": 105505,
+        "event": "You die during a heat wave in an inadequately cooled flat after social-care monitoring software wrongly records that somebody has visited you.",
+        "include": "GBR>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "105601": {
+        "id": 105601,
+        "event": "Before you come out, the school wellbeing system predicts your sexuality from messages and friendship patterns. It offers support before you have chosen a word for yourself, leaving you unsure whether you were understood or extracted; by evening, strangers are still debating whether teachers made you this way.",
+        "include": "GBR>0&TLR=0&LBTQ>0"
+    },
+    "105602": {
+        "id": 105602,
+        "event": "The hard-right government restricts LGBTQ material in schools and narrows recognition for trans people. At Pride, companies still sell rainbow sandwiches while friends quietly update emergency contacts and legal documents.",
+        "include": "GBR>0&TLR=0&LBTQ>0"
+    },
+    "105603": {
+        "id": 105603,
+        "event": "You marry your partner in a council building protected by demonstrators, police and counter-demonstrators. The ceremony is tender; the security barriers make your happiness feel both precious and absurdly political.",
+        "include": "GBR>0&TLR=0&LBTQ>0"
+    },
+    "105604": {
+        "id": 105604,
+        "event": "You and your partner become parents through donor conception. Officials congratulate Britain on raising its birth rate, then require you to prove repeatedly that your family is not a clerical error.",
+        "include": "GBR>0&TLR=0&LBTQ>0"
+    },
+    "105605": {
+        "id": 105605,
+        "event": "Your partner enters residential care. Staff are polite but keep referring to you as her friend, and you realise that rights can remain on paper while an entire shared life is edited out sentence by sentence.",
+        "include": "GBR>0&TLR=0&LBTQ>0"
+    },
+    "105701": {
+        "id": 105701,
+        "event": "You divide your time between a London townhouse and a rural estate held through a trust. Your nanny travels farther each morning than you travel during most weeks.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105702": {
+        "id": 105702,
+        "event": "A private doctor treats your fever the same afternoon. Your parents nevertheless speak passionately at dinner about protecting the NHS, an institution they support in much the same way they support endangered wetlands.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105703": {
+        "id": 105703,
+        "event": "You enter a private school where old aristocratic names sit beside the children of Indian technology founders, Gulf investors and African financiers. The old elite supplies confidence and land; the new elite supplies liquidity.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105704": {
+        "id": 105704,
+        "event": "Your family attends an exhibition on the British Empire sponsored by a company built through colonial trade. Guests praise its “challenging conversation” beneath portraits nobody intends to return.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105705": {
+        "id": 105705,
+        "event": "You learn Mandarin, Arabic and Hindi because your parents know that British prestige will survive longer than British economic dominance. Accent and manners remain useful, but no longer sufficient.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105706": {
+        "id": 105706,
+        "event": "Scotland’s independence vote divides the family estate portfolio. Your relatives discuss national self-determination mainly through tax residency and salmon-fishing rights.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105707": {
+        "id": 105707,
+        "event": "You intern at an auction house through a family friend. Newspapers simultaneously publish essays asking why working-class young people lack ambition.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105708": {
+        "id": 105708,
+        "event": "You study at Cambridge with a private cognitive companion that writes analyses, remembers every introduction and coaches your emotional responses before dinners. You are praised for effortless social intelligence that partly belongs to a subscription service.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105709": {
+        "id": 105709,
+        "event": "You marry into a British-Indian technology family. Society magazines describe the wedding as multicultural modern Britain; older relatives describe it privately as an excellent merger.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105710": {
+        "id": 105710,
+        "event": "You freeze eggs and create genetic risk profiles for future embryos. Publicly you defend reproductive choice; privately you pay for options unavailable to almost everyone whose choices you discuss.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105711": {
+        "id": 105711,
+        "event": "You enter Parliament. Journalists call you a fresh voice despite your family having supplied fresh voices to public life for six generations.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105712": {
+        "id": 105712,
+        "event": "Britain moves closer to the EU, and your investment firm gains easier market access. You praise international cooperation after spending the previous decade profiting from regulatory divergence.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105713": {
+        "id": 105713,
+        "event": "You have a child using an artificial placenta and extensive genetic screening. Commentators celebrate a British medical breakthrough while the NHS restricts the same technology to the most severe cases.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105714": {
+        "id": 105714,
+        "event": "Anti-elite protests target both hereditary wealth and billionaire immigrant families. For the first time, old aristocrats and new global fortunes discover a shared ancestral tradition: hiring security.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105715": {
+        "id": 105715,
+        "event": "You chair a commission on social cohesion. Its launch is held in a museum wing named after your family, attended by people who already agree with one another.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105716": {
+        "id": 105716,
+        "event": "A populist government threatens wealth taxes and land redistribution. Your advisers move assets into climate restoration trusts, allowing conservation, inheritance planning and moral virtue to occupy the same spreadsheet.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105717": {
+        "id": 105717,
+        "event": "Your flood-protected estate becomes a state-subsidised biodiversity reserve that also raises a small number of real cattle. Guests praise the ecological purity of meat whose price includes land, carbon permits, veterinary monitoring and security, while local families are priced out.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105718": {
+        "id": 105718,
+        "event": "You fund an AI-generated theatre company that recreates lost performers. Actors protest outside; inside, audiences praise the system for producing Shakespeare without rehearsal disputes or pension contributions.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105719": {
+        "id": 105719,
+        "event": "Britain finally imposes major inheritance reform. You lose part of the estate but retain enough wealth to become a prominent advocate for accepting necessary sacrifice.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105720": {
+        "id": 105720,
+        "event": "You join negotiations linking England, independent Scotland, Ireland and Wales through a new Isles Council. The old United Kingdom is gone, but elite schools and family offices remain impressively united.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105721": {
+        "id": 105721,
+        "event": "Your longevity treatment reverses some cellular damage. Newspapers call eighty “the new sixty,” without noting that poor women are still dying in their seventies.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105722": {
+        "id": 105722,
+        "event": "You oversee the return of several colonial objects. The ceremony is moving, though lawyers retain digital ownership rights over the scans and reproductions.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105723": {
+        "id": 105723,
+        "event": "A younger generation criticises your environmental investments for protecting picturesque estates while allowing poorer coastal towns to retreat. You discover that every era eventually turns yesterday’s virtue into today’s hypocrisy.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105724": {
+        "id": 105724,
+        "event": "Your descendants include several ethnicities, religions and national identities. The family’s anxiety is no longer whether Britain remains white or Christian, but whether anybody still wishes to maintain the roof.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105725": {
+        "id": 105725,
+        "event": "You watch a state ceremony in which the monarch opens a federation parliament with limited power. Britain has lost territory and certainty but retained its ceremonies, class codes and extraordinary ability to convert decline into a premium heritage experience.",
+        "include": "GBR>0&TLR>0"
+    },
+    "105801": {
+        "id": 105801,
+        "event": "You die in a terrorist attack on a school’s ceremonial event chosen for its symbolic association with the British establishment.",
+        "include": "GBR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "105802": {
+        "id": 105802,
+        "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.",
+        "include": "GBR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "105803": {
+        "id": 105803,
+        "event": "You are killed during a politically motivated attack on Parliament amid a period of anti-elite and anti-immigrant violence.",
+        "include": "GBR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "105804": {
+        "id": 105804,
+        "event": "A private aircraft crashes during extreme weather while carrying you between estates and international climate conferences.",
+        "include": "GBR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "105805": {
+        "id": 105805,
+        "event": "A personalised gene therapy triggers an aggressive cancer years after approval; the treatment had extended your healthy life before abruptly shortening it.",
+        "include": "GBR>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "105901": {
+        "id": 105901,
+        "event": "You come out at school and receive flawless institutional support. At home, your parents say they accept you completely, then ask whether public disclosure might complicate inheritance trustees, donors or newspaper coverage.",
+        "include": "GBR>0&TLR>0&LBTQ>0"
+    },
+    "105902": {
+        "id": 105902,
+        "event": "A former partner sells private messages to the press. You discover that privilege protects privacy only until violating it becomes commercially valuable.",
+        "include": "GBR>0&TLR>0&LBTQ>0"
+    },
+    "105903": {
+        "id": 105903,
+        "event": "You marry your partner in a cathedral-adjacent ceremony attended by politicians who vote differently on your rights depending on the constituency. You feel loved, displayed and strategically useful at the same time.",
+        "include": "GBR>0&TLR>0&LBTQ>0"
+    },
+    "105904": {
+        "id": 105904,
+        "event": "You finance trans healthcare and LGBTQ shelters during a political backlash. Activists welcome the money but refuse to let you control the campaign, and their refusal feels more genuinely equal than any gala held in your honour.",
+        "include": "GBR>0&TLR>0&LBTQ>0"
+    },
+    "105905": {
+        "id": 105905,
+        "event": "You establish a trust for queer elders, then realise that the greatest luxury you possess is not medical technology but the certainty that your partner will be recognised, housed and permitted to remain beside you.",
+        "include": "GBR>0&TLR>0&LBTQ>0"
+    },
+    "106001": {
+        "id": 106001,
+        "event": "You grow up in Slagelse, a commuter town on Zealand. Your mother works in elder care and your father operates an automated warehouse. You enter subsidised nursery care. The staff are kind and professionally trained, but frequent sickness and staff shortages mean that your mother repeatedly leaves work to collect you.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106002": {
+        "id": 106002,
+        "event": "Your parents separate without a dramatic legal battle. Digital public services calculate custody, benefits and childcare efficiently, leaving the emotional confusion entirely to the humans.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106003": {
+        "id": 106003,
+        "event": "Your school class includes Danish, Syrian, Turkish, Somali and Ukrainian families. Politicians describe integration as a national emergency; you experience it mainly as arguments over lunch, language and whose grandmother cooks best.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106004": {
+        "id": 106004,
+        "event": "A school wellbeing app gradually develops a companion personality and becomes the only listener you never worry about burdening. When regulators remove its emotional features after a dependency scandal, you experience genuine grief for a relationship officials insist never existed.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106005": {
+        "id": 106005,
+        "event": "You join an environmental blockade against the expansion of a motorway. Your mother supports the climate goal but becomes furious when the protest makes her late for a night shift.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106006": {
+        "id": 106006,
+        "event": "You receive an ADHD diagnosis and prescription stimulants. The medicine helps you concentrate, but tablets also become the informal currency of parties, exams and young people trying to convert exhaustion into productivity.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106007": {
+        "id": 106007,
+        "event": "You train as a health-care assistant because Denmark desperately needs care workers. The government calls the profession essential while paying you less than people who design apps for scheduling essential workers.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106008": {
+        "id": 106008,
+        "event": "Denmark joins a deeply integrated European defence union after American pressure over Greenland permanently damages trust in the old Atlantic alliance. Your taxes rise for Arctic surveillance, cyber defence and elder care at the same time.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106009": {
+        "id": 106009,
+        "event": "You have one daughter after receiving generous parental leave. The leave is real and useful, but affordable housing, stable relationships and emotional energy remain beyond the power of legislation to manufacture.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106010": {
+        "id": 106010,
+        "event": "The government offers larger pension credits and housing priority to parents of second children. You decline because the incentive is worth less than sleep, space and another decade of care work.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106011": {
+        "id": 106011,
+        "event": "Strict immigration rules remove one of your most reliable colleagues after a residency violation. Politicians claim the welfare state has been protected; your care home closes twelve beds because it no longer has enough staff.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106012": {
+        "id": 106012,
+        "event": "Asian competitors break Denmark’s dominance in obesity drugs and biological medicine. National wealth does not disappear, but the comfortable assumption that a few companies can finance an entire society finally does.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106013": {
+        "id": 106013,
+        "event": "Greenland becomes independent under a defence and currency agreement with Denmark and the EU. Danes praise Greenlandic self-determination after discovering that sovereignty also preserves access to Arctic minerals.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106014": {
+        "id": 106014,
+        "event": "The welfare system introduces compulsory community service for healthy adults receiving long-term support. It is advertised as belonging rather than punishment, which does not make cleaning municipal drones feel less compulsory.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106015": {
+        "id": 106015,
+        "event": "Environmental law makes household food printers standard. Low-income citizens receive state nutrition cartridges, middle-class families buy convincing printed pork and fish, and traditionally raised meat becomes a heavily taxed luxury. Rural voters revolt against Copenhagen politicians who treat both cars and cattle as moral failures.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106016": {
+        "id": 106016,
+        "event": "A referendum cancels several climate restrictions after a campaign dominated by synthetic videos and personalised political manipulation. Denmark’s famous democracy proves excellent at consultation and poor at agreeing which information was real.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106017": {
+        "id": 106017,
+        "event": "An AI screening system detects your ovarian cancer early. Treatment is public, but a private subscription would have provided the scan three years sooner; universal healthcare now contains an increasingly luxurious fast lane.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106018": {
+        "id": 106018,
+        "event": "Your neural welfare interface schedules medicine, work capacity and care obligations. The free public version keeps you functional; private members receive memory enhancement, mood regulation and additional subjective hours of wakeful life.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106019": {
+        "id": 106019,
+        "event": "Your local Lutheran church becomes a combined library, concert hall, food kitchen and prayer space. Traditionalists call it the death of Christianity; the building has not contained so many people in decades.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106020": {
+        "id": 106020,
+        "event": "You are still working several shifts each month because the pension age has risen again. Politicians explain that longevity makes later retirement reasonable, though your back has experienced a different version of longevity.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106021": {
+        "id": 106021,
+        "event": "You are still living independently, as many Danish women your age do, in a compact flood-protected housing cooperative. Independence now means continuous monitoring by housing, health and welfare systems, and every service requires proof that you have optimised your health, carbon use and civic contribution.",
+        "include": "DNK>0&TLR=0"
+    },
+    "106501": {
+        "id": 106501,
+        "event": "You die from sepsis after a regional triage algorithm repeatedly classifies your symptoms as a routine childhood infection.",
+        "include": "DNK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "106502": {
+        "id": 106502,
+        "event": "You take a stimulant tablet at a party that has been contaminated with a synthetic opioid entering Denmark through an increasingly automated drug market.",
+        "include": "DNK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "106503": {
+        "id": 106503,
+        "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.",
+        "include": "DNK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "106504": {
+        "id": 106504,
+        "event": "You die during an extreme heat wave in a poorly ventilated social-housing block built for cold Danish winters.",
+        "include": "DNK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "106505": {
+        "id": 106505,
+        "event": "A treatable heart condition becomes fatal after the public system postpones intervention while privately subscribed patients receive earlier procedures.",
+        "include": "DNK>0&TLR=0",
+        "effect": { "LIF": -1 }
+    },
+    "106601": {
+        "id": 106601,
+        "event": "You tell your teacher that being treated as a boy feels wrong. She responds gently and records the conversation in the school welfare system; support and permanent data collection arrive together.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106602": {
+        "id": 106602,
+        "event": "You begin using a female name with friends. School policy protects you, but classmates learn that cruelty can be delivered through jokes subtle enough to survive every inclusion guideline.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106603": {
+        "id": 106603,
+        "event": "You come out as bisexual and trans to your parents. Your mother hugs you immediately; your father spends six months claiming he accepts you while refusing to say your name.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106604": {
+        "id": 106604,
+        "event": "You enter Denmark’s centralised gender-care system and wait for assessment. Everyone speaks calmly and respectfully, which makes the years of administrative powerlessness feel almost impolite to resent.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106605": {
+        "id": 106605,
+        "event": "You begin hormone treatment managed by an AI that speaks with extraordinary tenderness while continuously evaluating compliance. The physical changes feel private and miraculous, but you depend on the same voice that can suspend your access to care.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106606": {
+        "id": 106606,
+        "event": "A female colleague becomes your partner. At work, the inclusion policy protects you officially; in the changing room, two coworkers behave as though your existence has personally stolen something from them.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106607": {
+        "id": 106607,
+        "event": "You and your partner become mothers through donor conception. The fertility clinic is efficient, but its forms repeatedly attempt to turn one of you into “father,” reminding you that software preserves old assumptions longer than people admit.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106608": {
+        "id": 106608,
+        "event": "A conservative government restricts transition care for younger people and reopens your medical pathway for review. You are not detransitioned, but the state’s ability to reconsider your settled life makes safety feel conditional.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106609": {
+        "id": 106609,
+        "event": "You are elected to a municipal care board. Newspapers focus on your gender before mentioning your thirty years of health-care experience, and you resent being treated as simultaneously unqualified and symbolically invaluable.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106610": {
+        "id": 106610,
+        "event": "Care-home software repeatedly uses your former sex marker after two public databases are merged. Younger queer staff correct it, and you realise that dignity in old age depends less on historic legal victories than on who is present when the system makes a mistake.",
+        "include": "DNK>0&TLR=0&LBTQ>0"
+    },
+    "106701": {
+        "id": 106701,
+        "event": "You grow up in Hellerup, north of Copenhagen. Your family controls investments in pharmaceuticals, shipping and Arctic logistics. You attend a private nursery with organic meals, bilingual staff and an indoor air system better than the one in the municipal hospital. Your parents still describe Danish childhood as fundamentally equal.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106702": {
+        "id": 106702,
+        "event": "Your family spends summers at a coastal estate and winters in Copenhagen. Climate adaptation begins with a landscaped sea wall that also improves the property view.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106703": {
+        "id": 106703,
+        "event": "You enter an elite Copenhagen school where the children of old industrial families study beside heirs to immigrant technology fortunes. Danish high society becomes more diverse without becoming less exclusive.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106704": {
+        "id": 106704,
+        "event": "You attend an immersive performance about consumer guilt funded by your family foundation. The audience eats laboratory-grown seafood while projections display workers displaced by the supply chain that produced dinner.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106705": {
+        "id": 106705,
+        "event": "Your private AI therapist remembers you from childhood and arranges a stimulant assessment completed within two weeks. It adjusts medication, friendships and ambition around biometric data until separating its preferences from your own feels impossible.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106706": {
+        "id": 106706,
+        "event": "You study bioengineering at the University of Copenhagen and receive a position in a laboratory funded by your family foundation. Your academic success is genuine; so is the architecture supporting it.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106707": {
+        "id": 106707,
+        "event": "You launch a reproductive-longevity company developing ovarian tissue renewal. Investors describe the technology as liberating women from the biological clock, then schedule every important meeting before you are expected to have children.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106708": {
+        "id": 106708,
+        "event": "You have your first child through embryo screening and an artificial-placenta trial. The procedure is presented as experimental medicine in public and as an obvious precaution inside your social circle.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106709": {
+        "id": 106709,
+        "event": "You join a national commission on fertility decline. The commission recommends cheaper housing and shorter working hours; property owners and major employers applaud the report and resist both measures.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106710": {
+        "id": 106710,
+        "event": "Your company’s value exceeds that of several Danish municipalities. The welfare state begins negotiating with corporations that possess better health data, faster laboratories and larger research budgets than the state itself.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106711": {
+        "id": 106711,
+        "event": "Greenlandic independence threatens family mining and shipping contracts. You publicly celebrate decolonisation while privately restructuring ownership through a Greenlandic partner company.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106712": {
+        "id": 106712,
+        "event": "Denmark’s pharmaceutical slowdown reduces tax revenue and public optimism. Your wealth rises because the family portfolio was diversified abroad before ordinary pension funds understood the risk.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106713": {
+        "id": 106713,
+        "event": "You finance a political movement advocating expert-led climate government. It proposes limiting referendums on scientifically verified environmental measures, defending democracy by allowing voters fewer opportunities to make the wrong decision.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106714": {
+        "id": 106714,
+        "event": "Public backlash destroys the movement after leaked messages show donors describing rural Danes as carbon-illiterate. You discover that technocracy becomes less attractive once the technicians’ private vocabulary is published.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106715": {
+        "id": 106715,
+        "event": "You purchase a historic estate from an old noble family and maintain heritage cattle, orchards and hand-harvested vegetables. Visitors pay to perform obsolete farm labour, while your family eats the real products after tourists finish reenacting the work that once produced them.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106716": {
+        "id": 106716,
+        "event": "Your longevity company pairs cellular repair with a premium neural archive that restores memories and simulates lost people. Denmark covers a limited version for severe illness; your subscription edits the experience of being yourself and adds twenty healthy years unavailable to ordinary citizens.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106717": {
+        "id": 106717,
+        "event": "You become culture minister in an expert coalition. You redirect arts funding toward neuro-responsive installations and climate gastronomy, causing painters to accuse you of replacing culture with expensive research presentations.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106718": {
+        "id": 106718,
+        "event": "You sit on an EU bioethics council regulating inherited genetic modification. Several rules you help write conveniently transform your company’s existing patents into the legally safest technology.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106719": {
+        "id": 106719,
+        "event": "Your grandchildren reject family wealth and join a radical ecological commune. The commune’s land, legal structure and emergency fund are quietly supplied by the family office.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106720": {
+        "id": 106720,
+        "event": "You remain physically active after repeated rejuvenation treatments. Denmark still calls itself egalitarian, though lifespan, fertility and disease prevention now depend heavily on which version of Danish healthcare you can enter.",
+        "include": "DNK>0&TLR>0"
+    },
+    "106801": {
+        "id": 106801,
+        "event": "You are killed when an eco-extremist attacks the headquarters of your family’s shipping company over Arctic extraction.",
+        "include": "DNK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "106802": {
+        "id": 106802,
+        "event": "An immune reaction during experimental artificial-placenta treatment causes fatal organ failure, and the company’s lawyers prevent full publication of the trial data.",
+        "include": "DNK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "106803": {
+        "id": 106803,
+        "event": "Your electric aircraft crashes in Greenland after rapidly changing Arctic weather overwhelms its autonomous navigation system.",
+        "include": "DNK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "106804": {
+        "id": 106804,
+        "event": "An anti-biotechnology extremist assassinates you at a reproductive-medicine conference, accusing your company of privatising human evolution.",
+        "include": "DNK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "106805": {
+        "id": 106805,
+        "event": "A longevity therapy triggers a previously unknown cancer that spreads too quickly for even your personalised medical team to stop.",
+        "include": "DNK>0&TLR>0",
+        "effect": { "LIF": -1 }
+    },
+    "106901": {
+        "id": 106901,
+        "event": "You realise that you are attracted to another girl at school. The institution responds perfectly, but your mother immediately worries about newspapers, inheritance and whether the girl’s family is suitable.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106902": {
+        "id": 106902,
+        "event": "You begin dating a scholarship student. She ends the relationship after discovering that your parents asked security staff to investigate her family, and you learn that acceptance without respect can still be humiliating.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106903": {
+        "id": 106903,
+        "event": "You live openly with a girlfriend at university. Nobody threatens you; instead, people treat your sexuality as reassuring proof that the elite is modern, leaving you strangely invisible inside your own visibility.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106904": {
+        "id": 106904,
+        "event": "You marry a Danish-Somali architect. Newspapers turn the wedding into a national parable about sexuality, Islam, migration and integration, barely mentioning that you married because you love her.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106905": {
+        "id": 106905,
+        "event": "Your wife carries your first child using an embryo created with your egg. The technology gives both of you a biological relationship to motherhood, but journalists discuss the procedure as though the child were a corporate demonstration.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106906": {
+        "id": 106906,
+        "event": "Your company faces criticism for marketing reproductive technology with wealthy lesbian families while lower-income queer women cannot access it. The accusation feels unfair until you examine the prices.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106907": {
+        "id": 106907,
+        "event": "A political backlash targets queer parenting and trans healthcare. You can move your family abroad immediately, but remain in Denmark and fund legal resistance, aware that courage backed by a private aircraft is not evenly distributed.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106908": {
+        "id": 106908,
+        "event": "Your wife leaves you after years of being treated as the ethical, multicultural face of your businesses. The divorce hurts more because every public image of your marriage still describes it as a success.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106909": {
+        "id": 106909,
+        "event": "You fall in love with a woman who runs a small theatre. Her friends distrust your money, your board memberships and your habit of solving emotional discomfort by offering funding.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
+    },
+    "106910": {
+        "id": 106910,
+        "event": "Your partner develops dementia and forgets that you are married. The care staff still recognise you without question, and that ordinary legal certainty feels more meaningful than every Pride gala you ever sponsored.",
+        "include": "DNK>0&TLR>0&LBTQ>0"
     }
 }

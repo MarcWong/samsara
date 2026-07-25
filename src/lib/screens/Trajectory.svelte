@@ -348,6 +348,11 @@
 		triedAllInOneStat = STAT_KEYS.filter(key => allocate[types[key]] > 0).length === 1;
 		const bonus = applyBonus({ ...nationality, [types.LBTQ]: $draft.orientation, ...allocate });
 		propertyAllocate = bonus.propertyAllocate;
+		// Persisted as a real property (not just this function's own local
+		// flag) so event conditions can key an entire alternate storyline
+		// off it, the same way LBTQ already does for orientation -- see
+		// the country-tree events gated "<CODE>>0&TLR>0" / "...&TLR=0".
+		propertyAllocate[types.TLR] = bonus.triggered ? 1 : 0;
 		if (bonus.triggered) {
 			// The free-allocation trick already handed her an easier start --
 			// re-roll this life's 3 lucky charms from the good-only pool so
@@ -479,7 +484,16 @@
 		{#each STAT_KEYS as key (key)}
 			<div class="stat">
 				<span class="stat-label">{STAT_LABELS[key]}</span>
-				<span class="stat-value">{stats[types[key]] - effects[key]}</span>
+				<!-- stats is reassigned to core.propertys right after effects
+				     is set to this same tick's delta (see onNext/
+				     renderTrajectory) -- it already includes this tick's own
+				     change, so subtracting effects[key] here showed the
+				     value from BEFORE this tick instead of the current one.
+				     The number then silently jumped up a full tick later to
+				     catch up, unsynced from the +N badge that had already
+				     moved on -- read as the statbar randomly flashing/
+				     re-rendering on its own. -->
+				<span class="stat-value">{stats[types[key]]}</span>
 				<!-- Always rendered (never conditionally removed) so the row's
 				     total width -- and thus whether flex-wrap kicks in and
 				     the bar's own height -- never depends on whether a delta
@@ -514,7 +528,7 @@
 		<div class="stair-log" bind:this={logEl}>
 			{#each entries as entry, i (entry.id)}
 				<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
-					<div class="step-tread">{entry.year} · Age {entry.age}</div>
+					<div class="step-tread">Age {entry.age}</div>
 					<div class="step-riser">
 						<p class="entry-text">{entry.text}</p>
 						{#if entry.statChanges.length}
@@ -972,9 +986,56 @@
 		color: #17262e;
 		text-shadow: none;
 	}
+	/* Liquid-glass pill -- the same recipe Button.svelte's .btn uses for
+	   Print/Restart Life/View Summary elsewhere (backdrop-blur + saturate,
+	   an inset highlight, a screen-blended gloss cap, a real drop shadow),
+	   just recolored for this panel's own light theme and sized in cq
+	   units instead of Button.svelte's rem/em -- pasting that component's
+	   literal dark, white-glow-text tint onto this bright glass card would
+	   clash with it; unifying the LANGUAGE (an actual pill button, not
+	   bare text) is what actually needed to match, not the exact palette. */
 	.alloc-action.start-row {
+		position: relative;
+		overflow: hidden;
 		margin: 2cqh 0 2cqh;
+		padding: 0.9cqh 4.5cqw;
 		font-size: 1.8rem;
+		border: 1px solid rgba(23, 38, 46, 0.22);
+		border-radius: 999px;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(210, 228, 236, 0.58) 100%);
+		-webkit-backdrop-filter: blur(14px) saturate(160%);
+		backdrop-filter: blur(14px) saturate(160%);
+		box-shadow:
+			0 8px 18px rgba(5, 12, 18, 0.22),
+			inset 0 1px 1px rgba(255, 255, 255, 0.6),
+			inset 0 -8px 14px rgba(20, 40, 55, 0.08);
+		transition: transform 150ms ease, box-shadow 150ms ease;
+	}
+	/* Gloss cap, same trick as Button.svelte's ::before -- a bright ellipse
+	   hugging the top, screen-blended so it reads as light catching a
+	   convex surface rather than a flat highlight bar. */
+	.alloc-action.start-row::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: radial-gradient(120% 100% at 50% -20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.16) 40%, rgba(255, 255, 255, 0) 70%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+	.alloc-action.start-row:not(:disabled):hover {
+		transform: translateY(-1px);
+		box-shadow:
+			0 11px 22px rgba(5, 12, 18, 0.26),
+			inset 0 1px 1px rgba(255, 255, 255, 0.7),
+			inset 0 -8px 14px rgba(20, 40, 55, 0.08);
+	}
+	.alloc-action.start-row:not(:disabled):active {
+		transform: scale(0.97) translateY(0);
+		box-shadow:
+			0 4px 10px rgba(5, 12, 18, 0.2),
+			inset 0 1px 1px rgba(255, 255, 255, 0.45),
+			inset 0 -5px 8px rgba(20, 40, 55, 0.1);
 	}
 	/* Plain text, no border/background/pill -- same type family as every
 	   other label on this panel, just a size up. Only Start carries the

@@ -53,11 +53,21 @@
 	const sex = $draft.sex ?? '';
 	const age = $draft.age ?? summary[types.HAGE].value;
 
+	// '' entries are deliberate blank lines (not line-wraps -- a bare \n
+	// inside one string wouldn't render as a break at all under this
+	// screen's default white-space, and wouldn't give a full blank line
+	// even with pre-line) -- split into their own array entries instead,
+	// which works the same way in both places CREDITS gets rendered: the
+	// on-screen {#each} (one <p> per entry, so an empty entry is a blank
+	// <p>) and the print window's CREDITS.join('<br>') (an empty entry
+	// between two real ones doubles up the <br>).
 	const CREDITS = [
-		'Lead Direction & \n Narrative Design: Yuwei Jiang',
+		'Lead Direction &',
+		'Narrative Design: Yuwei Jiang',
 		'Developer & Co-Design: Yao Wang',
 		'Audio Design: Guanyu Xie',
-		'Built upon the open-source codebase \n of LifeRestart by VickScarlet',
+		'Built upon the open-source codebase',
+		'of LifeRestart by VickScarlet',
 		'Contact: sabinajiang0505@outlook.com',
 		'© 2022 Yuwei Jiang'
 	];
@@ -126,8 +136,17 @@
 			sex ? `Sex orientation: ${sex}` : null,
 			...ROWS.map(r => `${r.label}: ${r.start != null ? `${r.start} → ${r.value}` : r.value}`),
 		].filter(Boolean);
-		return [...header, ...story];
+		// '' is a receipt-style dashed tear-line marker between the header
+		// block (country/sex/stats) and the story, handled specially below
+		// since an empty <p> collapses to no visible height -- a real
+		// break needs its own element, not just an empty text line.
+		return [...header, '', ...story];
 	}
+	// Receipt-style dashed tear line, reused between the header/story
+	// split and again between the story and the QR codes -- a plain <br>
+	// read as an arbitrary gap; an actual rule reads as a deliberate
+	// section break, the way a real printed receipt tears between parts.
+	const DASHED_LINE = "<div style='border-top: 1px dashed #999; width: 280px; margin: 8px 0;'></div>";
 	function onPrintTxt() {
 		const win = window.open();
 		if (!win) return;
@@ -136,11 +155,15 @@
 			"<p style='margin: 6px 0; width: 280px; font-size: 14px; font-family:Cascadia Code, Consolas, monospace'>Life Summary @Samsara</p>"
 		);
 		for (const line of txts) {
+			if (line === '') {
+				win.document.write(DASHED_LINE);
+				continue;
+			}
 			win.document.write(
 				`<p style='margin:3px 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>${line}</p>`
 			);
 		}
-		win.document.write("<br>")
+		win.document.write(DASHED_LINE);
 		const qrOrigin = `${window.location.origin}${base}/images`;
 		const qrs = [
 			['qrcode.png', 'Play it at home'],
@@ -149,7 +172,7 @@
 			['qr-code_discord.png', 'Stay updated on Discord'],
 		];
 		win.document.write(
-			`<div style='margin: 8px 0 0; width: 280px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;'>${qrs
+			`<div style='margin: 0; width: 280px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;'>${qrs
 				.map(
 					([file, caption]) =>
 						`<div style='width: 130px; text-align: center;'>` +
@@ -270,7 +293,7 @@
 	{/if}
 
 	<div class="credits">
-		{#each CREDITS as line (line)}
+		{#each CREDITS as line, i (i)}
 			<p>{line}</p>
 		{/each}
 	</div>

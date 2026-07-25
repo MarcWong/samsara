@@ -25,6 +25,7 @@ class Property {
         EVT: "EVT", // 事件 event EVT
         TMS: "TMS", // 次数 times TMS
         LBTQ: "LBTQ", // 性向 LBTQ
+        TLR: "TLR", // 天龙人 (free-allocation bonus triggered) TLR
         ...NATION_KEY_TO_CODE, // 国别: one entry per functions/countries.js
 
         // Auto calc
@@ -129,6 +130,7 @@ class Property {
             [this.TYPES.SPR]: 0,
 
             [this.TYPES.LBTQ]: 0,
+            [this.TYPES.TLR]: 0,
             ...Object.fromEntries(COUNTRIES.map(({ code }) => [code, 0])),
 
             [this.TYPES.LIF]: 1,
@@ -180,6 +182,7 @@ class Property {
             case this.TYPES.MNY:
             case this.TYPES.SPR:
             case this.TYPES.LBTQ: // 性向
+            case this.TYPES.TLR: // 天龙人
             case this.TYPES.LIF:
             case this.TYPES.TLT:
             case this.TYPES.EVT:
@@ -320,6 +323,7 @@ class Property {
             case this.TYPES.SPR:
             case this.TYPES.LIF:
             case this.TYPES.LBTQ: // 性向
+            case this.TYPES.TLR: // 天龙人
                 this.hl(prop, this.#data[prop] += Number(value));
                 return;
             case this.TYPES.TLT:
