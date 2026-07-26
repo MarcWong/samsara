@@ -75,16 +75,22 @@ describe('Talent.check() arity fix regression', () => {
     });
 });
 
-describe('death-branch chain (STR<1 / MNY<1 -> event 10000)', () => {
-    // 810001/820001 gate on the wealthy-country set (US/CH/EGY/JAP/GBR/DNK);
-    // 910001/920001 gate on the constrained-country set (AF/IRN/PRK/HTI/UKR).
-    // Exercising both funnels is the point: this mechanic was worked on
-    // heavily earlier in the project for exactly the low-point countries.
+describe('death-branch chain (STR<1 / MNY<1 primary-stat terminal events)', () => {
+    // The legacy attribute-band system this suite originally covered
+    // (810001/820001/910001/920001) was removed in favor of the doc-driven
+    // attribute pool (200001-260000): a cluster's lowest-band event (e.g.
+    // 211105) applies a MNY/STR hit and then branches straight to a bespoke
+    // NoRandom terminal event -- 211155/211355 for MNY, 241155/241355 for
+    // STR -- once that same stat crosses below 1. 2111xx/2411xx gate on the
+    // constrained cluster (HTI/AF/IRN/PRK); 2113xx/2413xx gate on the
+    // wealthy cluster (JAP/US/GBR/DNK). Exercising both funnels is the
+    // point: this mechanic was worked on heavily earlier in the project for
+    // exactly the low-point countries.
     const scenarios = [
-        { label: 'wealthy country, MNY<1', code: 'US', stat: 'MNY', eventId: 810001 },
-        { label: 'wealthy country, STR<1', code: 'US', stat: 'STR', eventId: 820001 },
-        { label: 'constrained country, MNY<1', code: 'AF', stat: 'MNY', eventId: 910001 },
-        { label: 'constrained country, STR<1', code: 'AF', stat: 'STR', eventId: 920001 },
+        { label: 'wealthy country, MNY<1', code: 'US', stat: 'MNY', eventId: 211355 },
+        { label: 'wealthy country, STR<1', code: 'US', stat: 'STR', eventId: 241355 },
+        { label: 'constrained country, MNY<1', code: 'AF', stat: 'MNY', eventId: 211155 },
+        { label: 'constrained country, STR<1', code: 'AF', stat: 'STR', eventId: 241155 },
     ];
 
     for (const { label, code, stat, eventId } of scenarios) {
