@@ -1,0 +1,51 @@
+@font-face {
+	font-family: 'Agency FB';
+	src: url('/fonts/agency-fb.ttf') format('truetype');
+	font-display: block;
+}
+
+:root {
+	--bg: #222831;
+	--bg-raised: #393e46;
+	--text: #eeeeee;
+	--text-dim: #999999;
+	--accent: #6495ed;
+	--accent-hover: #87cefa;
+	--positive: #4caf50;
+	--negative: #f44336;
+	--border: #eeeeee;
+	color-scheme: dark;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	color: var(--text);
+	font-family: 'Agency FB', Consolas, Arial, sans-serif;
+}
+
+/* Only html paints a background. If body also painted one, it would sit in
+   body's own normal-flow painting step -- above any fixed/absolute z-index:-1
+   content (the parallax scenes, the WebGL shader canvas) -- because a
+   background on BOTH html and body defeats the CSS canvas-background
+   propagation rule that would otherwise sink it below everything. Confirmed
+   empirically: forcing body's background to a test color covered the whole
+   page, while forcing the same on a z-index:-1 layer did nothing at all. */
+html {
+	background: var(--bg);
+}
+
+button {
+	font-family: inherit;
+	color: inherit;
+}
+
+#app {
+	height: 100%;
+}

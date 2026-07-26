@@ -14,24 +14,25 @@ jobs:
 
     steps:
     - name: Checkout source
-      uses: actions/checkout@v4  # 🔼 升级到 v4
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4  # 🔼 升级到 v4
+      uses: actions/setup-node@v4
       with:
-        node-version: '20'       # 💡 建议升级到 20 (Node 18 已临近生命周期末期，且 20 是当前的主流 LTS 版本)
-
-    - name: Install pnpm
-      run: npm install -g pnpm
+        node-version: '22'
 
     - name: Install dependencies
-      run: pnpm install
+      # package-lock.json isn't committed, so there's no lockfile to run
+      # `npm ci` or cache against.
+      run: npm install
 
     - name: Build the project
-      run: pnpm build
+      run: npm run build
+      env:
+        NODE_ENV: production
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3  # ✅ 保持 v3 不变
+      uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+        publish_dir: ./build

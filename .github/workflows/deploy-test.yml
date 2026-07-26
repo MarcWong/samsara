@@ -1,0 +1,47 @@
+name: Deploy dev branch to samsara_test
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        # package-lock.json isn't committed (gitignored), so `npm ci` and
+        # actions/setup-node's lockfile-based caching both have nothing to
+        # key off -- confirmed live, this is also why web-ci.yml had been
+        # failing since the git-lfs commit. Plain install, no cache.
+        run: npm install
+
+      - name: Build
+        # Overrides the /samsara base path baked into the main production
+        # build -- this deploy lives at a different repo/URL
+        # (marcwong.github.io/samsara_test), so every asset path needs the
+        # matching prefix instead.
+        run: npm run build
+        env:
+          NODE_ENV: production
+          BASE_PATH: /samsara_test
+
+      - name: Deploy to samsara_test
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # A deploy key scoped to only the samsara_test repo (write access,
+          # nothing else) rather than a personal-account-wide token -- keeps
+          # the blast radius of a leaked secret limited to this one test repo.
+          deploy_key: ${{ secrets.SAMSARA_TEST_DEPLOY_KEY }}
+          external_repository: MarcWong/samsara_test
+          publish_branch: gh-pages
+          publish_dir: build

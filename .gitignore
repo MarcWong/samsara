@@ -108,8 +108,19 @@ utils/xlsxTransform-*
 
 /.idea
 
+package-lock.json
 __localStorage.json
 
 .DS_Store
 *.tar
 .vscode
+
+# SvelteKit
+/.svelte-kit
+/build
+.env
+.env.*
+!.env.example
+!.env.test
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
