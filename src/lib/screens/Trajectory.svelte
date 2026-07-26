@@ -301,15 +301,13 @@
 
 	// The rail hint's "see what happens" promise, and the Summary hint's own
 	// "+5 on all stats" line, are a real mechanic: reaching this country's
-	// own trigger value in any single stat tops up everything still under 5
-	// to exactly 5 -- a free-allocation bonus, not the old initProperty()'s
-	// flat-8 stomp on the stat that triggered it (that was the Afghanistan
-	// bug: putting 6 points into MNY alone left it at a genuine 6, but the
-	// old code still forced it up to 8 because 6<8). Stats already at/above
-	// 5 (including whichever stat did the triggering) are left exactly as
-	// allocated. Every group's trigger value is at or below that group's
-	// own point budget, so dumping every point into one stat always meets
-	// it -- no separate "all in one stat" fallback needed.
+	// own trigger value in any single stat adds +5 to all five attributes,
+	// each capped at 17 (per the attribute-pool design doc's privilege
+	// rule -- this replaced the earlier top-up-to-5, so poorer countries'
+	// privileged runs can actually reach the higher attribute bands).
+	// Every group's trigger value is at or below that group's own point
+	// budget, so dumping every point into one stat always meets it -- no
+	// separate "all in one stat" fallback needed.
 	// Returns {propertyAllocate, triggered} -- confirmAllocation() needs the
 	// flag too, to decide whether to re-roll this life's lucky charms.
 	function applyBonus(propertyAllocate) {
@@ -323,7 +321,7 @@
 		if (triggered) {
 			for (const key of STAT_KEYS) {
 				const t = types[key];
-				if (propertyAllocate[t] < 5) propertyAllocate[t] = 5;
+				propertyAllocate[t] = Math.min(propertyAllocate[t] + 5, 17);
 			}
 		}
 		return { propertyAllocate, triggered };
@@ -331,13 +329,14 @@
 
 	// Talent-list indices (see talentDraw.js) of the 4 lucky charms with a
 	// purely positive effect and nothing else attached: Helen of Troy
-	// (CHR+10), Job opportunity (MNY+3), You are beautiful (CHR+3),
-	// Queen's gambit (INT+3). Earthquake, Airplane Crash, Bankruptcy, Rape,
-	// and Farewell Mom are all excluded -- either they harm/kill outright,
-	// or (Farewell Mom, Rape) carry no stat effect but are unambiguously
-	// bad turns for the character. A miracle of life is also excluded: its
-	// STR+3 comes bundled with MNY-3, not a clean positive.
-	const GOOD_TALENT_POOL = [5, 6, 7, 9];
+	// (CHR+10), Job opportunity (MNY+3), A miracle of life (STR+3),
+	// Queen's gambit (INT+3). Earthquake, Airplane Crash, Bankruptcy and
+	// Farewell Mom are excluded -- they harm/kill outright. Rape carries no
+	// stat effect of its own kind here but is unambiguously a bad turn for
+	// the character. You are beautiful is excluded too: its CHR+3 now comes
+	// bundled with MNY-1 (the lucky-charm doc's cosmetic-procedure cost),
+	// not a clean positive.
+	const GOOD_TALENT_POOL = [5, 6, 8, 9];
 
 	function confirmAllocation() {
 		if (allocLeft > 0) return;
