@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
+	import { videoStage } from '../components/videoStage.svelte.js';
 	import { draft, goToScreen, emptyDraft, restartProgress } from '../stores.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
@@ -72,36 +72,65 @@
 		'© 2022 Yuwei Jiang'
 	];
 
-	// Restart Life no longer bridges through a dedicated clip (8.mp4, since
-	// removed) or a hard page reload -- instead 1.mp4 (the title loop
-	// CityIntro itself opens on) plays muted underneath this whole screen
-	// from the moment Summary mounts, invisible until Restart is clicked.
-	// Clicking it drives restartProgress 0->1 (a shared store, not local
-	// state -- Background.svelte's own shader canvas is a sibling under
-	// +page.svelte, not something Summary can pass props into, so both
-	// read the same store to fade in lockstep), revealing the
-	// already-playing loop underneath, then hands off to CITYINTRO once it
-	// completes -- CityIntro's own loadMp4('1.mp4') call resolves instantly
-	// from videoPlayer.js's cache, so its canvas has content the instant it
-	// mounts, no black gap.
-	const DURATION_MS = 2600;
+	// Restart Life, staged as one continuous ~5s camera move:
+	//
+	//   1. The reveal layer underneath everything is a STILL -- an
+	//      "extreme long shot" built by outpainting 1.mp4's own first
+	//      frame (static/images/intro-longshot.png, 2560x1440: the real
+	//      1280x720 frame feathered into a blurred, darkened 2x surround,
+	//      so the morgue reads as a small lit pocket inside a much larger
+	//      dark expanse).
+	//   2. Clicking Restart drives restartProgress 0->1 over DURATION_MS.
+	//      The camera pushes in the whole time (scale 1 -> 2 on that
+	//      still; at exactly 2x, the outpainted image's central region --
+	//      the true first frame of 1.mp4 -- fills the viewport, matching
+	//      the framing CityIntro opens on).
+	//   3. Simultaneously the cloud layer disperses from the CENTER
+	//      outward: the reveal still carries a radial mask whose opaque
+	//      center disc grows from nothing until it passes the corners, so
+	//      Background.svelte's drifting shader clouds (kept fully opaque
+	//      underneath, scaling gently outward -- see its own reading of
+	//      restartProgress) are swallowed edge-ward and finally slip off
+	//      the frame borders.
+	//   4. Near the end the shared VideoStage canvas quietly starts 1.mp4
+	//      (cached since the intro), so when goToScreen('CITYINTRO') fires
+	//      at completion the loop is already painting underneath -- the
+	//      push-in's final frame IS 1.mp4's first frame, and playback
+	//      continues from there with nothing to flash.
+	//
+	// restartProgress is a shared store rather than local state because
+	// Background.svelte -- a sibling under +page.svelte, not a child this
+	// screen can pass props into -- reads the same per-frame value.
+	const DURATION_MS = 5000;
 	let restarting = $state(false);
-	let revealVideoEl = $state(null);
 
 	// Derived purely from $restartProgress (already eased -- see the
-	// smoothstep in onAgain below) so every visual reads off one number:
-	// foreground fades and blurs away while the shader background (already
-	// animating continuously on its own noise field -- see Background.svelte)
-	// and the reveal video underneath cross-fade in, so the transition reads
-	// as dissolving into that same drifting cloud layer rather than a
-	// separate effect layered on top of it.
-	let fgOpacity = $derived(1 - $restartProgress);
-	let videoOpacity = $derived($restartProgress);
-	let blurPx = $derived($restartProgress * 16);
-	let scaleAmt = $derived(1 + $restartProgress * 0.04);
+	// smoothstep in onAgain below) so every visual reads off one number.
+	// Foreground summary panel dissolves early (gone by ~35%) so the rest
+	// of the move plays out over the clouds alone.
+	let fgOpacity = $derived(1 - Math.min(1, $restartProgress / 0.35));
+	let blurPx = $derived(Math.min(1, $restartProgress / 0.35) * 16);
+	// The push-in: 1 -> 2. At 2x the outpainted still's central 1280x720
+	// region (1.mp4's actual first frame) exactly fills the viewport.
+	let pushScale = $derived(1 + $restartProgress);
+	// Dispersal disc: radius 0% -> 155% of the viewport's larger half-axis
+	// (needs to pass ~71% to reach the corners, plus the feather width, so
+	// 155% guarantees the soft edge itself has fully left the frame).
+	let discR = $derived($restartProgress * 155);
+	let revealMask = $derived(
+		`radial-gradient(circle at center, black ${Math.max(0, discR - 18)}%, transparent ${discR}%)`
+	);
 
-	onMount(() => {
-		revealVideoEl?.play().catch(() => {});
+	let prerollStarted = false;
+	$effect(() => {
+		// Pre-roll 1.mp4 on the shared VideoStage during the last stretch of
+		// the push-in (still fully hidden under the reveal still), so the
+		// canvas underneath is already painting the loop when the screen
+		// switches -- loadMp4's cache makes this a decoder spin-up only.
+		if ($restartProgress >= 0.9 && !prerollStarted) {
+			prerollStarted = true;
+			videoStage.play(`${base}/videos/1.mp4`, { loop: true, rate: 0.5 }).catch(() => {});
+		}
 	});
 
 	function onAgain() {
@@ -115,6 +144,11 @@
 			else {
 				draft.set(emptyDraft());
 				goToScreen('CITYINTRO');
+				// Both consumers of this store (this screen and Background)
+				// unmount on the line above -- resetting here means the NEXT
+				// life's Summary doesn't inherit a finished transition (fg
+				// invisible, clouds scaled out) from this one.
+				restartProgress.set(0);
 			}
 		}
 		requestAnimationFrame(tick);
@@ -192,23 +226,23 @@
 </script>
 
 <div class="summary-outer">
-	<!-- svelte-ignore a11y_media_has_caption -->
-	<video
-		bind:this={revealVideoEl}
-		class="reveal-video"
-		src="{base}/videos/1.mp4"
-		muted
-		loop
-		autoplay
-		playsinline
-		preload="auto"
-		style="opacity: {videoOpacity};"
-	></video>
+	<!-- The extreme-long-shot still the restart camera pushes into (see the
+	     staging comment in the script block). Hidden entirely at rest (the
+	     mask disc has zero radius until Restart drives it), so it costs
+	     nothing while the summary is just being read. -->
+	{#if restarting}
+		<img
+			class="reveal-shot"
+			src="{base}/images/intro-longshot.png"
+			alt=""
+			style="transform: scale({pushScale}); mask-image: {revealMask}; -webkit-mask-image: {revealMask};"
+		/>
+	{/if}
 
 	<div
 		class="summary"
 		class:restarting
-		style="opacity: {fgOpacity}; filter: blur({blurPx}px); transform: scale({scaleAmt});"
+		style="opacity: {fgOpacity}; filter: blur({blurPx}px);"
 	>
 		<h1 class="title">♀Samsara</h1>
 
@@ -301,8 +335,8 @@
 		gap: 1.1rem;
 		padding: 1.75rem 1.5rem 1.25rem;
 		color: #dce8ee;
-		/* opacity/filter/transform are driven per-frame from $restartProgress
-		   (see fgOpacity/blurPx/scaleAmt in the script) rather than a CSS
+		/* opacity/filter are driven per-frame from $restartProgress
+		   (see fgOpacity/blurPx in the script) rather than a CSS
 		   transition -- a transition would lag a frame behind and fight the
 		   already-smooth rAF-driven values. */
 	}
@@ -454,12 +488,16 @@
 		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
 	}
 
-	/* 1.mp4 plays muted underneath the whole screen from the moment Summary
-	   mounts, at opacity 0 (see videoOpacity in the script) -- z-index -1
-	   keeps it just above Background.svelte's own shader canvas (also -1,
-	   but earlier in the DOM, so it paints first/lower) and below .summary,
-	   invisible at rest and only fading in as Restart Life runs. */
-	.reveal-video {
+	/* The outpainted long-shot still. z-index -1 keeps it just above
+	   Background.svelte's shader canvas (also -1, but earlier in the DOM,
+	   so it paints first/lower) and below .summary -- the growing radial
+	   mask (inline, driven from restartProgress) is what actually reveals
+	   it from the center outward over the clouds, and the inline scale is
+	   the camera push. object-fit: cover maps the 2560x1440 still onto the
+	   viewport exactly the way the canvas cover-fits 1.mp4, so the 2x
+	   push's endpoint lines up with the clip's own framing on every
+	   aspect ratio. */
+	.reveal-shot {
 		position: fixed;
 		inset: 0;
 		z-index: -1;
@@ -467,5 +505,8 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		/* The push must expand from the frame's center -- the same origin
+		   the dispersal disc opens from. */
+		transform-origin: center center;
 	}
 </style>

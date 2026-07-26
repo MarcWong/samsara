@@ -5,13 +5,18 @@
 
 	let { screen } = $props();
 
-	// Fades out in lockstep with Summary's own Restart Life transition --
-	// see restartProgress in stores.js for why this has to be a store
-	// rather than a prop. The shader keeps animating on its own drifting
-	// noise field the whole time (see the fragment shader below), so this
-	// fade reads as dissolving into that continuing cloud layer rather than
-	// a separate transition effect layered on top of it.
-	let bgOpacity = $derived(1 - $restartProgress);
+	// Reads Summary's Restart Life transition per-frame -- see
+	// restartProgress in stores.js for why this has to be a store rather
+	// than a prop. The clouds do NOT fade globally during the restart:
+	// Summary's reveal layer swallows them from the center outward via its
+	// growing radial mask, so a uniform opacity drop here would read as
+	// "everything dissolves at once" and fight that center-out dispersal.
+	// Instead the canvas scales gently outward from center (the clouds
+	// physically pushed toward, and finally past, the frame edges by the
+	// same camera move) and only drops opacity in the last stretch as a
+	// seam-hiding safety once the mask disc has already passed the corners.
+	let bgScale = $derived(1 + $restartProgress * 0.45);
+	let bgOpacity = $derived(1 - Math.max(0, ($restartProgress - 0.85) / 0.15));
 
 	// CSS fallback for prefers-reduced-motion, no-WebGL, or context loss --
 	// also what's shown for a frame before the canvas mounts. Only SUMMARY
@@ -225,9 +230,16 @@
 		class="fallback"
 		style:background={FALLBACK_GRADIENTS[screen] ?? FALLBACK_GRADIENTS.MAIN}
 		style:opacity={bgOpacity}
+		style:transform="scale({bgScale})"
 	></div>
 {/if}
-<canvas bind:this={canvasEl} class="bg-canvas" class:hidden={!ready} style:opacity={bgOpacity}></canvas>
+<canvas
+	bind:this={canvasEl}
+	class="bg-canvas"
+	class:hidden={!ready}
+	style:opacity={bgOpacity}
+	style:transform="scale({bgScale})"
+></canvas>
 
 <style>
 	.fallback,
@@ -235,6 +247,9 @@
 		position: fixed;
 		inset: 0;
 		z-index: -1;
+		/* The restart dispersal's outward drift must expand from the frame's
+		   center -- the same origin Summary's reveal disc opens from. */
+		transform-origin: center center;
 	}
 	.bg-canvas {
 		width: 100%;

@@ -1023,16 +1023,22 @@
 		   of competing with Start for attention. transform above still
 		   centers it on .value-slot regardless of this added padding. */
 		overflow: hidden;
-		padding: 0.6cqh 3cqw;
-		border: 1px solid rgba(23, 38, 46, 0.22);
+		/* clamp(), not a bare cqw -- .alloc-overlay's container basis is
+		   5.mp4's 16:9 cover-fit rect, which on a narrow/portrait viewport
+		   has to overshoot far wider than the screen itself to cover the
+		   height, so a plain cqw padding ends up huge there even though it
+		   looks right on a landscape viewport. The clamp keeps the cqw
+		   scaling for normal aspect ratios but caps how far it can grow. */
+		padding: 0.5cqh clamp(0.7em, 3cqw, 1.3em);
+		border: 1px solid rgba(23, 38, 46, 0.16);
 		border-radius: 999px;
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(210, 228, 236, 0.58) 100%);
-		-webkit-backdrop-filter: blur(14px) saturate(160%);
-		backdrop-filter: blur(14px) saturate(160%);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(210, 228, 236, 0.32) 100%);
+		-webkit-backdrop-filter: blur(10px) saturate(150%);
+		backdrop-filter: blur(10px) saturate(150%);
 		box-shadow:
-			0 6px 14px rgba(5, 12, 18, 0.2),
-			inset 0 1px 1px rgba(255, 255, 255, 0.6),
-			inset 0 -6px 10px rgba(20, 40, 55, 0.08);
+			0 3px 8px rgba(5, 12, 18, 0.1),
+			inset 0 1px 1px rgba(255, 255, 255, 0.35),
+			inset 0 -3px 5px rgba(20, 40, 55, 0.05);
 		transition: transform 150ms ease, box-shadow 150ms ease;
 	}
 	.alloc-action.random-row::before {
@@ -1040,22 +1046,22 @@
 		position: absolute;
 		inset: 0;
 		border-radius: inherit;
-		background: radial-gradient(120% 100% at 50% -20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.16) 40%, rgba(255, 255, 255, 0) 70%);
+		background: radial-gradient(120% 100% at 50% -20%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0) 70%);
 		mix-blend-mode: screen;
 		pointer-events: none;
 	}
 	.alloc-action.random-row:hover {
 		box-shadow:
-			0 8px 17px rgba(5, 12, 18, 0.24),
-			inset 0 1px 1px rgba(255, 255, 255, 0.7),
-			inset 0 -6px 10px rgba(20, 40, 55, 0.08);
+			0 4px 10px rgba(5, 12, 18, 0.13),
+			inset 0 1px 1px rgba(255, 255, 255, 0.4),
+			inset 0 -3px 5px rgba(20, 40, 55, 0.05);
 	}
 	.alloc-action.random-row:active {
 		transform: translate(-50%, -50%) scale(0.97);
 		box-shadow:
-			0 3px 8px rgba(5, 12, 18, 0.18),
-			inset 0 1px 1px rgba(255, 255, 255, 0.45),
-			inset 0 -4px 6px rgba(20, 40, 55, 0.1);
+			0 2px 5px rgba(5, 12, 18, 0.1),
+			inset 0 1px 1px rgba(255, 255, 255, 0.3),
+			inset 0 -2px 4px rgba(20, 40, 55, 0.06);
 	}
 	/* Liquid-glass pill -- the same recipe Button.svelte's .btn uses for
 	   Print/Restart Life/View Summary elsewhere (backdrop-blur + saturate,
@@ -1069,7 +1075,11 @@
 		position: relative;
 		overflow: hidden;
 		margin: 2cqh 0 2cqh;
-		padding: 0.9cqh 4.5cqw;
+		/* clamp(), same reasoning as .random-row above -- a bare 4.5cqw
+		   stretches this into a badly distorted pill on a narrow/portrait
+		   viewport, since the overlay's cq basis is the video's overshot
+		   16:9 cover-fit width rather than the screen's own width. */
+		padding: 0.9cqh clamp(1.6em, 4.5cqw, 2.4em);
 		font-size: 1.8rem;
 		border: 1px solid rgba(23, 38, 46, 0.22);
 		border-radius: 999px;
@@ -1186,7 +1196,7 @@
 	.alloc-hint {
 		position: relative;
 		margin: 0;
-		max-width: 90%;
+		max-width: 100%;
 		font-size: 1.5cqh;
 		letter-spacing: 0.06em;
 		line-height: 1.4;
