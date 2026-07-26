@@ -243,7 +243,7 @@
     },
     "81902": {
         "id": 81902,
-        "event": "A bullet passes through the thin wall of the room where you are sheltering during a gang battle.",
+        "event": "A bullet passes through the thin wall of the room where you are sheltering during a gang battle.\nYou are DEAD, again.",
         "include": "HTI>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -259,7 +259,7 @@
     },
     "81904": {
         "id": 81904,
-        "event": "A flash flood sweeps through your settlement at night after intense hurricane rainfall; there is no effective warning or organized evacuation.",
+        "event": "A flash flood sweeps through your settlement at night after intense hurricane rainfall; there is no effective warning or organized evacuation.\nYou are DEAD, again.",
         "include": "HTI>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -267,7 +267,7 @@
     },
     "81905": {
         "id": 81905,
-        "event": "Years of untreated hypertension lead to a stroke. Your family finds a vehicle, but the road to emergency care is blocked.",
+        "event": "Years of untreated hypertension lead to a stroke. Your family finds a vehicle, but the road to emergency care is blocked.\nYou are DEAD, again.",
         "include": "HTI>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -441,7 +441,7 @@
     },
     "82903": {
         "id": 82903,
-        "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.",
+        "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.\nYou are DEAD, again.",
         "include": "HTI>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -449,7 +449,7 @@
     },
     "82904": {
         "id": 82904,
-        "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.",
+        "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.\nYou are DEAD, again.",
         "include": "HTI>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -457,7 +457,7 @@
     },
     "82905": {
         "id": 82905,
-        "event": "A treatable cancer becomes fatal after repeated insecurity, flight cancellations and border restrictions interrupt care for too long.",
+        "event": "A treatable cancer becomes fatal after repeated insecurity, flight cancellations and border restrictions interrupt care for too long.\nYou are DEAD, again.",
         "include": "HTI>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1147,7 +1147,7 @@
     },
     "102505": {
         "id": 102505,
-        "event": "You collapse during a prolonged heat wave and water outage. The hospital’s cooling system is overloaded, and no intensive-care bed becomes available.",
+        "event": "You collapse during a prolonged heat wave and water outage. The hospital’s cooling system is overloaded, and no intensive-care bed becomes available.\nYou are DEAD, again.",
         "include": "IRN>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1310,7 +1310,7 @@
     },
     "102801": {
         "id": 102801,
-        "event": "A precision strike destroys a command facility hidden near your family’s residential compound. Wealth provides evacuation plans but cannot change the location of the target.",
+        "event": "A precision strike destroys a command facility hidden near your family’s residential compound. Wealth provides evacuation plans but cannot change the location of the target.\nYou are DEAD, again.",
         "include": "IRN>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1342,7 +1342,7 @@
     },
     "102805": {
         "id": 102805,
-        "event": "A treatable illness becomes fatal when renewed war closes the airspace, imported medicine disappears and the private hospital’s backup systems fail.",
+        "event": "A treatable illness becomes fatal when renewed war closes the airspace, imported medicine disappears and the private hospital’s backup systems fail.\nYou are DEAD, again.",
         "include": "IRN>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1508,7 +1508,7 @@
     },
     "103502": {
         "id": 103502,
-        "event": "You are swept away when a flood strikes the worksite where students have been sent to repair an embankment without proper equipment.",
+        "event": "You are swept away when a flood strikes the worksite where students have been sent to repair an embankment without proper equipment.\nYou are DEAD, again.",
         "include": "PRK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1532,7 +1532,7 @@
     },
     "103505": {
         "id": 103505,
-        "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.",
+        "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.\nYou are DEAD, again.",
         "include": "PRK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1880,7 +1880,7 @@
     },
     "104501": {
         "id": 104501,
-        "event": "A Russian missile penetrates the air-defense network and destroys the apartment building where your family is sheltering.",
+        "event": "A Russian missile penetrates the air-defense network and destroys the apartment building where your family is sheltering.\nYou are DEAD, again.",
         "include": "UKR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1888,7 +1888,7 @@
     },
     "104502": {
         "id": 104502,
-        "event": "You step on an anti-personnel mine while taking a shortcut across land that was declared cleared too early.",
+        "event": "You step on an anti-personnel mine while taking a shortcut across land that was declared cleared too early.\nYou are DEAD, again.",
         "include": "UKR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1912,7 +1912,7 @@
     },
     "104505": {
         "id": 104505,
-        "event": "A new Russian-Ukrainian confrontation damages the regional power grid during extreme winter weather; your hospital’s backup system fails during emergency treatment.",
+        "event": "A new Russian-Ukrainian confrontation damages the regional power grid during extreme winter weather; your hospital’s backup system fails during emergency treatment.\nYou are DEAD, again.",
         "include": "UKR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2075,7 +2075,7 @@
     },
     "104801": {
         "id": 104801,
-        "event": "A missile strikes your private school despite its advanced shelter and security systems.",
+        "event": "A missile strikes your private school despite its advanced shelter and security systems.\nYou are DEAD, again.",
         "include": "UKR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2286,7 +2286,7 @@
     },
     "105503": {
         "id": 105503,
-        "event": "A treatable gynaecological cancer is diagnosed too late after years on fragmented NHS waiting lists.",
+        "event": "A treatable gynaecological cancer is diagnosed too late after years on fragmented NHS waiting lists.\nYou are DEAD, again.",
         "include": "GBR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2478,7 +2478,7 @@
     },
     "105802": {
         "id": 105802,
-        "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.",
+        "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.\nYou are DEAD, again.",
         "include": "GBR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2494,7 +2494,7 @@
     },
     "105804": {
         "id": 105804,
-        "event": "A private aircraft crashes during extreme weather while carrying you between estates and international climate conferences.",
+        "event": "A private aircraft crashes during extreme weather while carrying you between estates and international climate conferences.\nYou are DEAD, again.",
         "include": "GBR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2502,7 +2502,7 @@
     },
     "105805": {
         "id": 105805,
-        "event": "A personalised gene therapy triggers an aggressive cancer years after approval; the treatment had extended your healthy life before abruptly shortening it.",
+        "event": "A personalised gene therapy triggers an aggressive cancer years after approval; the treatment had extended your healthy life before abruptly shortening it.\nYou are DEAD, again.",
         "include": "GBR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2653,7 +2653,7 @@
     },
     "106502": {
         "id": 106502,
-        "event": "You take a stimulant tablet at a party that has been contaminated with a synthetic opioid entering Denmark through an increasingly automated drug market.",
+        "event": "You take a stimulant tablet at a party that has been contaminated with a synthetic opioid entering Denmark through an increasingly automated drug market.\nYou are DEAD, again.",
         "include": "DNK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2677,7 +2677,7 @@
     },
     "106505": {
         "id": 106505,
-        "event": "A treatable heart condition becomes fatal after the public system postpones intervention while privately subscribed patients receive earlier procedures.",
+        "event": "A treatable heart condition becomes fatal after the public system postpones intervention while privately subscribed patients receive earlier procedures.\nYou are DEAD, again.",
         "include": "DNK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2853,7 +2853,7 @@
     },
     "106802": {
         "id": 106802,
-        "event": "An immune reaction during the experimental artificial-placenta treatment causes fatal organ failure, and the company’s lawyers prevent full publication of the trial data.",
+        "event": "An immune reaction during the experimental artificial-placenta treatment causes fatal organ failure, and the company’s lawyers prevent full publication of the trial data.\nYou are DEAD, again.",
         "include": "DNK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2861,7 +2861,7 @@
     },
     "106803": {
         "id": 106803,
-        "event": "Your electric aircraft crashes in Greenland after rapidly changing Arctic weather overwhelms its autonomous navigation system.",
+        "event": "Your electric aircraft crashes in Greenland after rapidly changing Arctic weather overwhelms its autonomous navigation system.\nYou are DEAD, again.",
         "include": "DNK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2877,7 +2877,7 @@
     },
     "106805": {
         "id": 106805,
-        "event": "A longevity therapy triggers a previously unknown cancer that spreads too quickly for even your personalised medical team to stop.",
+        "event": "A longevity therapy triggers a previously unknown cancer that spreads too quickly for even your personalised medical team to stop.\nYou are DEAD, again.",
         "include": "DNK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3084,7 +3084,7 @@
     },
     "107504": {
         "id": 107504,
-        "event": "A flash flood sweeps away your settlement after drought-hardened ground fails to absorb the rain and no evacuation warning reaches women confined at home.",
+        "event": "A flash flood sweeps away your settlement after drought-hardened ground fails to absorb the rain and no evacuation warning reaches women confined at home.\nYou are DEAD, again.",
         "include": "AF>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3258,7 +3258,7 @@
     },
     "107802": {
         "id": 107802,
-        "event": "Your evacuation aircraft is shot down during fighting between rival factions around Kabul airport.",
+        "event": "Your evacuation aircraft is shot down during fighting between rival factions around Kabul airport.\nYou are DEAD, again.",
         "include": "AF>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3266,7 +3266,7 @@
     },
     "107803": {
         "id": 107803,
-        "event": "A male-supremacist organisation bombs the women-led tribunal after describing female political authority as foreign occupation.",
+        "event": "A male-supremacist organisation bombs the women-led tribunal after describing female political authority as foreign occupation.\nYou are DEAD, again.",
         "include": "AF>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3282,7 +3282,7 @@
     },
     "107805": {
         "id": 107805,
-        "event": "A counterfeit component enters your longevity treatment after sanctions disrupt the authorised supply chain, causing irreversible organ failure inside Afghanistan’s best private clinic.",
+        "event": "A counterfeit component enters your longevity treatment after sanctions disrupt the authorised supply chain, causing irreversible organ failure inside Afghanistan’s best private clinic.\nYou are DEAD, again.",
         "include": "AF>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3473,7 +3473,7 @@
     },
     "108502": {
         "id": 108502,
-        "event": "A delivery vehicle strikes you while you cross between eldercare appointments; the platform records that you failed to complete the next visit.",
+        "event": "A delivery vehicle strikes you while you cross between eldercare appointments; the platform records that you failed to complete the next visit.\nYou are DEAD, again.",
         "include": "CH>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3497,7 +3497,7 @@
     },
     "108505": {
         "id": 108505,
-        "event": "A public care system dismisses your cardiac warning because your face, insurance identity and neural-health record fail to match after a database migration.",
+        "event": "A public care system dismisses your cardiac warning because your face, insurance identity and neural-health record fail to match after a database migration.\nYou are DEAD, again.",
         "include": "CH>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3688,7 +3688,7 @@
     },
     "108802": {
         "id": 108802,
-        "event": "An experimental fertility treatment causes an immune reaction that the clinic conceals to protect a nationally strategic reproductive industry.",
+        "event": "An experimental fertility treatment causes an immune reaction that the clinic conceals to protect a nationally strategic reproductive industry.\nYou are DEAD, again.",
         "include": "CH>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3696,7 +3696,7 @@
     },
     "108803": {
         "id": 108803,
-        "event": "A targeted cyberattack takes control of your autonomous car during the political struggle following the national data leak.",
+        "event": "A targeted cyberattack takes control of your autonomous car during the political struggle following the national data leak.\nYou are DEAD, again.",
         "include": "CH>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3704,7 +3704,7 @@
     },
     "108804": {
         "id": 108804,
-        "event": "Your private air taxi crashes in extreme weather while carrying you between a climate conference and a protected residential district.",
+        "event": "Your private air taxi crashes in extreme weather while carrying you between a climate conference and a protected residential district.\nYou are DEAD, again.",
         "include": "CH>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3712,7 +3712,7 @@
     },
     "108805": {
         "id": 108805,
-        "event": "A geopolitical dispute blocks a critical update for your imported neural implant, and an unlicensed domestic replacement causes fatal brain inflammation.",
+        "event": "A geopolitical dispute blocks a critical update for your imported neural implant, and an unlicensed domestic replacement causes fatal brain inflammation.\nYou are DEAD, again.",
         "include": "CH>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3927,7 +3927,7 @@
     },
     "109505": {
         "id": 109505,
-        "event": "An Atlantic health algorithm denies emergency heart treatment because your brain-interface employment subscription has expired.",
+        "event": "An Atlantic health algorithm denies emergency heart treatment because your brain-interface employment subscription has expired.\nYou are DEAD, again.",
         "include": "US>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4121,7 +4121,7 @@
     },
     "109802": {
         "id": 109802,
-        "event": "Your aircraft crashes while evacuating an extreme-weather event that traps thousands of people without private transportation.",
+        "event": "Your aircraft crashes while evacuating an extreme-weather event that traps thousands of people without private transportation.\nYou are DEAD, again.",
         "include": "US>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4129,7 +4129,7 @@
     },
     "109803": {
         "id": 109803,
-        "event": "A politically motivated cyberattack takes control of your autonomous vehicle during the dissolution of the federal government.",
+        "event": "A politically motivated cyberattack takes control of your autonomous vehicle during the dissolution of the federal government.\nYou are DEAD, again.",
         "include": "US>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4145,7 +4145,7 @@
     },
     "109805": {
         "id": 109805,
-        "event": "An experimental longevity treatment triggers an aggressive cancer after extending your healthy life for more than a decade.",
+        "event": "An experimental longevity treatment triggers an aggressive cancer after extending your healthy life for more than a decade.\nYou are DEAD, again.",
         "include": "US>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4501,7 +4501,7 @@
     },
     "110802": {
         "id": 110802,
-        "event": "An experimental fertility-preservation treatment causes a fatal immune reaction concealed by the clinic to protect its elite clientele.",
+        "event": "An experimental fertility-preservation treatment causes a fatal immune reaction concealed by the clinic to protect its elite clientele.\nYou are DEAD, again.",
         "include": "JAP>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4517,7 +4517,7 @@
     },
     "110804": {
         "id": 110804,
-        "event": "A premium neural implant develops an infection after the manufacturer delays reporting failures to protect its share price.",
+        "event": "A premium neural implant develops an infection after the manufacturer delays reporting failures to protect its share price.\nYou are DEAD, again.",
         "include": "JAP>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4525,7 +4525,7 @@
     },
     "110805": {
         "id": 110805,
-        "event": "A longevity treatment triggers an aggressive cancer after successfully extending your healthy life for more than a decade.",
+        "event": "A longevity treatment triggers an aggressive cancer after successfully extending your healthy life for more than a decade.\nYou are DEAD, again.",
         "include": "JAP>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4699,7 +4699,7 @@
     },
     "111503": {
         "id": 111503,
-        "event": "A postpartum hemorrhage begins while the hospital generator is being redirected to a private ward. Your family is told that childbirth is in God’s hands.",
+        "event": "A postpartum hemorrhage begins while the hospital generator is being redirected to a private ward. Your family is told that childbirth is in God’s hands.\nYou are DEAD, again.",
         "include": "EGY>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4881,7 +4881,7 @@
     },
     "111802": {
         "id": 111802,
-        "event": "An experimental fertility procedure causes a clot that the clinic initially hides to protect its foreign accreditation. Your family secures a settlement and a confidentiality agreement after your funeral.",
+        "event": "An experimental fertility procedure causes a clot that the clinic initially hides to protect its foreign accreditation. Your family secures a settlement and a confidentiality agreement after your funeral.\nYou are DEAD, again.",
         "include": "EGY>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4889,7 +4889,7 @@
     },
     "111803": {
         "id": 111803,
-        "event": "An autonomous weapon strikes your yacht during a Red Sea confrontation. Three governments deny responsibility while insurers debate whether the incident counts as terrorism, war or machine error.",
+        "event": "An autonomous weapon strikes your yacht during a Red Sea confrontation. Three governments deny responsibility while insurers debate whether the incident counts as terrorism, war or machine error.\nYou are DEAD, again.",
         "include": "EGY>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5095,7 +5095,7 @@
     },
     "112505": {
         "id": 112505,
-        "event": "You collapse during a lethal humid heatwave while waiting for water. Your district’s cooled emergency shelter exists on the city map but was never completed.",
+        "event": "You collapse during a lethal humid heatwave while waiting for water. Your district’s cooled emergency shelter exists on the city map but was never completed.\nYou are DEAD, again.",
         "include": "IND>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -5269,7 +5269,7 @@
     },
     "112803": {
         "id": 112803,
-        "event": "Your aircraft is destroyed during an autonomous India–China border escalation while carrying you to a technology summit. Both governments blame a targeting system trained by a contractor connected to your company.",
+        "event": "Your aircraft is destroyed during an autonomous India–China border escalation while carrying you to a technology summit. Both governments blame a targeting system trained by a contractor connected to your company.\nYou are DEAD, again.",
         "include": "IND>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5326,7 +5326,7 @@
     },
     "200002": {
         "id": 200002,
-        "event": "The body intervention, stigma or exposure described above becomes fatal once appearance falls below zero.",
+        "event": "The body intervention, stigma or exposure described above becomes fatal once appearance falls below zero.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5334,7 +5334,7 @@
     },
     "200003": {
         "id": 200003,
-        "event": "The cognitive exclusion, inaccessible instruction or system error described above becomes fatal.",
+        "event": "The cognitive exclusion, inaccessible instruction or system error described above becomes fatal.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5350,7 +5350,7 @@
     },
     "200005": {
         "id": 200005,
-        "event": "The conflict, isolation or manipulation described above exceeds your remaining capacity to survive it.",
+        "event": "The conflict, isolation or manipulation described above exceeds your remaining capacity to survive it.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5726,7 +5726,7 @@
     },
     "212355": {
         "id": 212355,
-        "event": "You cannot purchase the complete treatment pathway, and a manageable condition becomes fatal between appointments.",
+        "event": "You cannot purchase the complete treatment pathway, and a manageable condition becomes fatal between appointments.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5787,7 +5787,7 @@
     },
     "213155": {
         "id": 213155,
-        "event": "Your balance turns negative and the protection system abandons you at the moment it becomes most necessary.",
+        "event": "Your balance turns negative and the protection system abandons you at the moment it becomes most necessary.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5846,7 +5846,7 @@
     },
     "213255": {
         "id": 213255,
-        "event": "The loss pushes your resources below zero; housing and treatment collapse together, and no later attribute event is generated.",
+        "event": "The loss pushes your resources below zero; housing and treatment collapse together, and no later attribute event is generated.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5902,7 +5902,7 @@
     },
     "213355": {
         "id": 213355,
-        "event": "Your resources fall below zero, and a life described as secure ends inside two unrelated claims departments.",
+        "event": "Your resources fall below zero, and a life described as secure ends inside two unrelated claims departments.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -5962,7 +5962,7 @@
     },
     "214155": {
         "id": 214155,
-        "event": "Your wealth falls below zero before negotiation or transfer is completed, and access proves indistinguishable from delay.",
+        "event": "Your wealth falls below zero before negotiation or transfer is completed, and access proves indistinguishable from delay.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6020,7 +6020,7 @@
     },
     "214255": {
         "id": 214255,
-        "event": "The emergency converts illiquid privilege into a negative balance; the game ends before ownership becomes usable.",
+        "event": "The emergency converts illiquid privilege into a negative balance; the game ends before ownership becomes usable.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6078,7 +6078,7 @@
     },
     "214355": {
         "id": 214355,
-        "event": "Your balance falls below zero in time, not assets; the treatment window closes while lawyers confirm that you remain rich.",
+        "event": "Your balance falls below zero in time, not assets; the treatment window closes while lawyers confirm that you remain rich.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6138,7 +6138,7 @@
     },
     "215155": {
         "id": 215155,
-        "event": "Your protection balance becomes negative; the convoy, aircraft or clinic fails at the one moment it was built to prevent.",
+        "event": "Your protection balance becomes negative; the convoy, aircraft or clinic fails at the one moment it was built to prevent.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6261,7 +6261,7 @@
     },
     "215355": {
         "id": 215355,
-        "event": "Your protection architecture reaches a negative balance and collapses; wealth survives in the estate after it fails to preserve you.",
+        "event": "Your protection architecture reaches a negative balance and collapses; wealth survives in the estate after it fails to preserve you.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6324,7 +6324,7 @@
     },
     "216155": {
         "id": 216155,
-        "event": "Your wealth score falls below zero; guards change sides, routes close and the receipt lists an empire of assets with no surviving owner.",
+        "event": "Your wealth score falls below zero; guards change sides, routes close and the receipt lists an empire of assets with no surviving owner.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6387,7 +6387,7 @@
     },
     "216255": {
         "id": 216255,
-        "event": "Your score becomes negative; the network survives by deleting you as its most expensive liability.",
+        "event": "Your score becomes negative; the network survives by deleting you as its most expensive liability.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6707,7 +6707,7 @@
     },
     "222155": {
         "id": 222155,
-        "event": "Your appearance score falls below zero as the attempt to become employable causes fatal organ failure.",
+        "event": "Your appearance score falls below zero as the attempt to become employable causes fatal organ failure.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -6832,7 +6832,7 @@
     },
     "222355": {
         "id": 222355,
-        "event": "Your score crosses below zero before the premium response team accepts the case.",
+        "event": "Your score crosses below zero before the premium response team accepts the case.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -7927,7 +7927,7 @@
     },
     "232155": {
         "id": 232155,
-        "event": "Your intelligence score falls below zero at the moment an inaccessible instruction becomes fatal.",
+        "event": "Your intelligence score falls below zero at the moment an inaccessible instruction becomes fatal.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -8722,7 +8722,7 @@
     },
     "236255": {
         "id": 236255,
-        "event": "Your brain fails while the company restores the profitable twin from a clean backup.",
+        "event": "Your brain fails while the company restores the profitable twin from a clean backup.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -8922,7 +8922,7 @@
     },
     "241255": {
         "id": 241255,
-        "event": "Your health score falls below zero while three systems each record that you were referred to another one.",
+        "event": "Your health score falls below zero while three systems each record that you were referred to another one.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },
@@ -9917,7 +9917,7 @@
     },
     "246155": {
         "id": 246155,
-        "event": "Your health falls below zero when a body engineered to defeat nature cannot survive the loss of its private infrastructure.",
+        "event": "Your health falls below zero when a body engineered to defeat nature cannot survive the loss of its private infrastructure.\nYou are DEAD, again.",
         "effect": {
             "LIF": -1
         },

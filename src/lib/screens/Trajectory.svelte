@@ -470,7 +470,7 @@
 			     band (nothing back there to hover once it's on the glass)
 			     and onto its own reserved spot under Start instead. -->
 			<div class="alloc-hint-zone" aria-hidden="true">
-				<p class="alloc-hint">See what will happen to put all tokens into one attribute</p>
+				<p class="alloc-hint">See what happens if you put all tokens <br> in to one attribute.</p>
 			</div>
 		</div>
 	</div>
