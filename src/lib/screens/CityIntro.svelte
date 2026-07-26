@@ -296,8 +296,9 @@
 			<!-- The prompt lies "painted" on the morgue floor: a perspective
 			     transform pitches the text block back into the floor plane
 			     (the shot is one-point perspective, straight at the wall, so
-			     a centered symmetric trapezoid reads correctly), and a
-			     failing-fluorescent flicker animates it. -->
+			     a centered symmetric trapezoid reads correctly). No animation
+			     -- the flicker this used to carry read as distracting/hard
+			     to read, so the text just sits there steady now. -->
 			<div class="floor-text" aria-hidden="true">
 				Which country would you<br />choose to be born in?
 			</div>
@@ -480,45 +481,6 @@
 		text-shadow:
 			0 0 0.4em rgba(180, 210, 230, 0.6),
 			0 1px 8px rgba(0, 0, 0, 0.8);
-		animation: floor-flicker 4s linear infinite;
-	}
-	/* Failing-fluorescent flicker: mostly steady, with two short bursts of
-	   irregular dropouts per cycle. */
-	@keyframes floor-flicker {
-		0%,
-		100% {
-			opacity: 1;
-		}
-		6% {
-			opacity: 1;
-		}
-		7% {
-			opacity: 0.25;
-		}
-		8% {
-			opacity: 0.9;
-		}
-		9% {
-			opacity: 0.35;
-		}
-		10% {
-			opacity: 1;
-		}
-		54% {
-			opacity: 1;
-		}
-		55% {
-			opacity: 0.4;
-		}
-		56% {
-			opacity: 0.95;
-		}
-		58% {
-			opacity: 0.3;
-		}
-		60% {
-			opacity: 1;
-		}
 	}
 	@keyframes pulse {
 		0%,

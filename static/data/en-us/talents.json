@@ -22,7 +22,7 @@
     "90003": {
         "id": "90003",
         "name": "Farewell, Mom",
-        "description": "Your mom dies from an incurable rare disease. You experienced a mental breakdown.",
+        "description": "Your mom dies from an incurable rare disease. You experience a mental breakdown.",
         "condition": "AGE?[22]",
         "grade": 0,
         "effect": {
@@ -32,7 +32,7 @@
     "90004": {
         "id": "90004",
         "name": "Bankruptcy",
-        "description": "After being scammed out of a large sum of money, you fell seriously ill.",
+        "description": "After being scammed out of a large sum of money, you fall seriously ill.",
         "condition": "AGE?[61]",
         "grade": 0,
         "effect": {
@@ -66,7 +66,7 @@
         "id": "90007",
         "name": "Job oppotunity",
         "condition": "AGE?[33]",
-        "description": "You have gained an opportunity to realize your personal value.",
+        "description": "You gain an opportunity to realize your personal value.",
         "grade": 0,
         "effect": {
             "MNY": 3
@@ -75,7 +75,7 @@
     "90008": {
         "id": "90008",
         "name": "You are beautiful",
-        "description": "You underwent a minimally invasive cosmetic procedure.",
+        "description": "You undergo a minimally invasive cosmetic procedure.",
         "condition": "AGE?[18]",
         "grade": 0,
         "effect": {
@@ -87,7 +87,7 @@
         "id": "90009",
         "name": "A miracle of life",
         "condition": "STR<4&AGE>21",
-        "description": "You became a participant in the latest full-body medical scan, and during the examination, every ailment you had—whether major or minor—was cured all at once.",
+        "description": "You become a participant in the latest full-body medical scan, and during the examination, every ailment you have—whether major or minor—is cured all at once.",
         "grade": 0,
         "effect": {
             "STR": 3
@@ -96,7 +96,7 @@
     "90010": {
         "id": "90010",
         "name": "Queen's gambit",
-        "description": "Your mom make you take the new \"Grow Happy\" drug. It significantly boosts your intelligence.",
+        "description": "Your mom makes you take the new \"Grow Happy\" drug. It significantly boosts your intelligence.",
         "condition": "AGE?[8]",
         "grade": 0,
         "effect": {

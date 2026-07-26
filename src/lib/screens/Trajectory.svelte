@@ -694,17 +694,25 @@
 	   an element with no explicit width past its container) -- neither
 	   overflow:hidden here nor on the wrapper above clips it at the
 	   intended edge, which is what let entry text visibly run past the
-	   right edge of the screen. Each step's own small 2D rotateZ tilt
-	   (below) still reads as "stairs" without that problem: it's a
-	   same-plane rotation, so its bounding box matches its layout box and
-	   normal clipping/wrapping behaves exactly as authored. Scrollbar
-	   hidden since scrollToEnd() drives it. Fills its clipping wrapper
+	   right edge of the screen. Each step's own sideways stagger (below)
+	   reads as "stairs" without that problem, and without even the
+	   milder rotateZ tilt this used to carry -- no rotation at all means
+	   its bounding box always matches its layout box, so clipping/
+	   wrapping behaves exactly as authored. Scrollbar hidden since
+	   scrollToEnd() drives it. Fills its clipping wrapper
 	   exactly (inset:0) rather than repeating that wrapper's own
 	   position/size. */
 	.stair-log {
 		position: absolute;
 		inset: 0;
 		overflow-y: auto;
+		/* .scene (the log's ancestor) is pointer-events:none so the big
+		   cover-fit rect it spans doesn't block clicks to anything else
+		   sitting over the footage -- but that also blocked wheel/touch
+		   scroll on the log itself despite its own overflow-y:auto, so
+		   there was no way to manually scroll back up through past
+		   entries. Opt this one element back in. */
+		pointer-events: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 1.6cqh;
@@ -716,19 +724,18 @@
 	.stair-log::-webkit-scrollbar {
 		display: none;
 	}
-	/* One step = one entry: the tread (age) and riser (event) share a
-	   single tilt so they read as one physical step, and each step
-	   outsets sideways from the last on a 5-step sawtooth -- a real
-	   ascending flight alternates which way a tread juts relative to the
-	   one below it; a plain vertical stack read as a list, not stairs. A
-	   same-plane rotateZ only (no perspective/rotateY -- see .stair-log
-	   above), so it can't inflate this card's own clipped/wrapped width. */
+	/* One step = one entry, outset sideways from the last on a 5-step
+	   sawtooth -- a real ascending flight alternates which way a tread
+	   juts relative to the one below it; a plain vertical stack read as a
+	   list, not stairs. That sideways stagger alone reads as "stairs";
+	   the earlier rotateZ(-2.5deg) tilt on top of it made the whole card
+	   look crooked/tilted up rather than like a level flight, so each
+	   step now sits flat like the rest of the staircase. */
 	.step {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		margin-left: calc(var(--step, 0) * 2.6cqw);
-		transform: rotateZ(-2.5deg);
 		font-size: 2.6cqh;
 		max-width: 100%;
 	}
@@ -751,7 +758,10 @@
 			0 2px 8px rgba(5, 12, 18, 0.5);
 	}
 	.step-riser {
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(210, 228, 236, 0.66) 100%);
+		/* A touch more opaque than the original 0.26/0.66 -- the walking
+		   loop's own footage was still showing through enough to make
+		   entry-text harder to read than it should be. */
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(210, 228, 236, 0.8) 100%);
 		-webkit-backdrop-filter: blur(16px) saturate(160%);
 		backdrop-filter: blur(16px) saturate(160%);
 		padding: 0.6em 1em 0.7em;
