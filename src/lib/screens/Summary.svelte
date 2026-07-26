@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { videoStage } from '../components/videoStage.svelte.js';
 	import { draft, goToScreen, emptyDraft, restartProgress } from '../stores.js';
@@ -154,6 +155,23 @@
 		requestAnimationFrame(tick);
 	}
 
+	// Kiosk-style idle reset: this screen is a dead end otherwise (no
+	// auto-advance the way Trajectory has), so a visitor who walks away
+	// without pressing anything would leave the app parked on someone
+	// else's finished life indefinitely. 30s with neither button touched
+	// triggers the exact same Restart Life flow a click would.
+	const IDLE_MS = 30000;
+	let idleTimer = null;
+	function resetIdleTimer() {
+		clearTimeout(idleTimer);
+		if (restarting) return;
+		idleTimer = setTimeout(onAgain, IDLE_MS);
+	}
+	onMount(() => {
+		resetIdleTimer();
+		return () => clearTimeout(idleTimer);
+	});
+
 	// printText's own header block (built in Trajectory.svelte, before any
 	// of this screen's "initial -> final" arrow data existed) only has the
 	// starting allocation, e.g. "Family wealth: 5" -- rebuild that block
@@ -298,8 +316,8 @@
 	{/if}
 
 	<div class="actions">
-		<Button variant="print" onclick={onPrintTxt}>Print</Button>
-		<Button onclick={onAgain}>Restart Life</Button>
+		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>Print</Button>
+		<Button onclick={() => { onAgain(); resetIdleTimer(); }}>Restart Life</Button>
 	</div>
 
 	{#if !triedAllInOneStat}
