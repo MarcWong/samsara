@@ -2,7 +2,7 @@
     "90001": {
         "id": "90001",
         "name": "Earthquake",
-        "description": "You experience earthquake and lost your left arm.",
+        "description": "You experience natural disaster and parts of your body are permanently damaged.",
         "condition": "AGE?[22]",
         "grade": 0,
         "effect": {
@@ -12,8 +12,8 @@
     "90002": {
         "id": "90002",
         "name": "Airplane Crash",
-        "description": "You experience a plane crash, and you are dead.",
-        "condition": "AGE?[79]",
+        "description": "You experience a severe accident, and you are dead.",
+        "condition": "AGE?[35]",
         "grade": 0,
         "effect": {
             "LIF": -1
@@ -22,14 +22,17 @@
     "90003": {
         "id": "90003",
         "name": "Farewell, Mom",
-        "description": "Your mom died from cancer. You experienced a mental breakdown.",
-        "condition": "AGE?[33]",
-        "grade": 0
+        "description": "Your mom dies from an incurable rare disease. You experienced a mental breakdown.",
+        "condition": "AGE?[22]",
+        "grade": 0,
+        "effect": {
+            "STR": -1
+        }
     },
     "90004": {
         "id": "90004",
         "name": "Bankruptcy",
-        "description": "You lost all your money, and you are seriously ill.",
+        "description": "After being scammed out of a large sum of money, you fell seriously ill.",
         "condition": "AGE?[61]",
         "grade": 0,
         "effect": {
@@ -42,13 +45,18 @@
         "name": "Rape",
         "description": "You are raped by a distant relative from your father’s side.",
         "condition": "AGE?[27]",
-        "grade": 0
+        "grade": 0,
+        "effect": {
+            "CHR": -1,
+            "STR": -1,
+            "SPR": -1
+        }
     },
     "90006": {
         "id": "90006",
         "name": "Helen of Troy",
-        "description": "You become growingly extremely pretty.",
-        "condition": "AGE?[8]",
+        "description": "Almost overnight, you become drop-dead gorgeous and become the center of attention ever since.",
+        "condition": "AGE?[18]",
         "grade": 0,
         "effect": {
             "CHR": 10
@@ -57,8 +65,8 @@
     "90007": {
         "id": "90007",
         "name": "Job oppotunity",
-        "condition": "AGE?[73]",
-        "description": "You obtain an important job opportunity.",
+        "condition": "AGE?[33]",
+        "description": "You have gained an opportunity to realize your personal value.",
         "grade": 0,
         "effect": {
             "MNY": 3
@@ -67,32 +75,43 @@
     "90008": {
         "id": "90008",
         "name": "You are beautiful",
-        "description": "You become growingly pretty.",
-        "condition": "AGE?[8]",
+        "description": "You underwent a minimally invasive cosmetic procedure.",
+        "condition": "AGE?[18]",
         "grade": 0,
         "effect": {
-            "CHR": 3
+            "CHR": 3,
+            "MNY": -1
         }
     },
     "90009": {
         "id": "90009",
         "name": "A miracle of life",
         "condition": "STR<4&AGE>21",
-        "description": "You meet a medical treatment miracle.",
+        "description": "You became a participant in the latest full-body medical scan, and during the examination, every ailment you had—whether major or minor—was cured all at once.",
         "grade": 0,
         "effect": {
-            "STR": 3,
-            "MNY": -3
+            "STR": 3
         }
     },
     "90010": {
         "id": "90010",
         "name": "Queen's gambit",
-        "description": "You become growingly intelligent.",
+        "description": "Your mom make you take the new \"Grow Happy\" drug. It significantly boosts your intelligence.",
         "condition": "AGE?[8]",
         "grade": 0,
         "effect": {
             "INT": 3
+        }
+    },
+    "90011": {
+        "id": "90011",
+        "name": "Menopause",
+        "description": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
+        "condition": "AGE?[50]",
+        "grade": 0,
+        "exclusive": true,
+        "effect": {
+            "CHR": -3
         }
     }
 }
