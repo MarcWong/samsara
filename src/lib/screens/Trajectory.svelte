@@ -1014,6 +1014,48 @@
 		   is what makes this win. */
 		color: #17262e;
 		text-shadow: none;
+		/* Same liquid-glass pill recipe as .start-row below (see its own
+		   comment for why: matching the LANGUAGE, an actual pill button
+		   rather than bare text, is what unifies these two rather than
+		   copying Button.svelte's dark palette verbatim). Sized down from
+		   Start's own padding/font-size -- Random is a secondary action on
+		   this panel, so it reads as the smaller of the two pills instead
+		   of competing with Start for attention. transform above still
+		   centers it on .value-slot regardless of this added padding. */
+		overflow: hidden;
+		padding: 0.6cqh 3cqw;
+		border: 1px solid rgba(23, 38, 46, 0.22);
+		border-radius: 999px;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(210, 228, 236, 0.58) 100%);
+		-webkit-backdrop-filter: blur(14px) saturate(160%);
+		backdrop-filter: blur(14px) saturate(160%);
+		box-shadow:
+			0 6px 14px rgba(5, 12, 18, 0.2),
+			inset 0 1px 1px rgba(255, 255, 255, 0.6),
+			inset 0 -6px 10px rgba(20, 40, 55, 0.08);
+		transition: transform 150ms ease, box-shadow 150ms ease;
+	}
+	.alloc-action.random-row::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		background: radial-gradient(120% 100% at 50% -20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.16) 40%, rgba(255, 255, 255, 0) 70%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+	.alloc-action.random-row:hover {
+		box-shadow:
+			0 8px 17px rgba(5, 12, 18, 0.24),
+			inset 0 1px 1px rgba(255, 255, 255, 0.7),
+			inset 0 -6px 10px rgba(20, 40, 55, 0.08);
+	}
+	.alloc-action.random-row:active {
+		transform: translate(-50%, -50%) scale(0.97);
+		box-shadow:
+			0 3px 8px rgba(5, 12, 18, 0.18),
+			inset 0 1px 1px rgba(255, 255, 255, 0.45),
+			inset 0 -4px 6px rgba(20, 40, 55, 0.1);
 	}
 	/* Liquid-glass pill -- the same recipe Button.svelte's .btn uses for
 	   Print/Restart Life/View Summary elsewhere (backdrop-blur + saturate,

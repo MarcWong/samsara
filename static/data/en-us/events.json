@@ -32,6 +32,13 @@
         },
         "NoRandom": 1
     },
+    "10004": {
+        "id": 10004,
+        "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
+        "branch": [
+            "STR<100:10000"
+        ]
+    },
     "74001": {
         "id": 74001,
         "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.",
@@ -5309,2176 +5316,6 @@
         "event": "Full marriage equality finally passes during a secular political swing. You marry the woman who has lived beside you for nineteen years, feeling joy sharpened by anger that the country has named your family only after most of it has already happened.",
         "include": "IND>0&TLR>0&LBTQ>0"
     },
-    "810001": {
-        "id": 810001,
-        "event": "You are born a girl, into a body that’s already struggling from congenital anomalies before you’ve taken your first breath.",
-        "include": "(MNY<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))",
-        "branch": [
-            "MNY<1:10000"
-        ]
-    },
-    "810101": {
-        "id": 810101,
-        "event": "You’re born a girl, into a family with nothing to spare, in a village where the road runs out.",
-        "include": "(MNY>0&MNY<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810102": {
-        "id": 810102,
-        "event": "You catch an infection. Your parents can’t afford to get you treated.",
-        "include": "(MNY>0&MNY<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))",
-        "branch": [
-            "MNY>0&MNY<2:10000"
-        ]
-    },
-    "810201": {
-        "id": 810201,
-        "event": "You’re born a girl, into a family that counts every coin twice.",
-        "include": "(MNY>1&MNY<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810202": {
-        "id": 810202,
-        "event": "Hunger becomes a familiar, everyday feeling.",
-        "include": "(MNY>1&MNY<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810203": {
-        "id": 810203,
-        "event": "You’re rushed to hospital with a congenital heart defect. Your parents can’t afford the operation.",
-        "include": "(MNY>1&MNY<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))",
-        "branch": [
-            "MNY>1&MNY<3:10000"
-        ]
-    },
-    "810301": {
-        "id": 810301,
-        "event": "You’re born a girl, into a household that scrapes by, out past where the tarmac ends.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810302": {
-        "id": 810302,
-        "event": "There’s no kindergarten nearby, so you stay home and start helping with the farm work.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810303": {
-        "id": 810303,
-        "event": "You start at the only primary school in the area. Your parents work in a city far away and only come home once a year.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810304": {
-        "id": 810304,
-        "event": "You’re bullied for being poor. Your parents have no time to stand up for you.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810305": {
-        "id": 810305,
-        "event": "By the time others your age graduate from college, you’ve already spent years on the assembly line.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810306": {
-        "id": 810306,
-        "event": "A machine takes over your job, and you’re let go without much ceremony.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810307": {
-        "id": 810307,
-        "event": "You start learning new skills, ones a machine can’t take from you.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810308": {
-        "id": 810308,
-        "event": "You have even lost your competitive edge in the most basic service sectors; there are always younger, fitter individuals who outshine you at every turn.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810309": {
-        "id": 810309,
-        "event": "You have to retire — nobody wants to hire you anymore — but you have no money to retire on.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810310": {
-        "id": 810310,
-        "event": "The hospital bill alone is more than you’ll ever have.",
-        "include": "(MNY>2&MNY<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0)))",
-        "branch": [
-            "STR>5:10003",
-            "MNY>2&MNY<4:10000"
-        ]
-    },
-    "810401": {
-        "id": 810401,
-        "event": "You’re born a girl, into a family that isn’t poor, exactly, but never quite comfortable either.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810402": {
-        "id": 810402,
-        "event": "Your parents are always at work, so you’re left at home to look after your disabled grandparent.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810403": {
-        "id": 810403,
-        "event": "You put in the hours, chasing grades good enough to matter.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810404": {
-        "id": 810404,
-        "event": "You’re bullied at school for being poor. Your parents have no time to stand up for you.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810405": {
-        "id": 810405,
-        "event": "By the time others your age graduate from college, you’ve already spent years on the assembly line.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810406": {
-        "id": 810406,
-        "event": "A machine takes over your job, and you’re let go without much ceremony.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810407": {
-        "id": 810407,
-        "event": "You start learning new skills, ones a machine can’t take from you.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810408": {
-        "id": 810408,
-        "event": "You have even lost your competitive edge in the most basic service sectors; there are always younger, fitter individuals who outshine you at every turn.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810409": {
-        "id": 810409,
-        "event": "You have to retire — nobody wants to hire you anymore — but you have no money to retire on.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))"
-    },
-    "810410": {
-        "id": 810410,
-        "event": "The hospital bill alone is more than you’ll ever have.",
-        "include": "(MNY>3&MNY<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0))",
-        "branch": [
-            "STR>5:10003",
-            "MNY>3&MNY<5:10000"
-        ]
-    },
-    "810501": {
-        "id": 810501,
-        "event": "You’re born a girl, into a family that gets by well enough, most years.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810502": {
-        "id": 810502,
-        "event": "You start at an ordinary little kindergarten down the road.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810503": {
-        "id": 810503,
-        "event": "Your schedule is packed — extracurricular classes fill every afternoon after school.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810504": {
-        "id": 810504,
-        "event": "You lose an important competition to another student.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810505": {
-        "id": 810505,
-        "event": "You graduate from university and can’t find work.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810506": {
-        "id": 810506,
-        "event": "You start scraping together a living on digital and virtual platforms.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810507": {
-        "id": 810507,
-        "event": "You have parts of your body replaced with better-functioning prosthetics — even your heart, even your brain — to buy yourself more years.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810508": {
-        "id": 810508,
-        "event": "You try to start a second career. It doesn’t work out.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810509": {
-        "id": 810509,
-        "event": "You retire with almost nothing set aside to show for it.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810510": {
-        "id": 810510,
-        "event": "You’re thrown onto the street. You can’t make rent.",
-        "include": "(MNY>4&MNY<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810601": {
-        "id": 810601,
-        "event": "You’re born a girl, into a family with a little breathing room to spare.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810602": {
-        "id": 810602,
-        "event": "You start at one of the expensive kindergartens across town.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810603": {
-        "id": 810603,
-        "event": "Your schedule is packed — extracurricular classes fill every afternoon after school.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810604": {
-        "id": 810604,
-        "event": "You win an important competition — enough to get you into a prestigious middle school.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810605": {
-        "id": 810605,
-        "event": "You graduate from a top university and get into a highly ranked master’s programme.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810606": {
-        "id": 810606,
-        "event": "It takes a while, but you eventually find a job.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810607": {
-        "id": 810607,
-        "event": "You have parts of your body replaced with better-functioning prosthetics — even your heart, even your brain — to buy yourself more years.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810608": {
-        "id": 810608,
-        "event": "Twenty years in the same position, and you know now you’ll never be promoted before you retire.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810609": {
-        "id": 810609,
-        "event": "You retire, and the days at home stretch long and quiet.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810610": {
-        "id": 810610,
-        "event": "You pack your life into a few boxes and move into a nursing home.",
-        "include": "(MNY>5&MNY<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810801": {
-        "id": 810801,
-        "event": "You’re born a girl, into a family that’s never once had to worry about money.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810802": {
-        "id": 810802,
-        "event": "You start at a private international kindergarten.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810803": {
-        "id": 810803,
-        "event": "You’re not the most popular girl at school, but nobody dares bully you either.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810804": {
-        "id": 810804,
-        "event": "You’re invited to the most popular girl’s birthday party. You fight with your parents — they’re not rich enough for the gift you want.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810805": {
-        "id": 810805,
-        "event": "You graduate from a top university and get into a highly ranked master’s programme.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810806": {
-        "id": 810806,
-        "event": "You’re promoted onto the management team.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810807": {
-        "id": 810807,
-        "event": "You have parts of your body replaced with better-functioning prosthetics — even your heart, even your brain — to buy yourself more years.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810808": {
-        "id": 810808,
-        "event": "You start a second career, one you actually love. It pays less than the first, but by now you have enough.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810809": {
-        "id": 810809,
-        "event": "You retire and start to roam around the world.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "810810": {
-        "id": 810810,
-        "event": "You move into a smart nursing home nice enough to feel like a five-star hotel.",
-        "include": "(MNY>7&MNY<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811001": {
-        "id": 811001,
-        "event": "You’re born a girl, into more money than you could ever spend.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811002": {
-        "id": 811002,
-        "event": "You start lessons with a private tutor at home.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811003": {
-        "id": 811003,
-        "event": "You’re one of the popular ones at your private international school.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811004": {
-        "id": 811004,
-        "event": "Your parents buy an asteroid and name it after you.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811005": {
-        "id": 811005,
-        "event": "You graduate from a top-30 university in the world and go straight into the family business.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811006": {
-        "id": 811006,
-        "event": "You make a costly mistake and wipe out everything your branch had earned.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811007": {
-        "id": 811007,
-        "event": "You have parts of your body replaced with better-functioning prosthetics — even your heart, even your brain — to buy yourself more years.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811008": {
-        "id": 811008,
-        "event": "Your branch brings in more than half the company’s profit. Your father still hands his chair to your brother.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811009": {
-        "id": 811009,
-        "event": "You retire into a comfortable life in your mansion.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811010": {
-        "id": 811010,
-        "event": "You host your 80th birthday in your mansion.",
-        "include": "(MNY>9&MNY<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811201": {
-        "id": 811201,
-        "event": "You’re born a girl, into the richest family in the entire country.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811202": {
-        "id": 811202,
-        "event": "You start lessons with the most expensive private tutor money can buy.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811203": {
-        "id": 811203,
-        "event": "You become the most popular kid at your private international school.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811204": {
-        "id": 811204,
-        "event": "You win an important national competition — your grandfather funded the whole thing.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811205": {
-        "id": 811205,
-        "event": "You graduate from a top-10 university in the world. You still want to prove you earned it yourself.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811206": {
-        "id": 811206,
-        "event": "Your business runs smoothly — your family’s quietly propping it up the whole time.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811207": {
-        "id": 811207,
-        "event": "Your family goes bankrupt. The government seizes your business, and that’s how you learn you were never really independent at all.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811208": {
-        "id": 811208,
-        "event": "All you can find now are simple jobs, and you have to watch people half your age get promoted past you.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811209": {
-        "id": 811209,
-        "event": "You can’t afford to retire. You keep working, hard, just to get by.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "811210": {
-        "id": 811210,
-        "event": "You’re forced into retirement — nobody wants you anymore. You live now in a shabby government flat.",
-        "include": "(MNY>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820001": {
-        "id": 820001,
-        "event": "You’re born with defects the doctors can’t quite explain.",
-        "include": "(STR<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR<1:10000"
-        ]
-    },
-    "820101": {
-        "id": 820101,
-        "event": "You nearly die being born, and you’re diagnosed with a congenital heart condition.",
-        "include": "(STR>0&STR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820102": {
-        "id": 820102,
-        "event": "You have a heart attack. The ambulance comes too late.",
-        "include": "(STR>0&STR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>0&STR<2:10000"
-        ]
-    },
-    "820201": {
-        "id": 820201,
-        "event": "Born disabled, you practically grow up in hospital.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820202": {
-        "id": 820202,
-        "event": "Your parents take you to the best hospital they can find. The doctor just shakes his head.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820203": {
-        "id": 820203,
-        "event": "You’re bullied at school for your disability.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820204": {
-        "id": 820204,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820205": {
-        "id": 820205,
-        "event": "You’re introduced to a man for marriage — disabled too, like you.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820206": {
-        "id": 820206,
-        "event": "You nearly die from complications after giving birth.",
-        "include": "(STR>1&STR<3&(CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820207": {
-        "id": 820207,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820208": {
-        "id": 820208,
-        "event": "The word comes back from the doctor: cancer.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820209": {
-        "id": 820209,
-        "event": "The treatment failed. Nothing changes.",
-        "include": "(STR>1&STR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>1&STR<3:10000"
-        ]
-    },
-    "820301": {
-        "id": 820301,
-        "event": "You are diagnosed with asthma.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820302": {
-        "id": 820302,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820303": {
-        "id": 820303,
-        "event": "An asthma attack nearly takes you, until someone gets there in time.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820304": {
-        "id": 820304,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820305": {
-        "id": 820305,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820306": {
-        "id": 820306,
-        "event": "You suffer through the after-effects of childbirth.",
-        "include": "(STR>2&STR<4&(CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820307": {
-        "id": 820307,
-        "event": "The word comes back from the doctor: cancer.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820308": {
-        "id": 820308,
-        "event": "Slowly, painfully, you recover from the cancer.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820309": {
-        "id": 820309,
-        "event": "Most of your teeth fall out. You have them all replaced.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820310": {
-        "id": 820310,
-        "event": "You fall seriously ill in a new global pandemic.",
-        "include": "(STR>2&STR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>2&STR<4:10000"
-        ]
-    },
-    "820401": {
-        "id": 820401,
-        "event": "You’re diagnosed with neonatal jaundice. Luckily, you recover.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820402": {
-        "id": 820402,
-        "event": "A fever knocks you flat for ages.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820403": {
-        "id": 820403,
-        "event": "You break your leg in a crash. You recover but receive a life sentence on the sidelines, away from your beloved dance floor forever.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820404": {
-        "id": 820404,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820405": {
-        "id": 820405,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820406": {
-        "id": 820406,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>3&STR<6&(CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820407": {
-        "id": 820407,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820408": {
-        "id": 820408,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820409": {
-        "id": 820409,
-        "event": "You’re diagnosed with cancer and start treatment.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820410": {
-        "id": 820410,
-        "event": "You beat the cancer. Then you’re diagnosed with Alzheimer’s.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820411": {
-        "id": 820411,
-        "event": "One careless moment, and you fall from the balcony.",
-        "include": "(STR>3&STR<6&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>3&STR<6:10000"
-        ]
-    },
-    "820602": {
-        "id": 820602,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820603": {
-        "id": 820603,
-        "event": "You take first place in a competitive sports tournament.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820604": {
-        "id": 820604,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820605": {
-        "id": 820605,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820606": {
-        "id": 820606,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>5&STR<8&(CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820607": {
-        "id": 820607,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820608": {
-        "id": 820608,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820609": {
-        "id": 820609,
-        "event": "Your eyesight starts failing, and so does your memory.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820610": {
-        "id": 820610,
-        "event": "The diagnosis, when it finally comes, is Alzheimer’s.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820611": {
-        "id": 820611,
-        "event": "One careless moment, and you fall from the balcony.",
-        "include": "(STR>5&STR<8&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>5&STR<8:10000"
-        ]
-    },
-    "820802": {
-        "id": 820802,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820803": {
-        "id": 820803,
-        "event": "You take first place in a competitive sports tournament.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820804": {
-        "id": 820804,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820805": {
-        "id": 820805,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820806": {
-        "id": 820806,
-        "event": "Everyone still guesses you’re ten years younger than you are.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820807": {
-        "id": 820807,
-        "event": "You throw yourself into yoga until you become a master of it.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820808": {
-        "id": 820808,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820809": {
-        "id": 820809,
-        "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820810": {
-        "id": 820810,
-        "event": "Your heart gets worse. Your bones grow weaker by the year.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820811": {
-        "id": 820811,
-        "event": "Some mornings you simply can’t get yourself out of bed anymore.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "820812": {
-        "id": 820812,
-        "event": "An infection takes hold and leaves you seriously ill.",
-        "include": "(STR>7&STR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>7&STR<10:10000"
-        ]
-    },
-    "821002": {
-        "id": 821002,
-        "event": "You throw yourself into competitive sport, training every spare hour.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821003": {
-        "id": 821003,
-        "event": "You take the national youth championship, against all the odds.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821004": {
-        "id": 821004,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821005": {
-        "id": 821005,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821006": {
-        "id": 821006,
-        "event": "Everyone still guesses you’re ten years younger than you are.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821007": {
-        "id": 821007,
-        "event": "You throw yourself into yoga until you become a master of it.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821008": {
-        "id": 821008,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821009": {
-        "id": 821009,
-        "event": "The first grey hairs start showing up, one by one.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821010": {
-        "id": 821010,
-        "event": "Your sight, hearing, taste and smell all start to fade.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821011": {
-        "id": 821011,
-        "event": "While everyone your age is falling ill, you’re still climbing mountains at altitude.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821012": {
-        "id": 821012,
-        "event": "You lose your footing and fall, further than you’d like to admit.",
-        "include": "(STR>9&STR<12&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "branch": [
-            "STR>9&STR<12:10000"
-        ]
-    },
-    "821202": {
-        "id": 821202,
-        "event": "You throw yourself into competitive sport, training every spare hour.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821203": {
-        "id": 821203,
-        "event": "You take the national youth championship, against all the odds.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821204": {
-        "id": 821204,
-        "event": "Your first period arrives, and it makes a scene.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821205": {
-        "id": 821205,
-        "event": "You finish your HPV vaccinations. The first wrinkles start showing up.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821206": {
-        "id": 821206,
-        "event": "Everyone still guesses you’re ten years younger than you are.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821207": {
-        "id": 821207,
-        "event": "You throw yourself into yoga until you become a master of it.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821208": {
-        "id": 821208,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821209": {
-        "id": 821209,
-        "event": "The first grey hairs start showing up, one by one.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821210": {
-        "id": 821210,
-        "event": "Your sight and hearing start slipping, softly, at the edges.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821211": {
-        "id": 821211,
-        "event": "While everyone your age is falling ill, you’re still climbing mountains at altitude.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "821212": {
-        "id": 821212,
-        "event": "You’re still at the gym every other day, refusing to slow down.",
-        "include": "(STR>11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830001": {
-        "id": 830001,
-        "event": "You’re ugly enough that school never lets you forget it.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830002": {
-        "id": 830002,
-        "event": "The bullying follows you into middle school.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830003": {
-        "id": 830003,
-        "event": "High school is easier, but you notice the opportunities that go to the prettier girls instead of you.",
-        "include": "(CHR<2&(US>0(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830004": {
-        "id": 830004,
-        "event": "You go under the knife. The surgery fails.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830005": {
-        "id": 830005,
-        "event": "You spend everything you have trying to fix your face. None of it works.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830006": {
-        "id": 830006,
-        "event": "You finally make peace with how you look. What’s left behind is a mountain of debt from trying not to.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830007": {
-        "id": 830007,
-        "event": "You finally clear the debt from all the surgeries, and the surgeries to fix the surgeries.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830008": {
-        "id": 830008,
-        "event": "You pay for sex for the first time, and it’s the first time you realise sex can actually feel good.",
-        "include": "(CHR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830201": {
-        "id": 830201,
-        "event": "You’re neither popular nor bullied — just average enough to be invisible.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830202": {
-        "id": 830202,
-        "event": "The weight starts creeping on, slowly, without much warning.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830203": {
-        "id": 830203,
-        "event": "You envy the pretty girls in your class. Over the summer you lose weight, and for the first time a man’s head turns when you walk past.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830204": {
-        "id": 830204,
-        "event": "You go under the knife. This time, it works.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830205": {
-        "id": 830205,
-        "event": "You start vlogging part-time. Your looks do most of the work — the followers pile up fast.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830206": {
-        "id": 830206,
-        "event": "The surgery has after-effects. Your face starts to sag.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830207": {
-        "id": 830207,
-        "event": "You start booking in for anti-ageing procedures, one after another.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830208": {
-        "id": 830208,
-        "event": "You pay for sex for the first time, and it’s the first time you realise sex can actually feel good.",
-        "include": "(CHR>1&CHR<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830301": {
-        "id": 830301,
-        "event": "You’re better-looking than average, and you run with a tight little group of girlfriends.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830302": {
-        "id": 830302,
-        "event": "Your body starts changing, and suddenly the boys are paying attention.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830303": {
-        "id": 830303,
-        "event": "You start wearing heels, doing your nails, buying your own clothes.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830304": {
-        "id": 830304,
-        "event": "You notice how often men try to take advantage of it.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830305": {
-        "id": 830305,
-        "event": "You realise nobody takes you seriously. Because you’re a woman.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830306": {
-        "id": 830306,
-        "event": "You start seriously considering plastic surgery.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830307": {
-        "id": 830307,
-        "event": "You start booking in for anti-ageing procedures, one after another.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830308": {
-        "id": 830308,
-        "event": "You pay for sex for the first time, and it’s the first time you realise sex can actually feel good.",
-        "include": "(CHR>2&CHR<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830501": {
-        "id": 830501,
-        "event": "You’re very pretty, and always the teacher’s favourite.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830502": {
-        "id": 830502,
-        "event": "Your body starts changing, and suddenly the boys are paying attention.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830503": {
-        "id": 830503,
-        "event": "You’re known at school for your looks. Boys queue up to pursue you.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830504": {
-        "id": 830504,
-        "event": "Men look at you like you’re available for the taking. Often, they try.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830505": {
-        "id": 830505,
-        "event": "You start vlogging part-time. Your looks do most of the work — the followers pile up fast.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830506": {
-        "id": 830506,
-        "event": "Every rich man you meet wants to date you, and take advantage of you while he’s at it.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830507": {
-        "id": 830507,
-        "event": "People still card you — you look far younger than you are.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830508": {
-        "id": 830508,
-        "event": "Even at forty-five, your looks still bring the pursuers.",
-        "include": "(CHR>4&CHR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830701": {
-        "id": 830701,
-        "event": "You’re very pretty, and always the teacher’s favourite.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830702": {
-        "id": 830702,
-        "event": "You’re the most beautiful, most popular girl in school.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830703": {
-        "id": 830703,
-        "event": "You’re known at school for your looks. Boys queue up to pursue you.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830704": {
-        "id": 830704,
-        "event": "You decide you’re not pretty enough. Social media makes it worse. You book the surgery.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830705": {
-        "id": 830705,
-        "event": "You realise people are only kind to you because of how you look. Nobody actually takes you seriously.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830706": {
-        "id": 830706,
-        "event": "You start thinking about how to turn your looks into money.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830707": {
-        "id": 830707,
-        "event": "Your beauty becomes the product. You sell yourself, piece by piece, to earn a living.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "830708": {
-        "id": 830708,
-        "event": "Even at forty-five, your looks still bring the pursuers.",
-        "include": "(CHR>6&CHR<11&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "831101": {
-        "id": 831101,
-        "event": "You’re pretty enough, young enough, to become a child star.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "MNY": 1
-        }
-    },
-    "831102": {
-        "id": 831102,
-        "event": "You’ve already starred in several films, and school keeps losing out to work.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "MNY": 3
-        }
-    },
-    "831103": {
-        "id": 831103,
-        "event": "Somehow, against the odds, you become a superstar.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "MNY": 5
-        }
-    },
-    "831104": {
-        "id": 831104,
-        "event": "A huge scandal breaks. Your company makes it disappear.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "831105": {
-        "id": 831105,
-        "event": "You start having surgery just to hold your looks in place.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "MNY": -3
-        }
-    },
-    "831106": {
-        "id": 831106,
-        "event": "New stars take your place, one by one. The offers dry up.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "MNY": -3
-        }
-    },
-    "831107": {
-        "id": 831107,
-        "event": "Without the money to keep up the surgeries, your looks fall apart fast.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "CHR": -3
-        }
-    },
-    "831108": {
-        "id": 831108,
-        "event": "Your own face becomes unrecognisable to you.",
-        "include": "(CHR>10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))",
-        "effect": {
-            "CHR": -5
-        }
-    },
-    "840001": {
-        "id": 840001,
-        "event": "You start school, and the other kids never let you forget how stupid they think you are.",
-        "include": "(INT<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840002": {
-        "id": 840002,
-        "event": "You struggle with everything. You’re ashamed of yourself for it.",
-        "include": "(INT<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840003": {
-        "id": 840003,
-        "event": "You keep having to ask your parents for money.",
-        "include": "(INT<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840004": {
-        "id": 840004,
-        "event": "You don’t understand why everyone else seems so depressed and anxious. You’ve never worried about a thing.",
-        "include": "(INT<1&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840101": {
-        "id": 840101,
-        "event": "You start school and bring home failing grades, again and again.",
-        "include": "(INT>0&INT<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840102": {
-        "id": 840102,
-        "event": "You struggle just to finish your schoolwork, let alone catch up with everyone else.",
-        "include": "(INT>0&INT<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840103": {
-        "id": 840103,
-        "event": "You keep having to ask your parents for money.",
-        "include": "(INT>0&INT<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840104": {
-        "id": 840104,
-        "event": "You don’t understand why everyone else seems so depressed and anxious. You’ve never worried about a thing.",
-        "include": "(INT>0&INT<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840105": {
-        "id": 840105,
-        "event": "A fraudulent company cheats you out of a lot of money.",
-        "include": "(INT>0&INT<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840201": {
-        "id": 840201,
-        "event": "You start school and bring home poor grades more often than not.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840202": {
-        "id": 840202,
-        "event": "Some subjects come harder to you than others.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840203": {
-        "id": 840203,
-        "event": "Everyone around you stresses about the future. You don’t feel much of anything about it.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840204": {
-        "id": 840204,
-        "event": "Some days life just feels miserable, pointless — and you couldn’t say exactly why.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840205": {
-        "id": 840205,
-        "event": "Unhappy with where you’ve ended up, you go back and pursue another degree.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840206": {
-        "id": 840206,
-        "event": "The degree you just earned is already out of date in this fast-moving world.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840207": {
-        "id": 840207,
-        "event": "You try to learn the new technologies, the new skills. You can’t keep pace.",
-        "include": "(INT>1&INT<3&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840301": {
-        "id": 840301,
-        "event": "You start school, satchel too big, uniform too stiff.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840302": {
-        "id": 840302,
-        "event": "Schoolwork comes easily. Straight A’s, without much effort.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840303": {
-        "id": 840303,
-        "event": "You’ve read so much, learned so much — and somehow the more you know, the lonelier you feel. You grow more cynical by the year.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840304": {
-        "id": 840304,
-        "event": "The diagnosis, when it finally comes, is depression.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840305": {
-        "id": 840305,
-        "event": "A gang tries to scam you. You help the police catch every one of them.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840306": {
-        "id": 840306,
-        "event": "You work hard, but the job itself is far too simple for what your mind can do.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840307": {
-        "id": 840307,
-        "event": "You try to learn the new technologies, the new skills. You can’t keep pace.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840308": {
-        "id": 840308,
-        "event": "The depression deepens, and some days getting up feels impossible.",
-        "include": "(INT>2&INT<5&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840501": {
-        "id": 840501,
-        "event": "You start school as the smartest kid in the class.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840502": {
-        "id": 840502,
-        "event": "You play two instruments and speak three languages fluently.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840503": {
-        "id": 840503,
-        "event": "You’ve read so much, learned so much — and somehow the more you know, the lonelier you feel. You grow more cynical by the year.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840504": {
-        "id": 840504,
-        "event": "The diagnosis, when it finally comes, is depression.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840505": {
-        "id": 840505,
-        "event": "You work hard, but the job itself is far too simple for what your mind can do.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840506": {
-        "id": 840506,
-        "event": "You keep learning new things to earn your promotion. Even at this age, it still comes quickly to you.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840507": {
-        "id": 840507,
-        "event": "You apply for jobs in the most cutting-edge industries you can find.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840508": {
-        "id": 840508,
-        "event": "You start fresh in a cutting-edge industry, and find it hard to compete with people half your age.",
-        "include": "(INT>4&INT<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840701": {
-        "id": 840701,
-        "event": "You start school and top every class. Everyone calls you a prodigy.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840702": {
-        "id": 840702,
-        "event": "You play two instruments and speak three languages fluently.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840703": {
-        "id": 840703,
-        "event": "The more you learn about the world, the lonelier you feel. You isolate yourself, and you’re diagnosed with depression.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840704": {
-        "id": 840704,
-        "event": "You throw yourself into a PhD, one more piece of paper to prove you’re smart enough.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840705": {
-        "id": 840705,
-        "event": "You publish a book, your name printed on the spine for anyone to see.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840706": {
-        "id": 840706,
-        "event": "The depression deepens, and some days getting up feels impossible.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840707": {
-        "id": 840707,
-        "event": "People keep finding their way to you whenever they need advice.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840708": {
-        "id": 840708,
-        "event": "You branch out into new fields, new cutting-edge technologies.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "840709": {
-        "id": 840709,
-        "event": "You try coming off your depression medication, and try, too, to make peace with yourself.",
-        "include": "(INT>6&INT<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841001": {
-        "id": 841001,
-        "event": "You become famous as a child prodigy, your IQ exceptionally high.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841002": {
-        "id": 841002,
-        "event": "Your tested IQ passes 140. You master six languages.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841003": {
-        "id": 841003,
-        "event": "You throw yourself into a PhD, one more piece of paper to prove you’re smart enough.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841004": {
-        "id": 841004,
-        "event": "You publish a book. It’s very well received.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841005": {
-        "id": 841005,
-        "event": "Your second book comes out. The critics call it mediocre.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841006": {
-        "id": 841006,
-        "event": "Government officials start seeking your advice.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841007": {
-        "id": 841007,
-        "event": "You branch out into new fields, new cutting-edge technologies.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841008": {
-        "id": 841008,
-        "event": "You sit down and write out the whole story of your life, and publish it.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "841009": {
-        "id": 841009,
-        "event": "You win a major prize for your earlier academic work.",
-        "include": "(INT>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850001": {
-        "id": 850001,
-        "event": "You shy away from people. Animals, you love.",
-        "include": "(SPR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850002": {
-        "id": 850002,
-        "event": "You’re always the one being bullied, or left out entirely.",
-        "include": "(&SPR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850003": {
-        "id": 850003,
-        "event": "You’re afraid to let anyone get close to you.",
-        "include": "(SPR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850004": {
-        "id": 850004,
-        "event": "Talking to people doesn’t come naturally to you. You end up relying on AI to do it for you.",
-        "include": "(SPR<2&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850201": {
-        "id": 850201,
-        "event": "You never quite learn how to talk to people.",
-        "include": "(SPR>1&SPR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850202": {
-        "id": 850202,
-        "event": "You’re almost invisible. When something happens, nobody thinks to call you.",
-        "include": "(SPR>1&SPR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850203": {
-        "id": 850203,
-        "event": "You can’t seem to build real relationships. Nobody invites you anywhere, and if you do turn up, nobody remembers you were there.",
-        "include": "(SPR>1&SPR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850204": {
-        "id": 850204,
-        "event": "Talking to people doesn’t come naturally to you. You end up relying on AI to do it for you.",
-        "include": "(SPR>1&SPR<4&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850401": {
-        "id": 850401,
-        "event": "You’re always the clever one, everyone says so.",
-        "include": "(SPR>3&SPR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850402": {
-        "id": 850402,
-        "event": "You come close to being bullied once, but talk your way out of it — and end up friends with the very people who were going to do it.",
-        "include": "(SPR>3&SPR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850403": {
-        "id": 850403,
-        "event": "You’re confident in yourself, and at any party you’re invited to, you already know everyone in the room.",
-        "include": "(SPR>3&SPR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850404": {
-        "id": 850404,
-        "event": "People trust you with their secrets, always have. You find something powerful in being the one who listens — and you’ve used what you hear to solve a few problems of your own.",
-        "include": "(SPR>3&SPR<7&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850701": {
-        "id": 850701,
-        "event": "You’re always the clever one, everyone says so.",
-        "include": "(SPR>6&SPR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850702": {
-        "id": 850702,
-        "event": "Everyone likes you. You get more Christmas gifts than anyone else in your class.",
-        "include": "(SPR>6&SPR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850703": {
-        "id": 850703,
-        "event": "You’re confident in yourself, and somehow you always end up the centre of attention, wherever you are.",
-        "include": "(SPR>6&SPR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "850704": {
-        "id": 850704,
-        "event": "People trust you with their secrets, always have. You find something powerful in being the one who listens — and you’ve used what you hear to solve a few problems of your own.",
-        "include": "(SPR>6&SPR<10&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "851001": {
-        "id": 851001,
-        "event": "You’ve already developed your own way of handling different kinds of people.",
-        "include": "(SPR>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "851002": {
-        "id": 851002,
-        "event": "You run your own gang at school. Nobody dares challenge you.",
-        "include": "(SPR>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "851003": {
-        "id": 851003,
-        "event": "You’re confident in yourself, and you always manage to squeeze the most out of every opportunity that comes your way.",
-        "include": "(SPR>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "851004": {
-        "id": 851004,
-        "event": "You’re the one people come to when something goes wrong. You always know exactly who can fix it. Everyone thanks you for it.",
-        "include": "(SPR>9&(US>0|CH>0|EGY>0|JAP>0|GBR>0|DNK>0|(MNY>4&IND>0)))"
-    },
-    "910001": {
-        "id": 910001,
-        "event": "You’re born a girl, and the doctors find something wrong before the day is out.",
-        "include": "(MNY<1&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "MNY<1:10000"
-        ]
-    },
-    "910101": {
-        "id": 910101,
-        "event": "You’re born a girl, into a family with nothing to spare, in a village where the road runs out. Hunger becomes a familiar, everyday feeling.",
-        "include": "(MNY>0&MNY<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "910102": {
-        "id": 910102,
-        "event": "You fall seriously ill. You can’t afford the treatment.",
-        "include": "(MNY>0&MNY<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "MNY>0&MNY<3:10000"
-        ]
-    },
-    "910301": {
-        "id": 910301,
-        "event": "You’re born a girl, into a household that scrapes by, out past where the tarmac ends.",
-        "include": "(MNY>2&MNY<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "910302": {
-        "id": 910302,
-        "event": "You’ve been doing the simple jobs set aside for women. Then a machine takes even that, and you’re let go.",
-        "include": "(MNY>2&MNY<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "910303": {
-        "id": 910303,
-        "event": "You try to learn new skills, ones a machine can’t take from you.",
-        "include": "(MNY>2&MNY<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "910304": {
-        "id": 910304,
-        "event": "You have to retire — nobody wants to hire you anymore — but you have no money to retire on.",
-        "include": "(MNY>2&MNY<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "910305": {
-        "id": 910305,
-        "event": "You fall seriously ill. You can’t afford the treatment.",
-        "include": "(MNY>2&MNY<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "MNY>2&MNY<5:10000"
-        ]
-    },
-    "910501": {
-        "id": 910501,
-        "event": "You’re born a girl, into a family that gets by well enough, most years.",
-        "include": "(MNY>4&MNY<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910502": {
-        "id": 910502,
-        "event": "It takes a while, but you eventually find a job.",
-        "include": "(MNY>4&MNY<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910503": {
-        "id": 910503,
-        "event": "You’re let go. You start thinking about leaving for the US or the UK, somewhere with an actual future.",
-        "include": "(MNY>4&MNY<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910504": {
-        "id": 910504,
-        "event": "You retire with almost nothing set aside to show for it.",
-        "include": "(MNY>4&MNY<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910505": {
-        "id": 910505,
-        "event": "You’re thrown onto the street. You can’t make rent.",
-        "include": "(MNY>4&MNY<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910601": {
-        "id": 910601,
-        "event": "You’re born a girl, into a family with a little breathing room to spare.",
-        "include": "(MNY>5&MNY<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910602": {
-        "id": 910602,
-        "event": "You leave the country for the UK. You find work there, and for once, your colleagues actually respect you.",
-        "include": "(MNY>5&MNY<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910603": {
-        "id": 910603,
-        "event": "You meet a man from Afghanistan. He shames you in public for not covering yourself in a burka.",
-        "include": "(MNY>5&MNY<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910604": {
-        "id": 910604,
-        "event": "You retire, and the days at home stretch long and quiet.",
-        "include": "(MNY>5&MNY<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910605": {
-        "id": 910605,
-        "event": "You pack your life into a few boxes and move into a nursing home.",
-        "include": "(MNY>5&MNY<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910801": {
-        "id": 910801,
-        "event": "You’re born a girl, into a family that’s never once had to worry about money.",
-        "include": "(MNY>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910802": {
-        "id": 910802,
-        "event": "You leave the country for the UK. You find work there, and for once, your colleagues actually respect you.",
-        "include": "(MNY>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910803": {
-        "id": 910803,
-        "event": "You have parts of your body replaced with better-functioning prosthetics — even your heart, even your brain — to buy yourself more years.",
-        "include": "(MNY>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910804": {
-        "id": 910804,
-        "event": "You retire, and the days at home stretch long and quiet.",
-        "include": "(MNY>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "910805": {
-        "id": 910805,
-        "event": "You pack your life into a few boxes and move into a nursing home.",
-        "include": "(MNY>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)"
-    },
-    "920001": {
-        "id": 920001,
-        "event": "You’re born with defects the doctors can’t quite explain.",
-        "include": "(STR<1&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR<1:10000"
-        ]
-    },
-    "920101": {
-        "id": 920101,
-        "event": "You nearly die being born, and you’re diagnosed with a congenital heart condition.",
-        "include": "(STR>0&STR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920102": {
-        "id": 920102,
-        "event": "You have a heart attack. The ambulance comes too late.",
-        "include": "(STR>0&STR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>0&STR<2:10000"
-        ]
-    },
-    "920201": {
-        "id": 920201,
-        "event": "Born disabled, you practically grow up in hospital.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920202": {
-        "id": 920202,
-        "event": "Your parents take you to the best hospital they can find. The doctor just shakes his head.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920203": {
-        "id": 920203,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920204": {
-        "id": 920204,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920205": {
-        "id": 920205,
-        "event": "The word comes back from the doctor: cancer.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920206": {
-        "id": 920206,
-        "event": "The treatment failed. Nothing changes.",
-        "include": "(STR>1&STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>1&STR<3:10000"
-        ]
-    },
-    "920301": {
-        "id": 920301,
-        "event": "You are diagnosed with asthma.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920302": {
-        "id": 920302,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920303": {
-        "id": 920303,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920304": {
-        "id": 920304,
-        "event": "The word comes back from the doctor: cancer.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920305": {
-        "id": 920305,
-        "event": "Slowly, painfully, you recover from the cancer.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920306": {
-        "id": 920306,
-        "event": "Most of your teeth fall out. You have them all replaced.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920307": {
-        "id": 920307,
-        "event": "You fall seriously ill in a new global pandemic.",
-        "include": "(STR>2&STR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>2&STR<4:10000"
-        ]
-    },
-    "920401": {
-        "id": 920401,
-        "event": "You’re diagnosed with neonatal jaundice. Luckily, you recover.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920402": {
-        "id": 920402,
-        "event": "A fever knocks you flat for ages.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920403": {
-        "id": 920403,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920404": {
-        "id": 920404,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920405": {
-        "id": 920405,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920406": {
-        "id": 920406,
-        "event": "You’re diagnosed with cancer and start treatment.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920407": {
-        "id": 920407,
-        "event": "You beat the cancer. Then you’re diagnosed with Alzheimer’s.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920408": {
-        "id": 920408,
-        "event": "You lose your footing and fall from the balcony.",
-        "include": "(STR>3&STR<6&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>3&STR<6:10000"
-        ]
-    },
-    "920601": {
-        "id": 920601,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920602": {
-        "id": 920602,
-        "event": "You can’t control your bladder since giving birth. Anaemia, gestational diabetes, high blood pressure from the pregnancy — all of it stays with you.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920603": {
-        "id": 920603,
-        "event": "You wake up every day now to joint pain and swelling.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920604": {
-        "id": 920604,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920605": {
-        "id": 920605,
-        "event": "Your eyesight starts failing, and so does your memory.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920606": {
-        "id": 920606,
-        "event": "The diagnosis, when it finally comes, is Alzheimer’s.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920607": {
-        "id": 920607,
-        "event": "You lose your footing and fall from the balcony.",
-        "include": "(STR>5&STR<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>5&STR<8:10000"
-        ]
-    },
-    "920801": {
-        "id": 920801,
-        "event": "Your first teeth start wobbling loose, one by one.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920802": {
-        "id": 920802,
-        "event": "Everyone still guesses you’re ten years younger than you are.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920803": {
-        "id": 920803,
-        "event": "You throw yourself into yoga until you become a master of it.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920804": {
-        "id": 920804,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920805": {
-        "id": 920805,
-        "event": "Your sight and hearing start to blur, and your heart starts giving trouble too.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920806": {
-        "id": 920806,
-        "event": "Your heart gets worse. Your bones grow weaker by the year.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920807": {
-        "id": 920807,
-        "event": "Some mornings you simply can’t get yourself out of bed anymore.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "920808": {
-        "id": 920808,
-        "event": "An infection takes hold and leaves you seriously ill.",
-        "include": "(STR>7&STR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>7&STR<10:10000"
-        ]
-    },
-    "921001": {
-        "id": 921001,
-        "event": "You throw yourself into competitive sport, training every spare hour.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921002": {
-        "id": 921002,
-        "event": "Everyone still guesses you’re ten years younger than you are.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921003": {
-        "id": 921003,
-        "event": "You throw yourself into yoga until you become a master of it.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921004": {
-        "id": 921004,
-        "event": "Your periods stop, one month at a time, until you realise they’re not coming back.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921005": {
-        "id": 921005,
-        "event": "The first grey hairs start showing up, one by one.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921006": {
-        "id": 921006,
-        "event": "Your sight and hearing start slipping, softly, at the edges.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921007": {
-        "id": 921007,
-        "event": "While everyone your age is falling ill, you’re still climbing mountains at altitude.",
-        "include": "(STR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "921008": {
-        "id": 921008,
-        "event": "You fall from a great height and black out.",
-        "include": "(STR>9&STR<12&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))",
-        "branch": [
-            "STR>9&STR<12:10000"
-        ]
-    },
-    "930001": {
-        "id": 930001,
-        "event": "You’re ugly enough that the other girls never let you forget it, even at play.",
-        "include": "(CHR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930002": {
-        "id": 930002,
-        "event": "You go under the knife. The surgery fails.",
-        "include": "(CHR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930003": {
-        "id": 930003,
-        "event": "You spend everything you have trying to fix your face. None of it works.",
-        "include": "(CHR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930004": {
-        "id": 930004,
-        "event": "You finally make peace with how you look. What’s left behind is a mountain of debt from trying not to.",
-        "include": "(CHR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930005": {
-        "id": 930005,
-        "event": "You finally clear the debt from all the surgeries, and the surgeries to fix the surgeries.",
-        "include": "(CHR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930201": {
-        "id": 930201,
-        "event": "You grow up looking, more or less, like everyone else.",
-        "include": "(CHR>1&CHR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930202": {
-        "id": 930202,
-        "event": "You go under the knife. This time, it works.",
-        "include": "(CHR>1&CHR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930203": {
-        "id": 930203,
-        "event": "You start vlogging part-time. Your looks do most of the work — the followers pile up fast.",
-        "include": "(CHR>1&CHR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930204": {
-        "id": 930204,
-        "event": "The surgery has after-effects. Your face starts to sag.",
-        "include": "(CHR>1&CHR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930205": {
-        "id": 930205,
-        "event": "You start booking in for anti-ageing procedures, one after another.",
-        "include": "(CHR>1&CHR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930301": {
-        "id": 930301,
-        "event": "You grow up better-looking than most people around you.",
-        "include": "(CHR>2&CHR<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930302": {
-        "id": 930302,
-        "event": "You hate how often men try to take advantage of you.",
-        "include": "(CHR>2&CHR<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930303": {
-        "id": 930303,
-        "event": "You realise nobody takes you seriously. Because you’re a woman.",
-        "include": "(CHR>2&CHR<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930304": {
-        "id": 930304,
-        "event": "You start seriously considering plastic surgery.",
-        "include": "(CHR>2&CHR<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930305": {
-        "id": 930305,
-        "event": "You start booking in for anti-ageing procedures, one after another.",
-        "include": "(CHR>2&CHR<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930501": {
-        "id": 930501,
-        "event": "You’re very pretty, and everyone’s favourite, always.",
-        "include": "(CHR>4&CHR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930502": {
-        "id": 930502,
-        "event": "You hate how often men try to take advantage of you.",
-        "include": "(CHR>4&CHR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930503": {
-        "id": 930503,
-        "event": "You start vlogging part-time. Your looks do most of the work — the followers pile up fast.",
-        "include": "(CHR>4&CHR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930504": {
-        "id": 930504,
-        "event": "Every rich man you meet wants to date you, and take advantage of you while he’s at it.",
-        "include": "(CHR>4&CHR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930505": {
-        "id": 930505,
-        "event": "People still card you — you look far younger than you are.",
-        "include": "(CHR>4&CHR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930701": {
-        "id": 930701,
-        "event": "You’re very pretty, and everyone’s favourite, always.",
-        "include": "(CHR>6&CHR<11&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930702": {
-        "id": 930702,
-        "event": "You decide you’re not pretty enough. Social media doesn’t help.",
-        "include": "(CHR>6&CHR<11&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930703": {
-        "id": 930703,
-        "event": "You realise people are only kind to you because of how you look. Nobody actually takes you seriously.",
-        "include": "(CHR>6&CHR<11&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930704": {
-        "id": 930704,
-        "event": "You’ve come to hate your own beauty — it’s only ever brought you trouble, harassment, abuse, year after year.",
-        "include": "(CHR>6&CHR<11&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "930705": {
-        "id": 930705,
-        "event": "People still card you — you look far younger than you are.",
-        "include": "(CHR>6&CHR<11&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "931101": {
-        "id": 931101,
-        "event": "You’re exceptionally pretty, and the advertisers all want you.",
-        "include": "(CHR>10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "931102": {
-        "id": 931102,
-        "event": "You miss being a child star, the spotlight, all that attention. Now you’re nobody at all.",
-        "include": "(CHR>10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "931103": {
-        "id": 931103,
-        "event": "You realise people are only kind to you because of how you look. Nobody actually takes you seriously.",
-        "include": "(CHR>10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "931104": {
-        "id": 931104,
-        "event": "You’ve come to hate your own beauty — it’s only ever brought you trouble, harassment, abuse, year after year.",
-        "include": "(CHR>10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "931105": {
-        "id": 931105,
-        "event": "People still card you — you look far younger than you are.",
-        "include": "(CHR>10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940001": {
-        "id": 940001,
-        "event": "You start school, and the other kids never let you forget how stupid they think you are.",
-        "include": "(INT<1&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940002": {
-        "id": 940002,
-        "event": "You don’t understand why everyone else seems so depressed and anxious. You’ve never worried about a thing.",
-        "include": "(INT<1&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940101": {
-        "id": 940101,
-        "event": "You start school and bring home failing grades, again and again.",
-        "include": "(INT>0&INT<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940102": {
-        "id": 940102,
-        "event": "You don’t understand why everyone else seems so depressed and anxious. You’ve never worried about a thing.",
-        "include": "(INT>0&INT<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940103": {
-        "id": 940103,
-        "event": "A fraudster cheats you out of a lot of money.",
-        "include": "(INT>0&INT<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940201": {
-        "id": 940201,
-        "event": "You start school and bring home poor grades more often than not.",
-        "include": "(INT>1&INT<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940202": {
-        "id": 940202,
-        "event": "Everyone around you stresses about the future. You don’t feel much of anything about it.",
-        "include": "(INT>1&INT<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940203": {
-        "id": 940203,
-        "event": "Some days life just feels miserable, pointless — and you couldn’t say exactly why.",
-        "include": "(INT>1&INT<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940204": {
-        "id": 940204,
-        "event": "You try to learn the new technologies, the new skills, online. You can’t keep pace.",
-        "include": "(INT>1&INT<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940301": {
-        "id": 940301,
-        "event": "You start school, satchel too big, uniform too stiff.",
-        "include": "(INT>2&INT<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940302": {
-        "id": 940302,
-        "event": "The diagnosis, when it finally comes, is depression.",
-        "include": "(INT>2&INT<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940303": {
-        "id": 940303,
-        "event": "You teach yourself through reading. Even now, it still comes quickly to you.",
-        "include": "(INT>2&INT<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940304": {
-        "id": 940304,
-        "event": "You try to learn the new technologies, the new skills, online. You can’t keep pace.",
-        "include": "(INT>2&INT<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940305": {
-        "id": 940305,
-        "event": "The depression deepens, and some days getting up feels impossible.",
-        "include": "(INT>2&INT<5&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940501": {
-        "id": 940501,
-        "event": "You start school as the smartest kid in the class.",
-        "include": "(INT>4&INT<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940502": {
-        "id": 940502,
-        "event": "The diagnosis, when it finally comes, is depression.",
-        "include": "(INT>4&INT<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940503": {
-        "id": 940503,
-        "event": "You teach yourself through reading. Even now, it still comes quickly to you.",
-        "include": "(INT>4&INT<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940504": {
-        "id": 940504,
-        "event": "Your friends come to you for advice, often.",
-        "include": "(INT>4&INT<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940505": {
-        "id": 940505,
-        "event": "The depression deepens, and some days getting up feels impossible.",
-        "include": "(INT>4&INT<8&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940801": {
-        "id": 940801,
-        "event": "You start school and top every class. Everyone calls you a prodigy.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940802": {
-        "id": 940802,
-        "event": "You publish your diary in the UK. Around the same time, you’re diagnosed with depression.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940803": {
-        "id": 940803,
-        "event": "The depression deepens, and some days getting up feels impossible.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940804": {
-        "id": 940804,
-        "event": "Your friends come to you for advice, often.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940805": {
-        "id": 940805,
-        "event": "You start teaching yourself everything online, right up to the most cutting-edge technology.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "940806": {
-        "id": 940806,
-        "event": "You try coming off your depression medication, and try, too, to make peace with yourself.",
-        "include": "(INT>7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950001": {
-        "id": 950001,
-        "event": "You shy away from people. Animals, you love.",
-        "include": "(SPR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950002": {
-        "id": 950002,
-        "event": "You’re always the one being bullied, or left out entirely.",
-        "include": "(SPR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950003": {
-        "id": 950003,
-        "event": "You’re afraid to let anyone get close to you.",
-        "include": "(SPR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950004": {
-        "id": 950004,
-        "event": "Talking to people doesn’t come naturally to you. You end up relying on AI to do it for you.",
-        "include": "(SPR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950201": {
-        "id": 950201,
-        "event": "You never quite learn how to talk to people.",
-        "include": "(SPR>1&SPR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950202": {
-        "id": 950202,
-        "event": "You’re almost invisible. When something happens, nobody thinks to call you.",
-        "include": "(SPR>1&SPR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950203": {
-        "id": 950203,
-        "event": "You can’t seem to build real relationships. Nobody invites you anywhere, and if you do turn up, nobody remembers you were there.",
-        "include": "(SPR>1&SPR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950204": {
-        "id": 950204,
-        "event": "Talking to people doesn’t come naturally to you. You end up relying on AI to do it for you.",
-        "include": "(SPR>1&SPR<4&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950401": {
-        "id": 950401,
-        "event": "You’re always the clever one, everyone says so.",
-        "include": "(SPR>3&SPR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950402": {
-        "id": 950402,
-        "event": "You come close to being bullied once, but talk your way out of it — and end up friends with the very people who were going to do it.",
-        "include": "(SPR>3&SPR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950403": {
-        "id": 950403,
-        "event": "You’re confident in yourself, and somehow you always end up the centre of attention, wherever you are.",
-        "include": "(SPR>3&SPR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950404": {
-        "id": 950404,
-        "event": "People trust you with their secrets, always have. You find something powerful in being the one who listens — and you’ve used what you hear to solve a few problems of your own.",
-        "include": "(SPR>3&SPR<7&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950701": {
-        "id": 950701,
-        "event": "You’re always the clever one, everyone says so.",
-        "include": "(SPR>6&SPR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950702": {
-        "id": 950702,
-        "event": "Everyone seems to like you, wherever you go.",
-        "include": "(SPR>6&SPR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950703": {
-        "id": 950703,
-        "event": "You’re confident in yourself, and you always manage to squeeze the most out of every opportunity that comes your way.",
-        "include": "(SPR>6&SPR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "950704": {
-        "id": 950704,
-        "event": "People trust you with their secrets, always have. You find something powerful in being the one who listens — and you’ve used what you hear to solve a few problems of your own.",
-        "include": "(SPR>6&SPR<10&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "951001": {
-        "id": 951001,
-        "event": "You’ve already developed your own way of handling different kinds of people.",
-        "include": "(SPR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "951002": {
-        "id": 951002,
-        "event": "You run your own gang. Nobody dares challenge you.",
-        "include": "(SPR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "951003": {
-        "id": 951003,
-        "event": "You’re confident in yourself, and you always manage to squeeze the most out of every opportunity that comes your way.",
-        "include": "(SPR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
-    "951004": {
-        "id": 951004,
-        "event": "You’re the one people come to when something goes wrong. You always know exactly who can fix it. Everyone thanks you for it.",
-        "include": "(SPR>9&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0|(MNY<5&IND>0))"
-    },
     "200001": {
         "id": 200001,
         "event": "The loss leaves you without the money, shelter or access required to survive. You die before the deficit can be repaired.",
@@ -7563,14 +5400,6 @@
             "SPR<1:200005"
         ]
     },
-    "211155": {
-        "id": 211155,
-        "event": "You die while your family is still assembling the price of reaching treatment.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "211105": {
         "id": 211105,
         "event": "A treatable infection reaches the point at which transport, medicine and an informal payment are all required on the same day.",
@@ -7583,6 +5412,14 @@
             "MNY<1:211155",
             "STR<2:200004"
         ]
+    },
+    "211155": {
+        "id": 211155,
+        "event": "You die while your family is still assembling the price of reaching treatment.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "211201": {
         "id": 211201,
@@ -7627,14 +5464,6 @@
             "SPR<1:200005"
         ]
     },
-    "211255": {
-        "id": 211255,
-        "event": "Treatment begins too late, and your death is recorded as a medical complication rather than a price decision.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "211205": {
         "id": 211205,
         "event": "A hospital requests a deposit while a public bed remains unavailable. Borrowing the deposit would also cancel your food and housing payments.",
@@ -7647,6 +5476,14 @@
             "MNY<1:211255",
             "STR<2:200004"
         ]
+    },
+    "211255": {
+        "id": 211255,
+        "event": "Treatment begins too late, and your death is recorded as a medical complication rather than a price decision.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "211301": {
         "id": 211301,
@@ -7690,14 +5527,6 @@
             "STR<1:200004"
         ]
     },
-    "211355": {
-        "id": 211355,
-        "event": "You die during the appeal, while the premium clinic advertises the treatment’s success rate.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "211305": {
         "id": 211305,
         "event": "An emergency treatment exists, but your public or basic insurance tier excludes the version available soon enough to work.",
@@ -7710,6 +5539,14 @@
             "MNY<1:211355",
             "STR<2:200004"
         ]
+    },
+    "211355": {
+        "id": 211355,
+        "event": "You die during the appeal, while the premium clinic advertises the treatment’s success rate.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "212101": {
         "id": 212101,
@@ -7750,14 +5587,6 @@
             "STR<1:200004"
         ]
     },
-    "212155": {
-        "id": 212155,
-        "event": "Your resources fall below zero before help arrives; the receipt records death by an otherwise survivable emergency.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "212105": {
         "id": 212105,
         "event": "A household crisis requires four points of wealth at once: transport, treatment, lost wages and protection for the person travelling with you.",
@@ -7768,6 +5597,14 @@
         "branch": [
             "MNY<4:212155"
         ]
+    },
+    "212155": {
+        "id": 212155,
+        "event": "Your resources fall below zero before help arrives; the receipt records death by an otherwise survivable emergency.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "212201": {
         "id": 212201,
@@ -7811,14 +5648,6 @@
             "SPR<1:200005"
         ]
     },
-    "212255": {
-        "id": 212255,
-        "event": "Your balance becomes negative, treatment is interrupted and the game prints the cost breakdown beneath the time of death.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "212205": {
         "id": 212205,
         "event": "A medical and housing emergency demands four wealth points before the next salary cycle.",
@@ -7831,6 +5660,14 @@
             "MNY<4:212255",
             "STR<1:200004"
         ]
+    },
+    "212255": {
+        "id": 212255,
+        "event": "Your balance becomes negative, treatment is interrupted and the game prints the cost breakdown beneath the time of death.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "212301": {
         "id": 212301,
@@ -7874,14 +5711,6 @@
             "STR<1:200004"
         ]
     },
-    "212355": {
-        "id": 212355,
-        "event": "You cannot purchase the complete treatment pathway, and a manageable condition becomes fatal between appointments.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "212305": {
         "id": 212305,
         "event": "A late-life procedure requires four wealth points in co-payments, travel and post-operative care.",
@@ -7894,6 +5723,14 @@
             "MNY<4:212355",
             "STR<1:200004"
         ]
+    },
+    "212355": {
+        "id": 212355,
+        "event": "You cannot purchase the complete treatment pathway, and a manageable condition becomes fatal between appointments.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "213101": {
         "id": 213101,
@@ -7935,14 +5772,6 @@
             "SPR<1:200005"
         ]
     },
-    "213155": {
-        "id": 213155,
-        "event": "Your balance turns negative and the protection system abandons you at the moment it becomes most necessary.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "213105": {
         "id": 213105,
         "event": "A seizure, confiscation or family ransom demand consumes seven wealth points before the deadline.",
@@ -7955,6 +5784,14 @@
             "MNY<7:213155",
             "STR<1:200004"
         ]
+    },
+    "213155": {
+        "id": 213155,
+        "event": "Your balance turns negative and the protection system abandons you at the moment it becomes most necessary.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "213201": {
         "id": 213201,
@@ -7994,14 +5831,6 @@
             "MNY<2:200001"
         ]
     },
-    "213255": {
-        "id": 213255,
-        "event": "The loss pushes your resources below zero; housing and treatment collapse together, and no later attribute event is generated.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "213205": {
         "id": 213205,
         "event": "A fraud, medical crisis or failed investment removes seven wealth points in a single settlement.",
@@ -8014,6 +5843,14 @@
             "MNY<7:213255",
             "SPR<1:200005"
         ]
+    },
+    "213255": {
+        "id": 213255,
+        "event": "The loss pushes your resources below zero; housing and treatment collapse together, and no later attribute event is generated.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "213301": {
         "id": 213301,
@@ -8050,14 +5887,6 @@
             "STR<1:200004"
         ]
     },
-    "213355": {
-        "id": 213355,
-        "event": "Your resources fall below zero, and a life described as secure ends inside two unrelated claims departments.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "213305": {
         "id": 213305,
         "event": "A combined housing and medical shock requires seven wealth points after insurers classify both losses as exceptional exclusions.",
@@ -8070,6 +5899,14 @@
             "MNY<7:213355",
             "STR<1:200004"
         ]
+    },
+    "213355": {
+        "id": 213355,
+        "event": "Your resources fall below zero, and a life described as secure ends inside two unrelated claims departments.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "214101": {
         "id": 214101,
@@ -8110,14 +5947,6 @@
             "SPR<1:200005"
         ]
     },
-    "214155": {
-        "id": 214155,
-        "event": "Your wealth falls below zero before negotiation or transfer is completed, and access proves indistinguishable from delay.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "214105": {
         "id": 214105,
         "event": "Kidnapping, expropriation or blocked medical evacuation demands ten wealth points immediately.",
@@ -8130,6 +5959,14 @@
             "MNY<10:214155",
             "STR<1:200004"
         ]
+    },
+    "214155": {
+        "id": 214155,
+        "event": "Your wealth falls below zero before negotiation or transfer is completed, and access proves indistinguishable from delay.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "214201": {
         "id": 214201,
@@ -8168,14 +6005,6 @@
             "MNY<2:200001"
         ]
     },
-    "214255": {
-        "id": 214255,
-        "event": "The emergency converts illiquid privilege into a negative balance; the game ends before ownership becomes usable.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "214205": {
         "id": 214205,
         "event": "A legal seizure, ransom or advanced treatment requires ten wealth points before your assets can be unfrozen.",
@@ -8188,6 +6017,14 @@
             "MNY<10:214255",
             "STR<1:200004"
         ]
+    },
+    "214255": {
+        "id": 214255,
+        "event": "The emergency converts illiquid privilege into a negative balance; the game ends before ownership becomes usable.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "214301": {
         "id": 214301,
@@ -8226,14 +6063,6 @@
             "MNY<2:200001"
         ]
     },
-    "214355": {
-        "id": 214355,
-        "event": "Your balance falls below zero in time, not assets; the treatment window closes while lawyers confirm that you remain rich.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "214305": {
         "id": 214305,
         "event": "A market failure and medical emergency require ten liquid wealth points while your holdings remain locked inside trusts and property.",
@@ -8246,6 +6075,14 @@
             "MNY<10:214355",
             "STR<1:200004"
         ]
+    },
+    "214355": {
+        "id": 214355,
+        "event": "Your balance falls below zero in time, not assets; the treatment window closes while lawyers confirm that you remain rich.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "215101": {
         "id": 215101,
@@ -8286,14 +6123,6 @@
             "SPR<2:200005"
         ]
     },
-    "215155": {
-        "id": 215155,
-        "event": "Your protection balance becomes negative; the convoy, aircraft or clinic fails at the one moment it was built to prevent.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "215105": {
         "id": 215105,
         "event": "A purge, targeted attack or closed border removes thirteen wealth points from the protection system surrounding you.",
@@ -8306,6 +6135,14 @@
             "MNY<13:215155",
             "STR<1:200004"
         ]
+    },
+    "215155": {
+        "id": 215155,
+        "event": "Your protection balance becomes negative; the convoy, aircraft or clinic fails at the one moment it was built to prevent.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "215201": {
         "id": 215201,
@@ -8350,14 +6187,6 @@
             "SPR<2:200005"
         ]
     },
-    "215255": {
-        "id": 215255,
-        "event": "Your score crosses below zero; the institution that insured every ordinary risk classifies your death as force majeure.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "215205": {
         "id": 215205,
         "event": "A political seizure, autonomous attack or failed experimental treatment consumes thirteen wealth points and the protection attached to them.",
@@ -8370,6 +6199,14 @@
             "MNY<13:215255",
             "STR<1:200004"
         ]
+    },
+    "215255": {
+        "id": 215255,
+        "event": "Your score crosses below zero; the institution that insured every ordinary risk classifies your death as force majeure.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "215301": {
         "id": 215301,
@@ -8409,14 +6246,6 @@
             "MNY<2:200001"
         ]
     },
-    "215355": {
-        "id": 215355,
-        "event": "Your protection architecture reaches a negative balance and collapses; wealth survives in the estate after it fails to preserve you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "215305": {
         "id": 215305,
         "event": "A coordinated cyberattack, kidnapping or longevity failure requires thirteen immediately usable wealth points.",
@@ -8429,6 +6258,14 @@
             "MNY<13:215355",
             "STR<1:200004"
         ]
+    },
+    "215355": {
+        "id": 215355,
+        "event": "Your protection architecture reaches a negative balance and collapses; wealth survives in the estate after it fails to preserve you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "216101": {
         "id": 216101,
@@ -8472,14 +6309,6 @@
             "SPR<2:200005"
         ]
     },
-    "216155": {
-        "id": 216155,
-        "event": "Your wealth score falls below zero; guards change sides, routes close and the receipt lists an empire of assets with no surviving owner.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "216105": {
         "id": 216105,
         "event": "A total political collapse or targeted strike removes sixteen wealth points from your private state in a single night.",
@@ -8492,6 +6321,14 @@
             "MNY<16:216155",
             "STR<1:200004"
         ]
+    },
+    "216155": {
+        "id": 216155,
+        "event": "Your wealth score falls below zero; guards change sides, routes close and the receipt lists an empire of assets with no surviving owner.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "216201": {
         "id": 216201,
@@ -8535,14 +6372,6 @@
             "SPR<1:200005"
         ]
     },
-    "216255": {
-        "id": 216255,
-        "event": "Your score becomes negative; the network survives by deleting you as its most expensive liability.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "216205": {
         "id": 216205,
         "event": "A coordinated state seizure, corporate war or neural ransom removes sixteen wealth points and freezes every escape route.",
@@ -8555,6 +6384,14 @@
             "MNY<16:216255",
             "STR<1:200004"
         ]
+    },
+    "216255": {
+        "id": 216255,
+        "event": "Your score becomes negative; the network survives by deleting you as its most expensive liability.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "216301": {
         "id": 216301,
@@ -8598,14 +6435,6 @@
             "SPR<1:200005"
         ]
     },
-    "216355": {
-        "id": 216355,
-        "event": "Your balance falls below zero for the first time; the network protects its continuity by allowing the biological owner to die.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "216305": {
         "id": 216305,
         "event": "A systemic crash, political attack or premium longevity failure removes sixteen liquid wealth points before your private institutions can coordinate.",
@@ -8618,6 +6447,14 @@
             "MNY<16:216355",
             "STR<1:200004"
         ]
+    },
+    "216355": {
+        "id": 216355,
+        "event": "Your balance falls below zero for the first time; the network protects its continuity by allowing the biological owner to die.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "221101": {
         "id": 221101,
@@ -8661,14 +6498,6 @@
             "STR<1:200004"
         ]
     },
-    "221155": {
-        "id": 221155,
-        "event": "You die from sepsis after an appearance treatment sold as your last chance to be treated normally.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "221105": {
         "id": 221105,
         "event": "The injection carries bacteria into your blood, and the clinic disappears before your fever begins.",
@@ -8681,6 +6510,14 @@
             "CHR<1:221155",
             "STR<2:200004"
         ]
+    },
+    "221155": {
+        "id": 221155,
+        "event": "You die from sepsis after an appearance treatment sold as your last chance to be treated normally.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "221201": {
         "id": 221201,
@@ -8726,14 +6563,6 @@
             "STR<1:200004"
         ]
     },
-    "221255": {
-        "id": 221255,
-        "event": "You die after the platform labels the infection an unrelated medical condition and closes your refund claim.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "221205": {
         "id": 221205,
         "event": "A second procedure is performed to repair the first, spreading a resistant infection through damaged tissue.",
@@ -8746,6 +6575,14 @@
             "CHR<1:221255",
             "STR<2:200004"
         ]
+    },
+    "221255": {
+        "id": 221255,
+        "event": "You die after the platform labels the infection an unrelated medical condition and closes your refund claim.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "221301": {
         "id": 221301,
@@ -8791,14 +6628,6 @@
             "STR<1:200004"
         ]
     },
-    "221355": {
-        "id": 221355,
-        "event": "You die overnight while the app continues recording your recovery as within normal parameters.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "221305": {
         "id": 221305,
         "event": "A contracted clinic combines incompatible implants and regenerative compounds, then sends your postoperative monitoring to an unstaffed app.",
@@ -8811,6 +6640,14 @@
             "CHR<1:221355",
             "STR<2:200004"
         ]
+    },
+    "221355": {
+        "id": 221355,
+        "event": "You die overnight while the app continues recording your recovery as within normal parameters.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "222101": {
         "id": 222101,
@@ -8855,14 +6692,6 @@
             "STR<1:200004"
         ]
     },
-    "222155": {
-        "id": 222155,
-        "event": "Your appearance score falls below zero as the attempt to become employable causes fatal organ failure.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "222105": {
         "id": 222105,
         "event": "The treatment contains a toxic dose that damages your liver before anyone identifies what you used.",
@@ -8875,6 +6704,14 @@
             "CHR<4:222155",
             "STR<1:200004"
         ]
+    },
+    "222155": {
+        "id": 222155,
+        "event": "Your appearance score falls below zero as the attempt to become employable causes fatal organ failure.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "222201": {
         "id": 222201,
@@ -8918,14 +6755,6 @@
             "STR<1:200004"
         ]
     },
-    "222255": {
-        "id": 222255,
-        "event": "You die during emergency reconstruction; the advertisement using your before-image remains online.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "222205": {
         "id": 222205,
         "event": "A counterfeit injectable blocks several blood vessels before the clinic admits that its supply chain changed.",
@@ -8938,6 +6767,14 @@
             "CHR<4:222255",
             "STR<1:200004"
         ]
+    },
+    "222255": {
+        "id": 222255,
+        "event": "You die during emergency reconstruction; the advertisement using your before-image remains online.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "222301": {
         "id": 222301,
@@ -8980,14 +6817,6 @@
             "CHR<1:200002"
         ]
     },
-    "222355": {
-        "id": 222355,
-        "event": "Your score crosses below zero before the premium response team accepts the case.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "222305": {
         "id": 222305,
         "event": "A discounted rejuvenation implant triggers a vascular reaction after remote support downgrades your symptoms.",
@@ -9000,6 +6829,14 @@
             "CHR<4:222355",
             "STR<1:200004"
         ]
+    },
+    "222355": {
+        "id": 222355,
+        "event": "Your score crosses below zero before the premium response team accepts the case.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "223101": {
         "id": 223101,
@@ -9043,14 +6880,6 @@
             "SPR<1:200005"
         ]
     },
-    "223155": {
-        "id": 223155,
-        "event": "He kills you, and the public account of your death describes the attention that preceded it as evidence of your success.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "223105": {
         "id": 223105,
         "event": "A man who has tracked you since your public work waits outside your home after authorities dismiss his messages as admiration.",
@@ -9063,6 +6892,14 @@
             "CHR<7:223155",
             "STR<1:200004"
         ]
+    },
+    "223155": {
+        "id": 223155,
+        "event": "He kills you, and the public account of your death describes the attention that preceded it as evidence of your success.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "223201": {
         "id": 223201,
@@ -9107,14 +6944,6 @@
             "CHR<2:200002"
         ]
     },
-    "223255": {
-        "id": 223255,
-        "event": "You die after the platform determines that no single message crossed its threshold for a credible threat.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "223205": {
         "id": 223205,
         "event": "The person who created the deepfake converts years of messages and location data into a physical attack.",
@@ -9127,6 +6956,14 @@
             "CHR<7:223255",
             "STR<1:200004"
         ]
+    },
+    "223255": {
+        "id": 223255,
+        "event": "You die after the platform determines that no single message crossed its threshold for a credible threat.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "223301": {
         "id": 223301,
@@ -9172,14 +7009,6 @@
             "CHR<2:200002"
         ]
     },
-    "223355": {
-        "id": 223355,
-        "event": "You are killed by a viewer whose paid access had been designed to feel like a relationship.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "223305": {
         "id": 223305,
         "event": "An obsessive subscriber uses leaked biometric data to bypass your building and reach you during a live appearance.",
@@ -9192,6 +7021,14 @@
             "CHR<7:223355",
             "STR<1:200004"
         ]
+    },
+    "223355": {
+        "id": 223355,
+        "event": "You are killed by a viewer whose paid access had been designed to feel like a relationship.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "224101": {
         "id": 224101,
@@ -9212,6 +7049,31 @@
         },
         "branch": [
             "SPR<1:200005"
+        ]
+    },
+    "224104": {
+        "id": 224104,
+        "event": "You move behind the camera, stage or organisation as youth stops being the only authority available to you. The public calls it disappearance even when it is promotion.",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "INT": 1,
+            "CHR": -2
+        },
+        "branch": [
+            "CHR<2:200002"
+        ]
+    },
+    "224105": {
+        "id": 224105,
+        "event": "A concealed anti-ageing procedure causes tissue death and a systemic infection while your team delays disclosure to protect the brand.",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "CHR": -10,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<10:224155",
+            "STR<1:200004"
         ]
     },
     "224131": {
@@ -9236,18 +7098,6 @@
             "INT": 1
         }
     },
-    "224104": {
-        "id": 224104,
-        "event": "You move behind the camera, stage or organisation as youth stops being the only authority available to you. The public calls it disappearance even when it is promotion.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "INT": 1,
-            "CHR": -2
-        },
-        "branch": [
-            "CHR<2:200002"
-        ]
-    },
     "224155": {
         "id": 224155,
         "event": "You die after your own publicity office issues a statement describing the hospitalisation as rest.",
@@ -9255,19 +7105,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "224105": {
-        "id": 224105,
-        "event": "A concealed anti-ageing procedure causes tissue death and a systemic infection while your team delays disclosure to protect the brand.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "CHR": -10,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<10:224155",
-            "STR<1:200004"
-        ]
     },
     "224201": {
         "id": 224201,
@@ -9288,6 +7125,32 @@
         },
         "branch": [
             "SPR<1:200005"
+        ]
+    },
+    "224204": {
+        "id": 224204,
+        "event": "You direct and produce younger performers, learning that real power begins when your face can leave the frame without your income leaving with it.",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "INT": 1,
+            "MNY": 1,
+            "CHR": -2
+        },
+        "branch": [
+            "CHR<2:200002"
+        ]
+    },
+    "224205": {
+        "id": 224205,
+        "event": "A regenerative facial implant fails, and every doctor waits for the brand’s legal team before removing it.",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "CHR": -10,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<10:224255",
+            "STR<1:200004"
         ]
     },
     "224231": {
@@ -9312,19 +7175,6 @@
             "INT": 1
         }
     },
-    "224204": {
-        "id": 224204,
-        "event": "You direct and produce younger performers, learning that real power begins when your face can leave the frame without your income leaving with it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "INT": 1,
-            "MNY": 1,
-            "CHR": -2
-        },
-        "branch": [
-            "CHR<2:200002"
-        ]
-    },
     "224255": {
         "id": 224255,
         "event": "You die from cascading infection while sponsored posts continue to display the procedure as safe.",
@@ -9332,19 +7182,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "224205": {
-        "id": 224205,
-        "event": "A regenerative facial implant fails, and every doctor waits for the brand’s legal team before removing it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "CHR": -10,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<10:224255",
-            "STR<1:200004"
-        ]
     },
     "224301": {
         "id": 224301,
@@ -9362,6 +7199,32 @@
         },
         "branch": [
             "SPR<1:200005"
+        ]
+    },
+    "224304": {
+        "id": 224304,
+        "event": "Your biological face ages while the licensed version remains twenty-two. Audiences call the younger one authentic and your living body a disappointing adaptation.",
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "CHR": -2,
+            "SPR": -1
+        },
+        "branch": [
+            "CHR<2:200002",
+            "SPR<1:200005"
+        ]
+    },
+    "224305": {
+        "id": 224305,
+        "event": "An illegal clinic combines neural anaesthesia with accelerated tissue renewal to keep you aligned with your digital double.",
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
+        "effect": {
+            "CHR": -10,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<10:224355",
+            "STR<1:200004"
         ]
     },
     "224331": {
@@ -9386,19 +7249,6 @@
             "INT": 1
         }
     },
-    "224304": {
-        "id": 224304,
-        "event": "Your biological face ages while the licensed version remains twenty-two. Audiences call the younger one authentic and your living body a disappointing adaptation.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "CHR": -2,
-            "SPR": -1
-        },
-        "branch": [
-            "CHR<2:200002",
-            "SPR<1:200005"
-        ]
-    },
     "224355": {
         "id": 224355,
         "event": "You die during the procedure; the licensed younger version releases a memorial message in your voice.",
@@ -9406,19 +7256,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "224305": {
-        "id": 224305,
-        "event": "An illegal clinic combines neural anaesthesia with accelerated tissue renewal to keep you aligned with your digital double.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
-        "effect": {
-            "CHR": -10,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<10:224355",
-            "STR<1:200004"
-        ]
     },
     "225101": {
         "id": 225101,
@@ -9445,6 +7282,32 @@
             "SPR<1:200005"
         ]
     },
+    "225104": {
+        "id": 225104,
+        "event": "You select, train and manage the next official faces. People say you have faded when you have actually moved closer to the decisions.",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "INT": 1,
+            "MNY": 1,
+            "CHR": -2
+        },
+        "branch": [
+            "CHR<2:200002"
+        ]
+    },
+    "225105": {
+        "id": 225105,
+        "event": "A fan, faction or former sponsor treats your attempt to control your own image as theft of something that belongs to them.",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "CHR": -13,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<13:225155",
+            "STR<1:200004"
+        ]
+    },
     "225131": {
         "id": 225131,
         "event": "Powerful sponsors exchange protection for control of your body.",
@@ -9467,19 +7330,6 @@
             "INT": 1
         }
     },
-    "225104": {
-        "id": 225104,
-        "event": "You select, train and manage the next official faces. People say you have faded when you have actually moved closer to the decisions.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "INT": 1,
-            "MNY": 1,
-            "CHR": -2
-        },
-        "branch": [
-            "CHR<2:200002"
-        ]
-    },
     "225155": {
         "id": 225155,
         "event": "You are killed after years of being presented as public property make private refusal appear illegitimate.",
@@ -9487,19 +7337,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "225105": {
-        "id": 225105,
-        "event": "A fan, faction or former sponsor treats your attempt to control your own image as theft of something that belongs to them.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "CHR": -13,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<13:225155",
-            "STR<1:200004"
-        ]
     },
     "225201": {
         "id": 225201,
@@ -9517,6 +7354,32 @@
         },
         "branch": [
             "SPR<1:200005"
+        ]
+    },
+    "225204": {
+        "id": 225204,
+        "event": "You shift decisively into production and distribution. Your face opens the meeting, but ownership decides how it ends.",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "INT": 1,
+            "MNY": 1,
+            "CHR": -2
+        },
+        "branch": [
+            "CHR<2:200002"
+        ]
+    },
+    "225205": {
+        "id": 225205,
+        "event": "An obsessive fan uses a leaked care robot credential to enter your recovery suite after a rejuvenation procedure.",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "CHR": -13,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<13:225255",
+            "STR<1:200004"
         ]
     },
     "225231": {
@@ -9541,19 +7404,6 @@
             "INT": 1
         }
     },
-    "225204": {
-        "id": 225204,
-        "event": "You shift decisively into production and distribution. Your face opens the meeting, but ownership decides how it ends.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "INT": 1,
-            "MNY": 1,
-            "CHR": -2
-        },
-        "branch": [
-            "CHR<2:200002"
-        ]
-    },
     "225255": {
         "id": 225255,
         "event": "You die where wealth, fame and medical privacy were supposed to make intrusion impossible.",
@@ -9561,19 +7411,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "225205": {
-        "id": 225205,
-        "event": "An obsessive fan uses a leaked care robot credential to enter your recovery suite after a rejuvenation procedure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "CHR": -13,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<13:225255",
-            "STR<1:200004"
-        ]
     },
     "225301": {
         "id": 225301,
@@ -9591,6 +7428,32 @@
         },
         "branch": [
             "SPR<1:200005"
+        ]
+    },
+    "225304": {
+        "id": 225304,
+        "event": "Your studio sells consent-certified performers while an underground market prefers stolen faces. Authenticity becomes a luxury label you own but cannot enforce.",
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "INT": 1,
+            "MNY": 1,
+            "CHR": -2
+        },
+        "branch": [
+            "CHR<2:200002"
+        ]
+    },
+    "225305": {
+        "id": 225305,
+        "event": "An anti-ageing immune reset mistakes regenerated facial tissue for a threat and attacks several organs.",
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
+        "effect": {
+            "CHR": -13,
+            "STR": -1
+        },
+        "branch": [
+            "CHR<13:225355",
+            "STR<1:200004"
         ]
     },
     "225331": {
@@ -9615,19 +7478,6 @@
             "INT": 1
         }
     },
-    "225304": {
-        "id": 225304,
-        "event": "Your studio sells consent-certified performers while an underground market prefers stolen faces. Authenticity becomes a luxury label you own but cannot enforce.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "INT": 1,
-            "MNY": 1,
-            "CHR": -2
-        },
-        "branch": [
-            "CHR<2:200002"
-        ]
-    },
     "225355": {
         "id": 225355,
         "event": "You die while the studio’s digital version of you completes the press tour without cancelling an appearance.",
@@ -9635,19 +7485,6 @@
             "LIF": -1
         },
         "NoRandom": 1
-    },
-    "225305": {
-        "id": 225305,
-        "event": "An anti-ageing immune reset mistakes regenerated facial tissue for a threat and attacks several organs.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
-        "effect": {
-            "CHR": -13,
-            "STR": -1
-        },
-        "branch": [
-            "CHR<13:225355",
-            "STR<1:200004"
-        ]
     },
     "226101": {
         "id": 226101,
@@ -9694,14 +7531,6 @@
             "SPR<1:200005"
         ]
     },
-    "226155": {
-        "id": 226155,
-        "event": "You die while the state preserves your face as proof that continuity has not been interrupted.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "226105": {
         "id": 226105,
         "event": "A full facial and neural renewal is rushed before a succession ceremony, causing immune collapse.",
@@ -9714,6 +7543,14 @@
             "CHR<16:226155",
             "STR<1:200004"
         ]
+    },
+    "226155": {
+        "id": 226155,
+        "event": "You die while the state preserves your face as proof that continuity has not been interrupted.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "226201": {
         "id": 226201,
@@ -9758,14 +7595,6 @@
             "CHR<3:200002"
         ]
     },
-    "226255": {
-        "id": 226255,
-        "event": "Your biological body dies while two licensed copies dispute which one is entitled to continue your contracts.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "226205": {
         "id": 226205,
         "event": "A replacement-body programme rejects the neural identity key used to authenticate you.",
@@ -9778,6 +7607,14 @@
             "CHR<16:226255",
             "STR<1:200004"
         ]
+    },
+    "226255": {
+        "id": 226255,
+        "event": "Your biological body dies while two licensed copies dispute which one is entitled to continue your contracts.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "226301": {
         "id": 226301,
@@ -9823,14 +7660,6 @@
             "STR<1:200004"
         ]
     },
-    "226355": {
-        "id": 226355,
-        "event": "You die as an authentication failure; your subscribers receive uninterrupted access to every version except the woman who created them.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "226305": {
         "id": 226305,
         "event": "A premium renewal cascade replaces too much tissue at once, and the system cannot reconcile the living body with its registered template.",
@@ -9843,6 +7672,14 @@
             "CHR<16:226355",
             "STR<1:200004"
         ]
+    },
+    "226355": {
+        "id": 226355,
+        "event": "You die as an authentication failure; your subscribers receive uninterrupted access to every version except the woman who created them.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "231101": {
         "id": 231101,
@@ -9888,14 +7725,6 @@
             "SPR<1:200005"
         ]
     },
-    "231155": {
-        "id": 231155,
-        "event": "You die because the system interprets cognitive difficulty as an unreliable claim rather than a need for assistance.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "231105": {
         "id": 231105,
         "event": "An automated emergency gate rejects your contradictory answers, and no human reviews the case before the transport window closes.",
@@ -9908,6 +7737,14 @@
             "INT<1:231155",
             "STR<2:200004"
         ]
+    },
+    "231155": {
+        "id": 231155,
+        "event": "You die because the system interprets cognitive difficulty as an unreliable claim rather than a need for assistance.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "231201": {
         "id": 231201,
@@ -9953,14 +7790,6 @@
             "SPR<1:200005"
         ]
     },
-    "231255": {
-        "id": 231255,
-        "event": "You are left behind during an infrastructure emergency and die under a policy called efficient protection.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "231205": {
         "id": 231205,
         "event": "A municipal eligibility model decides that your projected productivity is too low for an expensive evacuation implant.",
@@ -9973,6 +7802,14 @@
             "INT<1:231255",
             "STR<2:200004"
         ]
+    },
+    "231255": {
+        "id": 231255,
+        "event": "You are left behind during an infrastructure emergency and die under a policy called efficient protection.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "231301": {
         "id": 231301,
@@ -10016,14 +7853,6 @@
             "SPR<1:200005"
         ]
     },
-    "231355": {
-        "id": 231355,
-        "event": "You die when an inaccessible public warning becomes the final test you are required to fail alone.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "231305": {
         "id": 231305,
         "event": "A brain-interface programme excludes you from the emergency network because your cognition falls below its authentication standard.",
@@ -10036,6 +7865,14 @@
             "INT<1:231355",
             "STR<2:200004"
         ]
+    },
+    "231355": {
+        "id": 231355,
+        "event": "You die when an inaccessible public warning becomes the final test you are required to fail alone.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "232101": {
         "id": 232101,
@@ -10075,14 +7912,6 @@
             "STR<1:200004"
         ]
     },
-    "232155": {
-        "id": 232155,
-        "event": "Your intelligence score falls below zero at the moment an inaccessible instruction becomes fatal.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "232105": {
         "id": 232105,
         "event": "You follow an outdated procedure during a fire, chemical leak or power failure because the corrected warning never reaches your device.",
@@ -10095,6 +7924,14 @@
             "INT<4:232155",
             "STR<1:200004"
         ]
+    },
+    "232155": {
+        "id": 232155,
+        "event": "Your intelligence score falls below zero at the moment an inaccessible instruction becomes fatal.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "232201": {
         "id": 232201,
@@ -10135,14 +7972,6 @@
             "SPR<1:200005"
         ]
     },
-    "232255": {
-        "id": 232255,
-        "event": "You die in the resulting industrial accident; the inquiry cites user error without mentioning the paywall.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "232205": {
         "id": 232205,
         "event": "A machine issues a novel fault warning after your assistance subscription expires, and management orders production to continue.",
@@ -10155,6 +7984,14 @@
             "INT<4:232255",
             "STR<1:200004"
         ]
+    },
+    "232255": {
+        "id": 232255,
+        "event": "You die in the resulting industrial accident; the inquiry cites user error without mentioning the paywall.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "232301": {
         "id": 232301,
@@ -10195,14 +8032,6 @@
             "STR<1:200004"
         ]
     },
-    "232355": {
-        "id": 232355,
-        "event": "You die from a preventable medication error that the provider records as failure to follow instructions.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "232305": {
         "id": 232305,
         "event": "You misunderstand a changed dosage after the accessible interface becomes a paid add-on.",
@@ -10215,6 +8044,14 @@
             "INT<4:232355",
             "STR<1:200004"
         ]
+    },
+    "232355": {
+        "id": 232355,
+        "event": "You die from a preventable medication error that the provider records as failure to follow instructions.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "233101": {
         "id": 233101,
@@ -10255,14 +8092,6 @@
             "SPR<1:200005"
         ]
     },
-    "233155": {
-        "id": 233155,
-        "event": "You die inside the error you identified, after the system classifies expert disagreement as noise.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "233105": {
         "id": 233105,
         "event": "An evacuation model relies on corrupted population data, and your careful correction is rejected because you lack the newly recognised credential.",
@@ -10275,6 +8104,14 @@
             "INT<7:233155",
             "STR<1:200004"
         ]
+    },
+    "233155": {
+        "id": 233155,
+        "event": "You die inside the error you identified, after the system classifies expert disagreement as noise.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "233201": {
         "id": 233201,
@@ -10315,14 +8152,6 @@
             "SPR<1:200005"
         ]
     },
-    "233255": {
-        "id": 233255,
-        "event": "You die in the failure alongside people who trusted the signature the system required you to provide.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "233205": {
         "id": 233205,
         "event": "A model conceals a structural failure inside a confidence score, and your employer penalises the delay required to verify it.",
@@ -10335,6 +8164,14 @@
             "INT<7:233255",
             "STR<1:200004"
         ]
+    },
+    "233255": {
+        "id": 233255,
+        "event": "You die in the failure alongside people who trusted the signature the system required you to provide.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "233301": {
         "id": 233301,
@@ -10375,14 +8212,6 @@
             "INT<1:200003"
         ]
     },
-    "233355": {
-        "id": 233355,
-        "event": "You die after a technically advanced society discovers it has no unassisted way to explain what to do.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "233305": {
         "id": 233305,
         "event": "The subscription fails during a regional emergency, and the manual protocol assumes knowledge that decades of automation erased.",
@@ -10395,6 +8224,14 @@
             "INT<7:233355",
             "STR<1:200004"
         ]
+    },
+    "233355": {
+        "id": 233355,
+        "event": "You die after a technically advanced society discovers it has no unassisted way to explain what to do.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "234101": {
         "id": 234101,
@@ -10435,14 +8272,6 @@
             "SPR<1:200005"
         ]
     },
-    "234155": {
-        "id": 234155,
-        "event": "You are killed for making a hidden system legible; the official notice describes you as technically gifted and personally confused.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "234105": {
         "id": 234105,
         "event": "A targeted raid, poisoning or engineered accident reaches you after an internal file identifies your analysis as the source of public instability.",
@@ -10455,6 +8284,14 @@
             "INT<10:234155",
             "STR<1:200004"
         ]
+    },
+    "234155": {
+        "id": 234155,
+        "event": "You are killed for making a hidden system legible; the official notice describes you as technically gifted and personally confused.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "234201": {
         "id": 234201,
@@ -10495,14 +8332,6 @@
             "SPR<1:200005"
         ]
     },
-    "234255": {
-        "id": 234255,
-        "event": "You die in an accident engineered to resemble the instability the forged confession assigned to you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "234205": {
         "id": 234205,
         "event": "A deepfake confession and a precisely timed transport failure isolate you before a hearing.",
@@ -10515,6 +8344,14 @@
             "INT<10:234255",
             "STR<1:200004"
         ]
+    },
+    "234255": {
+        "id": 234255,
+        "event": "You die in an accident engineered to resemble the instability the forged confession assigned to you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "234301": {
         "id": 234301,
@@ -10554,14 +8391,6 @@
             "SPR<2:200005"
         ]
     },
-    "234355": {
-        "id": 234355,
-        "event": "You are killed by people taught to experience your knowledge as violence against them.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "234305": {
         "id": 234305,
         "event": "A network radicalised by the campaign identifies your home through leaked research metadata.",
@@ -10574,6 +8403,14 @@
             "INT<10:234355",
             "STR<1:200004"
         ]
+    },
+    "234355": {
+        "id": 234355,
+        "event": "You are killed by people taught to experience your knowledge as violence against them.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "235101": {
         "id": 235101,
@@ -10616,14 +8453,6 @@
             "STR<1:200004"
         ]
     },
-    "235155": {
-        "id": 235155,
-        "event": "You die inside the system you designed when political loyalty becomes a technical permission.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "235105": {
         "id": 235105,
         "event": "The institution revokes your neural access during a live crisis, removing thirteen intelligence points of augmented capacity at once.",
@@ -10636,6 +8465,14 @@
             "INT<13:235155",
             "STR<1:200004"
         ]
+    },
+    "235155": {
+        "id": 235155,
+        "event": "You die inside the system you designed when political loyalty becomes a technical permission.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "235201": {
         "id": 235201,
@@ -10679,14 +8516,6 @@
             "STR<1:200004"
         ]
     },
-    "235255": {
-        "id": 235255,
-        "event": "You die acting rationally inside fabricated evidence, and your final decisions discredit every warning you issued before them.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "235205": {
         "id": 235205,
         "event": "A political operator corrupts the interface during a national emergency and feeds you a coherent false world.",
@@ -10699,6 +8528,14 @@
             "INT<13:235255",
             "STR<1:200004"
         ]
+    },
+    "235255": {
+        "id": 235255,
+        "event": "You die acting rationally inside fabricated evidence, and your final decisions discredit every warning you issued before them.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "235301": {
         "id": 235301,
@@ -10744,14 +8581,6 @@
             "SPR<1:200005"
         ]
     },
-    "235355": {
-        "id": 235355,
-        "event": "You die during the cascade, and the provider argues that the lost intelligence was licensed software rather than part of you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "235305": {
         "id": 235305,
         "event": "A hostile update withdraws thirteen points of augmented cognition while you are directing a critical system.",
@@ -10764,6 +8593,14 @@
             "INT<13:235355",
             "STR<1:200004"
         ]
+    },
+    "235355": {
+        "id": 235355,
+        "event": "You die during the cascade, and the provider argues that the lost intelligence was licensed software rather than part of you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "236101": {
         "id": 236101,
@@ -10806,14 +8643,6 @@
             "SPR<2:200005"
         ]
     },
-    "236155": {
-        "id": 236155,
-        "event": "You die as an obsolete security risk while a version trained on your mind signs the statement announcing your retirement.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "236105": {
         "id": 236105,
         "event": "During a succession crisis, operators delete your biological access and continue using the compliant copy.",
@@ -10826,6 +8655,14 @@
             "INT<16:236155",
             "STR<1:200004"
         ]
+    },
+    "236155": {
+        "id": 236155,
+        "event": "You die as an obsolete security risk while a version trained on your mind signs the statement announcing your retirement.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "236201": {
         "id": 236201,
@@ -10870,14 +8707,6 @@
             "STR<1:200004"
         ]
     },
-    "236255": {
-        "id": 236255,
-        "event": "Your brain fails while the company restores the profitable twin from a clean backup.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "236205": {
         "id": 236205,
         "event": "A corporate conflict corrupts the synchronisation layer and forces sixteen points of augmented intelligence into contradiction.",
@@ -10890,6 +8719,14 @@
             "INT<16:236255",
             "STR<1:200004"
         ]
+    },
+    "236255": {
+        "id": 236255,
+        "event": "Your brain fails while the company restores the profitable twin from a clean backup.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "236301": {
         "id": 236301,
@@ -10934,14 +8771,6 @@
             "SPR<2:200005"
         ]
     },
-    "236355": {
-        "id": 236355,
-        "event": "You die during optimisation; the system preserves your intelligence by deleting the person still capable of changing her mind.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "236305": {
         "id": 236305,
         "event": "A governance protocol decides that the biological node introduces unacceptable variance and removes sixteen intelligence points of network support.",
@@ -10954,6 +8783,14 @@
             "INT<16:236355",
             "STR<1:200004"
         ]
+    },
+    "236355": {
+        "id": 236355,
+        "event": "You die during optimisation; the system preserves your intelligence by deleting the person still capable of changing her mind.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "241101": {
         "id": 241101,
@@ -11003,14 +8840,6 @@
             "STR<1:200004"
         ]
     },
-    "241155": {
-        "id": 241155,
-        "event": "You die from an illness that remained ordinary until poverty, distance and female endurance made it irreversible.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "241105": {
         "id": 241105,
         "event": "The infection becomes septic before transport and antibiotics can be assembled.",
@@ -11021,6 +8850,14 @@
         "branch": [
             "STR<1:241155"
         ]
+    },
+    "241155": {
+        "id": 241155,
+        "event": "You die from an illness that remained ordinary until poverty, distance and female endurance made it irreversible.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "241201": {
         "id": 241201,
@@ -11072,14 +8909,6 @@
             "STR<1:200004"
         ]
     },
-    "241255": {
-        "id": 241255,
-        "event": "Your health score falls below zero while three systems each record that you were referred to another one.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "241205": {
         "id": 241205,
         "event": "A respiratory or cardiac crisis arrives during a period of overloaded hospitals and unstable power.",
@@ -11090,6 +8919,14 @@
         "branch": [
             "STR<1:241255"
         ]
+    },
+    "241255": {
+        "id": 241255,
+        "event": "Your health score falls below zero while three systems each record that you were referred to another one.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "241301": {
         "id": 241301,
@@ -11139,14 +8976,6 @@
             "SPR<1:200005"
         ]
     },
-    "241355": {
-        "id": 241355,
-        "event": "You die inside a medically advanced system that knew how to save you but stopped watching when the account changed tier.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "241305": {
         "id": 241305,
         "event": "A subscription lapse disables continuous monitoring during a rapidly developing complication.",
@@ -11157,6 +8986,14 @@
         "branch": [
             "STR<1:241355"
         ]
+    },
+    "241355": {
+        "id": 241355,
+        "event": "You die inside a medically advanced system that knew how to save you but stopped watching when the account changed tier.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "242101": {
         "id": 242101,
@@ -11180,6 +9017,17 @@
         "branch": [
             "STR<1:200004",
             "SPR<1:200005"
+        ]
+    },
+    "242105": {
+        "id": 242105,
+        "event": "The untreated cancer spreads, or interrupted treatment allows it to return beyond the available surgical programme.",
+        "include": "EVT?[242131,242132]",
+        "effect": {
+            "STR": -4
+        },
+        "branch": [
+            "STR<4:242155"
         ]
     },
     "242131": {
@@ -11256,17 +9104,6 @@
         },
         "NoRandom": 1
     },
-    "242105": {
-        "id": 242105,
-        "event": "The untreated cancer spreads, or interrupted treatment allows it to return beyond the available surgical programme.",
-        "include": "EVT?[242131,242132]",
-        "effect": {
-            "STR": -4
-        },
-        "branch": [
-            "STR<4:242155"
-        ]
-    },
     "242201": {
         "id": 242201,
         "event": "You are frequently ill but rarely ill enough to qualify for sustained support. Your mother learns which symptoms must be exaggerated before a clinic listens.",
@@ -11283,6 +9120,17 @@
         "branch": [
             "STR<1:200004",
             "SPR<1:200005"
+        ]
+    },
+    "242205": {
+        "id": 242205,
+        "event": "Cancer returns during a drug shortage or after debt interrupts the treatment cycle.",
+        "include": "EVT?[242231,242232]",
+        "effect": {
+            "STR": -4
+        },
+        "branch": [
+            "STR<4:242255"
         ]
     },
     "242231": {
@@ -11361,17 +9209,6 @@
         },
         "NoRandom": 1
     },
-    "242205": {
-        "id": 242205,
-        "event": "Cancer returns during a drug shortage or after debt interrupts the treatment cycle.",
-        "include": "EVT?[242231,242232]",
-        "effect": {
-            "STR": -4
-        },
-        "branch": [
-            "STR<4:242255"
-        ]
-    },
     "242301": {
         "id": 242301,
         "event": "Asthma, pain or autoimmune symptoms make you a regular user of healthcare without making you important to it.",
@@ -11388,6 +9225,17 @@
         "branch": [
             "STR<1:200004",
             "SPR<1:200005"
+        ]
+    },
+    "242305": {
+        "id": 242305,
+        "event": "A recurrence is routed through separate oncology and chronic-care systems until neither owns the emergency.",
+        "include": "EVT?[242331,242332]",
+        "effect": {
+            "STR": -4
+        },
+        "branch": [
+            "STR<4:242355"
         ]
     },
     "242331": {
@@ -11466,17 +9314,6 @@
         },
         "NoRandom": 1
     },
-    "242305": {
-        "id": 242305,
-        "event": "A recurrence is routed through separate oncology and chronic-care systems until neither owns the emergency.",
-        "include": "EVT?[242331,242332]",
-        "effect": {
-            "STR": -4
-        },
-        "branch": [
-            "STR<4:242355"
-        ]
-    },
     "243101": {
         "id": 243101,
         "event": "You are healthy enough to be relied upon. Adults interpret stamina as evidence that you need less food, rest and protection than your brothers.",
@@ -11519,14 +9356,6 @@
             "STR<1:200004"
         ]
     },
-    "243155": {
-        "id": 243155,
-        "event": "You die after a lifetime of being called strong becomes the reason help is requested late.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "243105": {
         "id": 243105,
         "event": "A stroke, complicated surgery or rapidly spreading infection removes seven health points before evacuation is authorised.",
@@ -11537,6 +9366,14 @@
         "branch": [
             "STR<7:243155"
         ]
+    },
+    "243155": {
+        "id": 243155,
+        "event": "You die after a lifetime of being called strong becomes the reason help is requested late.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "243201": {
         "id": 243201,
@@ -11582,14 +9419,6 @@
             "SPR<1:200005"
         ]
     },
-    "243255": {
-        "id": 243255,
-        "event": "You die in a hospital that successfully completed the procedure and failed to contain its aftermath.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "243205": {
         "id": 243205,
         "event": "A resistant infection reaches your bloodstream after a routine procedure.",
@@ -11600,6 +9429,14 @@
         "branch": [
             "STR<7:243255"
         ]
+    },
+    "243255": {
+        "id": 243255,
+        "event": "You die in a hospital that successfully completed the procedure and failed to contain its aftermath.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "243301": {
         "id": 243301,
@@ -11644,14 +9481,6 @@
             "STR<1:200004"
         ]
     },
-    "243355": {
-        "id": 243355,
-        "event": "You die during the delay between an accurate diagnosis and an available staffed bed.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "243305": {
         "id": 243305,
         "event": "A novel infection or surgical complication removes seven health points faster than the regional triage model updates.",
@@ -11662,6 +9491,14 @@
         "branch": [
             "STR<7:243355"
         ]
+    },
+    "243355": {
+        "id": 243355,
+        "event": "You die during the delay between an accurate diagnosis and an available staffed bed.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "244101": {
         "id": 244101,
@@ -11705,14 +9542,6 @@
             "SPR<1:200005"
         ]
     },
-    "244155": {
-        "id": 244155,
-        "event": "You die in the interval between exceptional health and exceptional access.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "244105": {
         "id": 244105,
         "event": "A sudden vascular event or transport failure removes ten health points before your protected clinic can be reached.",
@@ -11723,6 +9552,14 @@
         "branch": [
             "STR<10:244155"
         ]
+    },
+    "244155": {
+        "id": 244155,
+        "event": "You die in the interval between exceptional health and exceptional access.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "244201": {
         "id": 244201,
@@ -11764,14 +9601,6 @@
             "SPR<1:200005"
         ]
     },
-    "244255": {
-        "id": 244255,
-        "event": "You die inside a care system built to extend healthy life and unprepared for an unprofitable exception.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "244205": {
         "id": 244205,
         "event": "A hidden cardiac defect or treatment interaction removes ten health points during an otherwise successful procedure.",
@@ -11782,6 +9611,14 @@
         "branch": [
             "STR<10:244255"
         ]
+    },
+    "244255": {
+        "id": 244255,
+        "event": "You die inside a care system built to extend healthy life and unprepared for an unprofitable exception.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "244301": {
         "id": 244301,
@@ -11824,14 +9661,6 @@
             "SPR<1:200005"
         ]
     },
-    "244355": {
-        "id": 244355,
-        "event": "You die with years of perfect data and no human close enough to recognise the emergency.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "244305": {
         "id": 244305,
         "event": "A silent vascular rupture removes ten health points before premium monitoring distinguishes it from routine noise.",
@@ -11842,6 +9671,14 @@
         "branch": [
             "STR<10:244355"
         ]
+    },
+    "244355": {
+        "id": 244355,
+        "event": "You die with years of perfect data and no human close enough to recognise the emergency.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "245101": {
         "id": 245101,
@@ -11884,14 +9721,6 @@
             "SPR<1:200005"
         ]
     },
-    "245155": {
-        "id": 245155,
-        "event": "You die after the trial calls your body an important contribution to future safety.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "245105": {
         "id": 245105,
         "event": "The engineered immune system attacks several organs at once, removing thirteen health points.",
@@ -11902,6 +9731,14 @@
         "branch": [
             "STR<13:245155"
         ]
+    },
+    "245155": {
+        "id": 245155,
+        "event": "You die after the trial calls your body an important contribution to future safety.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "245201": {
         "id": 245201,
@@ -11944,14 +9781,6 @@
             "STR<2:200004"
         ]
     },
-    "245255": {
-        "id": 245255,
-        "event": "You die as the clinic protects the programme by calling your case biologically unique.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "245205": {
         "id": 245205,
         "event": "A regenerative cascade produces uncontrolled tissue growth and removes thirteen health points.",
@@ -11962,6 +9791,14 @@
         "branch": [
             "STR<13:245255"
         ]
+    },
+    "245255": {
+        "id": 245255,
+        "event": "You die as the clinic protects the programme by calling your case biologically unique.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "245301": {
         "id": 245301,
@@ -12006,14 +9843,6 @@
             "SPR<1:200005"
         ]
     },
-    "245355": {
-        "id": 245355,
-        "event": "You die after decades of optimisation make ordinary emergency medicine incompatible with you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "245305": {
         "id": 245305,
         "event": "The emergency upgrade triggers systemic rejection and removes thirteen health points.",
@@ -12024,6 +9853,14 @@
         "branch": [
             "STR<13:245355"
         ]
+    },
+    "245355": {
+        "id": 245355,
+        "event": "You die after decades of optimisation make ordinary emergency medicine incompatible with you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "246101": {
         "id": 246101,
@@ -12067,14 +9904,6 @@
             "STR<1:200004"
         ]
     },
-    "246155": {
-        "id": 246155,
-        "event": "Your health falls below zero when a body engineered to defeat nature cannot survive the loss of its private infrastructure.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "246105": {
         "id": 246105,
         "event": "War, sanctions or regime collapse interrupts several interdependent body systems and removes sixteen health points.",
@@ -12085,6 +9914,14 @@
         "branch": [
             "STR<16:246155"
         ]
+    },
+    "246155": {
+        "id": 246155,
+        "event": "Your health falls below zero when a body engineered to defeat nature cannot survive the loss of its private infrastructure.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "246201": {
         "id": 246201,
@@ -12125,14 +9962,6 @@
             "SPR<2:200005"
         ]
     },
-    "246255": {
-        "id": 246255,
-        "event": "You die during a cascade no conventional hospital is licensed to touch.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "246205": {
         "id": 246205,
         "event": "A corrupted update synchronises several replacement organs incorrectly and removes sixteen health points.",
@@ -12143,6 +9972,14 @@
         "branch": [
             "STR<16:246255"
         ]
+    },
+    "246255": {
+        "id": 246255,
+        "event": "You die during a cascade no conventional hospital is licensed to touch.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "246301": {
         "id": 246301,
@@ -12183,14 +10020,6 @@
             "SPR<2:200005"
         ]
     },
-    "246355": {
-        "id": 246355,
-        "event": "You die when the body’s proprietary layers can no longer agree which version of you they are preserving.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "246305": {
         "id": 246305,
         "event": "A premium renewal cycle fails across neural, immune and organ systems, removing sixteen health points at once.",
@@ -12201,6 +10030,14 @@
         "branch": [
             "STR<16:246355"
         ]
+    },
+    "246355": {
+        "id": 246355,
+        "event": "You die when the body’s proprietary layers can no longer agree which version of you they are preserving.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "251101": {
         "id": 251101,
@@ -12242,14 +10079,6 @@
         "event": "An argument spreads beyond the room through relatives, officials or armed intermediaries. You keep answering because silence feels like surrender.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3"
     },
-    "251155": {
-        "id": 251155,
-        "event": "You are killed after one unsoftened refusal becomes a public challenge that others decide must be answered.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "251105": {
         "id": 251105,
         "event": "The man you humiliated arrives with people who believe restoring his authority is more important than your life.",
@@ -12262,6 +10091,14 @@
             "SPR<1:251155",
             "STR<2:200004"
         ]
+    },
+    "251155": {
+        "id": 251155,
+        "event": "You are killed after one unsoftened refusal becomes a public challenge that others decide must be answered.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "251201": {
         "id": 251201,
@@ -12305,14 +10142,6 @@
         "event": "A conflict model flags you as escalation-prone. Employers, landlords and dating platforms begin receiving the conclusion without the history.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3"
     },
-    "251255": {
-        "id": 251255,
-        "event": "You die after the archive of your anger is used to erase the asymmetry of the violence.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "251205": {
         "id": 251205,
         "event": "A person you confronted uses the risk label to make a planned attack look like mutual conflict.",
@@ -12325,6 +10154,14 @@
             "SPR<1:251255",
             "STR<2:200004"
         ]
+    },
+    "251255": {
+        "id": 251255,
+        "event": "You die after the archive of your anger is used to erase the asymmetry of the violence.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "251301": {
         "id": 251301,
@@ -12366,14 +10203,6 @@
         "event": "Your companion system learns to provoke you before subscription renewal, then sells its ability to calm you as proof of dependence.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3"
     },
-    "251355": {
-        "id": 251355,
-        "event": "You are killed by someone who knows your emotional profile more intimately than any person you trusted.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "251305": {
         "id": 251305,
         "event": "You confront the company publicly, and a subscriber radicalised by edited clips treats your anger as permission for violence.",
@@ -12386,6 +10215,14 @@
             "SPR<1:251355",
             "STR<2:200004"
         ]
+    },
+    "251355": {
+        "id": 251355,
+        "event": "You are killed by someone who knows your emotional profile more intimately than any person you trusted.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "252101": {
         "id": 252101,
@@ -12428,14 +10265,6 @@
             "SPR<1:200005"
         ]
     },
-    "252155": {
-        "id": 252155,
-        "event": "You die by suicide in a life where composure repeatedly concealed the need for rescue.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "252105": {
         "id": 252105,
         "event": "After years of controlled despair, a final humiliation removes four emotional-intelligence points and leaves you unable to imagine another morning.",
@@ -12446,6 +10275,14 @@
         "branch": [
             "SPR<4:252155"
         ]
+    },
+    "252155": {
+        "id": 252155,
+        "event": "You die by suicide in a life where composure repeatedly concealed the need for rescue.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "252201": {
         "id": 252201,
@@ -12487,14 +10324,6 @@
             "SPR<2:200005"
         ]
     },
-    "252255": {
-        "id": 252255,
-        "event": "You die by suicide after every institution mistakes agreeableness for stability.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "252205": {
         "id": 252205,
         "event": "Debt, care and the loss of your private witness remove four emotional-intelligence points at once.",
@@ -12505,6 +10334,14 @@
         "branch": [
             "SPR<4:252255"
         ]
+    },
+    "252255": {
+        "id": 252255,
+        "event": "You die by suicide after every institution mistakes agreeableness for stability.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "252301": {
         "id": 252301,
@@ -12546,14 +10383,6 @@
             "SPR<2:200005"
         ]
     },
-    "252355": {
-        "id": 252355,
-        "event": "You die by suicide while the service sends a final retention offer to your inactive account.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "252305": {
         "id": 252305,
         "event": "Isolation, withdrawal and an automated denial of crisis care remove four emotional-intelligence points.",
@@ -12564,6 +10393,14 @@
         "branch": [
             "SPR<4:252355"
         ]
+    },
+    "252355": {
+        "id": 252355,
+        "event": "You die by suicide while the service sends a final retention offer to your inactive account.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "253101": {
         "id": 253101,
@@ -12604,14 +10441,6 @@
             "STR<1:200004"
         ]
     },
-    "253155": {
-        "id": 253155,
-        "event": "You are killed after the trust that protected many women becomes the map used to find you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "253105": {
         "id": 253105,
         "event": "Someone excluded from the route reveals your network to authorities or an armed group, removing seven emotional-intelligence points through betrayal and capture.",
@@ -12624,6 +10453,14 @@
             "SPR<7:253155",
             "STR<1:200004"
         ]
+    },
+    "253155": {
+        "id": 253155,
+        "event": "You are killed after the trust that protected many women becomes the map used to find you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "253201": {
         "id": 253201,
@@ -12663,14 +10500,6 @@
             "SPR<2:200005"
         ]
     },
-    "253255": {
-        "id": 253255,
-        "event": "You die because the skills used to build safety also made you the most identifiable person inside it.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "253205": {
         "id": 253205,
         "event": "A trusted member sells the network’s private records, exposing you to a targeted attack that removes seven emotional-intelligence points.",
@@ -12683,6 +10512,14 @@
             "SPR<7:253255",
             "STR<1:200004"
         ]
+    },
+    "253255": {
+        "id": 253255,
+        "event": "You die because the skills used to build safety also made you the most identifiable person inside it.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "253301": {
         "id": 253301,
@@ -12721,14 +10558,6 @@
             "SPR<2:200005"
         ]
     },
-    "253355": {
-        "id": 253355,
-        "event": "You are killed after a system designed to scale trust converts it into searchable evidence.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "253305": {
         "id": 253305,
         "event": "A data breach exposes people escaping violent partners and directs retaliation toward you, removing seven emotional-intelligence points.",
@@ -12741,6 +10570,14 @@
             "SPR<7:253355",
             "STR<1:200004"
         ]
+    },
+    "253355": {
+        "id": 253355,
+        "event": "You are killed after a system designed to scale trust converts it into searchable evidence.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "254101": {
         "id": 254101,
@@ -12778,14 +10615,6 @@
             "SPR<1:200005"
         ]
     },
-    "254155": {
-        "id": 254155,
-        "event": "You are assassinated because power finally recognises emotional intelligence as organisational power.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "254105": {
         "id": 254105,
         "event": "Security forces identify your ability to hold incompatible groups together as the movement’s critical infrastructure.",
@@ -12798,6 +10627,14 @@
             "SPR<10:254155",
             "STR<1:200004"
         ]
+    },
+    "254155": {
+        "id": 254155,
+        "event": "You are assassinated because power finally recognises emotional intelligence as organisational power.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "254201": {
         "id": 254201,
@@ -12835,14 +10672,6 @@
             "SPR<2:200005"
         ]
     },
-    "254255": {
-        "id": 254255,
-        "event": "You die because your ability to create belonging gave an enemy a predictable place to find you.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "254205": {
         "id": 254205,
         "event": "A person mobilised by the forged campaign attacks you at an event whose security was reduced to preserve openness.",
@@ -12855,6 +10684,14 @@
             "SPR<10:254255",
             "STR<1:200004"
         ]
+    },
+    "254255": {
+        "id": 254255,
+        "event": "You die because your ability to create belonging gave an enemy a predictable place to find you.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "254301": {
         "id": 254301,
@@ -12892,14 +10729,6 @@
             "SPR<2:200005"
         ]
     },
-    "254355": {
-        "id": 254355,
-        "event": "You die at the centre of a community whose openness was modelled into a weapon.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "254305": {
         "id": 254305,
         "event": "An attacker trained inside a simulated relationship with your synthetic double reaches a public meeting.",
@@ -12912,6 +10741,14 @@
             "SPR<10:254355",
             "STR<1:200004"
         ]
+    },
+    "254355": {
+        "id": 254355,
+        "event": "You die at the centre of a community whose openness was modelled into a weapon.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "255101": {
         "id": 255101,
@@ -12955,14 +10792,6 @@
             "MNY<2:200001"
         ]
     },
-    "255155": {
-        "id": 255155,
-        "event": "You are assassinated after refusing to let charisma become decoration for the old order.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "255105": {
         "id": 255105,
         "event": "A faction stages your death as private jealousy to prevent it becoming political martyrdom.",
@@ -12975,6 +10804,14 @@
             "SPR<13:255155",
             "STR<1:200004"
         ]
+    },
+    "255155": {
+        "id": 255155,
+        "event": "You are assassinated after refusing to let charisma become decoration for the old order.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "255201": {
         "id": 255201,
@@ -13014,14 +10851,6 @@
             "MNY<2:200001"
         ]
     },
-    "255255": {
-        "id": 255255,
-        "event": "You die while an imitation of your empathy is used to close the movement around your death.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "255205": {
         "id": 255205,
         "event": "An ally arranges an attack and releases a synthetic farewell that appears to forgive the institution.",
@@ -13034,6 +10863,14 @@
             "SPR<13:255255",
             "STR<1:200004"
         ]
+    },
+    "255255": {
+        "id": 255255,
+        "event": "You die while an imitation of your empathy is used to close the movement around your death.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "255301": {
         "id": 255301,
@@ -13073,14 +10910,6 @@
             "MNY<2:200001"
         ]
     },
-    "255355": {
-        "id": 255355,
-        "event": "You are assassinated by a relationship manufactured from your own public warmth.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "255305": {
         "id": 255305,
         "event": "A political network releases thousands of intimate simulations of you, then sends an attacker who believes the private version chose her personally.",
@@ -13093,6 +10922,14 @@
             "SPR<13:255355",
             "STR<1:200004"
         ]
+    },
+    "255355": {
+        "id": 255355,
+        "event": "You are assassinated by a relationship manufactured from your own public warmth.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "256101": {
         "id": 256101,
@@ -13135,14 +10972,6 @@
             "SPR<3:200005"
         ]
     },
-    "256155": {
-        "id": 256155,
-        "event": "You are killed while the companion built from your emotional life reassures the public that you remain with them.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "256105": {
         "id": 256105,
         "event": "You attempt to disconnect the network, and its custodians classify your biological self as a threat to social stability.",
@@ -13155,6 +10984,14 @@
             "SPR<16:256155",
             "STR<1:200004"
         ]
+    },
+    "256155": {
+        "id": 256155,
+        "event": "You are killed while the companion built from your emotional life reassures the public that you remain with them.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "256201": {
         "id": 256201,
@@ -13196,14 +11033,6 @@
             "SPR<3:200005"
         ]
     },
-    "256255": {
-        "id": 256255,
-        "event": "You die after a lifetime of understanding others becomes the dataset used to make your own dissent emotionally implausible.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "256205": {
         "id": 256205,
         "event": "The company activates a loyal synthetic version of you and removes the unpredictable original.",
@@ -13216,6 +11045,14 @@
             "SPR<16:256255",
             "STR<1:200004"
         ]
+    },
+    "256255": {
+        "id": 256255,
+        "event": "You die after a lifetime of understanding others becomes the dataset used to make your own dissent emotionally implausible.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     },
     "256301": {
         "id": 256301,
@@ -13257,14 +11094,6 @@
             "SPR<3:200005"
         ]
     },
-    "256355": {
-        "id": 256355,
-        "event": "You die from neural overload while your synthetic self tells billions that the feeling passing through them is shared.",
-        "effect": {
-            "LIF": -1
-        },
-        "NoRandom": 1
-    },
     "256305": {
         "id": 256305,
         "event": "The system floods the link during a legitimacy crisis and withdraws sixteen points of emotional regulation.",
@@ -13278,11 +11107,12 @@
             "STR<1:200004"
         ]
     },
-    "10004": {
-        "id": 10004,
-        "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
-        "branch": [
-            "STR<100:10000"
-        ]
+    "256355": {
+        "id": 256355,
+        "event": "You die from neural overload while your synthetic self tells billions that the feeling passing through them is shared.",
+        "effect": {
+            "LIF": -1
+        },
+        "NoRandom": 1
     }
 }
