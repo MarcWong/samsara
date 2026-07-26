@@ -79,7 +79,7 @@
 	// Clicking it drives restartProgress 0->1 (a shared store, not local
 	// state -- Background.svelte's own shader canvas is a sibling under
 	// +page.svelte, not something Summary can pass props into, so both
-	// read the same store to fade/ripple in lockstep), revealing the
+	// read the same store to fade in lockstep), revealing the
 	// already-playing loop underneath, then hands off to CITYINTRO once it
 	// completes -- CityIntro's own loadMp4('1.mp4') call resolves instantly
 	// from videoPlayer.js's cache, so its canvas has content the instant it
@@ -90,15 +90,15 @@
 
 	// Derived purely from $restartProgress (already eased -- see the
 	// smoothstep in onAgain below) so every visual reads off one number:
-	// foreground/shader fade out linearly with it, the reveal video fades
-	// in the same way, and the ripple distortion follows a bell curve
-	// (0 at both ends, peaking mid-transition) so the final revealed frame
-	// is undistorted rather than warping the new scene along with it.
+	// foreground fades and blurs away while the shader background (already
+	// animating continuously on its own noise field -- see Background.svelte)
+	// and the reveal video underneath cross-fade in, so the transition reads
+	// as dissolving into that same drifting cloud layer rather than a
+	// separate effect layered on top of it.
 	let fgOpacity = $derived(1 - $restartProgress);
 	let videoOpacity = $derived($restartProgress);
 	let blurPx = $derived($restartProgress * 16);
 	let scaleAmt = $derived(1 + $restartProgress * 0.04);
-	let rippleScale = $derived(Math.sin(Math.min(1, $restartProgress) * Math.PI) * 70);
 
 	onMount(() => {
 		revealVideoEl?.play().catch(() => {});
@@ -192,26 +192,6 @@
 </script>
 
 <div class="summary-outer">
-	<!-- Shared with Background.svelte's shader canvas via url(#ripple-disperse)
-	     -- feDisplacementMap's scale is the only thing driven reactively
-	     (rippleScale, bound to $restartProgress), so this filter is a no-op
-	     everywhere it's referenced until Restart Life actually runs. -->
-	<svg class="filter-defs" aria-hidden="true">
-		<defs>
-			<filter id="ripple-disperse" x="-20%" y="-20%" width="140%" height="140%">
-				<feTurbulence type="fractalNoise" baseFrequency="0.011 0.018" numOctaves="2" seed="7" result="noise">
-					<animate
-						attributeName="baseFrequency"
-						values="0.008 0.014;0.014 0.022;0.008 0.014"
-						dur="3.2s"
-						repeatCount="indefinite"
-					/>
-				</feTurbulence>
-				<feDisplacementMap in="SourceGraphic" in2="noise" scale={rippleScale} xChannelSelector="R" yChannelSelector="G" />
-			</filter>
-		</defs>
-	</svg>
-
 	<!-- svelte-ignore a11y_media_has_caption -->
 	<video
 		bind:this={revealVideoEl}
@@ -222,13 +202,13 @@
 		autoplay
 		playsinline
 		preload="auto"
-		style="opacity: {videoOpacity}; filter: url(#ripple-disperse);"
+		style="opacity: {videoOpacity};"
 	></video>
 
 	<div
 		class="summary"
 		class:restarting
-		style="opacity: {fgOpacity}; filter: blur({blurPx}px) url(#ripple-disperse); transform: scale({scaleAmt});"
+		style="opacity: {fgOpacity}; filter: blur({blurPx}px); transform: scale({scaleAmt});"
 	>
 		<h1 class="title">♀Samsara</h1>
 
@@ -487,13 +467,5 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
-	}
-	/* Zero-size host for the #ripple-disperse filter def -- shared by
-	   reference (url(#ripple-disperse)) with both .reveal-video/.summary
-	   here and Background.svelte's shader canvas. */
-	.filter-defs {
-		position: absolute;
-		width: 0;
-		height: 0;
 	}
 </style>

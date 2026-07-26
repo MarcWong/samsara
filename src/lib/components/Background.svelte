@@ -5,10 +5,12 @@
 
 	let { screen } = $props();
 
-	// Fades out (and ripples via the shared #ripple-disperse filter defined
-	// in Summary.svelte) in lockstep with Summary's own Restart Life
-	// transition -- see restartProgress in stores.js for why this has to be
-	// a store rather than a prop.
+	// Fades out in lockstep with Summary's own Restart Life transition --
+	// see restartProgress in stores.js for why this has to be a store
+	// rather than a prop. The shader keeps animating on its own drifting
+	// noise field the whole time (see the fragment shader below), so this
+	// fade reads as dissolving into that continuing cloud layer rather than
+	// a separate transition effect layered on top of it.
 	let bgOpacity = $derived(1 - $restartProgress);
 
 	// CSS fallback for prefers-reduced-motion, no-WebGL, or context loss --
@@ -238,11 +240,6 @@
 		width: 100%;
 		height: 100%;
 		display: block;
-		/* Referenced by url() regardless of restartProgress -- the filter's
-		   own feDisplacementMap scale (bound in Summary.svelte, the only
-		   place that ever touches restartProgress) is 0 at rest, so this is
-		   a no-op until Restart Life actually drives it. */
-		filter: url(#ripple-disperse);
 	}
 	.bg-canvas.hidden {
 		display: none;
