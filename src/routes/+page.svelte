@@ -6,6 +6,7 @@
 	import SCREENS from '$lib/screens.js';
 	import Background from '$lib/components/Background.svelte';
 	import NotificationHost from '$lib/components/NotificationHost.svelte';
+	import VideoStage from '$lib/components/VideoStage.svelte';
 
 	let ready = $state(false);
 	let Current = $derived(SCREENS[$screen]);
@@ -16,6 +17,10 @@
 		ready = true;
 	});
 </script>
+
+<!-- Persistent across every screen swap -- see videoStage.svelte.js for why
+     this can't be conditionally rendered per-screen the way it used to be. -->
+<VideoStage />
 
 {#if $screen === 'SUMMARY'}
 	<Background screen={$screen} />

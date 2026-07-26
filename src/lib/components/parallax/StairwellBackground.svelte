@@ -1,5 +1,10 @@
 <script>
-	// The Trajectory backdrop, in three acts, all one continuous shot:
+	// The Trajectory backdrop, in three acts, all one continuous shot,
+	// played through the shared VideoStage canvas (see videoStage.svelte.js
+	// -- this component no longer owns a canvas of its own; Plaza's frozen
+	// 4.mp4 frame is already sitting on that shared canvas the instant this
+	// mounts, so 5.mp4 just continues straight out of it with nothing to
+	// bridge):
 	//
 	//   1. 5.mp4 plays once (walking through the corridor's EXIT door into
 	//      the stairwell, ending looking straight up its void) and freezes
@@ -23,21 +28,16 @@
 	//      under full black.
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { webCodecsSupported, loadMp4, CanvasVideoPlayer } from '../videoPlayer.js';
-	import { skippable } from '../../skip.js';
+	import { loadMp4 } from '../videoPlayer.js';
+	import { videoStage } from '../videoStage.svelte.js';
 
 	let { onAllocReady = null, advance = false, onWalking = null, exit = false, onExited = null } = $props();
 
-	const supported = webCodecsSupported();
+	const supported = videoStage.supported;
 
-	let stageEl = $state();
-	let canvasEl = $state();
-	let videoEl = $state(null); // fallback path only
 	let audio5El = $state(null);
 	let audio6El = $state(null);
 	let audio7El = $state(null);
-	let resizeObserver;
-	let player = null;
 	let destroyed = false;
 	let advanceStarted = false;
 	let exitStarted = false;
@@ -49,9 +49,6 @@
 	let media6Promise = null;
 	let media7Promise = null;
 
-	// fallback path: which clip the <video> element is on
-	let videoSrc = $state(`${base}/videos/5.mp4`);
-
 	function startWalking() {
 		if (walking) return;
 		walking = true;
@@ -59,33 +56,32 @@
 	}
 
 	onMount(() => {
-		if (!supported) return; // fallback <video> drives itself via markup
+		// The walking loop's two layers (below) reference stairwell.jpg via
+		// CSS background-image, first painted only once 6.mp4 ends -- by
+		// then 5.mp4 and 6.mp4 (21s combined) have already played, so this
+		// warms the HTTP cache with time to spare and the image is never the
+		// thing making that entrance late.
+		new Image().src = `${base}/images/stairwell.jpg`;
 
-		player = new CanvasVideoPlayer(canvasEl);
-		resizeObserver = new ResizeObserver(() => {
-			const w = stageEl.clientWidth;
-			const h = stageEl.clientHeight;
-			const dpr = Math.min(window.devicePixelRatio || 1, 2);
-			canvasEl.width = Math.round(w * dpr);
-			canvasEl.height = Math.round(h * dpr);
-			player.redraw();
-		});
-		resizeObserver.observe(stageEl);
+		if (!supported) {
+			videoStage.playFallback(`${base}/videos/5.mp4`, { onEnded: () => onAllocReady?.() });
+			startAudio(audio5El);
+			return;
+		}
 
 		(async () => {
 			try {
-				const media5 = await loadMp4(`${base}/videos/5.mp4`);
-				if (destroyed) return;
 				// Pre-fetch the follow-up clips while 5.mp4 plays and the
 				// player allocates stats, so each switch is instant.
 				media6Promise = loadMp4(`${base}/videos/6.mp4`);
 				media6Promise.catch(() => {});
 				media7Promise = loadMp4(`${base}/videos/7.mp4`);
 				media7Promise.catch(() => {});
-				player.play(media5, { loop: false, onEnded: () => onAllocReady?.() });
+				await videoStage.play(`${base}/videos/5.mp4`, { loop: false, onEnded: () => onAllocReady?.() });
 			} catch (err) {
 				// A missing/broken clip shouldn't leave the screen stuck with
 				// no signal to the rest of the scene -- notify regardless.
+				if (destroyed) return;
 				console.error('[StairwellBackground] video failed', err);
 				onAllocReady?.();
 			}
@@ -104,17 +100,16 @@
 			audio6El.play().catch(() => {});
 		}
 		if (!supported) {
-			videoSrc = `${base}/videos/6.mp4`;
-			videoEl?.load();
-			videoEl?.play().catch(() => {});
+			videoStage.playFallback(`${base}/videos/6.mp4`, { onEnded: startWalking });
 			return;
 		}
 		(async () => {
 			try {
-				const media6 = await media6Promise;
+				await media6Promise;
 				if (destroyed) return;
-				player.play(media6, { loop: false, onEnded: startWalking });
+				await videoStage.play(`${base}/videos/6.mp4`, { loop: false, onEnded: startWalking });
 			} catch (err) {
+				if (destroyed) return;
 				console.error('[StairwellBackground] descent video failed', err);
 				startWalking();
 			}
@@ -122,8 +117,8 @@
 	});
 
 	// `exit` flips exactly once (View Summary clicked); play 7.mp4 over
-	// everything -- the walk layers unmount so the canvas underneath (where
-	// the clip renders) is visible again.
+	// everything -- the walk layers unmount so the shared canvas underneath
+	// (where the clip renders) is visible again.
 	$effect(() => {
 		if (!exit || exitStarted) return;
 		exitStarted = true;
@@ -134,17 +129,16 @@
 			audio7El.play().catch(() => {});
 		}
 		if (!supported) {
-			videoSrc = `${base}/videos/7.mp4`;
-			videoEl?.load();
-			videoEl?.play().catch(() => {});
+			videoStage.playFallback(`${base}/videos/7.mp4`, { onEnded: () => onExited?.() });
 			return;
 		}
 		(async () => {
 			try {
-				const media7 = await media7Promise;
+				await media7Promise;
 				if (destroyed) return;
-				player.play(media7, { loop: false, onEnded: () => onExited?.() });
+				await videoStage.play(`${base}/videos/7.mp4`, { loop: false, onEnded: () => onExited?.() });
 			} catch (err) {
+				if (destroyed) return;
 				console.error('[StairwellBackground] exit video failed', err);
 				onExited?.();
 			}
@@ -165,83 +159,35 @@
 
 	onDestroy(() => {
 		destroyed = true;
-		resizeObserver?.disconnect();
-		player?.stop();
 		audio5El?.pause();
 		audio6El?.pause();
 		audio7El?.pause();
 	});
 </script>
 
-<div class="bg-outer">
-	<div class="stage" bind:this={stageEl}>
-		{#if supported}
-			<canvas bind:this={canvasEl}></canvas>
-		{:else}
-			<!-- svelte-ignore a11y_media_has_caption -->
-			<video
-				bind:this={videoEl}
-				src={videoSrc}
-				autoplay
-				playsinline
-				onended={() => {
-					if (videoSrc.endsWith('7.mp4')) onExited?.();
-					else if (videoSrc.endsWith('6.mp4')) startWalking();
-					else onAllocReady?.();
-				}}
-				use:skippable
-			></video>
-		{/if}
-
-		{#if walking}
-			<!-- The endless climb: both layers carry the same still (6.mp4's
-			     final frame); each runs the same slow zoom toward the
-			     upper-left stair flight over WALK_PERIOD*2, offset by one
-			     period, fading in/out at its cycle's ends -- at any moment
-			     at least one layer is fully opaque, so the reset never
-			     shows. The bob wrapper adds the step rhythm. -->
-			<div class="walk-bob" aria-hidden="true">
-				<div class="walk-layer" style="background-image: url('{base}/images/stairwell.jpg');"></div>
-				<div
-					class="walk-layer late"
-					style="background-image: url('{base}/images/stairwell.jpg');"
-				></div>
-			</div>
-		{/if}
+{#if walking}
+	<!-- The endless climb: both layers carry the same still (6.mp4's final
+	     frame); each runs the same slow zoom toward the upper-left stair
+	     flight over WALK_PERIOD*2, offset by one period, fading in/out at
+	     its cycle's ends -- at any moment at least one layer is fully
+	     opaque, so the reset never shows. The bob wrapper adds the step
+	     rhythm. No z-index of its own: it just needs to paint above the
+	     shared VideoStage canvas (z-index -1), which normal stacking order
+	     already gives it. -->
+	<div class="walk-bob" aria-hidden="true">
+		<div class="walk-layer" style="background-image: url('{base}/images/stairwell.jpg');"></div>
+		<div class="walk-layer late" style="background-image: url('{base}/images/stairwell.jpg');"></div>
 	</div>
-	{#if supported}
-		<audio bind:this={audio5El} src="{base}/videos/5.mp4" preload="auto"></audio>
-		<audio bind:this={audio6El} src="{base}/videos/6.mp4" preload="auto"></audio>
-		<audio bind:this={audio7El} src="{base}/videos/7.mp4" preload="auto"></audio>
-	{/if}
-</div>
+{/if}
+<audio bind:this={audio5El} src="{base}/videos/5.mp4" preload="auto"></audio>
+<audio bind:this={audio6El} src="{base}/videos/6.mp4" preload="auto"></audio>
+<audio bind:this={audio7El} src="{base}/videos/7.mp4" preload="auto"></audio>
 
 <style>
-	.bg-outer {
-		position: fixed;
-		inset: 0;
-		z-index: -1;
-		overflow: hidden;
-		background: #0d1418;
-	}
-	.stage {
-		position: absolute;
-		inset: 0;
-	}
-	canvas,
-	video {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-	}
-
 	/* Slightly overscanned so the bob's vertical drift never uncovers the
 	   viewport edges at a layer's scale-1 start. */
 	.walk-bob {
-		position: absolute;
+		position: fixed;
 		inset: -2%;
 		animation: walk-bob 1.9s ease-in-out infinite;
 	}

@@ -463,12 +463,15 @@
 			>
 				Start
 			</button>
-		</div>
-		<!-- Hidden-in-plain-sight strategy tip: hovering the foreground
-		     railing along the frame's bottom edge (below the panel's quad)
-		     reveals it, floating just above the balusters. -->
-		<div class="rail-hint">
-			<p class="rail-hint-tip">See what will happen to put all tokens into one attribute</p>
+			<!-- Moved inside the glass panel, below Start, but keeping the
+			     original hover-to-reveal discovery -- invisible until this
+			     strip itself is hovered, same "hidden in plain sight" tip as
+			     before, just relocated off the background footage's rail
+			     band (nothing back there to hover once it's on the glass)
+			     and onto its own reserved spot under Start instead. -->
+			<div class="alloc-hint-zone" aria-hidden="true">
+				<p class="alloc-hint">See what will happen to put all tokens into one attribute</p>
+			</div>
 		</div>
 	</div>
 {/if}
@@ -524,24 +527,30 @@
 	     rectangle so it stays glued to the footage regardless of viewport
 	     shape. -->
 	<div class="scene" style={overlayStyle}>
-		<div class="stair-log" bind:this={logEl}>
-			{#each entries as entry, i (entry.id)}
-				<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
-					<div class="step-tread">Age {entry.age}</div>
-					<div class="step-riser">
-						<p class="entry-text">{entry.text}</p>
-						{#if entry.statChanges.length}
-							<div class="entry-deltas">
-								{#each entry.statChanges as [prop, value] (prop)}
-									<span class:positive={value > 0} class:negative={value < 0}>
-										{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
-									</span>
-								{/each}
-							</div>
-						{/if}
+		<!-- Hard clip boundary for the scrolling log below, kept as its own
+		     plain (untransformed) element so its overflow:hidden edge is a
+		     reliable, predictable rectangle regardless of anything the log
+		     itself does visually. -->
+		<div class="stair-log-viewport">
+			<div class="stair-log" bind:this={logEl}>
+				{#each entries as entry, i (entry.id)}
+					<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
+						<div class="step-tread">Age {entry.age}</div>
+						<div class="step-riser">
+							<p class="entry-text">{entry.text}</p>
+							{#if entry.statChanges.length}
+								<div class="entry-deltas">
+									{#each entry.statChanges as [prop, value] (prop)}
+										<span class:positive={value > 0} class:negative={value < 0}>
+											{STAT_LABELS[prop]} {value > 0 ? '+' : ''}{value}
+										</span>
+									{/each}
+								</div>
+							{/if}
+						</div>
 					</div>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	</div>
 
@@ -657,30 +666,48 @@
 		container-type: size;
 	}
 
-	/* The whole climb log, angled into the foreground staircase's own
-	   receding plane (perspective + rotateY, left edge nearer) so the
-	   steps read as sitting on that flight rather than floating over it.
-	   Top-masked so scrolled-past steps dissolve rather than clip;
-	   scrollbar hidden since scrollToEnd() drives it. Starts well below
-	   .statbar's own screen position (a fixed rem offset stacked on top of
-	   the existing 5%, not just 5% alone) -- .statbar's height is a fixed
-	   rem value pinned to the viewport, but this box's own top is a percent
-	   of the (often taller, overscanned) cover-fit rect, so on most aspect
-	   ratios 5% alone landed above the statbar's actual bottom edge, and
-	   z-index alone would have still meant new steps spawned already
-	   sliding out from behind it instead of clearing it outright. */
-	.stair-log {
+	/* Hard clip boundary for the log below. Starts well below .statbar's own
+	   screen position (a fixed rem offset stacked on top of the existing
+	   5%, not just 5% alone) -- .statbar's height is a fixed rem value
+	   pinned to the viewport, but this box's own top is a percent of the
+	   (often taller, overscanned) cover-fit rect, so on most aspect ratios
+	   5% alone landed above the statbar's actual bottom edge. Stops well
+	   short of .scene's own bottom edge (80%, not 95%) to leave real
+	   clearance above .controls' fixed-position View Summary button --
+	   .controls sits at a fixed rem distance from the viewport bottom, not
+	   from this box, so the two need enough of a permanent gap that the
+	   button can never sit over the newest, most-recently-scrolled-into-
+	   view step. */
+	.stair-log-viewport {
 		position: absolute;
 		left: 6%;
 		top: calc(5% + 6.5rem);
 		width: 58%;
-		max-height: calc(90% - 6.5rem);
+		height: calc(80% - 6.5rem);
+		overflow: hidden;
+	}
+	/* The climb log itself: one step per entry, scrolled to the bottom as
+	   new ones arrive (scrollToEnd()). Previously carried a 3D
+	   perspective+rotateY tilt for a "receding staircase" look, but a
+	   rotated element's own on-screen bounding box is provably larger than
+	   its flat layout box (measured live: 886px wide vs. a real 742px, on
+	   an element with no explicit width past its container) -- neither
+	   overflow:hidden here nor on the wrapper above clips it at the
+	   intended edge, which is what let entry text visibly run past the
+	   right edge of the screen. Each step's own small 2D rotateZ tilt
+	   (below) still reads as "stairs" without that problem: it's a
+	   same-plane rotation, so its bounding box matches its layout box and
+	   normal clipping/wrapping behaves exactly as authored. Scrollbar
+	   hidden since scrollToEnd() drives it. Fills its clipping wrapper
+	   exactly (inset:0) rather than repeating that wrapper's own
+	   position/size. */
+	.stair-log {
+		position: absolute;
+		inset: 0;
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 1.6cqh;
-		transform: perspective(60em) rotateY(-14deg);
-		transform-origin: left center;
 		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
 		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
 		scrollbar-width: none;
@@ -693,7 +720,9 @@
 	   single tilt so they read as one physical step, and each step
 	   outsets sideways from the last on a 5-step sawtooth -- a real
 	   ascending flight alternates which way a tread juts relative to the
-	   one below it; a plain vertical stack read as a list, not stairs. */
+	   one below it; a plain vertical stack read as a list, not stairs. A
+	   same-plane rotateZ only (no perspective/rotateY -- see .stair-log
+	   above), so it can't inflate this card's own clipped/wrapped width. */
 	.step {
 		display: flex;
 		flex-direction: column;
@@ -701,6 +730,7 @@
 		margin-left: calc(var(--step, 0) * 2.6cqw);
 		transform: rotateZ(-2.5deg);
 		font-size: 2.6cqh;
+		max-width: 100%;
 	}
 	/* Same frosted-glass recipe as .alloc-glass (tint + backdrop-blur +
 	   inset highlight), just tinted teal instead of neutral so the tread
@@ -1102,36 +1132,28 @@
 		}
 	}
 
-	/* Hover zone over the brightly lit horizontal wall band crossing the
-	   frame just below the panel's bottom edge -- invisible itself;
-	   pointing at it fades in the strategy tip. */
-	.rail-hint {
-		position: absolute;
-		left: 22%;
-		top: 82%;
-		width: 50%;
-		height: 11%;
+	/* Strategy tip, now living inside the glass panel below Start instead
+	   of floating over the background footage -- the hover-zone needs its
+	   own reserved padding here (there's no bright rail band to lean on
+	   anymore) so there's still something to find by hovering. */
+	.alloc-hint-zone {
+		position: relative;
+		margin-top: 1cqh;
+		padding: 1cqh 2cqw;
 	}
-	/* Centered on that bright band's own midpoint. Dark ink instead of the
-	   white used elsewhere: this strip is the single brightest surface in
-	   the frame, so light text washed out against it -- dark text is what
-	   actually contrasts here. */
-	.rail-hint-tip {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
+	.alloc-hint {
+		position: relative;
 		margin: 0;
-		white-space: nowrap;
+		max-width: 90%;
 		font-size: 1.5cqh;
-		letter-spacing: 0.12em;
-		color: rgba(64, 64, 64, 0.92);
-		text-shadow: 0 1px 3px rgba(255, 255, 255, 0.35);
+		letter-spacing: 0.06em;
+		line-height: 1.4;
+		color: rgba(23, 38, 46, 0.72);
 		opacity: 0;
 		transition: opacity 300ms ease;
 		pointer-events: none;
 	}
-	.rail-hint:hover .rail-hint-tip {
+	.alloc-hint-zone:hover .alloc-hint {
 		opacity: 1;
 	}
 </style>

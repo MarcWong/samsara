@@ -13,12 +13,12 @@
 	];
 
 	// Orientation selection now happens right on the corridor photo itself
-	// (4.mp4's final frame / corridor.jpg) instead of a DOS popup: the
-	// double doors' two crash-bar handles carry the two choices, and the
-	// prompt sits just below them. Same 1280x720 frame CityIntro's own door
-	// overlay uses; coordinates below are percentages of that frame,
-	// measured directly off the bars in corridor.jpg (left bar center
-	// ~x545/y392, right bar center ~x735/y392 out of 1280x720).
+	// (4.mp4's own final frame, frozen on the shared VideoStage canvas)
+	// instead of a DOS popup: the double doors' two crash-bar handles carry
+	// the two choices, and the prompt sits just below them. Same 1280x720
+	// frame CityIntro's own door overlay uses; coordinates below are
+	// percentages of that frame, measured directly off the bars (left bar
+	// center ~x545/y392, right bar center ~x735/y392 out of 1280x720).
 	const VIDEO_W = 1280;
 	const VIDEO_H = 720;
 	const HANDLE_Y = 54.4;
@@ -27,10 +27,10 @@
 	const PROMPT_Y = 64;
 
 	// Tracks the viewport so the orientation step's door-handle overlay can
-	// be pinned to corridor.jpg's exact cover-fit rectangle -- same formula
-	// CityIntro uses for its own door overlay, needed here because that
-	// step renders straight over the full-bleed corridor image instead of
-	// inside the fixed-aspect crt-screen panel.
+	// be pinned to the shared canvas's exact cover-fit rectangle -- same
+	// formula CityIntro uses for its own door overlay, needed here because
+	// that step renders straight over the full-bleed corridor frame instead
+	// of inside the fixed-aspect crt-screen panel.
 	let cw = $state(0);
 	let ch = $state(0);
 	let overlayStyle = $derived.by(() => {
@@ -116,12 +116,14 @@
 	}
 </script>
 
-<!-- The final frame of 4.mp4 (the hospital corridor CityIntro just walked
-     into), same still used as CityIntro's own handoff frame so there's no
-     visible cut arriving here. The computer prop that used to stand in
-     this corridor (and the screen-glass homography that warped the DOS
-     UI onto it) is gone -- the UI below is now a plain centered panel. -->
-<div class="corridor-bg" style="background-image: url('{base}/images/corridor.jpg');"></div>
+<!-- No background element here anymore: this screen mounts right as
+     CityIntro's 4.mp4 finishes, and the shared VideoStage canvas (see
+     +page.svelte/videoStage.svelte.js) is already sitting frozen on that
+     exact last frame -- the hospital corridor CityIntro just walked into --
+     underneath everything, unbroken across the screen swap. The computer
+     prop that used to stand in this corridor (and the screen-glass
+     homography that warped the DOS UI onto it) is gone -- the UI below is
+     now a plain centered panel. -->
 
 <!-- One persistent phosphor-green CRT/DOS panel, floating centered over
      the corridor backdrop -- `step` just swaps which window is showing.
@@ -150,10 +152,10 @@
 
 {#if step === 'orientation'}
 	<!-- Straight onto the corridor photo itself: the two crash-bar handles
-	     on the double doors carry the two choices, pinned to corridor.jpg's
-	     exact cover-fit rectangle so they land on the actual handles
-	     regardless of viewport shape (same technique as CityIntro's own
-	     door overlay). -->
+	     on the double doors carry the two choices, pinned to the shared
+	     canvas's exact cover-fit rectangle so they land on the actual
+	     handles regardless of viewport shape (same technique as CityIntro's
+	     own door overlay). -->
 	<div class="corridor-overlay" style={overlayStyle}>
 		{#each ORIENTATIONS as { value, label } (value)}
 			<button
@@ -185,20 +187,7 @@
 		text-rendering: optimizeSpeed;
 	}
 
-	/* Static backdrop -- no more WebGL scene behind this screen, just the
-	   corridor still (cover-fit, matching how CityIntro's own video canvas
-	   filled the frame, so the handoff has no jump). */
-	.corridor-bg {
-		position: fixed;
-		inset: 0;
-		z-index: -1;
-		background-color: #0a0710;
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-
-	/* Pinned to corridor.jpg's own cover-fit rectangle (see overlayStyle in
+	/* Pinned to the shared canvas's own cover-fit rectangle (see overlayStyle in
 	   the script block) so the handle labels and prompt land on the actual
 	   photo regardless of viewport shape -- same technique CityIntro uses
 	   for its door nameplates, which this reuses the exact palette of

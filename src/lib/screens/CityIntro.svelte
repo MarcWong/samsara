@@ -1,7 +1,8 @@
 <script>
 	// The 3D city panorama (CitySkyboxBackground) is gone -- the intro is
-	// now pure video, custom-rendered through WebCodecs onto a canvas (see
-	// videoPlayer.js for why not a plain <video>):
+	// now pure video, custom-rendered through WebCodecs onto the shared
+	// VideoStage canvas (see videoStage.svelte.js for why it's shared rather
+	// than owned here, and videoPlayer.js for why not a plain <video>):
 	//
 	//   1. videos/1.mp4 loops full-screen as the title backdrop.
 	//   2. First click anywhere: videos/2.mp4 plays once (2.mp4 was
@@ -12,17 +13,17 @@
 	//      simply stop presenting new frames, so the freeze is exact.
 	//   4. Second click anywhere: on to the computer / country selection.
 	//
-	// Browsers without WebCodecs fall back to a native <video> driving the
-	// same click state machine (with the browser's own last-frame behavior,
-	// which is the best available there).
+	// Browsers without WebCodecs fall back to the shared VideoStage's native
+	// <video> driving the same click state machine (with the browser's own
+	// last-frame behavior, which is the best available there).
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { goToScreen } from '../stores.js';
-	import { CanvasVideoPlayer, loadMp4, webCodecsSupported } from '../components/videoPlayer.js';
-	import { skippable } from '../skip.js';
+	import { loadMp4 } from '../components/videoPlayer.js';
+	import { videoStage } from '../components/videoStage.svelte.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
-	const supported = webCodecsSupported();
+	const supported = videoStage.supported;
 
 	// The title loop (1.mp4) plays at half speed -- applied to the WebCodecs
 	// presentation clock, its audio track, and the <video> fallback alike.
@@ -68,28 +69,23 @@
 			y: DOOR_ROWS[DOOR_SLOTS[i][1]],
 		}));
 
-	let canvasEl = $state();
 	let containerEl = $state();
-	let videoEl = $state(null); // fallback path only
 	// The WebCodecs path renders video only, so the clips' AAC tracks play
-	// through plain <audio> elements alongside the canvas (frame-exact sync
-	// isn't needed for ambience; both start together on the same click).
+	// through plain <audio> elements alongside the shared canvas
+	// (frame-exact sync isn't needed for ambience; both start together on
+	// the same click).
 	let audio1El = $state(null);
 	let audio2El = $state(null);
 	let audio3El = $state(null);
 	let audio4El = $state(null);
 
-	let player = null;
 	let media2Promise = null;
 	let media3Promise = null;
 	let media4Promise = null;
-	let pendingCountry = null; // set once a door is picked; consumed when 4.mp4 ends
 	let resizeObserver;
 
 	// 'loading' -> 'loop' -> 'transition' -> 'frozen' -> 'morgue' -> 'select'
 	let phase = $state('loading');
-	let videoSrc = $state(`${base}/videos/1.mp4`);
-	let videoLoop = $state(true);
 
 	// Container size, tracked so the country overlay can be pinned to the
 	// exact cover-fit rectangle the video occupies on screen -- the door
@@ -105,26 +101,24 @@
 	});
 
 	onMount(() => {
-		if (!supported) {
-			phase = 'loop';
-			if (videoEl) videoEl.playbackRate = LOOP_RATE;
-			return;
-		}
-
-		player = new CanvasVideoPlayer(canvasEl);
+		// Only the door-overlay math needs this component's own size (the
+		// shared VideoStage tracks its own, for the canvas) -- both always
+		// equal the viewport, but each stays independently responsible for
+		// what it uses the measurement for.
 		resizeObserver = new ResizeObserver(() => {
 			cw = containerEl.clientWidth;
 			ch = containerEl.clientHeight;
-			const dpr = Math.min(window.devicePixelRatio || 1, 2);
-			canvasEl.width = Math.round(cw * dpr);
-			canvasEl.height = Math.round(ch * dpr);
-			player.redraw(); // resizing clears the canvas; repaint current frame
 		});
 		resizeObserver.observe(containerEl);
 
+		if (!supported) {
+			phase = 'loop';
+			videoStage.playFallback(`${base}/videos/1.mp4`, { loop: true, rate: LOOP_RATE, muted: true });
+			return;
+		}
+
 		(async () => {
 			try {
-				const media1 = await loadMp4(`${base}/videos/1.mp4`);
 				// Fetch + demux the later clips in the background while the
 				// loop plays, so each click switches instantly.
 				media2Promise = loadMp4(`${base}/videos/2.mp4`);
@@ -133,7 +127,7 @@
 				media3Promise.catch(() => {});
 				media4Promise = loadMp4(`${base}/videos/4.mp4`);
 				media4Promise.catch(() => {});
-				player.play(media1, { loop: true, rate: LOOP_RATE });
+				await videoStage.play(`${base}/videos/1.mp4`, { loop: true, rate: LOOP_RATE });
 				phase = 'loop';
 				startLoopAudio();
 			} catch (err) {
@@ -147,7 +141,6 @@
 
 	onDestroy(() => {
 		resizeObserver?.disconnect();
-		player?.stop();
 		audio1El?.pause();
 		audio2El?.pause();
 		audio3El?.pause();
@@ -184,8 +177,8 @@
 			}
 			if (supported) {
 				try {
-					const media2 = await media2Promise;
-					player.play(media2, {
+					await media2Promise;
+					await videoStage.play(`${base}/videos/2.mp4`, {
 						loop: false,
 						align: ALIGN_2,
 						onEnded: () => {
@@ -197,17 +190,9 @@
 					phase = 'frozen';
 				}
 			} else {
-				videoLoop = false;
-				videoSrc = `${base}/videos/2.mp4`;
-				// src swap needs an explicit load+play on the same element;
-				// unmuting is allowed now that a real click happened.
-				videoEl?.load();
-				if (videoEl) {
-					videoEl.muted = false;
-					// load() resets playbackRate -- 2.mp4 runs at normal speed
-					videoEl.playbackRate = 1;
-				}
-				videoEl?.play().catch(() => {});
+				// unmuting is allowed now that a real click happened; 2.mp4
+				// runs at normal speed (rate defaults to 1).
+				videoStage.playFallback(`${base}/videos/2.mp4`, { onEnded: () => (phase = 'frozen') });
 			}
 		} else if (phase === 'frozen') {
 			// End of 2.mp4: the click rolls 3.mp4 (the morgue wall), whose
@@ -220,8 +205,8 @@
 			}
 			if (supported) {
 				try {
-					const media3 = await media3Promise;
-					player.play(media3, {
+					await media3Promise;
+					await videoStage.play(`${base}/videos/3.mp4`, {
 						loop: false,
 						align: ALIGN_3,
 						onEnded: () => {
@@ -233,14 +218,7 @@
 					phase = 'select';
 				}
 			} else {
-				videoLoop = false;
-				videoSrc = `${base}/videos/3.mp4`;
-				videoEl?.load();
-				if (videoEl) {
-					videoEl.muted = false;
-					videoEl.playbackRate = 1;
-				}
-				videoEl?.play().catch(() => {});
+				videoStage.playFallback(`${base}/videos/3.mp4`, { onEnded: () => (phase = 'select') });
 			}
 		}
 		// clicks during 'loading'/'transition'/'morgue'/'select' are ignored
@@ -248,8 +226,9 @@
 
 	// Picking a door no longer jumps straight to the Plaza: 4.mp4 first
 	// walks out of the morgue into the hospital corridor, and only its final
-	// frame (frozen) hands over to the PLAZA screen -- whose backdrop is a
-	// still of that exact frame, so the cut is invisible.
+	// frame (frozen) hands over to the PLAZA screen -- the shared VideoStage
+	// canvas just keeps playing straight through into whatever Plaza asks
+	// for next, so there's nothing to visibly cut between the two screens.
 	async function selectCountry(code) {
 		if (phase !== 'select') return;
 		phase = 'exit';
@@ -258,25 +237,17 @@
 			audio4El.currentTime = 0;
 			audio4El.play().catch(() => {});
 		}
-		pendingCountry = code;
 		const done = () => goToScreen('PLAZA', { countryCode: code });
 		if (supported) {
 			try {
-				const media4 = await media4Promise;
-				player.play(media4, { loop: false, onEnded: done });
+				await media4Promise;
+				await videoStage.play(`${base}/videos/4.mp4`, { loop: false, onEnded: done });
 			} catch (err) {
 				console.error('[CityIntro] exit video failed', err);
 				done();
 			}
 		} else {
-			videoLoop = false;
-			videoSrc = `${base}/videos/4.mp4`;
-			videoEl?.load();
-			if (videoEl) {
-				videoEl.muted = false;
-				videoEl.playbackRate = 1;
-			}
-			videoEl?.play().catch(() => {});
+			videoStage.playFallback(`${base}/videos/4.mp4`, { onEnded: done });
 		}
 	}
 
@@ -297,28 +268,12 @@
 	role="button"
 	tabindex="0"
 >
-	{#if supported}
-		<canvas bind:this={canvasEl}></canvas>
-		<audio bind:this={audio1El} src="{base}/videos/1.mp4" loop preload="auto"></audio>
-		<audio bind:this={audio2El} src="{base}/videos/2.mp4" preload="auto"></audio>
-		<audio bind:this={audio3El} src="{base}/videos/3.mp4" preload="auto"></audio>
-		<audio bind:this={audio4El} src="{base}/videos/4.mp4" preload="auto"></audio>
-	{:else}
-		<!-- svelte-ignore a11y_media_has_caption -->
-		<video
-			bind:this={videoEl}
-			src={videoSrc}
-			loop={videoLoop}
-			autoplay
-			muted
-			playsinline
-			onended={() => {
-				if (phase === 'exit') goToScreen('PLAZA', { countryCode: pendingCountry });
-				else phase = phase === 'morgue' ? 'select' : 'frozen';
-			}}
-			use:skippable
-		></video>
-	{/if}
+	<!-- Video itself now renders through the shared VideoStage (see
+	     +page.svelte); only the audio tracks are still owned locally. -->
+	<audio bind:this={audio1El} src="{base}/videos/1.mp4" loop preload="auto"></audio>
+	<audio bind:this={audio2El} src="{base}/videos/2.mp4" preload="auto"></audio>
+	<audio bind:this={audio3El} src="{base}/videos/3.mp4" preload="auto"></audio>
+	<audio bind:this={audio4El} src="{base}/videos/4.mp4" preload="auto"></audio>
 
 	{#if phase === 'select'}
 		<!-- Pinned to the video's cover-fit rectangle so each name lands on
@@ -363,25 +318,17 @@
 </div>
 
 <style>
+	/* Transparent: the actual picture comes from the shared VideoStage
+	   canvas (z-index -1, rendered by +page.svelte), which sits underneath
+	   this whole screen's UI overlay. */
 	.intro {
 		position: fixed;
 		inset: 0;
 		overflow: hidden;
-		background: #000;
 		outline: none;
 	}
 	.intro.clickable {
 		cursor: pointer;
-	}
-	canvas,
-	video {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-	}
-	video {
-		object-fit: cover;
 	}
 
 	.content {
