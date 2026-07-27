@@ -467,11 +467,22 @@
 		flex-wrap: wrap;
 		justify-content: center;
 	}
+	/* Same treatment .title and .credits already use for text floating
+	   straight over the cloud background: a near-opaque light tint plus a
+	   dark drop shadow, rather than a flat white dimmed with opacity. At
+	   0.6 opacity and no shadow this was washing out completely against
+	   the shader's bright cloud-lit patches, which is exactly the failure
+	   .credits below documents. Sized up too -- it's the one piece of
+	   guidance on this screen, so it shouldn't read smaller than the
+	   talent rows beside it. */
 	.hint {
 		margin: 0;
-		font-size: 1.15rem;
-		color: #ffffff;
-		opacity: 0.6;
+		font-size: 1.2rem;
+		line-height: 1.5;
+		color: rgba(238, 246, 250, 0.95);
+		text-shadow:
+			0 1px 3px rgba(6, 12, 18, 0.9),
+			0 2px 12px rgba(6, 12, 18, 0.7);
 	}
 	/* Pinned to the very bottom of the screen (not just after the hint in
 	   normal flow) via margin-top: auto -- .summary is a flex column with

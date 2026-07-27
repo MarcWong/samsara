@@ -98,6 +98,11 @@
 	let propertyAllocate = null;
 	let printText = '';
 	let triedAllInOneStat = false;
+	// Whether the free-allocation bonus (+5 to every attribute) fired for
+	// this life -- read back in renderTrajectory for the privilege coda
+	// below. Kept as its own flag rather than re-reading the TLR property,
+	// so the two can't drift if TLR ever gains another meaning.
+	let bonusTriggered = false;
 	let stats = $state(null);
 	let effects = $state({ CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 });
 	let entries = $state([]);
@@ -217,15 +222,28 @@
 		//   Health -1
 		//   You are DEAD again, mortal.
 		//
-		// Only applies to the 68 fatal events carrying that separate marker
-		// line; the other 150 state the death inline in prose ("You die from
-		// dehydration after..."), where the narrative already closes the
-		// entry and there is nothing to move. Fatal content is sorted last by
-		// life.js's next(), so when the marker exists it is the final line of
-		// the joined text.
+		// Every death event in events.json now carries that marker as its own
+		// final line, so this matches on all of them. Fatal content is sorted
+		// last by life.js's next(), which is why the marker is reliably the
+		// last line of the joined text.
 		const deathMatch = fatal ? joined.match(/\n(You are DEAD[^\n]*)$/i) : null;
 		const text = deathMatch ? joined.slice(0, deathMatch.index) : joined;
-		const deathLine = deathMatch ? deathMatch[1] : '';
+		let deathLine = deathMatch ? deathMatch[1] : '';
+
+		// Privilege coda: a life that triggered the free-allocation bonus
+		// (+5 to every attribute) and still died young gets one extra line
+		// under the death. The pairing is the whole point -- the bonus is
+		// this game's "born lucky" lever, so the earlier it fails the more
+		// pointed the line is. Runtime-conditional on purpose: it depends on
+		// this run's bonus flag and death age, not on which event killed
+		// her, so it can't live in events.json (the same event is reachable
+		// by unprivileged lives and at any age). realAge is the DISPLAYED
+		// age -- the number the player actually watched her die at -- not
+		// the internal 0-102 content index.
+		if (fatal && bonusTriggered && realAge < 30) {
+			const coda = 'Relax, even when you are privileged, nothing is in control';
+			deathLine = deathLine ? `${deathLine}\n${coda}` : coda;
+		}
 
 		printText +=
 			`Age: ${realAge}\n${text}` +
@@ -389,11 +407,15 @@
 		// off it, the same way LBTQ already does for orientation -- see
 		// the country-tree events gated "<CODE>>0&TLR>0" / "...&TLR=0".
 		propertyAllocate[types.TLR] = bonus.triggered ? 1 : 0;
+		bonusTriggered = bonus.triggered;
 		if (bonus.triggered) {
 			// The free-allocation trick already handed her an easier start --
-			// re-roll this life's 3 lucky charms from the good-only pool so
+			// re-roll this life's lucky charms from the good-only pool so
 			// none of the random misfortunes (earthquake, bankruptcy, rape,
-			// a plane crash) can also land on top of it. core.remake() was
+			// a plane crash) can also land on top of it. How MANY are drawn
+			// is Poisson (see talentDraw.js), so this re-roll often yields
+			// one charm and sometimes none -- it is not a guaranteed set.
+			// core.remake() was
 			// already called once in Plaza with the original draw; calling
 			// it again here fully replaces that selection before core.start()
 			// ever applies any of it.
@@ -766,8 +788,11 @@
 	   had nothing above the first entry to dissolve and simply erased its
 	   own top edge, taking the "Age 0" tread and first text line with it. */
 	.stair-log-viewport.scrolled {
-		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+		/* Short band (was 15%, ~70px -- a full line of text plus its age
+		   chip): enough to soften an entry leaving the top, not enough to
+		   render the topmost readable line illegible. */
+		mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 100%);
 	}
 	/* The climb log itself: one step per entry, scrolled to the bottom as
 	   new ones arrive (scrollToEnd()). Previously carried a 3D
@@ -810,7 +835,12 @@
 	   still reads as the stair's own surface rather than a UI chrome
 	   sitting on top of it. */
 	.step-tread {
-		background: linear-gradient(180deg, rgba(129, 214, 191, 0.55) 0%, rgba(37, 79, 71, 0.62) 100%);
+		/* Was 0.55/0.62 -- too see-through over the walking loop's brightest
+		   frames (the pale stair treads), where the age chip washed out to
+		   near-invisible while the same chip over a darker part of the
+		   footage read solid. Opaque enough now to read the same wherever a
+		   step happens to land. */
+		background: linear-gradient(180deg, rgba(129, 214, 191, 0.82) 0%, rgba(37, 79, 71, 0.9) 100%);
 		-webkit-backdrop-filter: blur(14px) saturate(160%);
 		backdrop-filter: blur(14px) saturate(160%);
 		color: #f2fbf7;
@@ -1274,6 +1304,12 @@
 		margin-top: 1cqh;
 		padding: 1cqh 2cqw;
 	}
+	/* Two different transition speeds, one per direction. The duration
+	   declared here is the one that runs on the way BACK to this state --
+	   i.e. after the pointer leaves -- so the hint takes a slow 3s to
+	   dissolve, staying readable long enough to finish the sentence after
+	   you've moved on. The :hover rule below overrides it with a short
+	   duration for the reveal, which should feel immediate. */
 	.alloc-hint {
 		position: relative;
 		margin: 0;
@@ -1283,10 +1319,11 @@
 		line-height: 1.4;
 		color: rgba(23, 38, 46, 0.72);
 		opacity: 0;
-		transition: opacity 300ms ease;
+		transition: opacity 3000ms ease;
 		pointer-events: none;
 	}
 	.alloc-hint-zone:hover .alloc-hint {
 		opacity: 1;
+		transition: opacity 300ms ease;
 	}
 </style>

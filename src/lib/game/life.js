@@ -140,11 +140,20 @@ class Life {
 
         const talentContent = this.doTalent(talent);
         const selectedEvent = this.random(event);
-
-        if (!selectedEvent)
-            return { age, content:{}, isEnd: this.#property.isEnd() };
-
-        const eventContent = this.doEvent(selectedEvent);
+        // A year can have a talent fire with no event to show alongside it:
+        // several lucky charms trigger at ages age.json schedules nothing for
+        // (Queen's gambit at 8, Rape at 27, Job opportunity at 33, Airplane
+        // Crash at 35), and any year's events can also all fail their own
+        // include checks. This used to return early with content:{}, which
+        // threw the talent's content away after doTalent() had already
+        // applied its effect and counted the trigger -- so the charm silently
+        // changed a stat and appeared on the Summary while the log never
+        // mentioned it. Worst case it killed without a word: Airplane Crash
+        // is LIF -1 at exactly such an age, ending the run with no text at
+        // all. Falling through with an empty event list keeps the talent's
+        // own line; a year where nothing at all happened still yields [],
+        // which callers already read as "no content this tick".
+        const eventContent = selectedEvent ? this.doEvent(selectedEvent) : [];
 
         const content = [talentContent, eventContent].flat();
         // a fatal talent (e.g. the "Airplane Crash" lucky charm) is otherwise
