@@ -58,6 +58,7 @@
         "description": "Almost overnight, you become drop-dead gorgeous and become the center of attention ever since.",
         "condition": "AGE?[18]",
         "grade": 0,
+        "exclude": [90008],
         "effect": {
             "CHR": 10
         }
@@ -78,6 +79,7 @@
         "description": "You undergo a minimally invasive cosmetic procedure.",
         "condition": "AGE?[18]",
         "grade": 0,
+        "exclude": [90006],
         "effect": {
             "CHR": 3,
             "MNY": -1
