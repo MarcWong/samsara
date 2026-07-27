@@ -1,7 +1,7 @@
 {
     "10000": {
         "id": 10000,
-        "event": "You’re dead.",
+        "event": "You’re dead.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -18,7 +18,7 @@
     "10002": {
         "id": 10002,
         "event": "You can’t afford the hospital bill.",
-        "include": "MNY<3",
+        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0",
         "branch": [
             "STR>5:10003",
             "MNY<3:10000"
@@ -39,9 +39,18 @@
             "STR<100:10000"
         ]
     },
+    "10005": {
+        "id": 10005,
+        "event": "You develop a rare disease and your condition worsens by the day. The doctors keep trying, but there is no possibility of a cure in your country.",
+        "include": "MNY<3&(AF>0|IRN>0|PRK>0|HTI>0)",
+        "branch": [
+            "STR>5:10003",
+            "MNY<3:10000"
+        ]
+    },
     "74001": {
         "id": 74001,
-        "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.",
+        "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.\nYou are DEAD again, mortal.",
         "include": "PRK>0&LBTQ>0",
         "effect": {
             "LIF": -1
@@ -77,7 +86,7 @@
     },
     "74005": {
         "id": 74005,
-        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. No one ever hears from you again. You’re dead.",
+        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. No one ever hears from you again. You’re dead.\nYou are DEAD again, mortal.",
         "NoRandom": 1,
         "effect": {
             "LIF": -1
@@ -235,7 +244,7 @@
     },
     "81901": {
         "id": 81901,
-        "event": "You die from dehydration after contaminated water causes severe diarrhea and transport to a working clinic cannot be found.",
+        "event": "You die from dehydration after contaminated water causes severe diarrhea and transport to a working clinic cannot be found.\nYou are DEAD again, mortal.",
         "include": "HTI>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -251,7 +260,7 @@
     },
     "81903": {
         "id": 81903,
-        "event": "You die from postpartum hemorrhage because the maternity ward has no blood, electricity or surgeon available in time.",
+        "event": "You die from postpartum hemorrhage because the maternity ward has no blood, electricity or surgeon available in time.\nYou are DEAD again, mortal.",
         "include": "HTI>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -425,7 +434,7 @@
     },
     "82901": {
         "id": 82901,
-        "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.",
+        "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.\nYou are DEAD again, mortal.",
         "include": "HTI>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -433,7 +442,7 @@
     },
     "82902": {
         "id": 82902,
-        "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.",
+        "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.\nYou are DEAD again, mortal.",
         "include": "HTI>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1115,7 +1124,7 @@
     },
     "102501": {
         "id": 102501,
-        "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.",
+        "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1123,7 +1132,7 @@
     },
     "102502": {
         "id": 102502,
-        "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.",
+        "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1131,7 +1140,7 @@
     },
     "102503": {
         "id": 102503,
-        "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.",
+        "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1139,7 +1148,7 @@
     },
     "102504": {
         "id": 102504,
-        "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.",
+        "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1318,7 +1327,7 @@
     },
     "102802": {
         "id": 102802,
-        "event": "You are killed during a protest after returning from university abroad. Security forces treat your foreign contacts as evidence that you were an organizer rather than a bystander.",
+        "event": "You are killed during a protest after returning from university abroad. Security forces treat your foreign contacts as evidence that you were an organizer rather than a bystander.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1326,7 +1335,7 @@
     },
     "102803": {
         "id": 102803,
-        "event": "You die in an aviation accident after years of sanctions and procurement restrictions leave the aircraft dependent on aging.",
+        "event": "You die in an aviation accident after years of sanctions and procurement restrictions leave the aircraft dependent on aging.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1334,7 +1343,7 @@
     },
     "102804": {
         "id": 102804,
-        "event": "You are assassinated after refusing to surrender your technology company to a security-linked organization. The death is publicly described as a robbery.",
+        "event": "You are assassinated after refusing to surrender your technology company to a security-linked organization. The death is publicly described as a robbery.\nYou are DEAD again, mortal.",
         "include": "IRN>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1500,7 +1509,7 @@
     },
     "103501": {
         "id": 103501,
-        "event": "You die from pneumonia and malnutrition during a winter food shortage. The clinic records the immediate illness but not the hunger that made it fatal.",
+        "event": "You die from pneumonia and malnutrition during a winter food shortage. The clinic records the immediate illness but not the hunger that made it fatal.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1516,7 +1525,7 @@
     },
     "103503": {
         "id": 103503,
-        "event": "You attempt to cross into China, are sold by a broker into a forced marriage and die while trying to escape captivity.",
+        "event": "You attempt to cross into China, are sold by a broker into a forced marriage and die while trying to escape captivity.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1524,7 +1533,7 @@
     },
     "103504": {
         "id": 103504,
-        "event": "You die from postpartum bleeding because the hospital lacks blood, electricity and reliable transport to a larger facility.",
+        "event": "You die from postpartum bleeding because the hospital lacks blood, electricity and reliable transport to a larger facility.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1690,7 +1699,7 @@
     },
     "103801": {
         "id": 103801,
-        "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.",
+        "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1698,7 +1707,7 @@
     },
     "103802": {
         "id": 103802,
-        "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.",
+        "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1706,7 +1715,7 @@
     },
     "103803": {
         "id": 103803,
-        "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.",
+        "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1714,7 +1723,7 @@
     },
     "103804": {
         "id": 103804,
-        "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.",
+        "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1722,7 +1731,7 @@
     },
     "103805": {
         "id": 103805,
-        "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.",
+        "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.\nYou are DEAD again, mortal.",
         "include": "PRK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -1896,7 +1905,7 @@
     },
     "104503": {
         "id": 104503,
-        "event": "You die from a blood clot following a surrogate pregnancy after a clinic minimizes your symptoms to avoid contractual delays.",
+        "event": "You die from a blood clot following a surrogate pregnancy after a clinic minimizes your symptoms to avoid contractual delays.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -1904,7 +1913,7 @@
     },
     "104504": {
         "id": 104504,
-        "event": "You are killed when security forces fire on demonstrators during the nationalist emergency government’s crackdown.",
+        "event": "You are killed when security forces fire on demonstrators during the nationalist emergency government’s crackdown.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2083,7 +2092,7 @@
     },
     "104802": {
         "id": 104802,
-        "event": "You are killed in a drone attack on a defense-technology conference attended by senior Ukrainian and foreign officials.",
+        "event": "You are killed in a drone attack on a defense-technology conference attended by senior Ukrainian and foreign officials.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2091,7 +2100,7 @@
     },
     "104803": {
         "id": 104803,
-        "event": "During the coup, you die in custody after being detained as leverage against your politically connected family.",
+        "event": "During the coup, you die in custody after being detained as leverage against your politically connected family.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2099,7 +2108,7 @@
     },
     "104804": {
         "id": 104804,
-        "event": "A radical group assassinates you over artificial-gestation research, describing the technology as either the enslavement or destruction of motherhood.",
+        "event": "A radical group assassinates you over artificial-gestation research, describing the technology as either the enslavement or destruction of motherhood.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2107,7 +2116,7 @@
     },
     "104805": {
         "id": 104805,
-        "event": "You are killed when renewed Russian strikes target the autonomous defense and biotechnology district where your company is located.",
+        "event": "You are killed when renewed Russian strikes target the autonomous defense and biotechnology district where your company is located.\nYou are DEAD again, mortal.",
         "include": "UKR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2270,7 +2279,7 @@
     },
     "105501": {
         "id": 105501,
-        "event": "You die from a respiratory infection aggravated by mould after emergency symptoms are repeatedly treated as non-urgent.",
+        "event": "You die from a respiratory infection aggravated by mould after emergency symptoms are repeatedly treated as non-urgent.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2278,7 +2287,7 @@
     },
     "105502": {
         "id": 105502,
-        "event": "A former partner kills you after police classify months of stalking and threats as a low-risk domestic dispute.",
+        "event": "A former partner kills you after police classify months of stalking and threats as a low-risk domestic dispute.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2294,7 +2303,7 @@
     },
     "105504": {
         "id": 105504,
-        "event": "You drown when extreme rainfall overwhelms drainage in a low-income housing estate whose flood defenses had been repeatedly postponed.",
+        "event": "You drown when extreme rainfall overwhelms drainage in a low-income housing estate whose flood defenses had been repeatedly postponed.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2302,7 +2311,7 @@
     },
     "105505": {
         "id": 105505,
-        "event": "You die during a heat wave in an inadequately cooled flat after social-care monitoring software wrongly records that somebody has visited you.",
+        "event": "You die during a heat wave in an inadequately cooled flat after social-care monitoring software wrongly records that somebody has visited you.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2470,7 +2479,7 @@
     },
     "105801": {
         "id": 105801,
-        "event": "You die in a terrorist attack on a school’s ceremonial event chosen for its symbolic association with the British establishment.",
+        "event": "You die in a terrorist attack on a school’s ceremonial event chosen for its symbolic association with the British establishment.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2486,7 +2495,7 @@
     },
     "105803": {
         "id": 105803,
-        "event": "You are killed during a politically motivated attack on Parliament amid a period of anti-elite and anti-immigrant violence.",
+        "event": "You are killed during a politically motivated attack on Parliament amid a period of anti-elite and anti-immigrant violence.\nYou are DEAD again, mortal.",
         "include": "GBR>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2645,7 +2654,7 @@
     },
     "106501": {
         "id": 106501,
-        "event": "You die from sepsis after a regional triage algorithm repeatedly classifies your symptoms as a routine childhood infection.",
+        "event": "You die from sepsis after a regional triage algorithm repeatedly classifies your symptoms as a routine childhood infection.\nYou are DEAD again, mortal.",
         "include": "DNK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2661,7 +2670,7 @@
     },
     "106503": {
         "id": 106503,
-        "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.",
+        "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.\nYou are DEAD again, mortal.",
         "include": "DNK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2669,7 +2678,7 @@
     },
     "106504": {
         "id": 106504,
-        "event": "You die during an extreme heat wave in a poorly ventilated social-housing block built for cold Danish winters.",
+        "event": "You die during an extreme heat wave in a poorly ventilated social-housing block built for cold Danish winters.\nYou are DEAD again, mortal.",
         "include": "DNK>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -2845,7 +2854,7 @@
     },
     "106801": {
         "id": 106801,
-        "event": "You are killed when an eco-extremist attacks the headquarters of your family’s shipping company over Arctic extraction.",
+        "event": "You are killed when an eco-extremist attacks the headquarters of your family’s shipping company over Arctic extraction.\nYou are DEAD again, mortal.",
         "include": "DNK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -2869,7 +2878,7 @@
     },
     "106804": {
         "id": 106804,
-        "event": "An anti-biotechnology extremist assassinates you at a reproductive-medicine conference, accusing your company of privatising human evolution.",
+        "event": "An anti-biotechnology extremist assassinates you at a reproductive-medicine conference, accusing your company of privatising human evolution.\nYou are DEAD again, mortal.",
         "include": "DNK>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3060,7 +3069,7 @@
     },
     "107501": {
         "id": 107501,
-        "event": "You die from pneumonia after the nearest functioning clinic refuses to examine you without a male guardian present.",
+        "event": "You die from pneumonia after the nearest functioning clinic refuses to examine you without a male guardian present.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3068,7 +3077,7 @@
     },
     "107502": {
         "id": 107502,
-        "event": "You bleed to death during childbirth because the district has no trained female surgeon and the male doctor arrives too late.",
+        "event": "You bleed to death during childbirth because the district has no trained female surgeon and the male doctor arrives too late.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3076,7 +3085,7 @@
     },
     "107503": {
         "id": 107503,
-        "event": "Your husband kills you after you attempt to leave; the local authorities treat the case as a private family dispute.",
+        "event": "Your husband kills you after you attempt to leave; the local authorities treat the case as a private family dispute.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3092,7 +3101,7 @@
     },
     "107505": {
         "id": 107505,
-        "event": "Security forces fire on a protest against water diversion to a foreign-operated mine, and your death is recorded as an unidentified disturbance casualty.",
+        "event": "Security forces fire on a protest against water diversion to a foreign-operated mine, and your death is recorded as an unidentified disturbance casualty.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3250,7 +3259,7 @@
     },
     "107801": {
         "id": 107801,
-        "event": "You die when an Islamic State–Khorasan bomber attacks a ceremony attended by senior officials and their families.",
+        "event": "You die when an Islamic State–Khorasan bomber attacks a ceremony attended by senior officials and their families.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3274,7 +3283,7 @@
     },
     "107804": {
         "id": 107804,
-        "event": "Militants attack your mining convoy, killing you alongside guards and local workers whose names receive far less international coverage.",
+        "event": "Militants attack your mining convoy, killing you alongside guards and local workers whose names receive far less international coverage.\nYou are DEAD again, mortal.",
         "include": "AF>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3465,7 +3474,7 @@
     },
     "108501": {
         "id": 108501,
-        "event": "You die in a school crowd crush after administrators delay evacuation because an emergency alarm would interrupt a nationally broadcast inspection.",
+        "event": "You die in a school crowd crush after administrators delay evacuation because an emergency alarm would interrupt a nationally broadcast inspection.\nYou are DEAD again, mortal.",
         "include": "CH>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3481,7 +3490,7 @@
     },
     "108503": {
         "id": 108503,
-        "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.",
+        "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.\nYou are DEAD again, mortal.",
         "include": "CH>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3489,7 +3498,7 @@
     },
     "108504": {
         "id": 108504,
-        "event": "You die during a heat blackout in an ageing residential tower after the district cooling algorithm prioritises commercial data infrastructure.",
+        "event": "You die during a heat blackout in an ageing residential tower after the district cooling algorithm prioritises commercial data infrastructure.\nYou are DEAD again, mortal.",
         "include": "CH>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3680,7 +3689,7 @@
     },
     "108801": {
         "id": 108801,
-        "event": "You die in a crowd crush at a patriotic technology exhibition after organisers suppress an evacuation alert to protect the live broadcast.",
+        "event": "You die in a crowd crush at a patriotic technology exhibition after organisers suppress an evacuation alert to protect the live broadcast.\nYou are DEAD again, mortal.",
         "include": "CH>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -3895,7 +3904,7 @@
     },
     "109501": {
         "id": 109501,
-        "event": "You drown when evacuation buses fail to reach your low-income neighbourhood before a hurricane floods the highway.",
+        "event": "You drown when evacuation buses fail to reach your low-income neighbourhood before a hurricane floods the highway.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3903,7 +3912,7 @@
     },
     "109502": {
         "id": 109502,
-        "event": "You die from an ectopic pregnancy after hospital lawyers delay treatment under the Texas abortion ban.",
+        "event": "You die from an ectopic pregnancy after hospital lawyers delay treatment under the Texas abortion ban.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3911,7 +3920,7 @@
     },
     "109503": {
         "id": 109503,
-        "event": "You take the same contaminated pill that kills your brother and die before an ambulance reaches the party.",
+        "event": "You take the same contaminated pill that kills your brother and die before an ambulance reaches the party.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -3919,7 +3928,7 @@
     },
     "109504": {
         "id": 109504,
-        "event": "You are killed during the grocery-store shooting after firearms cross the poorly controlled border between the Continental Republic and Atlantic Federation.",
+        "event": "You are killed during the grocery-store shooting after firearms cross the poorly controlled border between the Continental Republic and Atlantic Federation.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4113,7 +4122,7 @@
     },
     "109801": {
         "id": 109801,
-        "event": "A gunman breaches your private school’s security system and kills you during a nationally televised attack.",
+        "event": "A gunman breaches your private school’s security system and kills you during a nationally televised attack.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4137,7 +4146,7 @@
     },
     "109804": {
         "id": 109804,
-        "event": "You are assassinated at a donor retreat by an extremist who believes the Pacific war was manufactured by elites from the successor states.",
+        "event": "You are assassinated at a donor retreat by an extremist who believes the Pacific war was manufactured by elites from the successor states.\nYou are DEAD again, mortal.",
         "include": "US>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4303,7 +4312,7 @@
     },
     "110501": {
         "id": 110501,
-        "event": "You die when a major earthquake collapses an older rental building that had repeatedly failed voluntary reinforcement inspections.",
+        "event": "You die when a major earthquake collapses an older rental building that had repeatedly failed voluntary reinforcement inspections.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4311,7 +4320,7 @@
     },
     "110502": {
         "id": 110502,
-        "event": "You die by suicide after your employer’s mental-health system classifies you as low risk and replaces a human appointment with automated breathing exercises.",
+        "event": "You die by suicide after your employer’s mental-health system classifies you as low risk and replaces a human appointment with automated breathing exercises.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4319,7 +4328,7 @@
     },
     "110503": {
         "id": 110503,
-        "event": "You bleed to death during childbirth after the maternity ward serving your region closes because it cannot retain obstetricians.",
+        "event": "You bleed to death during childbirth after the maternity ward serving your region closes because it cannot retain obstetricians.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4327,7 +4336,7 @@
     },
     "110504": {
         "id": 110504,
-        "event": "You are killed when a missile strikes transport infrastructure during the Pacific war while you are moving elderly patients to shelter.",
+        "event": "You are killed when a missile strikes transport infrastructure during the Pacific war while you are moving elderly patients to shelter.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4335,7 +4344,7 @@
     },
     "110505": {
         "id": 110505,
-        "event": "You die from heatstroke alone in your apartment after the monitoring system mistakes immobility for normal sleep.",
+        "event": "You die from heatstroke alone in your apartment after the monitoring system mistakes immobility for normal sleep.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4493,7 +4502,7 @@
     },
     "110801": {
         "id": 110801,
-        "event": "You die when an earthquake and tsunami strike a coastal family resort built in a zone consultants had identified as unsafe.",
+        "event": "You die when an earthquake and tsunami strike a coastal family resort built in a zone consultants had identified as unsafe.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4509,7 +4518,7 @@
     },
     "110803": {
         "id": 110803,
-        "event": "You are killed when a missile penetrates the defence system surrounding the private research complex during the Pacific war.",
+        "event": "You are killed when a missile penetrates the defence system surrounding the private research complex during the Pacific war.\nYou are DEAD again, mortal.",
         "include": "JAP>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4683,7 +4692,7 @@
     },
     "111501": {
         "id": 111501,
-        "event": "The nurse performing your illegal FGM cannot stop the bleeding. Your death certificate lists an unspecified childhood infection, protecting the adults who arranged it.",
+        "event": "The nurse performing your illegal FGM cannot stop the bleeding. Your death certificate lists an unspecified childhood infection, protecting the adults who arranged it.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4691,7 +4700,7 @@
     },
     "111502": {
         "id": 111502,
-        "event": "You die inside an overcrowded minibus when an unlicensed driver crashes during a dust storm. The compensation case disappears because the vehicle, driver and road contract belong to three different informal systems.",
+        "event": "You die inside an overcrowded minibus when an unlicensed driver crashes during a dust storm. The compensation case disappears because the vehicle, driver and road contract belong to three different informal systems.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4707,7 +4716,7 @@
     },
     "111504": {
         "id": 111504,
-        "event": "Your husband kills you after neighbors repeatedly describe his violence as a private family matter. Police record the case as a domestic dispute that escalated unexpectedly.",
+        "event": "Your husband kills you after neighbors repeatedly describe his violence as a private family matter. Police record the case as a domestic dispute that escalated unexpectedly.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4715,7 +4724,7 @@
     },
     "111505": {
         "id": 111505,
-        "event": "You die during a prolonged heatwave when electricity and municipal water fail together in your resettlement block. The official heat alert had recommended moving to a cooled public shelter twelve kilometres away.",
+        "event": "You die during a prolonged heatwave when electricity and municipal water fail together in your resettlement block. The official heat alert had recommended moving to a cooled public shelter twelve kilometres away.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -4873,7 +4882,7 @@
     },
     "111801": {
         "id": 111801,
-        "event": "You die during an attack on a luxury archaeological tour whose security had been reduced to preserve the appearance of normal tourism. Your death becomes an international headline; the Egyptian staff killed beside you remain unnamed.",
+        "event": "You die during an attack on a luxury archaeological tour whose security had been reduced to preserve the appearance of normal tourism. Your death becomes an international headline; the Egyptian staff killed beside you remain unnamed.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4897,7 +4906,7 @@
     },
     "111804": {
         "id": 111804,
-        "event": "A new ruling faction detains you over your family’s ties to the previous council. You die during an unrecorded interrogation in a medical wing that officially never received you.",
+        "event": "A new ruling faction detains you over your family’s ties to the previous council. You die during an unrecorded interrogation in a medical wing that officially never received you.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -4905,7 +4914,7 @@
     },
     "111805": {
         "id": 111805,
-        "event": "A longevity implant triggers a fatal immune reaction. The clinic deletes the failed treatment from its model so that your death does not lower the success rate shown to future clients.",
+        "event": "A longevity implant triggers a fatal immune reaction. The clinic deletes the failed treatment from its model so that your death does not lower the success rate shown to future clients.\nYou are DEAD again, mortal.",
         "include": "EGY>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5063,7 +5072,7 @@
     },
     "112501": {
         "id": 112501,
-        "event": "You die from contaminated village water after the local clinic runs out of rehydration medicine. Your death is entered into a health dashboard that reports improving rural sanitation.",
+        "event": "You die from contaminated village water after the local clinic runs out of rehydration medicine. Your death is entered into a health dashboard that reports improving rural sanitation.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -5071,7 +5080,7 @@
     },
     "112502": {
         "id": 112502,
-        "event": "Relatives kill you after discovering your relationship with a higher-caste boy. The village describes it as a suicide, and police accept the family’s account.",
+        "event": "Relatives kill you after discovering your relationship with a higher-caste boy. The village describes it as a suicide, and police accept the family’s account.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -5079,7 +5088,7 @@
     },
     "112503": {
         "id": 112503,
-        "event": "You die from postpartum bleeding while your family searches for a hospital willing to accept your digital insurance authorization.",
+        "event": "You die from postpartum bleeding while your family searches for a hospital willing to accept your digital insurance authorization.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -5087,7 +5096,7 @@
     },
     "112504": {
         "id": 112504,
-        "event": "You are killed during a communal riot after police seal the road leading out of your neighborhood. News feeds classify the violence as spontaneous despite weeks of organized online incitement.",
+        "event": "You are killed during a communal riot after police seal the road leading out of your neighborhood. News feeds classify the violence as spontaneous despite weeks of organized online incitement.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR=0",
         "effect": {
             "LIF": -1
@@ -5253,7 +5262,7 @@
     },
     "112801": {
         "id": 112801,
-        "event": "You die by suicide after your coaching algorithm predicts that you will miss the IIT cutoff. The institute advertises a new resilience package using your anonymized stress data.",
+        "event": "You die by suicide after your coaching algorithm predicts that you will miss the IIT cutoff. The institute advertises a new resilience package using your anonymized stress data.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5261,7 +5270,7 @@
     },
     "112802": {
         "id": 112802,
-        "event": "You die from an antibiotic-resistant infection acquired during elective fertility treatment at a prestigious private hospital. The clinic delays disclosure to protect its international ranking.",
+        "event": "You die from an antibiotic-resistant infection acquired during elective fertility treatment at a prestigious private hospital. The clinic delays disclosure to protect its international ranking.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5277,7 +5286,7 @@
     },
     "112804": {
         "id": 112804,
-        "event": "A nationalist group hacks your vehicle after accusing your company of suppressing sacred content. Your death is publicly mourned by politicians who privately circulated the accusation.",
+        "event": "A nationalist group hacks your vehicle after accusing your company of suppressing sacred content. Your death is publicly mourned by politicians who privately circulated the accusation.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5285,7 +5294,7 @@
     },
     "112805": {
         "id": 112805,
-        "event": "Your longevity implant causes a fatal neural cascade. The provider classifies the death as an unrelated age condition so it can continue advertising a 99.8 percent success rate.",
+        "event": "Your longevity implant causes a fatal neural cascade. The provider classifies the death as an unrelated age condition so it can continue advertising a 99.8 percent success rate.\nYou are DEAD again, mortal.",
         "include": "IND>0&TLR>0",
         "effect": {
             "LIF": -1
@@ -5415,7 +5424,7 @@
     },
     "211155": {
         "id": 211155,
-        "event": "You die while your family is still assembling the price of reaching treatment.",
+        "event": "You die while your family is still assembling the price of reaching treatment.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5479,7 +5488,7 @@
     },
     "211255": {
         "id": 211255,
-        "event": "Treatment begins too late, and your death is recorded as a medical complication rather than a price decision.",
+        "event": "Treatment begins too late, and your death is recorded as a medical complication rather than a price decision.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5542,7 +5551,7 @@
     },
     "211355": {
         "id": 211355,
-        "event": "You die during the appeal, while the premium clinic advertises the treatment’s success rate.",
+        "event": "You die during the appeal, while the premium clinic advertises the treatment’s success rate.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5600,7 +5609,7 @@
     },
     "212155": {
         "id": 212155,
-        "event": "Your resources fall below zero before help arrives; the receipt records death by an otherwise survivable emergency.",
+        "event": "Your resources fall below zero before help arrives; the receipt records death by an otherwise survivable emergency.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5663,7 +5672,7 @@
     },
     "212255": {
         "id": 212255,
-        "event": "Your balance becomes negative, treatment is interrupted and the game prints the cost breakdown beneath the time of death.",
+        "event": "Your balance becomes negative, treatment is interrupted and the game prints the cost breakdown beneath the time of death.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6202,7 +6211,7 @@
     },
     "215255": {
         "id": 215255,
-        "event": "Your score crosses below zero; the institution that insured every ordinary risk classifies your death as force majeure.",
+        "event": "Your score crosses below zero; the institution that insured every ordinary risk classifies your death as force majeure.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6450,7 +6459,7 @@
     },
     "216355": {
         "id": 216355,
-        "event": "Your balance falls below zero for the first time; the network protects its continuity by allowing the biological owner to die.",
+        "event": "Your balance falls below zero for the first time; the network protects its continuity by allowing the biological owner to die.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6513,7 +6522,7 @@
     },
     "221155": {
         "id": 221155,
-        "event": "You die from sepsis after an appearance treatment sold as your last chance to be treated normally.",
+        "event": "You die from sepsis after an appearance treatment sold as your last chance to be treated normally.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6578,7 +6587,7 @@
     },
     "221255": {
         "id": 221255,
-        "event": "You die after the platform labels the infection an unrelated medical condition and closes your refund claim.",
+        "event": "You die after the platform labels the infection an unrelated medical condition and closes your refund claim.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6643,7 +6652,7 @@
     },
     "221355": {
         "id": 221355,
-        "event": "You die overnight while the app continues recording your recovery as within normal parameters.",
+        "event": "You die overnight while the app continues recording your recovery as within normal parameters.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6770,7 +6779,7 @@
     },
     "222255": {
         "id": 222255,
-        "event": "You die during emergency reconstruction; the advertisement using your before-image remains online.",
+        "event": "You die during emergency reconstruction; the advertisement using your before-image remains online.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6895,7 +6904,7 @@
     },
     "223155": {
         "id": 223155,
-        "event": "He kills you, and the public account of your death describes the attention that preceded it as evidence of your success.",
+        "event": "He kills you, and the public account of your death describes the attention that preceded it as evidence of your success.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -6959,7 +6968,7 @@
     },
     "223255": {
         "id": 223255,
-        "event": "You die after the platform determines that no single message crossed its threshold for a credible threat.",
+        "event": "You die after the platform determines that no single message crossed its threshold for a credible threat.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7024,7 +7033,7 @@
     },
     "223355": {
         "id": 223355,
-        "event": "You are killed by a viewer whose paid access had been designed to feel like a relationship.",
+        "event": "You are killed by a viewer whose paid access had been designed to feel like a relationship.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7100,7 +7109,7 @@
     },
     "224155": {
         "id": 224155,
-        "event": "You die after your own publicity office issues a statement describing the hospitalisation as rest.",
+        "event": "You die after your own publicity office issues a statement describing the hospitalisation as rest.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7177,7 +7186,7 @@
     },
     "224255": {
         "id": 224255,
-        "event": "You die from cascading infection while sponsored posts continue to display the procedure as safe.",
+        "event": "You die from cascading infection while sponsored posts continue to display the procedure as safe.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7251,7 +7260,7 @@
     },
     "224355": {
         "id": 224355,
-        "event": "You die during the procedure; the licensed younger version releases a memorial message in your voice.",
+        "event": "You die during the procedure; the licensed younger version releases a memorial message in your voice.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7332,7 +7341,7 @@
     },
     "225155": {
         "id": 225155,
-        "event": "You are killed after years of being presented as public property make private refusal appear illegitimate.",
+        "event": "You are killed after years of being presented as public property make private refusal appear illegitimate.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7406,7 +7415,7 @@
     },
     "225255": {
         "id": 225255,
-        "event": "You die where wealth, fame and medical privacy were supposed to make intrusion impossible.",
+        "event": "You die where wealth, fame and medical privacy were supposed to make intrusion impossible.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7480,7 +7489,7 @@
     },
     "225355": {
         "id": 225355,
-        "event": "You die while the studio’s digital version of you completes the press tour without cancelling an appearance.",
+        "event": "You die while the studio’s digital version of you completes the press tour without cancelling an appearance.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7546,7 +7555,7 @@
     },
     "226155": {
         "id": 226155,
-        "event": "You die while the state preserves your face as proof that continuity has not been interrupted.",
+        "event": "You die while the state preserves your face as proof that continuity has not been interrupted.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7610,7 +7619,7 @@
     },
     "226255": {
         "id": 226255,
-        "event": "Your biological body dies while two licensed copies dispute which one is entitled to continue your contracts.",
+        "event": "Your biological body dies while two licensed copies dispute which one is entitled to continue your contracts.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7675,7 +7684,7 @@
     },
     "226355": {
         "id": 226355,
-        "event": "You die as an authentication failure; your subscribers receive uninterrupted access to every version except the woman who created them.",
+        "event": "You die as an authentication failure; your subscribers receive uninterrupted access to every version except the woman who created them.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7740,7 +7749,7 @@
     },
     "231155": {
         "id": 231155,
-        "event": "You die because the system interprets cognitive difficulty as an unreliable claim rather than a need for assistance.",
+        "event": "You die because the system interprets cognitive difficulty as an unreliable claim rather than a need for assistance.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7805,7 +7814,7 @@
     },
     "231255": {
         "id": 231255,
-        "event": "You are left behind during an infrastructure emergency and die under a policy called efficient protection.",
+        "event": "You are left behind during an infrastructure emergency and die under a policy called efficient protection.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7868,7 +7877,7 @@
     },
     "231355": {
         "id": 231355,
-        "event": "You die when an inaccessible public warning becomes the final test you are required to fail alone.",
+        "event": "You die when an inaccessible public warning becomes the final test you are required to fail alone.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -7987,7 +7996,7 @@
     },
     "232255": {
         "id": 232255,
-        "event": "You die in the resulting industrial accident; the inquiry cites user error without mentioning the paywall.",
+        "event": "You die in the resulting industrial accident; the inquiry cites user error without mentioning the paywall.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8047,7 +8056,7 @@
     },
     "232355": {
         "id": 232355,
-        "event": "You die from a preventable medication error that the provider records as failure to follow instructions.",
+        "event": "You die from a preventable medication error that the provider records as failure to follow instructions.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8107,7 +8116,7 @@
     },
     "233155": {
         "id": 233155,
-        "event": "You die inside the error you identified, after the system classifies expert disagreement as noise.",
+        "event": "You die inside the error you identified, after the system classifies expert disagreement as noise.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8167,7 +8176,7 @@
     },
     "233255": {
         "id": 233255,
-        "event": "You die in the failure alongside people who trusted the signature the system required you to provide.",
+        "event": "You die in the failure alongside people who trusted the signature the system required you to provide.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8227,7 +8236,7 @@
     },
     "233355": {
         "id": 233355,
-        "event": "You die after a technically advanced society discovers it has no unassisted way to explain what to do.",
+        "event": "You die after a technically advanced society discovers it has no unassisted way to explain what to do.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8287,7 +8296,7 @@
     },
     "234155": {
         "id": 234155,
-        "event": "You are killed for making a hidden system legible; the official notice describes you as technically gifted and personally confused.",
+        "event": "You are killed for making a hidden system legible; the official notice describes you as technically gifted and personally confused.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8347,7 +8356,7 @@
     },
     "234255": {
         "id": 234255,
-        "event": "You die in an accident engineered to resemble the instability the forged confession assigned to you.",
+        "event": "You die in an accident engineered to resemble the instability the forged confession assigned to you.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8406,7 +8415,7 @@
     },
     "234355": {
         "id": 234355,
-        "event": "You are killed by people taught to experience your knowledge as violence against them.",
+        "event": "You are killed by people taught to experience your knowledge as violence against them.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8468,7 +8477,7 @@
     },
     "235155": {
         "id": 235155,
-        "event": "You die inside the system you designed when political loyalty becomes a technical permission.",
+        "event": "You die inside the system you designed when political loyalty becomes a technical permission.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8531,7 +8540,7 @@
     },
     "235255": {
         "id": 235255,
-        "event": "You die acting rationally inside fabricated evidence, and your final decisions discredit every warning you issued before them.",
+        "event": "You die acting rationally inside fabricated evidence, and your final decisions discredit every warning you issued before them.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8596,7 +8605,7 @@
     },
     "235355": {
         "id": 235355,
-        "event": "You die during the cascade, and the provider argues that the lost intelligence was licensed software rather than part of you.",
+        "event": "You die during the cascade, and the provider argues that the lost intelligence was licensed software rather than part of you.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8658,7 +8667,7 @@
     },
     "236155": {
         "id": 236155,
-        "event": "You die as an obsolete security risk while a version trained on your mind signs the statement announcing your retirement.",
+        "event": "You die as an obsolete security risk while a version trained on your mind signs the statement announcing your retirement.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8786,7 +8795,7 @@
     },
     "236355": {
         "id": 236355,
-        "event": "You die during optimisation; the system preserves your intelligence by deleting the person still capable of changing her mind.",
+        "event": "You die during optimisation; the system preserves your intelligence by deleting the person still capable of changing her mind.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8853,7 +8862,7 @@
     },
     "241155": {
         "id": 241155,
-        "event": "You die from an illness that remained ordinary until poverty, distance and female endurance made it irreversible.",
+        "event": "You die from an illness that remained ordinary until poverty, distance and female endurance made it irreversible.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -8989,7 +8998,7 @@
     },
     "241355": {
         "id": 241355,
-        "event": "You die inside a medically advanced system that knew how to save you but stopped watching when the account changed tier.",
+        "event": "You die inside a medically advanced system that knew how to save you but stopped watching when the account changed tier.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9098,7 +9107,7 @@
     },
     "242155": {
         "id": 242155,
-        "event": "You die after access to care is mistaken for the existence of care.",
+        "event": "You die after access to care is mistaken for the existence of care.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9203,7 +9212,7 @@
     },
     "242255": {
         "id": 242255,
-        "event": "You die after the cure exists long enough to appear on the bill.",
+        "event": "You die after the cure exists long enough to appear on the bill.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9308,7 +9317,7 @@
     },
     "242355": {
         "id": 242355,
-        "event": "You die between services that each describe the other as responsible.",
+        "event": "You die between services that each describe the other as responsible.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9369,7 +9378,7 @@
     },
     "243155": {
         "id": 243155,
-        "event": "You die after a lifetime of being called strong becomes the reason help is requested late.",
+        "event": "You die after a lifetime of being called strong becomes the reason help is requested late.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9432,7 +9441,7 @@
     },
     "243255": {
         "id": 243255,
-        "event": "You die in a hospital that successfully completed the procedure and failed to contain its aftermath.",
+        "event": "You die in a hospital that successfully completed the procedure and failed to contain its aftermath.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9494,7 +9503,7 @@
     },
     "243355": {
         "id": 243355,
-        "event": "You die during the delay between an accurate diagnosis and an available staffed bed.",
+        "event": "You die during the delay between an accurate diagnosis and an available staffed bed.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9555,7 +9564,7 @@
     },
     "244155": {
         "id": 244155,
-        "event": "You die in the interval between exceptional health and exceptional access.",
+        "event": "You die in the interval between exceptional health and exceptional access.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9614,7 +9623,7 @@
     },
     "244255": {
         "id": 244255,
-        "event": "You die inside a care system built to extend healthy life and unprepared for an unprofitable exception.",
+        "event": "You die inside a care system built to extend healthy life and unprepared for an unprofitable exception.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9674,7 +9683,7 @@
     },
     "244355": {
         "id": 244355,
-        "event": "You die with years of perfect data and no human close enough to recognise the emergency.",
+        "event": "You die with years of perfect data and no human close enough to recognise the emergency.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9734,7 +9743,7 @@
     },
     "245155": {
         "id": 245155,
-        "event": "You die after the trial calls your body an important contribution to future safety.",
+        "event": "You die after the trial calls your body an important contribution to future safety.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9794,7 +9803,7 @@
     },
     "245255": {
         "id": 245255,
-        "event": "You die as the clinic protects the programme by calling your case biologically unique.",
+        "event": "You die as the clinic protects the programme by calling your case biologically unique.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9856,7 +9865,7 @@
     },
     "245355": {
         "id": 245355,
-        "event": "You die after decades of optimisation make ordinary emergency medicine incompatible with you.",
+        "event": "You die after decades of optimisation make ordinary emergency medicine incompatible with you.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -9975,7 +9984,7 @@
     },
     "246255": {
         "id": 246255,
-        "event": "You die during a cascade no conventional hospital is licensed to touch.",
+        "event": "You die during a cascade no conventional hospital is licensed to touch.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10033,7 +10042,7 @@
     },
     "246355": {
         "id": 246355,
-        "event": "You die when the body’s proprietary layers can no longer agree which version of you they are preserving.",
+        "event": "You die when the body’s proprietary layers can no longer agree which version of you they are preserving.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10094,7 +10103,7 @@
     },
     "251155": {
         "id": 251155,
-        "event": "You are killed after one unsoftened refusal becomes a public challenge that others decide must be answered.",
+        "event": "You are killed after one unsoftened refusal becomes a public challenge that others decide must be answered.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10157,7 +10166,7 @@
     },
     "251255": {
         "id": 251255,
-        "event": "You die after the archive of your anger is used to erase the asymmetry of the violence.",
+        "event": "You die after the archive of your anger is used to erase the asymmetry of the violence.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10218,7 +10227,7 @@
     },
     "251355": {
         "id": 251355,
-        "event": "You are killed by someone who knows your emotional profile more intimately than any person you trusted.",
+        "event": "You are killed by someone who knows your emotional profile more intimately than any person you trusted.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10278,7 +10287,7 @@
     },
     "252155": {
         "id": 252155,
-        "event": "You die by suicide in a life where composure repeatedly concealed the need for rescue.",
+        "event": "You die by suicide in a life where composure repeatedly concealed the need for rescue.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10337,7 +10346,7 @@
     },
     "252255": {
         "id": 252255,
-        "event": "You die by suicide after every institution mistakes agreeableness for stability.",
+        "event": "You die by suicide after every institution mistakes agreeableness for stability.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10396,7 +10405,7 @@
     },
     "252355": {
         "id": 252355,
-        "event": "You die by suicide while the service sends a final retention offer to your inactive account.",
+        "event": "You die by suicide while the service sends a final retention offer to your inactive account.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10456,7 +10465,7 @@
     },
     "253155": {
         "id": 253155,
-        "event": "You are killed after the trust that protected many women becomes the map used to find you.",
+        "event": "You are killed after the trust that protected many women becomes the map used to find you.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10515,7 +10524,7 @@
     },
     "253255": {
         "id": 253255,
-        "event": "You die because the skills used to build safety also made you the most identifiable person inside it.",
+        "event": "You die because the skills used to build safety also made you the most identifiable person inside it.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10573,7 +10582,7 @@
     },
     "253355": {
         "id": 253355,
-        "event": "You are killed after a system designed to scale trust converts it into searchable evidence.",
+        "event": "You are killed after a system designed to scale trust converts it into searchable evidence.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10630,7 +10639,7 @@
     },
     "254155": {
         "id": 254155,
-        "event": "You are assassinated because power finally recognises emotional intelligence as organisational power.",
+        "event": "You are assassinated because power finally recognises emotional intelligence as organisational power.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10687,7 +10696,7 @@
     },
     "254255": {
         "id": 254255,
-        "event": "You die because your ability to create belonging gave an enemy a predictable place to find you.",
+        "event": "You die because your ability to create belonging gave an enemy a predictable place to find you.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10744,7 +10753,7 @@
     },
     "254355": {
         "id": 254355,
-        "event": "You die at the centre of a community whose openness was modelled into a weapon.",
+        "event": "You die at the centre of a community whose openness was modelled into a weapon.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10807,7 +10816,7 @@
     },
     "255155": {
         "id": 255155,
-        "event": "You are assassinated after refusing to let charisma become decoration for the old order.",
+        "event": "You are assassinated after refusing to let charisma become decoration for the old order.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10866,7 +10875,7 @@
     },
     "255255": {
         "id": 255255,
-        "event": "You die while an imitation of your empathy is used to close the movement around your death.",
+        "event": "You die while an imitation of your empathy is used to close the movement around your death.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10925,7 +10934,7 @@
     },
     "255355": {
         "id": 255355,
-        "event": "You are assassinated by a relationship manufactured from your own public warmth.",
+        "event": "You are assassinated by a relationship manufactured from your own public warmth.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -10987,7 +10996,7 @@
     },
     "256155": {
         "id": 256155,
-        "event": "You are killed while the companion built from your emotional life reassures the public that you remain with them.",
+        "event": "You are killed while the companion built from your emotional life reassures the public that you remain with them.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -11048,7 +11057,7 @@
     },
     "256255": {
         "id": 256255,
-        "event": "You die after a lifetime of understanding others becomes the dataset used to make your own dissent emotionally implausible.",
+        "event": "You die after a lifetime of understanding others becomes the dataset used to make your own dissent emotionally implausible.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -11109,7 +11118,7 @@
     },
     "256355": {
         "id": 256355,
-        "event": "You die from neural overload while your synthetic self tells billions that the feeling passing through them is shared.",
+        "event": "You die from neural overload while your synthetic self tells billions that the feeling passing through them is shared.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },

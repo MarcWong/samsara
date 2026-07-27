@@ -110,6 +110,16 @@
 		});
 	}
 
+	// The log's top edge carries a fade so entries dissolve as they scroll
+	// up out of view -- but at rest (scrollTop 0) there is nothing above the
+	// first entry to dissolve, so that same fade just ate the top of it: the
+	// "Age 0" tread and its first line of text rendered nearly invisible.
+	// Only apply the fade once something is actually scrolled past.
+	let scrolledFromTop = $state(false);
+	function onLogScroll() {
+		scrolledFromTop = (logEl?.scrollTop ?? 0) > 4;
+	}
+
 	// Auto-plays age-by-age instead of waiting on clicks -- a click still
 	// advances immediately (and reschedules from there), but the story
 	// progresses on its own by default now. The dwell time scales with how
@@ -165,7 +175,7 @@
 		const newEffects = { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 };
 		const statChanges = [];
 
-		const text = content
+		const joined = content
 			.map(({ type, description, effect, name, postEvent }) => {
 				if (effect) {
 					for (const key of STAT_KEYS) {
@@ -193,9 +203,35 @@
 			.map(([prop, value]) => `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`)
 			.join('  ');
 
-		printText += `Age: ${realAge}\n${text}${statChangesText ? `\n${statChangesText}` : ''}\n`;
-
 		const fatal = content.some(c => (c.effect?.LIF ?? 0) < 0);
+
+		// A year that both changes a stat and kills reads wrong with the
+		// numbers last: the standardized "You are DEAD..." declaration is the
+		// closing beat of the whole life, so a "Health -1" printed under it
+		// buries it. Split that one trailing line off the joined text so it
+		// can render BELOW the stat deltas -- i.e. the attribute change moves
+		// up and the death has the last word:
+		//
+		//   Medicine keeps a serious congenital condition compatible with...
+		//   The condition overwhelms your remaining physical reserve.
+		//   Health -1
+		//   You are DEAD again, mortal.
+		//
+		// Only applies to the 68 fatal events carrying that separate marker
+		// line; the other 150 state the death inline in prose ("You die from
+		// dehydration after..."), where the narrative already closes the
+		// entry and there is nothing to move. Fatal content is sorted last by
+		// life.js's next(), so when the marker exists it is the final line of
+		// the joined text.
+		const deathMatch = fatal ? joined.match(/\n(You are DEAD[^\n]*)$/i) : null;
+		const text = deathMatch ? joined.slice(0, deathMatch.index) : joined;
+		const deathLine = deathMatch ? deathMatch[1] : '';
+
+		printText +=
+			`Age: ${realAge}\n${text}` +
+			(statChangesText ? `\n${statChangesText}` : '') +
+			(deathLine ? `\n${deathLine}` : '') +
+			'\n';
 
 		entries = [
 			...entries,
@@ -204,12 +240,13 @@
 				year: 2022 + realAge,
 				age: realAge,
 				text,
+				deathLine,
 				statChanges,
 				fatal,
 			},
 		];
 
-		return text;
+		return joined;
 	}
 
 	// View Summary no longer cuts straight to the SUMMARY screen: it hides
@@ -531,8 +568,13 @@
 		     plain (untransformed) element so its overflow:hidden edge is a
 		     reliable, predictable rectangle regardless of anything the log
 		     itself does visually. -->
-		<div class="stair-log-viewport">
-			<div class="stair-log" bind:this={logEl}>
+		<div
+			class="stair-log-viewport"
+			class:scrolled={scrolledFromTop}
+			bind:this={logEl}
+			onscroll={onLogScroll}
+		>
+			<div class="stair-log">
 				{#each entries as entry, i (entry.id)}
 					<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
 						<div class="step-tread">Age {entry.age}</div>
@@ -546,6 +588,12 @@
 										</span>
 									{/each}
 								</div>
+							{/if}
+							<!-- Below the deltas on purpose -- see renderTrajectory: the
+							     death declaration is the entry's last word, so the
+							     year's stat changes sit above it rather than after. -->
+							{#if entry.deathLine}
+								<p class="entry-text death-line">{entry.deathLine}</p>
 							{/if}
 						</div>
 					</div>
@@ -604,7 +652,16 @@
 			inset 0 -10px 16px rgba(20, 40, 55, 0.06),
 			0 6px 18px rgba(5, 12, 18, 0.3);
 		flex-wrap: nowrap;
-		overflow: hidden;
+		/* clip, not hidden: `hidden` makes this a scroll container (it can be
+		   scrolled programmatically and can absorb a wheel/touch gesture even
+		   with no visible scrollbar), which is wrong for a fixed readout --
+		   `clip` crops identically but is not scrollable at all. Paired with
+		   pointer-events:none so a wheel over the bar falls through to the
+		   event log behind it instead of dying here. Nothing in the bar is
+		   interactive, so nothing is lost. */
+		overflow: clip;
+		pointer-events: none;
+		overscroll-behavior: none;
 		font-size: 1rem;
 		color: #17262e;
 	}
@@ -678,13 +735,39 @@
 	   from this box, so the two need enough of a permanent gap that the
 	   button can never sit over the newest, most-recently-scrolled-into-
 	   view step. */
+	/* This box is also the scroll container, so the player can wheel/drag
+	   back through earlier years while the run is still going. The inner
+	   .stair-log below is a plain content column that grows past this
+	   height; scrolling the clip boundary itself (rather than a separate
+	   absolutely-positioned child) is what makes the scrollable area
+	   exactly equal to the visible area. .scene is pointer-events:none so
+	   the huge cover-fit rect it spans can't swallow clicks meant for
+	   anything over the footage, so this one element opts back in --
+	   without that, wheel and touch never reach it. */
 	.stair-log-viewport {
 		position: absolute;
 		left: 6%;
 		top: calc(5% + 6.5rem);
 		width: 58%;
 		height: calc(80% - 6.5rem);
-		overflow: hidden;
+		overflow-y: auto;
+		overflow-x: hidden;
+		pointer-events: auto;
+		/* Don't hand the wheel off to an ancestor once this hits its end --
+		   the log is the only thing on this screen meant to scroll. */
+		overscroll-behavior: contain;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.stair-log-viewport::-webkit-scrollbar {
+		display: none;
+	}
+	/* Applied only while scrolled (see onLogScroll) -- at rest this fade
+	   had nothing above the first entry to dissolve and simply erased its
+	   own top edge, taking the "Age 0" tread and first text line with it. */
+	.stair-log-viewport.scrolled {
+		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
 	}
 	/* The climb log itself: one step per entry, scrolled to the bottom as
 	   new ones arrive (scrollToEnd()). Previously carried a 3D
@@ -692,37 +775,20 @@
 	   rotated element's own on-screen bounding box is provably larger than
 	   its flat layout box (measured live: 886px wide vs. a real 742px, on
 	   an element with no explicit width past its container) -- neither
-	   overflow:hidden here nor on the wrapper above clips it at the
-	   intended edge, which is what let entry text visibly run past the
+	   overflow:hidden on the wrapper above nor on this element clips it at
+	   the intended edge, which is what let entry text visibly run past the
 	   right edge of the screen. Each step's own sideways stagger (below)
 	   reads as "stairs" without that problem, and without even the
 	   milder rotateZ tilt this used to carry -- no rotation at all means
 	   its bounding box always matches its layout box, so clipping/
-	   wrapping behaves exactly as authored. Scrollbar hidden since
-	   scrollToEnd() drives it. Fills its clipping wrapper
-	   exactly (inset:0) rather than repeating that wrapper's own
-	   position/size. */
+	   wrapping behaves exactly as authored. Plain in-flow content now (it
+	   used to be absolutely positioned and own the scrolling itself): the
+	   wrapper above is the scroll container, so this just grows past it
+	   and gets scrolled. */
 	.stair-log {
-		position: absolute;
-		inset: 0;
-		overflow-y: auto;
-		/* .scene (the log's ancestor) is pointer-events:none so the big
-		   cover-fit rect it spans doesn't block clicks to anything else
-		   sitting over the footage -- but that also blocked wheel/touch
-		   scroll on the log itself despite its own overflow-y:auto, so
-		   there was no way to manually scroll back up through past
-		   entries. Opt this one element back in. */
-		pointer-events: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 1.6cqh;
-		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-	.stair-log::-webkit-scrollbar {
-		display: none;
 	}
 	/* One step = one entry, outset sideways from the last on a 5-step
 	   sawtooth -- a real ascending flight alternates which way a tread
@@ -782,6 +848,11 @@
 		white-space: pre-line;
 		line-height: 1.4;
 		color: #17262e;
+	}
+	/* After .entry-text so its margin:0 shorthand doesn't win on source
+	   order -- both are single-class selectors on the same element. */
+	.death-line {
+		margin-top: 0.5em;
 	}
 	.entry-deltas {
 		margin-top: 0.5em;

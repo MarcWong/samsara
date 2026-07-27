@@ -226,7 +226,10 @@
 		position: absolute;
 		transform: translate(-50%, -50%);
 		margin: 0;
-		font-size: 1rem;
+		/* Larger than the two door labels it sits under -- it's the
+		   instruction that has to be read first, and at the labels' own
+		   1rem it was easy to miss against the corridor photo. */
+		font-size: 1.5rem;
 		letter-spacing: 0.12em;
 		color: rgba(255, 255, 255, 0.75);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
