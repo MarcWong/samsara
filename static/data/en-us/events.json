@@ -48,6 +48,13 @@
             "MNY<3:10000"
         ]
     },
+    "10006": {
+        "id": 10006,
+        "event": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
+        "effect": {
+            "CHR": -3
+        }
+    },
     "74001": {
         "id": 74001,
         "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.\nYou are DEAD again, mortal.",
