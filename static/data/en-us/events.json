@@ -19,7 +19,7 @@
     "10002": {
         "id": 10002,
         "event": "You can’t afford the hospital bill.",
-        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0",
+        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0",
         "branch": [
             "STR>5:10003",
             "MNY<3&TLR>0:10000",
@@ -45,7 +45,7 @@
     "10005": {
         "id": 10005,
         "event": "You develop a rare disease and your condition worsens by the day. The doctors keep trying, but there is no possibility of a cure in your country.",
-        "include": "MNY<3&(AF>0|IRN>0|PRK>0|HTI>0)",
+        "include": "MNY<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
         "branch": [
             "STR>5:10003",
             "MNY<3&TLR>0:10000",
@@ -74,6 +74,16 @@
         "effect": {
             "LIF": -1
         }
+    },
+    "10009": {
+        "id": 10009,
+        "event": "Your operation is booked, then postponed, then moved behind a longer list. Nobody refuses you treatment; you simply get worse in the queue instead of in a ward.",
+        "include": "MNY<3&GBR>0",
+        "branch": [
+            "STR>5:10003",
+            "MNY<3&TLR>0:10000",
+            "MNY<-1&TLR=0:10000"
+        ]
     },
     "74001": {
         "id": 74001,
@@ -4980,7 +4990,7 @@
     },
     "112002": {
         "id": 112002,
-        "event": "Your mother begins teaching you to cook, wash utensils and serve your father and brother. Your brother studies while you work beside her; nobody describes this as a decision.",
+        "event": "Your mother begins teaching you to cook, wash utensils and serve your father and brother. You work beside her while your brother studies; nobody describes this as a decision.",
         "include": "IND>0&TLR=0"
     },
     "112003": {
@@ -5363,7 +5373,7 @@
     },
     "200002": {
         "id": 200002,
-        "event": "The damage to your body becomes fatal once appearance falls below zero.\nYou are DEAD again, mortal.",
+        "event": "Your face has been doing the work of a wage, a lease and a protector. With nothing left to trade on you are refused hiring, refused rooms and refused care, and not one of those refusals is recorded as a cause of death.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5371,7 +5381,7 @@
     },
     "200003": {
         "id": 200003,
-        "event": "The cognitive exclusion becomes fatal.\nYou are DEAD again, mortal.",
+        "event": "Reading the form, the dosage and the eligibility rule has been the only thing standing between you and the systems that decide your life. With nothing left to read them with you miss the appointment, the warning and the appeal, and each one is filed as your own failure to comply.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -5387,7 +5397,7 @@
     },
     "200005": {
         "id": 200005,
-        "event": "The strain exceeds your remaining capacity to survive it.\nYou are DEAD again, mortal.",
+        "event": "The people you could still call have been doing the work of insurance, childcare and a night of sleep. With nobody left to call the next ordinary emergency arrives with nothing behind it, and the record notes only that you stopped coping.\nYou are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
