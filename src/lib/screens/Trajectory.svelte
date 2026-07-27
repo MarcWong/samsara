@@ -354,12 +354,30 @@
 		JAP: 9, GBR: 9, US: 9, DNK: 9,
 	};
 
+	// How much the free-allocation bonus is worth, per country. It used to be
+	// a flat +5 everywhere; it varies now so that a PRIVILEGED life's
+	// expectancy ranks the way real-world life expectancy does (Japan/UK/
+	// Denmark longest, Ukraine/Haiti/Afghanistan shortest). This is the only
+	// knob with real leverage over that: measured across the whole event
+	// tree, ~80% of a privileged life's deaths come from stat-driven events
+	// (the universal 10001/10002/10005 and the attribute-pool underflow
+	// receipts), not from that country's own scripted deaths -- so gating
+	// country events barely moves the number, while a point of starting
+	// stat moves it by ~10-20 years. Values are empirically fitted, not
+	// derived; re-measure before changing one.
+	const BONUS_AMOUNT = {
+		JAP: 9, GBR: 8, DNK: 8, CH: 10, US: 7, IRN: 11,
+		PRK: 5, EGY: 5, IND: 7, UKR: 6,
+		AF: 5, HTI: 5,
+	};
+
 	// The rail hint's "see what happens" promise, and the Summary hint's own
-	// "+5 on all stats" line, are a real mechanic: reaching this country's
-	// own trigger value in any single stat adds +5 to all five attributes,
-	// each capped at 17 (per the attribute-pool design doc's privilege
-	// rule -- this replaced the earlier top-up-to-5, so poorer countries'
-	// privileged runs can actually reach the higher attribute bands).
+	// line about a boost, are a real mechanic: reaching this country's own
+	// trigger value in any single stat adds that country's BONUS_AMOUNT to
+	// all five attributes, each capped at 17 (the attribute-pool design
+	// doc's privilege rule -- this replaced the earlier top-up-to-5, so
+	// poorer countries' privileged runs can actually reach the higher
+	// attribute bands).
 	// Every group's trigger value is at or below that group's own point
 	// budget, so dumping every point into one stat always meets it -- no
 	// separate "all in one stat" fallback needed.
@@ -367,6 +385,7 @@
 	// flag too, to decide whether to re-roll this life's lucky charms.
 	function applyBonus(propertyAllocate) {
 		const trigger = BONUS_TRIGGER[countryCode] ?? 8;
+		const amount = BONUS_AMOUNT[countryCode] ?? 5;
 		let max = 0;
 		for (const key of STAT_KEYS) {
 			const value = propertyAllocate[types[key]];
@@ -376,7 +395,7 @@
 		if (triggered) {
 			for (const key of STAT_KEYS) {
 				const t = types[key];
-				propertyAllocate[t] = Math.min(propertyAllocate[t] + 5, 17);
+				propertyAllocate[t] = Math.min(propertyAllocate[t] + amount, 17);
 			}
 		}
 		return { propertyAllocate, triggered };

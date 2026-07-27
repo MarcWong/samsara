@@ -309,7 +309,10 @@
 	</div>
 
 	{#if !triedAllInOneStat}
-		<p class="hint">Throw all your tokens into one attribute,<br/>get +5 on all stats automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
+		<!-- Deliberately no longer names a number: the bonus is per-country
+		     now (see BONUS_AMOUNT in Trajectory.svelte), so "+5" would be
+		     wrong for every country but three. -->
+		<p class="hint">Throw all your tokens into one attribute,<br/>get a boost on every stat automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
 	{/if}
 
 	<div class="credits">

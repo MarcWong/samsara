@@ -10,9 +10,10 @@
     "10001": {
         "id": 10001,
         "event": "A sudden illness knocks you flat.",
-        "include": "STR<2",
+        "include": "STR<2&IRN=0",
         "branch": [
-            "STR<2:10000"
+            "STR<2&TLR>0:10000",
+            "STR<-2&TLR=0:10000"
         ]
     },
     "10002": {
@@ -21,7 +22,8 @@
         "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0",
         "branch": [
             "STR>5:10003",
-            "MNY<3:10000"
+            "MNY<3&TLR>0:10000",
+            "MNY<-1&TLR=0:10000"
         ]
     },
     "10003": {
@@ -36,7 +38,8 @@
         "id": 10004,
         "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
         "branch": [
-            "STR<100:10000"
+            "STR<100&TLR>0:10000",
+            "STR<96&TLR=0:10000"
         ]
     },
     "10005": {
@@ -45,7 +48,8 @@
         "include": "MNY<3&(AF>0|IRN>0|PRK>0|HTI>0)",
         "branch": [
             "STR>5:10003",
-            "MNY<3:10000"
+            "MNY<3&TLR>0:10000",
+            "MNY<-1&TLR=0:10000"
         ]
     },
     "10006": {
@@ -53,6 +57,22 @@
         "event": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
         "effect": {
             "CHR": -3
+        }
+    },
+    "10007": {
+        "id": 10007,
+        "include": "STR<10",
+        "event": "Your body finishes what the decades started. The monitors keep reporting for a while after you stop.\nYou are DEAD again, mortal.",
+        "effect": {
+            "LIF": -1
+        }
+    },
+    "10008": {
+        "id": 10008,
+        "include": "STR<14",
+        "event": "You outlive the systems built to manage you. One morning the schedule simply has no next entry.\nYou are DEAD again, mortal.",
+        "effect": {
+            "LIF": -1
         }
     },
     "74001": {
@@ -442,7 +462,7 @@
     "82901": {
         "id": 82901,
         "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
+        "include": "HTI>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -450,7 +470,7 @@
     "82902": {
         "id": 82902,
         "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
+        "include": "HTI>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -458,7 +478,7 @@
     "82903": {
         "id": 82903,
         "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
+        "include": "HTI>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -466,7 +486,7 @@
     "82904": {
         "id": 82904,
         "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
+        "include": "HTI>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -474,7 +494,7 @@
     "82905": {
         "id": 82905,
         "event": "A treatable cancer becomes fatal after repeated insecurity, flight cancellations and border restrictions interrupt care for too long.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0",
+        "include": "HTI>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1132,7 +1152,7 @@
     "102501": {
         "id": 102501,
         "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1140,7 +1160,7 @@
     "102502": {
         "id": 102502,
         "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1148,7 +1168,7 @@
     "102503": {
         "id": 102503,
         "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1156,7 +1176,7 @@
     "102504": {
         "id": 102504,
         "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1327,7 +1347,7 @@
     "102801": {
         "id": 102801,
         "event": "A precision strike destroys a command facility hidden near your family’s residential compound. Wealth provides evacuation plans but cannot change the location of the target.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1335,7 +1355,7 @@
     "102802": {
         "id": 102802,
         "event": "You are killed during a protest after returning from university abroad. Security forces treat your foreign contacts as evidence that you were an organizer rather than a bystander.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1343,7 +1363,7 @@
     "102803": {
         "id": 102803,
         "event": "You die in an aviation accident after years of sanctions and procurement restrictions leave the aircraft dependent on aging.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1351,7 +1371,7 @@
     "102804": {
         "id": 102804,
         "event": "You are assassinated after refusing to surrender your technology company to a security-linked organization. The death is publicly described as a robbery.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IRN>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1359,7 +1379,7 @@
     "102805": {
         "id": 102805,
         "event": "A treatable illness becomes fatal when renewed war closes the airspace, imported medicine disappears and the private hospital’s backup systems fail.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0",
+        "include": "IRN>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1707,7 +1727,7 @@
     "103801": {
         "id": 103801,
         "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1715,7 +1735,7 @@
     "103802": {
         "id": 103802,
         "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1723,7 +1743,7 @@
     "103803": {
         "id": 103803,
         "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1731,7 +1751,7 @@
     "103804": {
         "id": 103804,
         "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1739,7 +1759,7 @@
     "103805": {
         "id": 103805,
         "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1897,7 +1917,7 @@
     "104501": {
         "id": 104501,
         "event": "A Russian missile penetrates the air-defense network and destroys the apartment building where your family is sheltering.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1905,7 +1925,7 @@
     "104502": {
         "id": 104502,
         "event": "You step on an anti-personnel mine while taking a shortcut across land that was declared cleared too early.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1913,7 +1933,7 @@
     "104503": {
         "id": 104503,
         "event": "You die from a blood clot following a surrogate pregnancy after a clinic minimizes your symptoms to avoid contractual delays.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -1921,7 +1941,7 @@
     "104504": {
         "id": 104504,
         "event": "You are killed when security forces fire on demonstrators during the nationalist emergency government’s crackdown.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2092,7 +2112,7 @@
     "104801": {
         "id": 104801,
         "event": "A missile strikes your private school despite its advanced shelter and security systems.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2100,7 +2120,7 @@
     "104802": {
         "id": 104802,
         "event": "You are killed in a drone attack on a defense-technology conference attended by senior Ukrainian and foreign officials.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2108,7 +2128,7 @@
     "104803": {
         "id": 104803,
         "event": "During the coup, you die in custody after being detained as leverage against your politically connected family.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2116,7 +2136,7 @@
     "104804": {
         "id": 104804,
         "event": "A radical group assassinates you over artificial-gestation research, describing the technology as either the enslavement or destruction of motherhood.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "UKR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2124,7 +2144,7 @@
     "104805": {
         "id": 104805,
         "event": "You are killed when renewed Russian strikes target the autonomous defense and biotechnology district where your company is located.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0",
+        "include": "UKR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2287,7 +2307,7 @@
     "105501": {
         "id": 105501,
         "event": "You die from a respiratory infection aggravated by mould after emergency symptoms are repeatedly treated as non-urgent.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2295,7 +2315,7 @@
     "105502": {
         "id": 105502,
         "event": "A former partner kills you after police classify months of stalking and threats as a low-risk domestic dispute.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2303,7 +2323,7 @@
     "105503": {
         "id": 105503,
         "event": "A treatable gynaecological cancer is diagnosed too late after years on fragmented NHS waiting lists.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2311,7 +2331,7 @@
     "105504": {
         "id": 105504,
         "event": "You drown when extreme rainfall overwhelms drainage in a low-income housing estate whose flood defenses had been repeatedly postponed.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2487,7 +2507,7 @@
     "105801": {
         "id": 105801,
         "event": "You die in a terrorist attack on a school’s ceremonial event chosen for its symbolic association with the British establishment.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2495,7 +2515,7 @@
     "105802": {
         "id": 105802,
         "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2503,7 +2523,7 @@
     "105803": {
         "id": 105803,
         "event": "You are killed during a politically motivated attack on Parliament amid a period of anti-elite and anti-immigrant violence.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
+        "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2511,7 +2531,7 @@
     "105804": {
         "id": 105804,
         "event": "A private aircraft crashes during extreme weather while carrying you between estates and international climate conferences.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0",
+        "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2519,7 +2539,7 @@
     "105805": {
         "id": 105805,
         "event": "A personalised gene therapy triggers an aggressive cancer years after approval; the treatment had extended your healthy life before abruptly shortening it.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0",
+        "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2662,7 +2682,7 @@
     "106501": {
         "id": 106501,
         "event": "You die from sepsis after a regional triage algorithm repeatedly classifies your symptoms as a routine childhood infection.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2670,7 +2690,7 @@
     "106502": {
         "id": 106502,
         "event": "You take a stimulant tablet at a party that has been contaminated with a synthetic opioid entering Denmark through an increasingly automated drug market.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2678,7 +2698,7 @@
     "106503": {
         "id": 106503,
         "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -2862,7 +2882,7 @@
     "106801": {
         "id": 106801,
         "event": "You are killed when an eco-extremist attacks the headquarters of your family’s shipping company over Arctic extraction.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2870,7 +2890,7 @@
     "106802": {
         "id": 106802,
         "event": "An immune reaction during the experimental artificial-placenta treatment causes fatal organ failure, and the company’s lawyers prevent full publication of the trial data.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2878,7 +2898,7 @@
     "106803": {
         "id": 106803,
         "event": "Your electric aircraft crashes in Greenland after rapidly changing Arctic weather overwhelms its autonomous navigation system.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
+        "include": "DNK>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2886,7 +2906,7 @@
     "106804": {
         "id": 106804,
         "event": "An anti-biotechnology extremist assassinates you at a reproductive-medicine conference, accusing your company of privatising human evolution.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0",
+        "include": "DNK>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -2894,7 +2914,7 @@
     "106805": {
         "id": 106805,
         "event": "A longevity therapy triggers a previously unknown cancer that spreads too quickly for even your personalised medical team to stop.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0",
+        "include": "DNK>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3267,7 +3287,7 @@
     "107801": {
         "id": 107801,
         "event": "You die when an Islamic State–Khorasan bomber attacks a ceremony attended by senior officials and their families.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
+        "include": "AF>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3275,7 +3295,7 @@
     "107802": {
         "id": 107802,
         "event": "Your evacuation aircraft is shot down during fighting between rival factions around Kabul airport.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
+        "include": "AF>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3283,7 +3303,7 @@
     "107803": {
         "id": 107803,
         "event": "A male-supremacist organisation bombs the women-led tribunal after describing female political authority as foreign occupation.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
+        "include": "AF>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3291,7 +3311,7 @@
     "107804": {
         "id": 107804,
         "event": "Militants attack your mining convoy, killing you alongside guards and local workers whose names receive far less international coverage.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
+        "include": "AF>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3299,7 +3319,7 @@
     "107805": {
         "id": 107805,
         "event": "A counterfeit component enters your longevity treatment after sanctions disrupt the authorised supply chain, causing irreversible organ failure inside Afghanistan’s best private clinic.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0",
+        "include": "AF>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3482,7 +3502,7 @@
     "108501": {
         "id": 108501,
         "event": "You die in a school crowd crush after administrators delay evacuation because an emergency alarm would interrupt a nationally broadcast inspection.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -3490,7 +3510,7 @@
     "108502": {
         "id": 108502,
         "event": "A delivery vehicle strikes you while you cross between eldercare appointments; the platform records that you failed to complete the next visit.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -3498,7 +3518,7 @@
     "108503": {
         "id": 108503,
         "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -3697,7 +3717,7 @@
     "108801": {
         "id": 108801,
         "event": "You die in a crowd crush at a patriotic technology exhibition after organisers suppress an evacuation alert to protect the live broadcast.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3705,7 +3725,7 @@
     "108802": {
         "id": 108802,
         "event": "An experimental fertility treatment causes an immune reaction that the clinic conceals to protect a nationally strategic reproductive industry.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3713,7 +3733,7 @@
     "108803": {
         "id": 108803,
         "event": "A targeted cyberattack takes control of your autonomous car during the political struggle following the national data leak.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
+        "include": "CH>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3721,7 +3741,7 @@
     "108804": {
         "id": 108804,
         "event": "Your private air taxi crashes in extreme weather while carrying you between a climate conference and a protected residential district.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0",
+        "include": "CH>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3729,7 +3749,7 @@
     "108805": {
         "id": 108805,
         "event": "A geopolitical dispute blocks a critical update for your imported neural implant, and an unlicensed domestic replacement causes fatal brain inflammation.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0",
+        "include": "CH>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4124,13 +4144,14 @@
         "event": "Schoolchildren in three countries learn incompatible histories of the former United States. Your digital copies advise governments on every side, allowing your family to remain American long after America has ceased to be a country.",
         "include": "US>0&TLR>0",
         "branch": [
-            "STR<100:10000"
+            "STR<100&TLR>0:10000",
+            "STR<96&TLR=0:10000"
         ]
     },
     "109801": {
         "id": 109801,
         "event": "A gunman breaches your private school’s security system and kills you during a nationally televised attack.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0&(STR<5|MNY<5)",
+        "include": "US>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4138,7 +4159,7 @@
     "109802": {
         "id": 109802,
         "event": "Your aircraft crashes while evacuating an extreme-weather event that traps thousands of people without private transportation.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0&(STR<5|MNY<5)",
+        "include": "US>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4146,7 +4167,7 @@
     "109803": {
         "id": 109803,
         "event": "A politically motivated cyberattack takes control of your autonomous vehicle during the dissolution of the federal government.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0&(STR<5|MNY<5)",
+        "include": "US>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4154,7 +4175,7 @@
     "109804": {
         "id": 109804,
         "event": "You are assassinated at a donor retreat by an extremist who believes the Pacific war was manufactured by elites from the successor states.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0&(STR<5|MNY<5)",
+        "include": "US>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4162,7 +4183,7 @@
     "109805": {
         "id": 109805,
         "event": "An experimental longevity treatment triggers an aggressive cancer after extending your healthy life for more than a decade.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0",
+        "include": "US>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4320,7 +4341,7 @@
     "110501": {
         "id": 110501,
         "event": "You die when a major earthquake collapses an older rental building that had repeatedly failed voluntary reinforcement inspections.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4328,7 +4349,7 @@
     "110502": {
         "id": 110502,
         "event": "You die by suicide after your employer’s mental-health system classifies you as low risk and replaces a human appointment with automated breathing exercises.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4336,7 +4357,7 @@
     "110503": {
         "id": 110503,
         "event": "You bleed to death during childbirth after the maternity ward serving your region closes because it cannot retain obstetricians.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4344,7 +4365,7 @@
     "110504": {
         "id": 110504,
         "event": "You are killed when a missile strikes transport infrastructure during the Pacific war while you are moving elderly patients to shelter.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR=0&(STR<1&MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4510,7 +4531,7 @@
     "110801": {
         "id": 110801,
         "event": "You die when an earthquake and tsunami strike a coastal family resort built in a zone consultants had identified as unsafe.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4518,7 +4539,7 @@
     "110802": {
         "id": 110802,
         "event": "An experimental fertility-preservation treatment causes a fatal immune reaction concealed by the clinic to protect its elite clientele.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4526,7 +4547,7 @@
     "110803": {
         "id": 110803,
         "event": "You are killed when a missile penetrates the defence system surrounding the private research complex during the Pacific war.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
+        "include": "JAP>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4534,7 +4555,7 @@
     "110804": {
         "id": 110804,
         "event": "A premium neural implant develops an infection after the manufacturer delays reporting failures to protect its share price.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0",
+        "include": "JAP>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4542,7 +4563,7 @@
     "110805": {
         "id": 110805,
         "event": "A longevity treatment triggers an aggressive cancer after successfully extending your healthy life for more than a decade.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0",
+        "include": "JAP>0&TLR>0&(STR<3|MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -4890,7 +4911,7 @@
     "111801": {
         "id": 111801,
         "event": "You die during an attack on a luxury archaeological tour whose security had been reduced to preserve the appearance of normal tourism. Your death becomes an international headline; the Egyptian staff killed beside you remain unnamed.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
+        "include": "EGY>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4898,7 +4919,7 @@
     "111802": {
         "id": 111802,
         "event": "An experimental fertility procedure causes a clot that the clinic initially hides to protect its foreign accreditation. Your family secures a settlement and a confidentiality agreement after your funeral.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
+        "include": "EGY>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4906,7 +4927,7 @@
     "111803": {
         "id": 111803,
         "event": "An autonomous weapon strikes your yacht during a Red Sea confrontation. Three governments deny responsibility while insurers debate whether the incident counts as terrorism, war or machine error.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
+        "include": "EGY>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4914,7 +4935,7 @@
     "111804": {
         "id": 111804,
         "event": "A new ruling faction detains you over your family’s ties to the previous council. You die during an unrecorded interrogation in a medical wing that officially never received you.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
+        "include": "EGY>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -4922,7 +4943,7 @@
     "111805": {
         "id": 111805,
         "event": "A longevity implant triggers a fatal immune reaction. The clinic deletes the failed treatment from its model so that your death does not lower the success rate shown to future clients.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0",
+        "include": "EGY>0&TLR>0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5080,7 +5101,7 @@
     "112501": {
         "id": 112501,
         "event": "You die from contaminated village water after the local clinic runs out of rehydration medicine. Your death is entered into a health dashboard that reports improving rural sanitation.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5088,7 +5109,7 @@
     "112502": {
         "id": 112502,
         "event": "Relatives kill you after discovering your relationship with a higher-caste boy. The village describes it as a suicide, and police accept the family’s account.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5096,7 +5117,7 @@
     "112503": {
         "id": 112503,
         "event": "You die from postpartum bleeding while your family searches for a hospital willing to accept your digital insurance authorization.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5104,7 +5125,7 @@
     "112504": {
         "id": 112504,
         "event": "You are killed during a communal riot after police seal the road leading out of your neighborhood. News feeds classify the violence as spontaneous despite weeks of organized online incitement.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5112,7 +5133,7 @@
     "112505": {
         "id": 112505,
         "event": "You collapse during a lethal humid heatwave while waiting for water. Your district’s cooled emergency shelter exists on the city map but was never completed.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
         "effect": {
             "LIF": -1
         }
@@ -5270,7 +5291,7 @@
     "112801": {
         "id": 112801,
         "event": "You die by suicide after your coaching algorithm predicts that you will miss the IIT cutoff. The institute advertises a new resilience package using your anonymized stress data.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR>0&(STR<6|MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -5278,7 +5299,7 @@
     "112802": {
         "id": 112802,
         "event": "You die from an antibiotic-resistant infection acquired during elective fertility treatment at a prestigious private hospital. The clinic delays disclosure to protect its international ranking.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR>0&(STR<6|MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -5286,7 +5307,7 @@
     "112803": {
         "id": 112803,
         "event": "Your aircraft is destroyed during an autonomous India–China border escalation while carrying you to a technology summit. Both governments blame a targeting system trained by a contractor connected to your company.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
+        "include": "IND>0&TLR>0&(STR<6|MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -5294,7 +5315,7 @@
     "112804": {
         "id": 112804,
         "event": "A nationalist group hacks your vehicle after accusing your company of suppressing sacred content. Your death is publicly mourned by politicians who privately circulated the accusation.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0",
+        "include": "IND>0&TLR>0&(STR<6|MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -5302,7 +5323,7 @@
     "112805": {
         "id": 112805,
         "event": "Your longevity implant causes a fatal neural cascade. The provider classifies the death as an unrelated age condition so it can continue advertising a 99.8 percent success rate.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0",
+        "include": "IND>0&TLR>0&(STR<6|MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -5386,8 +5407,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "211103": {
@@ -5399,8 +5422,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "211104": {
@@ -5412,8 +5437,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "211105": {
@@ -5425,8 +5452,10 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1:211155",
-            "STR<2:200004"
+            "MNY<1&TLR>0:211155",
+            "MNY<-3&TLR=0:211155",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "211155": {
@@ -5451,7 +5480,8 @@
             "SPR": 1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003"
         ]
     },
     "211203": {
@@ -5463,8 +5493,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "211204": {
@@ -5476,8 +5508,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "211205": {
@@ -5489,8 +5523,10 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1:211255",
-            "STR<2:200004"
+            "MNY<1&TLR>0:211255",
+            "MNY<-3&TLR=0:211255",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "211255": {
@@ -5515,8 +5551,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "211303": {
@@ -5528,8 +5566,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "211304": {
@@ -5540,7 +5580,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "211305": {
@@ -5552,8 +5593,10 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1:211355",
-            "STR<2:200004"
+            "MNY<1&TLR>0:211355",
+            "MNY<-3&TLR=0:211355",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "211355": {
@@ -5587,7 +5630,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "212104": {
@@ -5599,8 +5643,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "STR<1:200004"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "212105": {
@@ -5611,7 +5657,8 @@
             "MNY": -4
         },
         "branch": [
-            "MNY<4:212155"
+            "MNY<4&TLR>0:212155",
+            "MNY<0&TLR=0:212155"
         ]
     },
     "212155": {
@@ -5636,7 +5683,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "212203": {
@@ -5648,7 +5696,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "212204": {
@@ -5660,8 +5709,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "212205": {
@@ -5673,8 +5724,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<4:212255",
-            "STR<1:200004"
+            "MNY<4&TLR>0:212255",
+            "MNY<0&TLR=0:212255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "212255": {
@@ -5699,7 +5752,8 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "212303": {
@@ -5711,7 +5765,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "212304": {
@@ -5723,8 +5778,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "STR<1:200004"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "212305": {
@@ -5736,8 +5793,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<4:212355",
-            "STR<1:200004"
+            "MNY<4&TLR>0:212355",
+            "MNY<0&TLR=0:212355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "212355": {
@@ -5763,7 +5822,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "213103": {
@@ -5784,8 +5844,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "213105": {
@@ -5797,8 +5859,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<7:213155",
-            "STR<1:200004"
+            "MNY<7&TLR>0:213155",
+            "MNY<3&TLR=0:213155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "213155": {
@@ -5832,7 +5896,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "213204": {
@@ -5844,7 +5909,8 @@
             "MNY": -2
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "213205": {
@@ -5856,8 +5922,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<7:213255",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<7&TLR>0:213255",
+            "MNY<3&TLR=0:213255",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "213255": {
@@ -5899,8 +5967,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "STR<1:200004"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "213305": {
@@ -5912,8 +5982,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<7:213355",
-            "STR<1:200004"
+            "MNY<7&TLR>0:213355",
+            "MNY<3&TLR=0:213355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "213355": {
@@ -5947,7 +6019,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "214104": {
@@ -5959,8 +6032,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "214105": {
@@ -5972,8 +6047,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10:214155",
-            "STR<1:200004"
+            "MNY<10&TLR>0:214155",
+            "MNY<6&TLR=0:214155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "214155": {
@@ -6007,7 +6084,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "214204": {
@@ -6018,7 +6096,8 @@
             "MNY": -2
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "214205": {
@@ -6030,8 +6109,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10:214255",
-            "STR<1:200004"
+            "MNY<10&TLR>0:214255",
+            "MNY<6&TLR=0:214255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "214255": {
@@ -6065,7 +6146,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "214304": {
@@ -6076,7 +6158,8 @@
             "MNY": -2
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "214305": {
@@ -6088,8 +6171,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10:214355",
-            "STR<1:200004"
+            "MNY<10&TLR>0:214355",
+            "MNY<6&TLR=0:214355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "214355": {
@@ -6123,7 +6208,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215104": {
@@ -6135,8 +6221,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215105": {
@@ -6148,8 +6236,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13:215155",
-            "STR<1:200004"
+            "MNY<13&TLR>0:215155",
+            "MNY<9&TLR=0:215155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "215155": {
@@ -6175,7 +6265,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215203": {
@@ -6187,7 +6278,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215204": {
@@ -6199,8 +6291,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215205": {
@@ -6212,8 +6306,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13:215255",
-            "STR<1:200004"
+            "MNY<13&TLR>0:215255",
+            "MNY<9&TLR=0:215255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "215255": {
@@ -6247,7 +6343,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "215304": {
@@ -6259,7 +6356,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "215305": {
@@ -6271,8 +6369,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13:215355",
-            "STR<1:200004"
+            "MNY<13&TLR>0:215355",
+            "MNY<9&TLR=0:215355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "215355": {
@@ -6297,7 +6397,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216103": {
@@ -6309,7 +6410,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216104": {
@@ -6321,8 +6423,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<3:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<3&TLR>0:200001",
+            "MNY<-1&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216105": {
@@ -6334,8 +6438,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16:216155",
-            "STR<1:200004"
+            "MNY<16&TLR>0:216155",
+            "MNY<12&TLR=0:216155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "216155": {
@@ -6360,7 +6466,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216203": {
@@ -6373,7 +6480,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216204": {
@@ -6385,7 +6493,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216205": {
@@ -6397,8 +6506,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16:216255",
-            "STR<1:200004"
+            "MNY<16&TLR>0:216255",
+            "MNY<12&TLR=0:216255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "216255": {
@@ -6423,7 +6534,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216303": {
@@ -6436,7 +6548,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216304": {
@@ -6448,7 +6561,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "216305": {
@@ -6460,8 +6574,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16:216355",
-            "STR<1:200004"
+            "MNY<16&TLR>0:216355",
+            "MNY<12&TLR=0:216355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "216355": {
@@ -6485,7 +6601,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221103": {
@@ -6497,8 +6614,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221104": {
@@ -6510,8 +6629,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "221105": {
@@ -6523,8 +6644,10 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):221155",
-            "STR<2:200004"
+            "CHR<1&TLR>0&(STR<5|MNY<5):221155",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):221155",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "221155": {
@@ -6549,8 +6672,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221203": {
@@ -6562,8 +6687,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221204": {
@@ -6575,8 +6702,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "221205": {
@@ -6588,8 +6717,10 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):221255",
-            "STR<2:200004"
+            "CHR<1&TLR>0&(STR<5|MNY<5):221255",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):221255",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "221255": {
@@ -6614,8 +6745,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221303": {
@@ -6627,8 +6760,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "221304": {
@@ -6640,8 +6775,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "221305": {
@@ -6653,8 +6790,10 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):221355",
-            "STR<2:200004"
+            "CHR<1&TLR>0&(STR<5|MNY<5):221355",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):221355",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "221355": {
@@ -6679,8 +6818,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "222103": {
@@ -6692,7 +6833,8 @@
             "CHR": -1
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "222104": {
@@ -6704,8 +6846,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "222105": {
@@ -6717,8 +6861,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&(STR<5|MNY<5):222155",
-            "STR<1:200004"
+            "CHR<4&TLR>0&(STR<5|MNY<5):222155",
+            "CHR<0&TLR=0&(STR<5|MNY<5):222155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "222155": {
@@ -6743,7 +6889,8 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "222203": {
@@ -6755,7 +6902,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "222204": {
@@ -6767,8 +6915,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "222205": {
@@ -6780,8 +6930,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&(STR<5|MNY<5):222255",
-            "STR<1:200004"
+            "CHR<4&TLR>0&(STR<5|MNY<5):222255",
+            "CHR<0&TLR=0&(STR<5|MNY<5):222255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "222255": {
@@ -6807,8 +6959,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "222303": {
@@ -6829,8 +6983,10 @@
             "CHR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "CHR<1&(STR<5|MNY<5):200002"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "222305": {
@@ -6842,8 +6998,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&(STR<5|MNY<5):222355",
-            "STR<1:200004"
+            "CHR<4&TLR>0&(STR<5|MNY<5):222355",
+            "CHR<0&TLR=0&(STR<5|MNY<5):222355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "222355": {
@@ -6868,7 +7026,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223103": {
@@ -6880,7 +7039,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "223104": {
@@ -6892,8 +7052,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223105": {
@@ -6905,8 +7067,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&(STR<5|MNY<5):223155",
-            "STR<1:200004"
+            "CHR<7&TLR>0&(STR<5|MNY<5):223155",
+            "CHR<3&TLR=0&(STR<5|MNY<5):223155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "223155": {
@@ -6932,7 +7096,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223203": {
@@ -6944,8 +7109,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223204": {
@@ -6957,7 +7124,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "223205": {
@@ -6969,8 +7137,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&(STR<5|MNY<5):223255",
-            "STR<1:200004"
+            "CHR<7&TLR>0&(STR<5|MNY<5):223255",
+            "CHR<3&TLR=0&(STR<5|MNY<5):223255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "223255": {
@@ -6996,7 +7166,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223303": {
@@ -7008,8 +7179,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "223304": {
@@ -7022,7 +7195,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "223305": {
@@ -7034,8 +7208,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&(STR<5|MNY<5):223355",
-            "STR<1:200004"
+            "CHR<7&TLR>0&(STR<5|MNY<5):223355",
+            "CHR<3&TLR=0&(STR<5|MNY<5):223355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "223355": {
@@ -7064,7 +7240,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224104": {
@@ -7076,7 +7253,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "224105": {
@@ -7088,8 +7266,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&(STR<5|MNY<5):224155",
-            "STR<1:200004"
+            "CHR<10&TLR>0&(STR<5|MNY<5):224155",
+            "CHR<6&TLR=0&(STR<5|MNY<5):224155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "224131": {
@@ -7101,8 +7281,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224132": {
@@ -7140,7 +7322,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224204": {
@@ -7153,7 +7336,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "224205": {
@@ -7165,8 +7349,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&(STR<5|MNY<5):224255",
-            "STR<1:200004"
+            "CHR<10&TLR>0&(STR<5|MNY<5):224255",
+            "CHR<6&TLR=0&(STR<5|MNY<5):224255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "224231": {
@@ -7178,8 +7364,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224232": {
@@ -7214,7 +7402,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224304": {
@@ -7226,8 +7415,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224305": {
@@ -7239,8 +7430,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&(STR<5|MNY<5):224355",
-            "STR<1:200004"
+            "CHR<10&TLR>0&(STR<5|MNY<5):224355",
+            "CHR<6&TLR=0&(STR<5|MNY<5):224355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "224331": {
@@ -7252,8 +7445,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "224332": {
@@ -7282,7 +7477,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225102": {
@@ -7295,7 +7491,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225104": {
@@ -7308,7 +7505,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225105": {
@@ -7320,8 +7518,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&(STR<5|MNY<5):225155",
-            "STR<1:200004"
+            "CHR<13&TLR>0&(STR<5|MNY<5):225155",
+            "CHR<9&TLR=0&(STR<5|MNY<5):225155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "225131": {
@@ -7333,8 +7533,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225132": {
@@ -7369,7 +7571,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225204": {
@@ -7382,7 +7585,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225205": {
@@ -7394,8 +7598,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&(STR<5|MNY<5):225255",
-            "STR<1:200004"
+            "CHR<13&TLR>0&(STR<5|MNY<5):225255",
+            "CHR<9&TLR=0&(STR<5|MNY<5):225255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "225231": {
@@ -7407,8 +7613,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225232": {
@@ -7443,7 +7651,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225304": {
@@ -7456,7 +7665,8 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2&(STR<5|MNY<5):200002"
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225305": {
@@ -7468,8 +7678,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&(STR<5|MNY<5):225355",
-            "STR<1:200004"
+            "CHR<13&TLR>0&(STR<5|MNY<5):225355",
+            "CHR<9&TLR=0&(STR<5|MNY<5):225355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "225331": {
@@ -7481,8 +7693,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "225332": {
@@ -7517,7 +7731,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226103": {
@@ -7529,8 +7744,10 @@
             "SPR": -2
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226104": {
@@ -7543,8 +7760,10 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<3&(STR<5|MNY<5):200002",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-1&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226105": {
@@ -7556,8 +7775,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&(STR<5|MNY<5):226155",
-            "STR<1:200004"
+            "CHR<16&TLR>0&(STR<5|MNY<5):226155",
+            "CHR<12&TLR=0&(STR<5|MNY<5):226155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "226155": {
@@ -7583,7 +7804,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226203": {
@@ -7596,7 +7818,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226204": {
@@ -7608,7 +7831,8 @@
             "MNY": 1
         },
         "branch": [
-            "CHR<3&(STR<5|MNY<5):200002"
+            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "226205": {
@@ -7620,8 +7844,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&(STR<5|MNY<5):226255",
-            "STR<1:200004"
+            "CHR<16&TLR>0&(STR<5|MNY<5):226255",
+            "CHR<12&TLR=0&(STR<5|MNY<5):226255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "226255": {
@@ -7647,7 +7873,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226303": {
@@ -7660,7 +7887,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "226304": {
@@ -7672,8 +7900,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<3&(STR<5|MNY<5):200002",
-            "STR<1:200004"
+            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-1&TLR=0&(STR<5|MNY<5):200002",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "226305": {
@@ -7685,8 +7915,10 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&(STR<5|MNY<5):226355",
-            "STR<1:200004"
+            "CHR<16&TLR>0&(STR<5|MNY<5):226355",
+            "CHR<12&TLR=0&(STR<5|MNY<5):226355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "226355": {
@@ -7711,8 +7943,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231103": {
@@ -7724,8 +7958,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231104": {
@@ -7737,8 +7973,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231105": {
@@ -7750,8 +7988,10 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):231155",
-            "STR<2:200004"
+            "INT<1&TLR>0&(STR<5|MNY<5):231155",
+            "INT<-3&TLR=0&(STR<5|MNY<5):231155",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "231155": {
@@ -7776,8 +8016,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231203": {
@@ -7789,8 +8031,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231204": {
@@ -7802,8 +8046,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231205": {
@@ -7815,8 +8061,10 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):231255",
-            "STR<2:200004"
+            "INT<1&TLR>0&(STR<5|MNY<5):231255",
+            "INT<-3&TLR=0&(STR<5|MNY<5):231255",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "231255": {
@@ -7841,8 +8089,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231303": {
@@ -7854,8 +8104,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231304": {
@@ -7866,7 +8118,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "231305": {
@@ -7878,8 +8131,10 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):231355",
-            "STR<2:200004"
+            "INT<1&TLR>0&(STR<5|MNY<5):231355",
+            "INT<-3&TLR=0&(STR<5|MNY<5):231355",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "231355": {
@@ -7913,8 +8168,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "232104": {
@@ -7925,7 +8182,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "232105": {
@@ -7937,8 +8195,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&(STR<5|MNY<5):232155",
-            "STR<1:200004"
+            "INT<4&TLR>0&(STR<5|MNY<5):232155",
+            "INT<0&TLR=0&(STR<5|MNY<5):232155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "232155": {
@@ -7972,7 +8232,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "232204": {
@@ -7984,8 +8245,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "232205": {
@@ -7997,8 +8260,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&(STR<5|MNY<5):232255",
-            "STR<1:200004"
+            "INT<4&TLR>0&(STR<5|MNY<5):232255",
+            "INT<0&TLR=0&(STR<5|MNY<5):232255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "232255": {
@@ -8032,7 +8297,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "232304": {
@@ -8044,8 +8310,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "STR<1:200004"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "232305": {
@@ -8057,8 +8325,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&(STR<5|MNY<5):232355",
-            "STR<1:200004"
+            "INT<4&TLR>0&(STR<5|MNY<5):232355",
+            "INT<0&TLR=0&(STR<5|MNY<5):232355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "232355": {
@@ -8083,7 +8353,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "233103": {
@@ -8104,8 +8375,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "233105": {
@@ -8117,8 +8390,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&(STR<5|MNY<5):233155",
-            "STR<1:200004"
+            "INT<7&TLR>0&(STR<5|MNY<5):233155",
+            "INT<3&TLR=0&(STR<5|MNY<5):233155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "233155": {
@@ -8152,7 +8427,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "233204": {
@@ -8164,8 +8440,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "233205": {
@@ -8177,8 +8455,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&(STR<5|MNY<5):233255",
-            "STR<1:200004"
+            "INT<7&TLR>0&(STR<5|MNY<5):233255",
+            "INT<3&TLR=0&(STR<5|MNY<5):233255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "233255": {
@@ -8212,7 +8492,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "233304": {
@@ -8224,8 +8505,10 @@
             "INT": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "INT<1&(STR<5|MNY<5):200003"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003"
         ]
     },
     "233305": {
@@ -8237,8 +8520,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&(STR<5|MNY<5):233355",
-            "STR<1:200004"
+            "INT<7&TLR>0&(STR<5|MNY<5):233355",
+            "INT<3&TLR=0&(STR<5|MNY<5):233355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "233355": {
@@ -8271,7 +8556,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234104": {
@@ -8284,8 +8570,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234105": {
@@ -8297,8 +8585,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&(STR<5|MNY<5):234155",
-            "STR<1:200004"
+            "INT<10&TLR>0&(STR<5|MNY<5):234155",
+            "INT<6&TLR=0&(STR<5|MNY<5):234155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "234155": {
@@ -8331,7 +8621,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234204": {
@@ -8344,8 +8635,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234205": {
@@ -8357,8 +8650,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&(STR<5|MNY<5):234255",
-            "STR<1:200004"
+            "INT<10&TLR>0&(STR<5|MNY<5):234255",
+            "INT<6&TLR=0&(STR<5|MNY<5):234255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "234255": {
@@ -8391,7 +8686,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234304": {
@@ -8403,8 +8699,10 @@
             "SPR": -2
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "234305": {
@@ -8416,8 +8714,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&(STR<5|MNY<5):234355",
-            "STR<1:200004"
+            "INT<10&TLR>0&(STR<5|MNY<5):234355",
+            "INT<6&TLR=0&(STR<5|MNY<5):234355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "234355": {
@@ -8443,7 +8743,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235103": {
@@ -8454,7 +8755,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235104": {
@@ -8466,7 +8768,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "235105": {
@@ -8478,8 +8781,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&(STR<5|MNY<5):235155",
-            "STR<1:200004"
+            "INT<13&TLR>0&(STR<5|MNY<5):235155",
+            "INT<9&TLR=0&(STR<5|MNY<5):235155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "235155": {
@@ -8505,7 +8810,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235203": {
@@ -8517,7 +8823,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235204": {
@@ -8529,7 +8836,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "235205": {
@@ -8541,8 +8849,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&(STR<5|MNY<5):235255",
-            "STR<1:200004"
+            "INT<13&TLR>0&(STR<5|MNY<5):235255",
+            "INT<9&TLR=0&(STR<5|MNY<5):235255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "235255": {
@@ -8568,7 +8878,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235303": {
@@ -8580,7 +8891,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235304": {
@@ -8593,8 +8905,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "235305": {
@@ -8606,8 +8920,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&(STR<5|MNY<5):235355",
-            "STR<1:200004"
+            "INT<13&TLR>0&(STR<5|MNY<5):235355",
+            "INT<9&TLR=0&(STR<5|MNY<5):235355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "235355": {
@@ -8633,7 +8949,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236103": {
@@ -8645,7 +8962,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236104": {
@@ -8656,7 +8974,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236105": {
@@ -8668,8 +8987,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&(STR<5|MNY<5):236155",
-            "STR<1:200004"
+            "INT<16&TLR>0&(STR<5|MNY<5):236155",
+            "INT<12&TLR=0&(STR<5|MNY<5):236155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236155": {
@@ -8695,7 +9016,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236203": {
@@ -8707,7 +9029,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236204": {
@@ -8719,8 +9042,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005",
-            "STR<1:200004"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236205": {
@@ -8732,8 +9057,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&(STR<5|MNY<5):236255",
-            "STR<1:200004"
+            "INT<16&TLR>0&(STR<5|MNY<5):236255",
+            "INT<12&TLR=0&(STR<5|MNY<5):236255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236255": {
@@ -8759,7 +9086,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236303": {
@@ -8772,8 +9100,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236304": {
@@ -8784,7 +9114,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "236305": {
@@ -8796,8 +9127,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&(STR<5|MNY<5):236355",
-            "STR<1:200004"
+            "INT<16&TLR>0&(STR<5|MNY<5):236355",
+            "INT<12&TLR=0&(STR<5|MNY<5):236355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "236355": {
@@ -8816,7 +9149,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241102": {
@@ -8828,8 +9162,10 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "241103": {
@@ -8840,7 +9176,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241104": {
@@ -8852,8 +9189,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241105": {
@@ -8864,7 +9203,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:241155"
+            "STR<1&TLR>0:241155",
+            "STR<-3&TLR=0:241155"
         ]
     },
     "241155": {
@@ -8883,7 +9223,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241202": {
@@ -8895,8 +9236,10 @@
             "STR": -1
         },
         "branch": [
-            "INT<1&(STR<5|MNY<5):200003",
-            "STR<1:200004"
+            "INT<1&TLR>0&(STR<5|MNY<5):200003",
+            "INT<-3&TLR=0&(STR<5|MNY<5):200003",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241203": {
@@ -8908,8 +9251,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "241204": {
@@ -8921,8 +9266,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241205": {
@@ -8933,7 +9280,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:241255"
+            "STR<1&TLR>0:241255",
+            "STR<-3&TLR=0:241255"
         ]
     },
     "241255": {
@@ -8952,7 +9300,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241302": {
@@ -8963,7 +9312,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "241303": {
@@ -8975,8 +9325,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "241304": {
@@ -8988,8 +9340,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "241305": {
@@ -9000,7 +9354,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:241355"
+            "STR<1&TLR>0:241355",
+            "STR<-3&TLR=0:241355"
         ]
     },
     "241355": {
@@ -9019,7 +9374,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "242102": {
@@ -9031,8 +9387,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242105": {
@@ -9043,7 +9401,8 @@
             "STR": -4
         },
         "branch": [
-            "STR<4:242155"
+            "STR<4&TLR>0:242155",
+            "STR<0&TLR=0:242155"
         ]
     },
     "242131": {
@@ -9056,8 +9415,10 @@
             "CHR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242132": {
@@ -9070,9 +9431,12 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4:200004",
-            "MNY<1:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "STR<4&TLR>0:200004",
+            "STR<0&TLR=0:200004",
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242141": {
@@ -9085,7 +9449,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "242142": {
@@ -9096,7 +9461,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242143": {
@@ -9108,8 +9474,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242155": {
@@ -9134,8 +9502,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242205": {
@@ -9146,7 +9516,8 @@
             "STR": -4
         },
         "branch": [
-            "STR<4:242255"
+            "STR<4&TLR>0:242255",
+            "STR<0&TLR=0:242255"
         ]
     },
     "242231": {
@@ -9159,8 +9530,10 @@
             "CHR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242232": {
@@ -9173,9 +9546,12 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4:200004",
-            "MNY<1:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "STR<4&TLR>0:200004",
+            "STR<0&TLR=0:200004",
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242241": {
@@ -9188,7 +9564,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "242242": {
@@ -9200,8 +9577,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242243": {
@@ -9213,8 +9592,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242255": {
@@ -9239,8 +9620,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242305": {
@@ -9251,7 +9634,8 @@
             "STR": -4
         },
         "branch": [
-            "STR<4:242355"
+            "STR<4&TLR>0:242355",
+            "STR<0&TLR=0:242355"
         ]
     },
     "242331": {
@@ -9264,8 +9648,10 @@
             "CHR": -2
         },
         "branch": [
-            "MNY<2:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242332": {
@@ -9278,9 +9664,12 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4:200004",
-            "MNY<1:200001",
-            "CHR<2&(STR<5|MNY<5):200002"
+            "STR<4&TLR>0:200004",
+            "STR<0&TLR=0:200004",
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-2&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242341": {
@@ -9293,7 +9682,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "242342": {
@@ -9305,8 +9695,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242343": {
@@ -9318,8 +9710,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "242355": {
@@ -9344,8 +9738,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "243103": {
@@ -9357,7 +9753,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "243104": {
@@ -9369,7 +9766,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "243105": {
@@ -9380,7 +9778,8 @@
             "STR": -7
         },
         "branch": [
-            "STR<7:243155"
+            "STR<7&TLR>0:243155",
+            "STR<3&TLR=0:243155"
         ]
     },
     "243155": {
@@ -9405,8 +9804,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "243203": {
@@ -9418,7 +9819,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "243204": {
@@ -9431,8 +9833,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "243205": {
@@ -9443,7 +9847,8 @@
             "STR": -7
         },
         "branch": [
-            "STR<7:243255"
+            "STR<7&TLR>0:243255",
+            "STR<3&TLR=0:243255"
         ]
     },
     "243255": {
@@ -9468,8 +9873,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "243303": {
@@ -9481,7 +9888,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "243304": {
@@ -9493,8 +9901,10 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "STR<1:200004"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "243305": {
@@ -9505,7 +9915,8 @@
             "STR": -7
         },
         "branch": [
-            "STR<7:243355"
+            "STR<7&TLR>0:243355",
+            "STR<3&TLR=0:243355"
         ]
     },
     "243355": {
@@ -9530,7 +9941,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244103": {
@@ -9542,7 +9954,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "244104": {
@@ -9554,8 +9967,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<2:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244105": {
@@ -9566,7 +9981,8 @@
             "STR": -10
         },
         "branch": [
-            "STR<10:244155"
+            "STR<10&TLR>0:244155",
+            "STR<6&TLR=0:244155"
         ]
     },
     "244155": {
@@ -9601,8 +10017,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244204": {
@@ -9614,7 +10032,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244205": {
@@ -9625,7 +10044,8 @@
             "STR": -10
         },
         "branch": [
-            "STR<10:244255"
+            "STR<10&TLR>0:244255",
+            "STR<6&TLR=0:244255"
         ]
     },
     "244255": {
@@ -9650,7 +10070,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244303": {
@@ -9662,7 +10083,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "244304": {
@@ -9674,7 +10096,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "244305": {
@@ -9685,7 +10108,8 @@
             "STR": -10
         },
         "branch": [
-            "STR<10:244355"
+            "STR<10&TLR>0:244355",
+            "STR<6&TLR=0:244355"
         ]
     },
     "244355": {
@@ -9720,8 +10144,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "245104": {
@@ -9733,8 +10159,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<2:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "245105": {
@@ -9745,7 +10173,8 @@
             "STR": -13
         },
         "branch": [
-            "STR<13:245155"
+            "STR<13&TLR>0:245155",
+            "STR<9&TLR=0:245155"
         ]
     },
     "245155": {
@@ -9771,7 +10200,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "245203": {
@@ -9783,7 +10213,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "245204": {
@@ -9794,7 +10225,8 @@
             "STR": -2
         },
         "branch": [
-            "STR<2:200004"
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "245205": {
@@ -9805,7 +10237,8 @@
             "STR": -13
         },
         "branch": [
-            "STR<13:245255"
+            "STR<13&TLR>0:245255",
+            "STR<9&TLR=0:245255"
         ]
     },
     "245255": {
@@ -9831,7 +10264,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "245303": {
@@ -9843,7 +10277,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "245304": {
@@ -9855,8 +10290,10 @@
             "SPR": -1
         },
         "branch": [
-            "STR<2:200004",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "245305": {
@@ -9867,7 +10304,8 @@
             "STR": -13
         },
         "branch": [
-            "STR<13:245355"
+            "STR<13&TLR>0:245355",
+            "STR<9&TLR=0:245355"
         ]
     },
     "245355": {
@@ -9892,7 +10330,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "246103": {
@@ -9904,7 +10343,8 @@
             "STR": 1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "246104": {
@@ -9916,8 +10356,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005",
-            "STR<1:200004"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "246105": {
@@ -9928,7 +10370,8 @@
             "STR": -16
         },
         "branch": [
-            "STR<16:246155"
+            "STR<16&TLR>0:246155",
+            "STR<12&TLR=0:246155"
         ]
     },
     "246155": {
@@ -9963,8 +10406,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "246204": {
@@ -9975,7 +10420,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "246205": {
@@ -9986,7 +10432,8 @@
             "STR": -16
         },
         "branch": [
-            "STR<16:246255"
+            "STR<16&TLR>0:246255",
+            "STR<12&TLR=0:246255"
         ]
     },
     "246255": {
@@ -10021,8 +10468,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "246304": {
@@ -10033,7 +10482,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "246305": {
@@ -10044,7 +10494,8 @@
             "STR": -16
         },
         "branch": [
-            "STR<16:246355"
+            "STR<16&TLR>0:246355",
+            "STR<12&TLR=0:246355"
         ]
     },
     "246355": {
@@ -10063,7 +10514,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251102": {
@@ -10074,7 +10526,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251103": {
@@ -10086,8 +10539,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251104": {
@@ -10104,8 +10559,10 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):251155",
-            "STR<2:200004"
+            "SPR<1&TLR>0&(STR<5|MNY<5):251155",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):251155",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "251155": {
@@ -10124,7 +10581,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251202": {
@@ -10136,8 +10594,10 @@
             "CHR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005",
-            "CHR<1&(STR<5|MNY<5):200002"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005",
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "251203": {
@@ -10149,8 +10609,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251204": {
@@ -10167,8 +10629,10 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):251255",
-            "STR<2:200004"
+            "SPR<1&TLR>0&(STR<5|MNY<5):251255",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):251255",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "251255": {
@@ -10187,7 +10651,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251302": {
@@ -10198,7 +10663,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251303": {
@@ -10210,8 +10676,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "251304": {
@@ -10228,8 +10696,10 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):251355",
-            "STR<2:200004"
+            "SPR<1&TLR>0&(STR<5|MNY<5):251355",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):251355",
+            "STR<2&TLR>0:200004",
+            "STR<-2&TLR=0:200004"
         ]
     },
     "251355": {
@@ -10254,7 +10724,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "252103": {
@@ -10266,8 +10737,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252104": {
@@ -10278,7 +10751,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252105": {
@@ -10289,7 +10763,8 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4&(STR<5|MNY<5):252155"
+            "SPR<4&TLR>0&(STR<5|MNY<5):252155",
+            "SPR<0&TLR=0&(STR<5|MNY<5):252155"
         ]
     },
     "252155": {
@@ -10314,7 +10789,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "252203": {
@@ -10326,7 +10802,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252204": {
@@ -10337,7 +10814,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252205": {
@@ -10348,7 +10826,8 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4&(STR<5|MNY<5):252255"
+            "SPR<4&TLR>0&(STR<5|MNY<5):252255",
+            "SPR<0&TLR=0&(STR<5|MNY<5):252255"
         ]
     },
     "252255": {
@@ -10373,7 +10852,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252303": {
@@ -10385,7 +10865,8 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "252304": {
@@ -10396,7 +10877,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "252305": {
@@ -10407,7 +10889,8 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4&(STR<5|MNY<5):252355"
+            "SPR<4&TLR>0&(STR<5|MNY<5):252355",
+            "SPR<0&TLR=0&(STR<5|MNY<5):252355"
         ]
     },
     "252355": {
@@ -10432,7 +10915,8 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1:200001"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001"
         ]
     },
     "253103": {
@@ -10453,8 +10937,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005",
-            "STR<1:200004"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253105": {
@@ -10466,8 +10952,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&(STR<5|MNY<5):253155",
-            "STR<1:200004"
+            "SPR<7&TLR>0&(STR<5|MNY<5):253155",
+            "SPR<3&TLR=0&(STR<5|MNY<5):253155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253155": {
@@ -10493,7 +10981,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253203": {
@@ -10513,7 +11002,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "253205": {
@@ -10525,8 +11015,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&(STR<5|MNY<5):253255",
-            "STR<1:200004"
+            "SPR<7&TLR>0&(STR<5|MNY<5):253255",
+            "SPR<3&TLR=0&(STR<5|MNY<5):253255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253255": {
@@ -10560,7 +11052,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253304": {
@@ -10571,7 +11064,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "253305": {
@@ -10583,8 +11077,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&(STR<5|MNY<5):253355",
-            "STR<1:200004"
+            "SPR<7&TLR>0&(STR<5|MNY<5):253355",
+            "SPR<3&TLR=0&(STR<5|MNY<5):253355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "253355": {
@@ -10627,8 +11123,10 @@
             "SPR": -1
         },
         "branch": [
-            "MNY<1:200001",
-            "SPR<1&(STR<5|MNY<5):200005"
+            "MNY<1&TLR>0:200001",
+            "MNY<-3&TLR=0:200001",
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "254105": {
@@ -10640,8 +11138,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&(STR<5|MNY<5):254155",
-            "STR<1:200004"
+            "SPR<10&TLR>0&(STR<5|MNY<5):254155",
+            "SPR<6&TLR=0&(STR<5|MNY<5):254155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "254155": {
@@ -10684,8 +11184,10 @@
             "SPR": -2
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "254205": {
@@ -10697,8 +11199,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&(STR<5|MNY<5):254255",
-            "STR<1:200004"
+            "SPR<10&TLR>0&(STR<5|MNY<5):254255",
+            "SPR<6&TLR=0&(STR<5|MNY<5):254255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "254255": {
@@ -10741,8 +11245,10 @@
             "SPR": -2
         },
         "branch": [
-            "CHR<1&(STR<5|MNY<5):200002",
-            "SPR<2&(STR<5|MNY<5):200005"
+            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
+            "CHR<-3&TLR=0&(STR<5|MNY<5):200002",
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "254305": {
@@ -10754,8 +11260,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&(STR<5|MNY<5):254355",
-            "STR<1:200004"
+            "SPR<10&TLR>0&(STR<5|MNY<5):254355",
+            "SPR<6&TLR=0&(STR<5|MNY<5):254355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "254355": {
@@ -10781,7 +11289,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "255103": {
@@ -10793,7 +11302,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "255104": {
@@ -10805,7 +11315,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "255105": {
@@ -10817,8 +11328,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&(STR<5|MNY<5):255155",
-            "STR<1:200004"
+            "SPR<13&TLR>0&(STR<5|MNY<5):255155",
+            "SPR<9&TLR=0&(STR<5|MNY<5):255155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "255155": {
@@ -10852,7 +11365,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "255204": {
@@ -10864,7 +11378,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "255205": {
@@ -10876,8 +11391,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&(STR<5|MNY<5):255255",
-            "STR<1:200004"
+            "SPR<13&TLR>0&(STR<5|MNY<5):255255",
+            "SPR<9&TLR=0&(STR<5|MNY<5):255255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "255255": {
@@ -10911,7 +11428,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "255304": {
@@ -10923,7 +11441,8 @@
             "SPR": 1
         },
         "branch": [
-            "MNY<2:200001"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001"
         ]
     },
     "255305": {
@@ -10935,8 +11454,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&(STR<5|MNY<5):255355",
-            "STR<1:200004"
+            "SPR<13&TLR>0&(STR<5|MNY<5):255355",
+            "SPR<9&TLR=0&(STR<5|MNY<5):255355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "255355": {
@@ -10962,7 +11483,8 @@
             "STR": -1
         },
         "branch": [
-            "STR<1:200004"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "256103": {
@@ -10974,7 +11496,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256104": {
@@ -10985,7 +11508,8 @@
             "SPR": -3
         },
         "branch": [
-            "SPR<3&(STR<5|MNY<5):200005"
+            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-1&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256105": {
@@ -10997,8 +11521,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&(STR<5|MNY<5):256155",
-            "STR<1:200004"
+            "SPR<16&TLR>0&(STR<5|MNY<5):256155",
+            "SPR<12&TLR=0&(STR<5|MNY<5):256155",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "256155": {
@@ -11033,7 +11559,8 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1&(STR<5|MNY<5):200005"
+            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-3&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256204": {
@@ -11045,8 +11572,10 @@
             "SPR": -3
         },
         "branch": [
-            "MNY<2:200001",
-            "SPR<3&(STR<5|MNY<5):200005"
+            "MNY<2&TLR>0:200001",
+            "MNY<-2&TLR=0:200001",
+            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-1&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256205": {
@@ -11058,8 +11587,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&(STR<5|MNY<5):256255",
-            "STR<1:200004"
+            "SPR<16&TLR>0&(STR<5|MNY<5):256255",
+            "SPR<12&TLR=0&(STR<5|MNY<5):256255",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "256255": {
@@ -11094,7 +11625,8 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2&(STR<5|MNY<5):200005"
+            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-2&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256304": {
@@ -11106,8 +11638,10 @@
             "SPR": -3
         },
         "branch": [
-            "STR<1:200004",
-            "SPR<3&(STR<5|MNY<5):200005"
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004",
+            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
+            "SPR<-1&TLR=0&(STR<5|MNY<5):200005"
         ]
     },
     "256305": {
@@ -11119,8 +11653,10 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&(STR<5|MNY<5):256355",
-            "STR<1:200004"
+            "SPR<16&TLR>0&(STR<5|MNY<5):256355",
+            "SPR<12&TLR=0&(STR<5|MNY<5):256355",
+            "STR<1&TLR>0:200004",
+            "STR<-3&TLR=0:200004"
         ]
     },
     "256355": {
