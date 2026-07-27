@@ -1,7 +1,7 @@
 {
     "10000": {
         "id": 10000,
-        "event": "You’re dead.\nYou are DEAD again, mortal.",
+        "event": "You are DEAD again, mortal.",
         "effect": {
             "LIF": -1
         },
@@ -58,7 +58,7 @@
     "74001": {
         "id": 74001,
         "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&LBTQ>0",
+        "include": "PRK>0&LBTQ>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -252,7 +252,7 @@
     "81901": {
         "id": 81901,
         "event": "You die from dehydration after contaminated water causes severe diarrhea and transport to a working clinic cannot be found.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR=0",
+        "include": "HTI>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -260,7 +260,7 @@
     "81902": {
         "id": 81902,
         "event": "A bullet passes through the thin wall of the room where you are sheltering during a gang battle.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR=0",
+        "include": "HTI>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -268,7 +268,7 @@
     "81903": {
         "id": 81903,
         "event": "You die from postpartum hemorrhage because the maternity ward has no blood, electricity or surgeon available in time.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR=0",
+        "include": "HTI>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -276,7 +276,7 @@
     "81904": {
         "id": 81904,
         "event": "A flash flood sweeps through your settlement at night after intense hurricane rainfall; there is no effective warning or organized evacuation.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR=0",
+        "include": "HTI>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -442,7 +442,7 @@
     "82901": {
         "id": 82901,
         "event": "Kidnappers stop your school vehicle. A ransom negotiation fails, and you are killed despite your family’s ability to pay.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0",
+        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -450,7 +450,7 @@
     "82902": {
         "id": 82902,
         "event": "You die in a road crash while taking a long detour around an armed checkpoint; emergency services cannot reach the scene promptly.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0",
+        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -458,7 +458,7 @@
     "82903": {
         "id": 82903,
         "event": "You suffer an obstetric emergency during a sudden airport and road closure and cannot be transferred to the hospital your family had planned to use.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0",
+        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -466,7 +466,7 @@
     "82904": {
         "id": 82904,
         "event": "Armed men enter the family compound during a period of political upheaval. Guards exchange fire, and you are caught in it.\nYou are DEAD again, mortal.",
-        "include": "HTI>0&TLR>0",
+        "include": "HTI>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1132,7 +1132,7 @@
     "102501": {
         "id": 102501,
         "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0",
+        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1140,7 +1140,7 @@
     "102502": {
         "id": 102502,
         "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0",
+        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1148,7 +1148,7 @@
     "102503": {
         "id": 102503,
         "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0",
+        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1156,7 +1156,7 @@
     "102504": {
         "id": 102504,
         "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0",
+        "include": "IRN>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1327,7 +1327,7 @@
     "102801": {
         "id": 102801,
         "event": "A precision strike destroys a command facility hidden near your family’s residential compound. Wealth provides evacuation plans but cannot change the location of the target.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0",
+        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1335,7 +1335,7 @@
     "102802": {
         "id": 102802,
         "event": "You are killed during a protest after returning from university abroad. Security forces treat your foreign contacts as evidence that you were an organizer rather than a bystander.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0",
+        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1343,7 +1343,7 @@
     "102803": {
         "id": 102803,
         "event": "You die in an aviation accident after years of sanctions and procurement restrictions leave the aircraft dependent on aging.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0",
+        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1351,7 +1351,7 @@
     "102804": {
         "id": 102804,
         "event": "You are assassinated after refusing to surrender your technology company to a security-linked organization. The death is publicly described as a robbery.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR>0",
+        "include": "IRN>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1517,7 +1517,7 @@
     "103501": {
         "id": 103501,
         "event": "You die from pneumonia and malnutrition during a winter food shortage. The clinic records the immediate illness but not the hunger that made it fatal.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR=0",
+        "include": "PRK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1525,7 +1525,7 @@
     "103502": {
         "id": 103502,
         "event": "You are swept away when a flood strikes the worksite where students have been sent to repair an embankment without proper equipment.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR=0",
+        "include": "PRK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1533,7 +1533,7 @@
     "103503": {
         "id": 103503,
         "event": "You attempt to cross into China, are sold by a broker into a forced marriage and die while trying to escape captivity.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR=0",
+        "include": "PRK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1541,7 +1541,7 @@
     "103504": {
         "id": 103504,
         "event": "You die from postpartum bleeding because the hospital lacks blood, electricity and reliable transport to a larger facility.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR=0",
+        "include": "PRK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1549,7 +1549,7 @@
     "103505": {
         "id": 103505,
         "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR=0",
+        "include": "PRK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1707,7 +1707,7 @@
     "103801": {
         "id": 103801,
         "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0",
+        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1715,7 +1715,7 @@
     "103802": {
         "id": 103802,
         "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0",
+        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1723,7 +1723,7 @@
     "103803": {
         "id": 103803,
         "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0",
+        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1731,7 +1731,7 @@
     "103804": {
         "id": 103804,
         "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0",
+        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1739,7 +1739,7 @@
     "103805": {
         "id": 103805,
         "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0",
+        "include": "PRK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1897,7 +1897,7 @@
     "104501": {
         "id": 104501,
         "event": "A Russian missile penetrates the air-defense network and destroys the apartment building where your family is sheltering.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0",
+        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1905,7 +1905,7 @@
     "104502": {
         "id": 104502,
         "event": "You step on an anti-personnel mine while taking a shortcut across land that was declared cleared too early.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0",
+        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1913,7 +1913,7 @@
     "104503": {
         "id": 104503,
         "event": "You die from a blood clot following a surrogate pregnancy after a clinic minimizes your symptoms to avoid contractual delays.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0",
+        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -1921,7 +1921,7 @@
     "104504": {
         "id": 104504,
         "event": "You are killed when security forces fire on demonstrators during the nationalist emergency government’s crackdown.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR=0",
+        "include": "UKR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2092,7 +2092,7 @@
     "104801": {
         "id": 104801,
         "event": "A missile strikes your private school despite its advanced shelter and security systems.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0",
+        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2100,7 +2100,7 @@
     "104802": {
         "id": 104802,
         "event": "You are killed in a drone attack on a defense-technology conference attended by senior Ukrainian and foreign officials.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0",
+        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2108,7 +2108,7 @@
     "104803": {
         "id": 104803,
         "event": "During the coup, you die in custody after being detained as leverage against your politically connected family.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0",
+        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2116,7 +2116,7 @@
     "104804": {
         "id": 104804,
         "event": "A radical group assassinates you over artificial-gestation research, describing the technology as either the enslavement or destruction of motherhood.\nYou are DEAD again, mortal.",
-        "include": "UKR>0&TLR>0",
+        "include": "UKR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2287,7 +2287,7 @@
     "105501": {
         "id": 105501,
         "event": "You die from a respiratory infection aggravated by mould after emergency symptoms are repeatedly treated as non-urgent.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0",
+        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2295,7 +2295,7 @@
     "105502": {
         "id": 105502,
         "event": "A former partner kills you after police classify months of stalking and threats as a low-risk domestic dispute.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0",
+        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2303,7 +2303,7 @@
     "105503": {
         "id": 105503,
         "event": "A treatable gynaecological cancer is diagnosed too late after years on fragmented NHS waiting lists.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0",
+        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2311,7 +2311,7 @@
     "105504": {
         "id": 105504,
         "event": "You drown when extreme rainfall overwhelms drainage in a low-income housing estate whose flood defenses had been repeatedly postponed.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR=0",
+        "include": "GBR>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2487,7 +2487,7 @@
     "105801": {
         "id": 105801,
         "event": "You die in a terrorist attack on a school’s ceremonial event chosen for its symbolic association with the British establishment.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0",
+        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2495,7 +2495,7 @@
     "105802": {
         "id": 105802,
         "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0",
+        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2503,7 +2503,7 @@
     "105803": {
         "id": 105803,
         "event": "You are killed during a politically motivated attack on Parliament amid a period of anti-elite and anti-immigrant violence.\nYou are DEAD again, mortal.",
-        "include": "GBR>0&TLR>0",
+        "include": "GBR>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2662,7 +2662,7 @@
     "106501": {
         "id": 106501,
         "event": "You die from sepsis after a regional triage algorithm repeatedly classifies your symptoms as a routine childhood infection.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0",
+        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2670,7 +2670,7 @@
     "106502": {
         "id": 106502,
         "event": "You take a stimulant tablet at a party that has been contaminated with a synthetic opioid entering Denmark through an increasingly automated drug market.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0",
+        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2678,7 +2678,7 @@
     "106503": {
         "id": 106503,
         "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR=0",
+        "include": "DNK>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2862,7 +2862,7 @@
     "106801": {
         "id": 106801,
         "event": "You are killed when an eco-extremist attacks the headquarters of your family’s shipping company over Arctic extraction.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0",
+        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2870,7 +2870,7 @@
     "106802": {
         "id": 106802,
         "event": "An immune reaction during the experimental artificial-placenta treatment causes fatal organ failure, and the company’s lawyers prevent full publication of the trial data.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0",
+        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -2878,7 +2878,7 @@
     "106803": {
         "id": 106803,
         "event": "Your electric aircraft crashes in Greenland after rapidly changing Arctic weather overwhelms its autonomous navigation system.\nYou are DEAD again, mortal.",
-        "include": "DNK>0&TLR>0",
+        "include": "DNK>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3077,7 +3077,7 @@
     "107501": {
         "id": 107501,
         "event": "You die from pneumonia after the nearest functioning clinic refuses to examine you without a male guardian present.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR=0",
+        "include": "AF>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3085,7 +3085,7 @@
     "107502": {
         "id": 107502,
         "event": "You bleed to death during childbirth because the district has no trained female surgeon and the male doctor arrives too late.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR=0",
+        "include": "AF>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3093,7 +3093,7 @@
     "107503": {
         "id": 107503,
         "event": "Your husband kills you after you attempt to leave; the local authorities treat the case as a private family dispute.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR=0",
+        "include": "AF>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3101,7 +3101,7 @@
     "107504": {
         "id": 107504,
         "event": "A flash flood sweeps away your settlement after drought-hardened ground fails to absorb the rain and no evacuation warning reaches women confined at home.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR=0",
+        "include": "AF>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3267,7 +3267,7 @@
     "107801": {
         "id": 107801,
         "event": "You die when an Islamic State–Khorasan bomber attacks a ceremony attended by senior officials and their families.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0",
+        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3275,7 +3275,7 @@
     "107802": {
         "id": 107802,
         "event": "Your evacuation aircraft is shot down during fighting between rival factions around Kabul airport.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0",
+        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3283,7 +3283,7 @@
     "107803": {
         "id": 107803,
         "event": "A male-supremacist organisation bombs the women-led tribunal after describing female political authority as foreign occupation.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0",
+        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3291,7 +3291,7 @@
     "107804": {
         "id": 107804,
         "event": "Militants attack your mining convoy, killing you alongside guards and local workers whose names receive far less international coverage.\nYou are DEAD again, mortal.",
-        "include": "AF>0&TLR>0",
+        "include": "AF>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3482,7 +3482,7 @@
     "108501": {
         "id": 108501,
         "event": "You die in a school crowd crush after administrators delay evacuation because an emergency alarm would interrupt a nationally broadcast inspection.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0",
+        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3490,7 +3490,7 @@
     "108502": {
         "id": 108502,
         "event": "A delivery vehicle strikes you while you cross between eldercare appointments; the platform records that you failed to complete the next visit.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0",
+        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3498,7 +3498,7 @@
     "108503": {
         "id": 108503,
         "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0",
+        "include": "CH>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3697,7 +3697,7 @@
     "108801": {
         "id": 108801,
         "event": "You die in a crowd crush at a patriotic technology exhibition after organisers suppress an evacuation alert to protect the live broadcast.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0",
+        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3705,7 +3705,7 @@
     "108802": {
         "id": 108802,
         "event": "An experimental fertility treatment causes an immune reaction that the clinic conceals to protect a nationally strategic reproductive industry.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0",
+        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3713,7 +3713,7 @@
     "108803": {
         "id": 108803,
         "event": "A targeted cyberattack takes control of your autonomous car during the political struggle following the national data leak.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR>0",
+        "include": "CH>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3912,7 +3912,7 @@
     "109501": {
         "id": 109501,
         "event": "You drown when evacuation buses fail to reach your low-income neighbourhood before a hurricane floods the highway.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR=0",
+        "include": "US>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3920,7 +3920,7 @@
     "109502": {
         "id": 109502,
         "event": "You die from an ectopic pregnancy after hospital lawyers delay treatment under the Texas abortion ban.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR=0",
+        "include": "US>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3928,7 +3928,7 @@
     "109503": {
         "id": 109503,
         "event": "You take the same contaminated pill that kills your brother and die before an ambulance reaches the party.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR=0",
+        "include": "US>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -3936,7 +3936,7 @@
     "109504": {
         "id": 109504,
         "event": "You are killed during the grocery-store shooting after firearms cross the poorly controlled border between the Continental Republic and Atlantic Federation.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR=0",
+        "include": "US>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4130,7 +4130,7 @@
     "109801": {
         "id": 109801,
         "event": "A gunman breaches your private school’s security system and kills you during a nationally televised attack.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0",
+        "include": "US>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4138,7 +4138,7 @@
     "109802": {
         "id": 109802,
         "event": "Your aircraft crashes while evacuating an extreme-weather event that traps thousands of people without private transportation.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0",
+        "include": "US>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4146,7 +4146,7 @@
     "109803": {
         "id": 109803,
         "event": "A politically motivated cyberattack takes control of your autonomous vehicle during the dissolution of the federal government.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0",
+        "include": "US>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4154,7 +4154,7 @@
     "109804": {
         "id": 109804,
         "event": "You are assassinated at a donor retreat by an extremist who believes the Pacific war was manufactured by elites from the successor states.\nYou are DEAD again, mortal.",
-        "include": "US>0&TLR>0",
+        "include": "US>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4320,7 +4320,7 @@
     "110501": {
         "id": 110501,
         "event": "You die when a major earthquake collapses an older rental building that had repeatedly failed voluntary reinforcement inspections.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0",
+        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4328,7 +4328,7 @@
     "110502": {
         "id": 110502,
         "event": "You die by suicide after your employer’s mental-health system classifies you as low risk and replaces a human appointment with automated breathing exercises.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0",
+        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4336,7 +4336,7 @@
     "110503": {
         "id": 110503,
         "event": "You bleed to death during childbirth after the maternity ward serving your region closes because it cannot retain obstetricians.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0",
+        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4344,7 +4344,7 @@
     "110504": {
         "id": 110504,
         "event": "You are killed when a missile strikes transport infrastructure during the Pacific war while you are moving elderly patients to shelter.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR=0",
+        "include": "JAP>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4510,7 +4510,7 @@
     "110801": {
         "id": 110801,
         "event": "You die when an earthquake and tsunami strike a coastal family resort built in a zone consultants had identified as unsafe.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0",
+        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4518,7 +4518,7 @@
     "110802": {
         "id": 110802,
         "event": "An experimental fertility-preservation treatment causes a fatal immune reaction concealed by the clinic to protect its elite clientele.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0",
+        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4526,7 +4526,7 @@
     "110803": {
         "id": 110803,
         "event": "You are killed when a missile penetrates the defence system surrounding the private research complex during the Pacific war.\nYou are DEAD again, mortal.",
-        "include": "JAP>0&TLR>0",
+        "include": "JAP>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4700,7 +4700,7 @@
     "111501": {
         "id": 111501,
         "event": "The nurse performing your illegal FGM cannot stop the bleeding. Your death certificate lists an unspecified childhood infection, protecting the adults who arranged it.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR=0",
+        "include": "EGY>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4708,7 +4708,7 @@
     "111502": {
         "id": 111502,
         "event": "You die inside an overcrowded minibus when an unlicensed driver crashes during a dust storm. The compensation case disappears because the vehicle, driver and road contract belong to three different informal systems.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR=0",
+        "include": "EGY>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4716,7 +4716,7 @@
     "111503": {
         "id": 111503,
         "event": "A postpartum hemorrhage begins while the hospital generator is being redirected to a private ward. Your family is told that childbirth is in God’s hands.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR=0",
+        "include": "EGY>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4724,7 +4724,7 @@
     "111504": {
         "id": 111504,
         "event": "Your husband kills you after neighbors repeatedly describe his violence as a private family matter. Police record the case as a domestic dispute that escalated unexpectedly.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR=0",
+        "include": "EGY>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4890,7 +4890,7 @@
     "111801": {
         "id": 111801,
         "event": "You die during an attack on a luxury archaeological tour whose security had been reduced to preserve the appearance of normal tourism. Your death becomes an international headline; the Egyptian staff killed beside you remain unnamed.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0",
+        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4898,7 +4898,7 @@
     "111802": {
         "id": 111802,
         "event": "An experimental fertility procedure causes a clot that the clinic initially hides to protect its foreign accreditation. Your family secures a settlement and a confidentiality agreement after your funeral.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0",
+        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4906,7 +4906,7 @@
     "111803": {
         "id": 111803,
         "event": "An autonomous weapon strikes your yacht during a Red Sea confrontation. Three governments deny responsibility while insurers debate whether the incident counts as terrorism, war or machine error.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0",
+        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -4914,7 +4914,7 @@
     "111804": {
         "id": 111804,
         "event": "A new ruling faction detains you over your family’s ties to the previous council. You die during an unrecorded interrogation in a medical wing that officially never received you.\nYou are DEAD again, mortal.",
-        "include": "EGY>0&TLR>0",
+        "include": "EGY>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5080,7 +5080,7 @@
     "112501": {
         "id": 112501,
         "event": "You die from contaminated village water after the local clinic runs out of rehydration medicine. Your death is entered into a health dashboard that reports improving rural sanitation.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0",
+        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5088,7 +5088,7 @@
     "112502": {
         "id": 112502,
         "event": "Relatives kill you after discovering your relationship with a higher-caste boy. The village describes it as a suicide, and police accept the family’s account.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0",
+        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5096,7 +5096,7 @@
     "112503": {
         "id": 112503,
         "event": "You die from postpartum bleeding while your family searches for a hospital willing to accept your digital insurance authorization.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0",
+        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5104,7 +5104,7 @@
     "112504": {
         "id": 112504,
         "event": "You are killed during a communal riot after police seal the road leading out of your neighborhood. News feeds classify the violence as spontaneous despite weeks of organized online incitement.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0",
+        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5112,7 +5112,7 @@
     "112505": {
         "id": 112505,
         "event": "You collapse during a lethal humid heatwave while waiting for water. Your district’s cooled emergency shelter exists on the city map but was never completed.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR=0",
+        "include": "IND>0&TLR=0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5270,7 +5270,7 @@
     "112801": {
         "id": 112801,
         "event": "You die by suicide after your coaching algorithm predicts that you will miss the IIT cutoff. The institute advertises a new resilience package using your anonymized stress data.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0",
+        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5278,7 +5278,7 @@
     "112802": {
         "id": 112802,
         "event": "You die from an antibiotic-resistant infection acquired during elective fertility treatment at a prestigious private hospital. The clinic delays disclosure to protect its international ranking.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0",
+        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5286,7 +5286,7 @@
     "112803": {
         "id": 112803,
         "event": "Your aircraft is destroyed during an autonomous India–China border escalation while carrying you to a technology summit. Both governments blame a targeting system trained by a contractor connected to your company.\nYou are DEAD again, mortal.",
-        "include": "IND>0&TLR>0",
+        "include": "IND>0&TLR>0&(STR<5|MNY<5)",
         "effect": {
             "LIF": -1
         }
@@ -5386,8 +5386,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "211103": {
@@ -5413,7 +5413,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "211105": {
@@ -5451,7 +5451,7 @@
             "SPR": 1
         },
         "branch": [
-            "INT<1:200003"
+            "INT<1&(STR<5|MNY<5):200003"
         ]
     },
     "211203": {
@@ -5477,7 +5477,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "211205": {
@@ -5516,7 +5516,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "211303": {
@@ -5529,7 +5529,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "211304": {
@@ -5587,7 +5587,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "212104": {
@@ -5636,7 +5636,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "212203": {
@@ -5661,7 +5661,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "212205": {
@@ -5711,7 +5711,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "212304": {
@@ -5763,7 +5763,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "213103": {
@@ -5785,7 +5785,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "213105": {
@@ -5832,7 +5832,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "213204": {
@@ -5857,7 +5857,7 @@
         },
         "branch": [
             "MNY<7:213255",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "213255": {
@@ -5947,7 +5947,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "214104": {
@@ -5960,7 +5960,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "214105": {
@@ -6007,7 +6007,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "214204": {
@@ -6065,7 +6065,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "214304": {
@@ -6123,7 +6123,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "215104": {
@@ -6136,7 +6136,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "215105": {
@@ -6175,7 +6175,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "215203": {
@@ -6187,7 +6187,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "215204": {
@@ -6200,7 +6200,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "215205": {
@@ -6247,7 +6247,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "215304": {
@@ -6297,7 +6297,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "216103": {
@@ -6309,7 +6309,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216104": {
@@ -6322,7 +6322,7 @@
         },
         "branch": [
             "MNY<3:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216105": {
@@ -6360,7 +6360,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216203": {
@@ -6373,7 +6373,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216204": {
@@ -6385,7 +6385,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "216205": {
@@ -6423,7 +6423,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216303": {
@@ -6436,7 +6436,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "216304": {
@@ -6448,7 +6448,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "216305": {
@@ -6485,7 +6485,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221103": {
@@ -6497,8 +6497,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1:200002",
-            "SPR<1:200005"
+            "CHR<1&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221104": {
@@ -6523,7 +6523,7 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1:221155",
+            "CHR<1&(STR<5|MNY<5):221155",
             "STR<2:200004"
         ]
     },
@@ -6549,8 +6549,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1:200002",
-            "SPR<1:200005"
+            "CHR<1&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221203": {
@@ -6563,7 +6563,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221204": {
@@ -6588,7 +6588,7 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1:221255",
+            "CHR<1&(STR<5|MNY<5):221255",
             "STR<2:200004"
         ]
     },
@@ -6614,8 +6614,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<1:200002",
-            "SPR<1:200005"
+            "CHR<1&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221303": {
@@ -6628,7 +6628,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "221304": {
@@ -6653,7 +6653,7 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1:221355",
+            "CHR<1&(STR<5|MNY<5):221355",
             "STR<2:200004"
         ]
     },
@@ -6680,7 +6680,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "222103": {
@@ -6692,7 +6692,7 @@
             "CHR": -1
         },
         "branch": [
-            "CHR<1:200002"
+            "CHR<1&(STR<5|MNY<5):200002"
         ]
     },
     "222104": {
@@ -6717,7 +6717,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4:222155",
+            "CHR<4&(STR<5|MNY<5):222155",
             "STR<1:200004"
         ]
     },
@@ -6755,7 +6755,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "222204": {
@@ -6780,7 +6780,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4:222255",
+            "CHR<4&(STR<5|MNY<5):222255",
             "STR<1:200004"
         ]
     },
@@ -6808,7 +6808,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "222303": {
@@ -6830,7 +6830,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "CHR<1:200002"
+            "CHR<1&(STR<5|MNY<5):200002"
         ]
     },
     "222305": {
@@ -6842,7 +6842,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4:222355",
+            "CHR<4&(STR<5|MNY<5):222355",
             "STR<1:200004"
         ]
     },
@@ -6868,7 +6868,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "223103": {
@@ -6892,8 +6892,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<2:200002",
-            "SPR<1:200005"
+            "CHR<2&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "223105": {
@@ -6905,7 +6905,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7:223155",
+            "CHR<7&(STR<5|MNY<5):223155",
             "STR<1:200004"
         ]
     },
@@ -6932,7 +6932,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "223203": {
@@ -6945,7 +6945,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "223204": {
@@ -6957,7 +6957,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "223205": {
@@ -6969,7 +6969,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7:223255",
+            "CHR<7&(STR<5|MNY<5):223255",
             "STR<1:200004"
         ]
     },
@@ -6996,7 +6996,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "223303": {
@@ -7009,7 +7009,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "223304": {
@@ -7022,7 +7022,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "223305": {
@@ -7034,7 +7034,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7:223355",
+            "CHR<7&(STR<5|MNY<5):223355",
             "STR<1:200004"
         ]
     },
@@ -7064,7 +7064,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "224104": {
@@ -7076,7 +7076,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "224105": {
@@ -7088,7 +7088,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10:224155",
+            "CHR<10&(STR<5|MNY<5):224155",
             "STR<1:200004"
         ]
     },
@@ -7102,7 +7102,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "224132": {
@@ -7140,7 +7140,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "224204": {
@@ -7153,7 +7153,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "224205": {
@@ -7165,7 +7165,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10:224255",
+            "CHR<10&(STR<5|MNY<5):224255",
             "STR<1:200004"
         ]
     },
@@ -7179,7 +7179,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "224232": {
@@ -7214,7 +7214,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "224304": {
@@ -7226,8 +7226,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<2:200002",
-            "SPR<1:200005"
+            "CHR<2&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "224305": {
@@ -7239,7 +7239,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10:224355",
+            "CHR<10&(STR<5|MNY<5):224355",
             "STR<1:200004"
         ]
     },
@@ -7253,7 +7253,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "224332": {
@@ -7282,7 +7282,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "225102": {
@@ -7295,7 +7295,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "225104": {
@@ -7308,7 +7308,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "225105": {
@@ -7320,7 +7320,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13:225155",
+            "CHR<13&(STR<5|MNY<5):225155",
             "STR<1:200004"
         ]
     },
@@ -7334,7 +7334,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "225132": {
@@ -7369,7 +7369,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "225204": {
@@ -7382,7 +7382,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "225205": {
@@ -7394,7 +7394,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13:225255",
+            "CHR<13&(STR<5|MNY<5):225255",
             "STR<1:200004"
         ]
     },
@@ -7408,7 +7408,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "225232": {
@@ -7443,7 +7443,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "225304": {
@@ -7456,7 +7456,7 @@
             "CHR": -2
         },
         "branch": [
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "225305": {
@@ -7468,7 +7468,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13:225355",
+            "CHR<13&(STR<5|MNY<5):225355",
             "STR<1:200004"
         ]
     },
@@ -7482,7 +7482,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "225332": {
@@ -7517,7 +7517,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "226103": {
@@ -7530,7 +7530,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "226104": {
@@ -7543,8 +7543,8 @@
             "SPR": -1
         },
         "branch": [
-            "CHR<3:200002",
-            "SPR<1:200005"
+            "CHR<3&(STR<5|MNY<5):200002",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "226105": {
@@ -7556,7 +7556,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16:226155",
+            "CHR<16&(STR<5|MNY<5):226155",
             "STR<1:200004"
         ]
     },
@@ -7583,7 +7583,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "226203": {
@@ -7596,7 +7596,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "226204": {
@@ -7608,7 +7608,7 @@
             "MNY": 1
         },
         "branch": [
-            "CHR<3:200002"
+            "CHR<3&(STR<5|MNY<5):200002"
         ]
     },
     "226205": {
@@ -7620,7 +7620,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16:226255",
+            "CHR<16&(STR<5|MNY<5):226255",
             "STR<1:200004"
         ]
     },
@@ -7647,7 +7647,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "226303": {
@@ -7660,7 +7660,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "226304": {
@@ -7672,7 +7672,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<3:200002",
+            "CHR<3&(STR<5|MNY<5):200002",
             "STR<1:200004"
         ]
     },
@@ -7685,7 +7685,7 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16:226355",
+            "CHR<16&(STR<5|MNY<5):226355",
             "STR<1:200004"
         ]
     },
@@ -7711,8 +7711,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231103": {
@@ -7725,7 +7725,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231104": {
@@ -7738,7 +7738,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231105": {
@@ -7750,7 +7750,7 @@
             "STR": -2
         },
         "branch": [
-            "INT<1:231155",
+            "INT<1&(STR<5|MNY<5):231155",
             "STR<2:200004"
         ]
     },
@@ -7776,8 +7776,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231203": {
@@ -7790,7 +7790,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231204": {
@@ -7803,7 +7803,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231205": {
@@ -7815,7 +7815,7 @@
             "STR": -2
         },
         "branch": [
-            "INT<1:231255",
+            "INT<1&(STR<5|MNY<5):231255",
             "STR<2:200004"
         ]
     },
@@ -7841,8 +7841,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231303": {
@@ -7855,7 +7855,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231304": {
@@ -7866,7 +7866,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "231305": {
@@ -7878,7 +7878,7 @@
             "STR": -2
         },
         "branch": [
-            "INT<1:231355",
+            "INT<1&(STR<5|MNY<5):231355",
             "STR<2:200004"
         ]
     },
@@ -7913,8 +7913,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "232104": {
@@ -7937,7 +7937,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<4:232155",
+            "INT<4&(STR<5|MNY<5):232155",
             "STR<1:200004"
         ]
     },
@@ -7972,7 +7972,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "232204": {
@@ -7984,8 +7984,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "232205": {
@@ -7997,7 +7997,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<4:232255",
+            "INT<4&(STR<5|MNY<5):232255",
             "STR<1:200004"
         ]
     },
@@ -8032,7 +8032,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "232304": {
@@ -8044,7 +8044,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<1:200003",
+            "INT<1&(STR<5|MNY<5):200003",
             "STR<1:200004"
         ]
     },
@@ -8057,7 +8057,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<4:232355",
+            "INT<4&(STR<5|MNY<5):232355",
             "STR<1:200004"
         ]
     },
@@ -8083,7 +8083,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "233103": {
@@ -8105,7 +8105,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "233105": {
@@ -8117,7 +8117,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<7:233155",
+            "INT<7&(STR<5|MNY<5):233155",
             "STR<1:200004"
         ]
     },
@@ -8152,7 +8152,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "233204": {
@@ -8164,8 +8164,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "233205": {
@@ -8177,7 +8177,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<7:233255",
+            "INT<7&(STR<5|MNY<5):233255",
             "STR<1:200004"
         ]
     },
@@ -8212,7 +8212,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "233304": {
@@ -8225,7 +8225,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "INT<1:200003"
+            "INT<1&(STR<5|MNY<5):200003"
         ]
     },
     "233305": {
@@ -8237,7 +8237,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<7:233355",
+            "INT<7&(STR<5|MNY<5):233355",
             "STR<1:200004"
         ]
     },
@@ -8271,7 +8271,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "234104": {
@@ -8285,7 +8285,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "234105": {
@@ -8297,7 +8297,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<10:234155",
+            "INT<10&(STR<5|MNY<5):234155",
             "STR<1:200004"
         ]
     },
@@ -8331,7 +8331,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "234204": {
@@ -8345,7 +8345,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "234205": {
@@ -8357,7 +8357,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<10:234255",
+            "INT<10&(STR<5|MNY<5):234255",
             "STR<1:200004"
         ]
     },
@@ -8391,7 +8391,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "234304": {
@@ -8404,7 +8404,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "234305": {
@@ -8416,7 +8416,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<10:234355",
+            "INT<10&(STR<5|MNY<5):234355",
             "STR<1:200004"
         ]
     },
@@ -8443,7 +8443,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235103": {
@@ -8454,7 +8454,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235104": {
@@ -8478,7 +8478,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<13:235155",
+            "INT<13&(STR<5|MNY<5):235155",
             "STR<1:200004"
         ]
     },
@@ -8505,7 +8505,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235203": {
@@ -8517,7 +8517,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235204": {
@@ -8541,7 +8541,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<13:235255",
+            "INT<13&(STR<5|MNY<5):235255",
             "STR<1:200004"
         ]
     },
@@ -8568,7 +8568,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235303": {
@@ -8580,7 +8580,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235304": {
@@ -8594,7 +8594,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "235305": {
@@ -8606,7 +8606,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<13:235355",
+            "INT<13&(STR<5|MNY<5):235355",
             "STR<1:200004"
         ]
     },
@@ -8633,7 +8633,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "236103": {
@@ -8656,7 +8656,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "236105": {
@@ -8668,7 +8668,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<16:236155",
+            "INT<16&(STR<5|MNY<5):236155",
             "STR<1:200004"
         ]
     },
@@ -8695,7 +8695,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "236203": {
@@ -8719,7 +8719,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2:200005",
+            "SPR<2&(STR<5|MNY<5):200005",
             "STR<1:200004"
         ]
     },
@@ -8732,7 +8732,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<16:236255",
+            "INT<16&(STR<5|MNY<5):236255",
             "STR<1:200004"
         ]
     },
@@ -8759,7 +8759,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "236303": {
@@ -8773,7 +8773,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "236304": {
@@ -8784,7 +8784,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "236305": {
@@ -8796,7 +8796,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<16:236355",
+            "INT<16&(STR<5|MNY<5):236355",
             "STR<1:200004"
         ]
     },
@@ -8828,8 +8828,8 @@
             "SPR": -1
         },
         "branch": [
-            "INT<1:200003",
-            "SPR<1:200005"
+            "INT<1&(STR<5|MNY<5):200003",
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "241103": {
@@ -8895,7 +8895,7 @@
             "STR": -1
         },
         "branch": [
-            "INT<1:200003",
+            "INT<1&(STR<5|MNY<5):200003",
             "STR<1:200004"
         ]
     },
@@ -8909,7 +8909,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "241204": {
@@ -8963,7 +8963,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "241303": {
@@ -8989,7 +8989,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "241305": {
@@ -9032,7 +9032,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242105": {
@@ -9057,7 +9057,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242132": {
@@ -9072,7 +9072,7 @@
         "branch": [
             "STR<4:200004",
             "MNY<1:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242141": {
@@ -9096,7 +9096,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242143": {
@@ -9109,7 +9109,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242155": {
@@ -9135,7 +9135,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242205": {
@@ -9160,7 +9160,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242232": {
@@ -9175,7 +9175,7 @@
         "branch": [
             "STR<4:200004",
             "MNY<1:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242241": {
@@ -9201,7 +9201,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242243": {
@@ -9214,7 +9214,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242255": {
@@ -9240,7 +9240,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242305": {
@@ -9265,7 +9265,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242332": {
@@ -9280,7 +9280,7 @@
         "branch": [
             "STR<4:200004",
             "MNY<1:200001",
-            "CHR<2:200002"
+            "CHR<2&(STR<5|MNY<5):200002"
         ]
     },
     "242341": {
@@ -9306,7 +9306,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242343": {
@@ -9319,7 +9319,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "242355": {
@@ -9345,7 +9345,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "243103": {
@@ -9406,7 +9406,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "243203": {
@@ -9432,7 +9432,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "243205": {
@@ -9469,7 +9469,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "243303": {
@@ -9530,7 +9530,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244103": {
@@ -9555,7 +9555,7 @@
         },
         "branch": [
             "STR<2:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244105": {
@@ -9602,7 +9602,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244204": {
@@ -9614,7 +9614,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244205": {
@@ -9650,7 +9650,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244303": {
@@ -9674,7 +9674,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "244305": {
@@ -9721,7 +9721,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "245104": {
@@ -9734,7 +9734,7 @@
         },
         "branch": [
             "STR<2:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "245105": {
@@ -9771,7 +9771,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "245203": {
@@ -9831,7 +9831,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "245303": {
@@ -9856,7 +9856,7 @@
         },
         "branch": [
             "STR<2:200004",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "245305": {
@@ -9892,7 +9892,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "246103": {
@@ -9916,7 +9916,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2:200005",
+            "SPR<2&(STR<5|MNY<5):200005",
             "STR<1:200004"
         ]
     },
@@ -9964,7 +9964,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "246204": {
@@ -9975,7 +9975,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "246205": {
@@ -10022,7 +10022,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "246304": {
@@ -10033,7 +10033,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "246305": {
@@ -10063,7 +10063,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251102": {
@@ -10074,7 +10074,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251103": {
@@ -10087,7 +10087,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251104": {
@@ -10104,7 +10104,7 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1:251155",
+            "SPR<1&(STR<5|MNY<5):251155",
             "STR<2:200004"
         ]
     },
@@ -10124,7 +10124,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251202": {
@@ -10136,8 +10136,8 @@
             "CHR": -1
         },
         "branch": [
-            "SPR<1:200005",
-            "CHR<1:200002"
+            "SPR<1&(STR<5|MNY<5):200005",
+            "CHR<1&(STR<5|MNY<5):200002"
         ]
     },
     "251203": {
@@ -10150,7 +10150,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251204": {
@@ -10167,7 +10167,7 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1:251255",
+            "SPR<1&(STR<5|MNY<5):251255",
             "STR<2:200004"
         ]
     },
@@ -10187,7 +10187,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251302": {
@@ -10198,7 +10198,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251303": {
@@ -10211,7 +10211,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "251304": {
@@ -10228,7 +10228,7 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1:251355",
+            "SPR<1&(STR<5|MNY<5):251355",
             "STR<2:200004"
         ]
     },
@@ -10267,7 +10267,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "252104": {
@@ -10278,7 +10278,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "252105": {
@@ -10289,7 +10289,7 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4:252155"
+            "SPR<4&(STR<5|MNY<5):252155"
         ]
     },
     "252155": {
@@ -10326,7 +10326,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "252204": {
@@ -10337,7 +10337,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "252205": {
@@ -10348,7 +10348,7 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4:252255"
+            "SPR<4&(STR<5|MNY<5):252255"
         ]
     },
     "252255": {
@@ -10373,7 +10373,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "252303": {
@@ -10396,7 +10396,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "252305": {
@@ -10407,7 +10407,7 @@
             "SPR": -4
         },
         "branch": [
-            "SPR<4:252355"
+            "SPR<4&(STR<5|MNY<5):252355"
         ]
     },
     "252355": {
@@ -10453,7 +10453,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<2:200005",
+            "SPR<2&(STR<5|MNY<5):200005",
             "STR<1:200004"
         ]
     },
@@ -10466,7 +10466,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7:253155",
+            "SPR<7&(STR<5|MNY<5):253155",
             "STR<1:200004"
         ]
     },
@@ -10513,7 +10513,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "253205": {
@@ -10525,7 +10525,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7:253255",
+            "SPR<7&(STR<5|MNY<5):253255",
             "STR<1:200004"
         ]
     },
@@ -10571,7 +10571,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "253305": {
@@ -10583,7 +10583,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7:253355",
+            "SPR<7&(STR<5|MNY<5):253355",
             "STR<1:200004"
         ]
     },
@@ -10628,7 +10628,7 @@
         },
         "branch": [
             "MNY<1:200001",
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "254105": {
@@ -10640,7 +10640,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10:254155",
+            "SPR<10&(STR<5|MNY<5):254155",
             "STR<1:200004"
         ]
     },
@@ -10684,8 +10684,8 @@
             "SPR": -2
         },
         "branch": [
-            "CHR<1:200002",
-            "SPR<2:200005"
+            "CHR<1&(STR<5|MNY<5):200002",
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "254205": {
@@ -10697,7 +10697,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10:254255",
+            "SPR<10&(STR<5|MNY<5):254255",
             "STR<1:200004"
         ]
     },
@@ -10741,8 +10741,8 @@
             "SPR": -2
         },
         "branch": [
-            "CHR<1:200002",
-            "SPR<2:200005"
+            "CHR<1&(STR<5|MNY<5):200002",
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "254305": {
@@ -10754,7 +10754,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10:254355",
+            "SPR<10&(STR<5|MNY<5):254355",
             "STR<1:200004"
         ]
     },
@@ -10793,7 +10793,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "255104": {
@@ -10817,7 +10817,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13:255155",
+            "SPR<13&(STR<5|MNY<5):255155",
             "STR<1:200004"
         ]
     },
@@ -10852,7 +10852,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "255204": {
@@ -10876,7 +10876,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13:255255",
+            "SPR<13&(STR<5|MNY<5):255255",
             "STR<1:200004"
         ]
     },
@@ -10911,7 +10911,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "255304": {
@@ -10935,7 +10935,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13:255355",
+            "SPR<13&(STR<5|MNY<5):255355",
             "STR<1:200004"
         ]
     },
@@ -10974,7 +10974,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "256104": {
@@ -10985,7 +10985,7 @@
             "SPR": -3
         },
         "branch": [
-            "SPR<3:200005"
+            "SPR<3&(STR<5|MNY<5):200005"
         ]
     },
     "256105": {
@@ -10997,7 +10997,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16:256155",
+            "SPR<16&(STR<5|MNY<5):256155",
             "STR<1:200004"
         ]
     },
@@ -11033,7 +11033,7 @@
             "SPR": -1
         },
         "branch": [
-            "SPR<1:200005"
+            "SPR<1&(STR<5|MNY<5):200005"
         ]
     },
     "256204": {
@@ -11046,7 +11046,7 @@
         },
         "branch": [
             "MNY<2:200001",
-            "SPR<3:200005"
+            "SPR<3&(STR<5|MNY<5):200005"
         ]
     },
     "256205": {
@@ -11058,7 +11058,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16:256255",
+            "SPR<16&(STR<5|MNY<5):256255",
             "STR<1:200004"
         ]
     },
@@ -11094,7 +11094,7 @@
             "SPR": -2
         },
         "branch": [
-            "SPR<2:200005"
+            "SPR<2&(STR<5|MNY<5):200005"
         ]
     },
     "256304": {
@@ -11107,7 +11107,7 @@
         },
         "branch": [
             "STR<1:200004",
-            "SPR<3:200005"
+            "SPR<3&(STR<5|MNY<5):200005"
         ]
     },
     "256305": {
@@ -11119,7 +11119,7 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16:256355",
+            "SPR<16&(STR<5|MNY<5):256355",
             "STR<1:200004"
         ]
     },
