@@ -3,7 +3,7 @@
 	import { base } from '$app/paths';
 	import { videoStage } from '../components/videoStage.svelte.js';
 	import { loadMp4 } from '../components/videoPlayer.js';
-	import { draft, goToScreen, emptyDraft, restartProgress } from '../stores.js';
+	import { draft, goToScreen, emptyDraft, restartProgress, bgMusicScale } from '../stores.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
 
@@ -161,6 +161,9 @@
 		idleTimer = setTimeout(onAgain, IDLE_MS);
 	}
 	onMount(() => {
+		// The run is over: bring the background bed back up to full from the
+		// level Trajectory ducked it to on Start.
+		bgMusicScale.set(1);
 		resetIdleTimer();
 		// Prefetch+demux the restart clip while the player is still reading
 		// the summary, so the click starts playback instead of a network

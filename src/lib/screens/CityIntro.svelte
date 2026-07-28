@@ -18,9 +18,10 @@
 	// last-frame behavior, which is the best available there).
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { goToScreen } from '../stores.js';
+	import { goToScreen, bgMusicScale } from '../stores.js';
 	import { loadMp4 } from '../components/videoPlayer.js';
 	import { videoStage } from '../components/videoStage.svelte.js';
+	import { CLIP_VOLUME, BG_DUCKED_SCALE } from '../audio.js';
 	import COUNTRIES from '../game/functions/countries.js';
 
 	const supported = videoStage.supported;
@@ -101,6 +102,13 @@
 	});
 
 	onMount(() => {
+		// These four play over the looping bg.opus bed, so they carry an
+		// explicit level rather than the element default of 1 -- see audio.js
+		// for the balance between the two layers.
+		for (const a of [audio1El, audio2El, audio3El, audio4El]) {
+			if (a) a.volume = CLIP_VOLUME;
+		}
+
 		// Only the door-overlay math needs this component's own size (the
 		// shared VideoStage tracks its own, for the canvas) -- both always
 		// equal the viewport, but each stays independently responsible for
@@ -168,6 +176,11 @@
 	async function advance() {
 		if (phase === 'loop') {
 			phase = 'transition';
+			// "click anywhere to begin": everything from here to the Summary
+			// screen has a clip soundtrack or a stair log competing with the
+			// bed, so the bed drops to a quarter and stays there for the
+			// whole run. Summary puts it back to full.
+			bgMusicScale.set(BG_DUCKED_SCALE);
 			// Running inside a click handler, so unmuted playback is
 			// always permitted from here on.
 			audio1El?.pause();
