@@ -14,6 +14,12 @@
 	// from Trajectory, keyed by the plain stat key -- shown as
 	// "initial -> final" per row when available.
 	const initial = $draft.initial ?? null;
+	// These are the H* properties -- each stat's high-water mark for the run
+	// (property.js resolves them with util.max), not its value at death. So a
+	// life that peaked at Health 7 and ended at 0 reports 7 here, and the row
+	// will not match the last stat bar the player saw on the trajectory
+	// screen. That divergence is deliberate: the summary reports the best the
+	// life ever reached, not the state it collapsed to.
 	const ROWS = [
 		[types.HMNY, 'Wealth', 'MNY'],
 		[types.HCHR, 'Appearance', 'CHR'],

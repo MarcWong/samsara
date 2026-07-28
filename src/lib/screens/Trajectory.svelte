@@ -573,7 +573,18 @@
 				     catch up, unsynced from the +N badge that had already
 				     moved on -- read as the statbar randomly flashing/
 				     re-rendering on its own. -->
-				<span class="stat-value">{stats[types[key]]}</span>
+				<!-- Floored at 0 for display only; the model keeps the real
+				     value. A no-bonus life runs a deficit for decades before a
+				     fatal branch fires (see the TLR=0 thresholds in
+				     events.json), so the raw number spends most of a run
+				     negative, reaching -19. That deficit is load-bearing for
+				     how long these lives last -- clamping the property itself
+				     would collapse the no-bonus lifespan from ~50 to ~8 -- so
+				     the floor lives here instead. The delta badge below still
+				     reports what the year actually did, which is the intended
+				     read once the bar hits bottom: it cannot get lower, and it
+				     keeps being taken from anyway. -->
+				<span class="stat-value">{Math.max(0, stats[types[key]])}</span>
 				<!-- Always rendered (never conditionally removed) so the row's
 				     total width -- and thus whether flex-wrap kicks in and
 				     the bar's own height -- never depends on whether a delta
