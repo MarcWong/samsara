@@ -136,7 +136,27 @@ class Life {
         if (this.#property.isEnd())
             return { age: this.#property.AGE, content: {}, isEnd: this.#property.isEnd()};
 
-        const {age, event, talent} = this.#property.ageNext();
+        const step = this.#property.ageNext();
+        // age.json's last row is 102, and every path that should end a life
+        // before then is data (a fatal event, or a branch into 10000). When
+        // that data lets someone through -- as the terminal-age hospital-bill
+        // events did, whose first branch is the non-fatal "give up on
+        // treatment" -- ageNext() runs off the end of the table. It used to
+        // throw from here, and nothing above catches it: Trajectory's
+        // onNext() died mid-run, taking the auto-advance chain with it, and
+        // the screen simply froze with no way forward. Ending the life is the
+        // only recoverable answer, and it keeps a data gap from ever being
+        // able to lock the UI again.
+        if (!step) {
+            console.warn(
+                '[life] age table exhausted at',
+                this.#property.get(this.PropertyTypes.AGE),
+                '-- ending life (an event that should have been fatal was not)',
+            );
+            this.#property.set(this.PropertyTypes.LIF, 0);
+            return { age: this.#property.get(this.PropertyTypes.AGE), content: [], isEnd: true };
+        }
+        const {age, event, talent} = step;
 
         const talentContent = this.doTalent(talent);
         const selectedEvent = this.random(event);

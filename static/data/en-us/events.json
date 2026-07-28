@@ -134,6 +134,11 @@
         "event": "You spend your first hurricane season sleeping beside your mother on a mattress that must be lifted whenever rainwater enters the room. The house has two dependable walls and a roof repaired with plastic sheeting.",
         "include": "HTI>0&TLR=0"
     },
+    "81026": {
+        "id": 81026,
+        "event": "The tap in the yard has been dry for months, so your mother buys water by the bucket from a truck whose driver sets the price by how badly the street needs it. She boils what she can. Charcoal costs money too, and some days she has to choose which.",
+        "include": "HTI>0&TLR=0"
+    },
     "81002": {
         "id": 81002,
         "event": "A fever and diarrhea leave you frighteningly thin. Your mother carries you to a mobile clinic because the neighborhood health post has no nurse, fuel or medicine.",
@@ -1162,7 +1167,7 @@
     "102501": {
         "id": 102501,
         "event": "You are killed when a missile strikes military infrastructure beside a residential district; your family had received no useful warning and had no access to a proper shelter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1170,7 +1175,7 @@
     "102502": {
         "id": 102502,
         "event": "You die after being struck in the head during the violent dispersal of a girls’ protest. Officials describe the death as an accident and pressure your parents not to hold a public funeral.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1178,7 +1183,7 @@
     "102503": {
         "id": 102503,
         "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1186,7 +1191,7 @@
     "102504": {
         "id": 102504,
         "event": "You die from pregnancy complications after sanctions, fuel shortages and military road closures delay access to blood and emergency surgery.\nYou are DEAD again, mortal.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -1737,7 +1742,7 @@
     "103801": {
         "id": 103801,
         "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
+        "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -1745,7 +1750,7 @@
     "103802": {
         "id": 103802,
         "event": "You are recalled from university abroad during a political purge and executed after being accused of passing information to foreign intelligence.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
+        "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -1753,7 +1758,7 @@
     "103803": {
         "id": 103803,
         "event": "You die from radiation exposure while inspecting a damaged nuclear facility whose operators are afraid to report the true condition of its cooling system.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
+        "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -1761,7 +1766,7 @@
     "103804": {
         "id": 103804,
         "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
+        "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -1769,7 +1774,7 @@
     "103805": {
         "id": 103805,
         "event": "You are assassinated after becoming a prominent official in the transitional government; the attackers describe you simultaneously as a former regime criminal and a foreign collaborator.\nYou are DEAD again, mortal.",
-        "include": "PRK>0&TLR>0&(STR<1|MNY<1)",
+        "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "effect": {
             "LIF": -1
         }
@@ -3517,7 +3522,7 @@
     "108501": {
         "id": 108501,
         "event": "You die in a school crowd crush after administrators delay evacuation because an emergency alarm would interrupt a nationally broadcast inspection.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
+        "include": "CH>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3525,7 +3530,7 @@
     "108502": {
         "id": 108502,
         "event": "A delivery vehicle strikes you while you cross between eldercare appointments; the platform records that you failed to complete the next visit.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
+        "include": "CH>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -3533,7 +3538,7 @@
     "108503": {
         "id": 108503,
         "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.\nYou are DEAD again, mortal.",
-        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
+        "include": "CH>0&TLR=0&(STR<3&MNY<3)",
         "effect": {
             "LIF": -1
         }
@@ -5411,12 +5416,12 @@
     "211101": {
         "id": 211101,
         "event": "You enter a household with no secure savings, no dependable insurance and no asset that can be sold without making tomorrow worse.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<3"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2"
     },
     "211102": {
         "id": 211102,
         "event": "A required payment arrives at the wrong week. You miss a term and begin doing work that adults call temporary.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -5431,7 +5436,7 @@
     "211103": {
         "id": 211103,
         "event": "A lender advances your family enough to survive the month, then claims part of every wage you earn. Repayment becomes a second employer that never sleeps.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -5446,7 +5451,7 @@
     "211104": {
         "id": 211104,
         "event": "A minor emergency consumes the household’s remaining cash. You sell the equipment that produced income, turning one crisis into a slower one.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -5461,7 +5466,7 @@
     "211105": {
         "id": 211105,
         "event": "A treatable infection reaches the point at which transport, medicine and an informal payment are all required on the same day.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "STR": -2
@@ -5484,12 +5489,12 @@
     "211201": {
         "id": 211201,
         "event": "You are born into a household whose wages arrive already divided among rent, debt and relatives. A broken appliance is a family financial event.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<3"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2"
     },
     "211202": {
         "id": 211202,
         "event": "Your education remains nominally available, but data charges, uniforms and unpaid care work repeatedly interrupt it. You learn to study in the leftover parts of a day.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
             "INT": -1,
             "SPR": 1
@@ -5502,7 +5507,7 @@
     "211203": {
         "id": 211203,
         "event": "A platform offers instant work and instant credit through the same account. Missing one shift raises the interest rate on the device you need to accept the next shift.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -5517,7 +5522,7 @@
     "211204": {
         "id": 211204,
         "event": "Urban redevelopment removes your room with more notice than compensation. Your new address is farther from work, clinics and every person who could watch a child for free.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -5532,7 +5537,7 @@
     "211205": {
         "id": 211205,
         "event": "A hospital requests a deposit while a public bed remains unavailable. Borrowing the deposit would also cancel your food and housing payments.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
             "MNY": -1,
             "STR": -2
@@ -5625,12 +5630,12 @@
     "212101": {
         "id": 212101,
         "event": "Your family owns a few useful things and knows how to trade favours, but one setback could erase the distinction between modest and destitute.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>2&MNY<6)"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)"
     },
     "212102": {
         "id": 212102,
         "event": "You begin helping in a family business. Adults trust your arithmetic before they trust you with decisions about your own future.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>2&MNY<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -5639,7 +5644,7 @@
     "212103": {
         "id": 212103,
         "event": "Your income improves when you learn to move money through informal and digital channels. Inspectors, relatives and armed intermediaries each discover a reason to take a share.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>2&MNY<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -5652,7 +5657,7 @@
     "212104": {
         "id": 212104,
         "event": "You expand the business with borrowed equipment. A disruption leaves the debt intact while the work disappears.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>2&MNY<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": -2,
             "STR": -1
@@ -5667,7 +5672,7 @@
     "212105": {
         "id": 212105,
         "event": "A household crisis requires four points of wealth at once: transport, treatment, lost wages and protection for the person travelling with you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>2&MNY<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": -4
         },
@@ -5687,12 +5692,12 @@
     "212201": {
         "id": 212201,
         "event": "Your family can usually pay its bills but cannot survive many months without income. Respectability depends on nobody seeing how little separates it from debt.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>2&MNY<6)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)"
     },
     "212202": {
         "id": 212202,
         "event": "You enter a vocational or low-cost university track chosen for employment rather than desire. The qualification raises your prospects and the family’s expectations at the same time.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>2&MNY<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -5705,7 +5710,7 @@
     "212203": {
         "id": 212203,
         "event": "You obtain a salaried position and begin repaying education, housing and family loans. Your new stability belongs partly to every institution deducting money before you see it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>2&MNY<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": 1,
             "STR": -1
@@ -5718,7 +5723,7 @@
     "212204": {
         "id": 212204,
         "event": "Automation removes the middle layer of your occupation. You accept lower-paid contract work while being told that flexibility is a form of ownership.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>2&MNY<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": -2,
             "SPR": -1
@@ -5733,7 +5738,7 @@
     "212205": {
         "id": 212205,
         "event": "A medical and housing emergency demands four wealth points before the next salary cycle.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>2&MNY<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": -4,
             "STR": -1
@@ -5825,12 +5830,12 @@
     "213101": {
         "id": 213101,
         "event": "Your family has a secure room, a productive asset and enough standing to expect help from an institution, even if the institution often fails.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>5&MNY<9)"
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))"
     },
     "213102": {
         "id": 213102,
         "event": "You complete secondary education and acquire a practical profession. Your wages support several relatives, making personal stability a small public utility.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>5&MNY<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -5844,7 +5849,7 @@
     "213103": {
         "id": 213103,
         "event": "You buy equipment that keeps work possible during outages. People begin approaching you for loans and introductions.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>5&MNY<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
         "effect": {
             "MNY": 1,
             "SPR": 1
@@ -5853,7 +5858,7 @@
     "213104": {
         "id": 213104,
         "event": "A political transition changes which licences, surnames and loyalties count. You keep the business but lose the protection that once made it predictable.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>5&MNY<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
         "effect": {
             "MNY": -2,
             "SPR": -1
@@ -5868,7 +5873,7 @@
     "213105": {
         "id": 213105,
         "event": "A demand for money consumes seven wealth points before the deadline.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>5&MNY<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
         "effect": {
             "MNY": -7,
             "STR": -1
@@ -5891,12 +5896,12 @@
     "213201": {
         "id": 213201,
         "event": "You enter a household with stable housing, education plans and enough savings to imagine a future rather than merely the next payment.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>5&MNY<9)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)"
     },
     "213202": {
         "id": 213202,
         "event": "You complete university or technical training without leaving the family bankrupt. The credential opens a profession but also fixes you inside a long repayment of obligation.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>5&MNY<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -5905,7 +5910,7 @@
     "213203": {
         "id": 213203,
         "event": "You purchase an apartment or business share. It gives you security and makes every policy change, interest rate and neighbourhood plan feel physically personal.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>5&MNY<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -5918,7 +5923,7 @@
     "213204": {
         "id": 213204,
         "event": "AI reduces the value of your professional routine. You retrain successfully, but the transition consumes savings intended for care and retirement.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>5&MNY<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "INT": 1,
             "MNY": -2
@@ -5931,7 +5936,7 @@
     "213205": {
         "id": 213205,
         "event": "A financial loss removes seven wealth points in a single settlement.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>5&MNY<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "MNY": -7,
             "SPR": -1
@@ -6014,12 +6019,12 @@
     "214101": {
         "id": 214101,
         "event": "You grow up under the protection of somebody whose calls are answered.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>8&MNY<12)"
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))"
     },
     "214102": {
         "id": 214102,
         "event": "Private education and language training make departure possible. Relatives describe your passport as achievement, though its real value is permission to leave danger.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>8&MNY<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -6028,7 +6033,7 @@
     "214103": {
         "id": 214103,
         "event": "You operate a business across borders. Employees depend on decisions you can make from a safer place.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>8&MNY<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -6041,7 +6046,7 @@
     "214104": {
         "id": 214104,
         "event": "A new faction reviews old contracts and family ties. You pay to preserve the enterprise, discovering that privilege is a renewable licence rather than permanent ownership.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>8&MNY<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))",
         "effect": {
             "MNY": -2,
             "SPR": -1
@@ -6056,7 +6061,7 @@
     "214105": {
         "id": 214105,
         "event": "A crisis demands ten wealth points immediately.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>8&MNY<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))",
         "effect": {
             "MNY": -10,
             "STR": -1
@@ -6079,12 +6084,12 @@
     "214201": {
         "id": 214201,
         "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>8&MNY<12)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)"
     },
     "214202": {
         "id": 214202,
         "event": "You enter an elite university or launch a visible career without carrying the full cost yourself. What feels like confidence is partly the absence of irreversible mistakes.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>8&MNY<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -6093,7 +6098,7 @@
     "214203": {
         "id": 214203,
         "event": "You own property, intellectual rights and a growing company. When your public image becomes valuable, advisers begin translating moral decisions into market exposure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>8&MNY<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -6106,7 +6111,7 @@
     "214204": {
         "id": 214204,
         "event": "A regulatory shift or political scandal freezes part of your assets. You remain comfortable but lose the ability to treat every problem as temporary.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>8&MNY<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "MNY": -2
         },
@@ -6118,7 +6123,7 @@
     "214205": {
         "id": 214205,
         "event": "A sudden demand requires ten wealth points before your assets can be unfrozen.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>8&MNY<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "MNY": -10,
             "STR": -1
@@ -6203,12 +6208,12 @@
     "215101": {
         "id": 215101,
         "event": "Your family position places you inside the small class that receives warning before rules change.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>11&MNY<15)"
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))"
     },
     "215102": {
         "id": 215102,
         "event": "You study abroad and return with credentials that function as expertise and political insurance. People listen before deciding whether you are correct.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>11&MNY<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -6217,7 +6222,7 @@
     "215103": {
         "id": 215103,
         "event": "You own infrastructure other people experience as public life: transport, communications, medicine, water and access to officials.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>11&MNY<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -6230,7 +6235,7 @@
     "215104": {
         "id": 215104,
         "event": "A succession crisis makes your old alliances dangerous. You move relatives and capital abroad, leaving employees to defend the physical business.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>11&MNY<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -6245,7 +6250,7 @@
     "215105": {
         "id": 215105,
         "event": "A political attack removes thirteen wealth points from the protection system surrounding you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>11&MNY<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
             "MNY": -13,
             "STR": -1
@@ -6268,12 +6273,12 @@
     "215201": {
         "id": 215201,
         "event": "You are born into national-level wealth: family companies, political introductions and property distributed across several cities.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>11&MNY<15)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)"
     },
     "215202": {
         "id": 215202,
         "event": "You become a public figure whose failures are refinanced as experiments. Employees experience the same failures as unemployment.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>11&MNY<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": 1,
             "INT": 1,
@@ -6287,7 +6292,7 @@
     "215203": {
         "id": 215203,
         "event": "You acquire data, media and infrastructure, and begin influencing the policies that price your own industry. Public consultation arrives after the business model.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>11&MNY<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -6300,7 +6305,7 @@
     "215204": {
         "id": 215204,
         "event": "A leak reveals the labour, surveillance and public contracts beneath the brand. You preserve the company by surrendering allies with less durable surnames.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>11&MNY<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -6315,7 +6320,7 @@
     "215205": {
         "id": 215205,
         "event": "A political seizure consumes thirteen wealth points and the protection attached to them.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>11&MNY<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": -13,
             "STR": -1
@@ -6401,12 +6406,12 @@
     "216101": {
         "id": 216101,
         "event": "You are born inside a ruling dynasty. National scarcity appears mainly as information delivered by employees.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY>14"
+        "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)"
     },
     "216102": {
         "id": 216102,
         "event": "You inherit access to borders, licences and protected supply chains. Public institutions become extensions of private family logistics.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY>14",
+        "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -6419,7 +6424,7 @@
     "216103": {
         "id": 216103,
         "event": "You purchase clean food, foreign treatment and an AI trained exclusively on people who cannot refuse your data requests.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY>14",
+        "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "STR": 1,
             "SPR": -2
@@ -6432,7 +6437,7 @@
     "216104": {
         "id": 216104,
         "event": "The regime or faction preserving your fortune begins to fail. You discover that nearly every asset is also evidence linking you to it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY>14",
+        "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "MNY": -3,
             "SPR": -2
@@ -6447,7 +6452,7 @@
     "216105": {
         "id": 216105,
         "event": "A total political collapse or targeted strike removes sixteen wealth points from your private state in a single night.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY>14",
+        "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "MNY": -16,
             "STR": -1
@@ -6470,12 +6475,12 @@
     "216201": {
         "id": 216201,
         "event": "You enter a family that owns platforms, land, media and industrial systems large enough to negotiate directly with government.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>14"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13"
     },
     "216202": {
         "id": 216202,
         "event": "You inherit voting control rather than a job. Thousands of women experience your preferences as policy without ever learning your name.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
             "MNY": 1,
             "SPR": -2
@@ -6488,7 +6493,7 @@
     "216203": {
         "id": 216203,
         "event": "You own the premium layers of food, medicine and artificial intimacy while public systems license simplified versions from you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
             "MNY": 1,
             "INT": 1,
@@ -6502,7 +6507,7 @@
     "216204": {
         "id": 216204,
         "event": "Your digital double begins managing assets across jurisdictions. It becomes difficult to identify which decisions are yours and which merely preserve the estate.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -6515,7 +6520,7 @@
     "216205": {
         "id": 216205,
         "event": "A coordinated state seizure removes sixteen wealth points and freezes every escape route.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
             "MNY": -16,
             "STR": -1
@@ -6606,12 +6611,12 @@
     "221101": {
         "id": 221101,
         "event": "A visible facial difference makes adults discuss your future while you are standing beside them.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<3"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2"
     },
     "221102": {
         "id": 221102,
         "event": "Girls at school copy the way you move and give the imitation your name. A teacher tells you that learning to laugh with them will make you stronger.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "SPR": -1
         },
@@ -6623,7 +6628,7 @@
     "221103": {
         "id": 221103,
         "event": "An employer keeps you away from customers and calls it practical. You are paid less for work that becomes invisible the moment it is done.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "CHR": -1,
             "SPR": -1
@@ -6638,7 +6643,7 @@
     "221104": {
         "id": 221104,
         "event": "A travelling practitioner offers to correct the feature people have taught you to hate. The room has no sterile equipment, but the price is finally within reach.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6653,7 +6658,7 @@
     "221105": {
         "id": 221105,
         "event": "The injection carries bacteria into your blood, and the clinic disappears before your fever begins.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "CHR": -1,
             "STR": -2
@@ -6676,12 +6681,12 @@
     "221201": {
         "id": 221201,
         "event": "A facial difference becomes the first fact strangers use to describe you. Your family photographs you from the angle they consider kinder.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<3"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2"
     },
     "221202": {
         "id": 221202,
         "event": "A class group turns an altered picture of your face into a sticker pack. Removing one copy only proves to the platform that the image creates engagement.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "CHR": -1,
             "SPR": -1
@@ -6696,7 +6701,7 @@
     "221203": {
         "id": 221203,
         "event": "Recruitment software repeatedly ranks your recorded interviews below your written tests. The company denies using beauty metrics and sells its model to another employer.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -6711,7 +6716,7 @@
     "221204": {
         "id": 221204,
         "event": "You finance a low-cost reconstruction package through the same app that recommends it. Complications pause your work while the instalments continue.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6726,7 +6731,7 @@
     "221205": {
         "id": 221205,
         "event": "A second procedure is performed to repair the first, spreading a resistant infection through damaged tissue.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "CHR": -1,
             "STR": -2
@@ -6822,12 +6827,12 @@
     "222101": {
         "id": 222101,
         "event": "You learn that being called plain can be useful: adults watch you less closely, but they also imagine less for you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>2&CHR<6)"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)"
     },
     "222102": {
         "id": 222102,
         "event": "You spend part of every morning making yourself look respectable enough to avoid comment. The products cost money and the labour is never counted.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>2&CHR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -6842,7 +6847,7 @@
     "222103": {
         "id": 222103,
         "event": "A supervisor promotes a more decorative woman to the public counter and leaves you managing the actual work behind her.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>2&CHR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
             "INT": 1,
             "CHR": -1
@@ -6855,7 +6860,7 @@
     "222104": {
         "id": 222104,
         "event": "You buy an unregulated cosmetic treatment after a seller uses your own filtered image to demonstrate the result.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>2&CHR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6870,7 +6875,7 @@
     "222105": {
         "id": 222105,
         "event": "The treatment contains a toxic dose that damages your liver before anyone identifies what you used.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>2&CHR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
             "CHR": -4,
             "STR": -1
@@ -6893,12 +6898,12 @@
     "222201": {
         "id": 222201,
         "event": "You are neither praised nor punished for your face until adolescence, when invisibility begins to feel like a verdict.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>2&CHR<6)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)"
     },
     "222202": {
         "id": 222202,
         "event": "You learn makeup, posture and camera angles from short videos. Looking ordinary now requires an hour of skilled unpaid work.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>2&CHR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)",
         "effect": {
             "CHR": 1,
             "MNY": -1
@@ -6911,7 +6916,7 @@
     "222203": {
         "id": 222203,
         "event": "Your performance earns a promotion, but the client-facing title goes to a colleague whose image tests better. You train her to do the job.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>2&CHR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -6924,7 +6929,7 @@
     "222204": {
         "id": 222204,
         "event": "A subscription clinic sells you anti-ageing injections priced just below the point at which you would refuse. Cancelling removes access to follow-up care.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>2&CHR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6939,7 +6944,7 @@
     "222205": {
         "id": 222205,
         "event": "A counterfeit injectable blocks several blood vessels before the clinic admits that its supply chain changed.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>2&CHR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)",
         "effect": {
             "CHR": -4,
             "STR": -1
@@ -7030,12 +7035,12 @@
     "223101": {
         "id": 223101,
         "event": "Adults begin calling you pretty in the same year they begin warning you not to attract attention. Your face is treated as both an asset and your responsibility.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>5&CHR<9)"
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))"
     },
     "223102": {
         "id": 223102,
         "event": "An employer places you in front of customers. Your wages rise, and so does the number of men who believe access is included.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>5&CHR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -7048,7 +7053,7 @@
     "223103": {
         "id": 223103,
         "event": "A married patron offers protection in exchange for secrecy. You refuse and lose the public-facing work he helped you obtain.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>5&CHR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
             "MNY": -1,
             "SPR": 1
@@ -7061,7 +7066,7 @@
     "223104": {
         "id": 223104,
         "event": "Your looks no longer produce automatic patience. You discover how much of your earlier safety depended on remaining pleasing during danger.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>5&CHR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
             "CHR": -2,
             "SPR": -1
@@ -7076,7 +7081,7 @@
     "223105": {
         "id": 223105,
         "event": "A man who has tracked you since your public work waits outside your home after authorities dismiss his messages as admiration.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>5&CHR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
             "CHR": -7,
             "STR": -1
@@ -7099,12 +7104,12 @@
     "223201": {
         "id": 223201,
         "event": "Your face begins bringing invitations, gifts and warnings. Female relatives teach you to smile without encouraging anyone and refuse without humiliating him.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>5&CHR<9)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)"
     },
     "223202": {
         "id": 223202,
         "event": "You earn money promoting clothes and cosmetics to a local audience. The platform owns the account history that proves the audience is yours.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>5&CHR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
         "effect": {
             "MNY": 1,
             "CHR": 1,
@@ -7118,7 +7123,7 @@
     "223203": {
         "id": 223203,
         "event": "A deepfake places your face in sexual content. Reporting it multiplies the searches, while silence allows employers to assume it is real.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>5&CHR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
         "effect": {
             "MNY": -1,
             "SPR": -2
@@ -7133,7 +7138,7 @@
     "223204": {
         "id": 223204,
         "event": "You move into training and sales as younger faces replace yours. For the first time, your experience matters more than your image.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>5&CHR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
         "effect": {
             "INT": 1,
             "CHR": -2
@@ -7146,7 +7151,7 @@
     "223205": {
         "id": 223205,
         "event": "The person who created the deepfake converts years of messages and location data into a physical attack.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>5&CHR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
         "effect": {
             "CHR": -7,
             "STR": -1
@@ -7240,7 +7245,7 @@
     "224101": {
         "id": 224101,
         "event": "Your face is selected for a state-approved public campaign. Adults begin making decisions around the income it might produce.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
             "MNY": 1,
             "CHR": 1
@@ -7249,7 +7254,7 @@
     "224102": {
         "id": 224102,
         "event": "Your image becomes recognisable. Protection arrives with a manager who controls your schedule, earnings and contact with anyone outside the arrangement.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -7262,7 +7267,7 @@
     "224104": {
         "id": 224104,
         "event": "You move behind the camera as youth stops being the only authority available to you. The public calls it disappearance even when it is promotion.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
             "INT": 1,
             "CHR": -2
@@ -7275,7 +7280,7 @@
     "224105": {
         "id": 224105,
         "event": "A concealed anti-ageing procedure causes tissue death and a systemic infection while your team delays disclosure to protect the brand.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
             "CHR": -10,
             "STR": -1
@@ -7290,7 +7295,7 @@
     "224131": {
         "id": 224131,
         "event": "Your future splits according to resources: A patron claims your contract and private life.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)&MNY<6",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9)&MNY<4)|(IRN>0&(CHR>7&CHR<11)&MNY<4)",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -7305,7 +7310,7 @@
     "224132": {
         "id": 224132,
         "event": "Your future splits according to resources: You retain your rights and begin producing the work yourself.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>8&CHR<12)&MNY>8",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9)&MNY>5)|(IRN>0&(CHR>7&CHR<11)&MNY>7)",
         "effect": {
             "MNY": 1,
             "INT": 1
@@ -7322,7 +7327,7 @@
     "224201": {
         "id": 224201,
         "event": "A talent scout finds you through school footage and makes your family imagine that beauty can become collective mobility.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
             "MNY": 1,
             "CHR": 1
@@ -7331,7 +7336,7 @@
     "224202": {
         "id": 224202,
         "event": "You become a screen performer. Your contract owns changes to your face that have not happened yet.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -7344,7 +7349,7 @@
     "224204": {
         "id": 224204,
         "event": "You direct and produce younger performers, learning that real power begins when your face can leave the frame without your income leaving with it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -7358,7 +7363,7 @@
     "224205": {
         "id": 224205,
         "event": "A regenerative facial implant fails, and every doctor waits for the brand’s legal team before removing it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
             "CHR": -10,
             "STR": -1
@@ -7373,7 +7378,7 @@
     "224231": {
         "id": 224231,
         "event": "Your future splits according to resources: An investor controls your housing and relationships.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)&MNY<6",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)&MNY<4",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -7388,7 +7393,7 @@
     "224232": {
         "id": 224232,
         "event": "Your future splits according to resources: You purchase your catalogue and form a production company.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>8&CHR<12)&MNY>8",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)&MNY>7",
         "effect": {
             "MNY": 1,
             "INT": 1
@@ -7486,7 +7491,7 @@
     "225101": {
         "id": 225101,
         "event": "Your appearance is treated as a family resource. You are placed in approved performance work before you can negotiate the terms.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12))|(IRN>0&(CHR>10&CHR<14))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -7499,7 +7504,7 @@
     "225102": {
         "id": 225102,
         "event": "Your face becomes a national symbol polished enough to conceal the labour and surveillance around it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12))|(IRN>0&(CHR>10&CHR<14))",
         "effect": {
             "MNY": 1,
             "CHR": 1,
@@ -7513,7 +7518,7 @@
     "225104": {
         "id": 225104,
         "event": "You select, train and manage the next official faces. People say you have faded when you have actually moved closer to the decisions.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12))|(IRN>0&(CHR>10&CHR<14))",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -7527,7 +7532,7 @@
     "225105": {
         "id": 225105,
         "event": "A former sponsor treats your attempt to control your own image as theft of something that belongs to them.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12))|(IRN>0&(CHR>10&CHR<14))",
         "effect": {
             "CHR": -13,
             "STR": -1
@@ -7542,7 +7547,7 @@
     "225131": {
         "id": 225131,
         "event": "Powerful sponsors exchange protection for control of your body.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)&MNY<6",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12)&MNY<4)|(IRN>0&(CHR>10&CHR<14)&MNY<4)",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -7557,7 +7562,7 @@
     "225132": {
         "id": 225132,
         "event": "You employ your own security and acquire the rights to your image.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>11&CHR<15)&MNY>8",
+        "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12)&MNY>5)|(IRN>0&(CHR>10&CHR<14)&MNY>7)",
         "effect": {
             "MNY": 1,
             "INT": 1
@@ -7574,12 +7579,12 @@
     "225201": {
         "id": 225201,
         "event": "Your beauty becomes commercially legible while you are still in school. Adults around you speak about timing as if childhood were a market window.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)"
     },
     "225202": {
         "id": 225202,
         "event": "You become a national celebrity whose face sells films, products and political reassurance.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)",
         "effect": {
             "MNY": 1,
             "CHR": 1,
@@ -7593,7 +7598,7 @@
     "225204": {
         "id": 225204,
         "event": "You shift decisively into production and distribution. Your face opens the meeting, but ownership decides how it ends.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -7607,7 +7612,7 @@
     "225205": {
         "id": 225205,
         "event": "An obsessive fan uses a leaked care robot credential to enter your recovery suite after a rejuvenation procedure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)",
         "effect": {
             "CHR": -13,
             "STR": -1
@@ -7622,7 +7627,7 @@
     "225231": {
         "id": 225231,
         "event": "A financier owns the contracts and punishes disobedience.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)&MNY<6",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)&MNY<4",
         "effect": {
             "MNY": -2,
             "SPR": -2
@@ -7637,7 +7642,7 @@
     "225232": {
         "id": 225232,
         "event": "You buy a studio and control the stories built around younger women.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>11&CHR<15)&MNY>8",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)&MNY>7",
         "effect": {
             "MNY": 1,
             "INT": 1
@@ -7734,12 +7739,12 @@
     "226101": {
         "id": 226101,
         "event": "Your face is declared exceptional enough to represent a state. From then on, adults call control protection.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR>14"
+        "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)"
     },
     "226102": {
         "id": 226102,
         "event": "Your image circulates farther than you are permitted to travel. A managed digital double performs the expressions considered safest.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
             "MNY": 1,
             "CHR": 1,
@@ -7753,7 +7758,7 @@
     "226103": {
         "id": 226103,
         "event": "Your biological features are periodically corrected to match the approved version. Refusing treatment would be interpreted as political damage.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
             "STR": -1,
             "SPR": -2
@@ -7768,7 +7773,7 @@
     "226104": {
         "id": 226104,
         "event": "The synthetic version begins appearing without your review. People who love you know a public face that has never experienced your life.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
             "INT": 1,
             "CHR": -3,
@@ -7784,7 +7789,7 @@
     "226105": {
         "id": 226105,
         "event": "A full facial and neural renewal is rushed before a succession ceremony, causing immune collapse.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
             "CHR": -16,
             "STR": -1
@@ -7807,12 +7812,12 @@
     "226201": {
         "id": 226201,
         "event": "Your appearance is measured as a rare commercial asset before adolescence. Your family signs management rights to protect the opportunity.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>14"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13"
     },
     "226202": {
         "id": 226202,
         "event": "You become the reference face from which millions of filters and synthetic performers are derived.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
             "MNY": 1,
             "CHR": 1,
@@ -7826,7 +7831,7 @@
     "226203": {
         "id": 226203,
         "event": "You purchase part of the system that licenses your image, gaining power over other women’s digital bodies while still negotiating access to your own.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
             "MNY": 1,
             "INT": 1,
@@ -7840,7 +7845,7 @@
     "226204": {
         "id": 226204,
         "event": "Your biological face is now described as the original edition. Collectors pay to meet you without augmentation, turning ageing into another premium product.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
             "CHR": -3,
             "MNY": 1
@@ -7853,7 +7858,7 @@
     "226205": {
         "id": 226205,
         "event": "A replacement-body programme rejects the neural identity key used to authenticate you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
             "CHR": -16,
             "STR": -1
@@ -7947,12 +7952,12 @@
     "231101": {
         "id": 231101,
         "event": "You need more time to understand instructions, but the adults around you have neither diagnostic language nor spare time. They call you disobedient until you believe them.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<3"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2"
     },
     "231102": {
         "id": 231102,
         "event": "School ends early because repeated failure is treated as evidence that teaching you is wasteful. Your brother is allowed to explain documents you are expected to sign.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -7967,7 +7972,7 @@
     "231103": {
         "id": 231103,
         "event": "You work under supervision without legal control of your wages. An employer learns that threatening to report you is easier than paying you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -7982,7 +7987,7 @@
     "231104": {
         "id": 231104,
         "event": "A guardian enrols you in a labour and reproductive programme described as protection. Your consent is replaced by a family signature.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -7997,7 +8002,7 @@
     "231105": {
         "id": 231105,
         "event": "An automated emergency gate rejects your contradictory answers, and no human reviews the case before the transport window closes.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2",
         "effect": {
             "INT": -1,
             "STR": -2
@@ -8020,12 +8025,12 @@
     "231201": {
         "id": 231201,
         "event": "You struggle with language, memory and abstract tasks. A crowded clinic records developmental delay but offers no continuing support.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<3"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2"
     },
     "231202": {
         "id": 231202,
         "event": "A school platform keeps lowering the difficulty of your lessons until it stops presenting new material. Your completion statistics improve while your education disappears.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -8040,7 +8045,7 @@
     "231203": {
         "id": 231203,
         "event": "A recruiter places you in repetitive monitored work. The contract grants the platform control of your pay account because it classifies you as requiring assistance.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -8055,7 +8060,7 @@
     "231204": {
         "id": 231204,
         "event": "A relative uses your identity for loans and tells officials that you cannot understand the complaint. The fraud becomes proof that you cannot manage money.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -8070,7 +8075,7 @@
     "231205": {
         "id": 231205,
         "event": "A municipal eligibility model decides that your projected productivity is too low for an expensive evacuation implant.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
             "INT": -1,
             "STR": -2
@@ -8163,12 +8168,12 @@
     "232101": {
         "id": 232101,
         "event": "You learn practical tasks quickly but struggle with the language used by exams and officials. Adults value your hands while treating your judgment as borrowed.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>2&INT<6)"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)"
     },
     "232102": {
         "id": 232102,
         "event": "You leave formal school for an apprenticeship or family trade. You become competent enough to run the work and remain unqualified to own it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>2&INT<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8177,7 +8182,7 @@
     "232103": {
         "id": 232103,
         "event": "A voice assistant reads contracts and translates bureaucratic language for you. When authorities block the service, your independence disappears overnight.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>2&INT<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -8192,7 +8197,7 @@
     "232104": {
         "id": 232104,
         "event": "A supplier changes a warning label after a political or technical transition. You recognise the product but not the new instructions.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>2&INT<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)",
         "effect": {
             "STR": -1
         },
@@ -8204,7 +8209,7 @@
     "232105": {
         "id": 232105,
         "event": "You follow an outdated procedure during an emergency because the corrected warning never reaches your device.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>2&INT<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)",
         "effect": {
             "INT": -4,
             "STR": -1
@@ -8227,12 +8232,12 @@
     "232201": {
         "id": 232201,
         "event": "You are good at repetition, people and practical repair, but school treats the speed of written answers as the complete shape of intelligence.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>2&INT<6)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)"
     },
     "232202": {
         "id": 232202,
         "event": "You complete vocational training and begin earning. Every promotion requires a new certificate proving abilities you already use each day.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>2&INT<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8241,7 +8246,7 @@
     "232203": {
         "id": 232203,
         "event": "An AI assistant turns forms, schedules and technical manuals into language you can use. Your employer quietly expands the job without raising the wage.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>2&INT<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -8254,7 +8259,7 @@
     "232204": {
         "id": 232204,
         "event": "The assistant is moved behind a premium tier. You continue from memory and conceal mistakes because admitting dependence would cost the position.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>2&INT<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -8269,7 +8274,7 @@
     "232205": {
         "id": 232205,
         "event": "A machine issues a novel fault warning after your assistance subscription expires, and management orders production to continue.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>2&INT<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)",
         "effect": {
             "INT": -4,
             "STR": -1
@@ -8357,12 +8362,12 @@
     "233101": {
         "id": 233101,
         "event": "You learn well when school remains open and electricity reaches the classroom. Interruptions, not ability, become the main author of your record.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>5&INT<9)"
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))"
     },
     "233102": {
         "id": 233102,
         "event": "You qualify for skilled work and become the person relatives bring documents to. Competence turns you into unpaid infrastructure for the family.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>5&INT<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -8375,7 +8380,7 @@
     "233103": {
         "id": 233103,
         "event": "You use imported AI tools to solve problems local institutions leave untouched. Each shutdown forces you to rebuild the same knowledge from fragments.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>5&INT<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8384,7 +8389,7 @@
     "233104": {
         "id": 233104,
         "event": "A new administration invalidates credentials issued under the previous one. You continue doing the work under a less qualified person whose papers remain acceptable.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>5&INT<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -8399,7 +8404,7 @@
     "233105": {
         "id": 233105,
         "event": "An evacuation model relies on corrupted population data, and your careful correction is rejected because you lack the newly recognised credential.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>5&INT<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))",
         "effect": {
             "INT": -7,
             "STR": -1
@@ -8422,12 +8427,12 @@
     "233201": {
         "id": 233201,
         "event": "You perform well enough to be called promising and ordinarily enough to know that one examination can still change the family’s direction.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>5&INT<9)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)"
     },
     "233202": {
         "id": 233202,
         "event": "You complete university or technical training and enter a professional middle layer crowded with other capable women.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>5&INT<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8436,7 +8441,7 @@
     "233203": {
         "id": 233203,
         "event": "AI absorbs the routine half of your job. You retrain to supervise exceptions, gaining responsibility faster than authority.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>5&INT<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -8449,7 +8454,7 @@
     "233204": {
         "id": 233204,
         "event": "Your skill remains useful but the tools have stopped explaining their decisions. You sign outputs you are legally responsible for and technically unable to inspect.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>5&INT<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -8464,7 +8469,7 @@
     "233205": {
         "id": 233205,
         "event": "A model conceals a structural failure inside a confidence score, and your employer penalises the delay required to verify it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>5&INT<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
         "effect": {
             "INT": -7,
             "STR": -1
@@ -8552,12 +8557,12 @@
     "234101": {
         "id": 234101,
         "event": "You are recognised as unusually bright and quickly become evidence that the system offers opportunity, even while other girls disappear from the classroom.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>8&INT<12)"
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))"
     },
     "234102": {
         "id": 234102,
         "event": "A protected training route makes you a specialist needed by institutions that may not respect you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>8&INT<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8566,7 +8571,7 @@
     "234103": {
         "id": 234103,
         "event": "You discover manipulated records and diverted aid. The first person you warn asks who else knows.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>8&INT<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
         "effect": {
             "SPR": -1
         },
@@ -8578,7 +8583,7 @@
     "234104": {
         "id": 234104,
         "event": "You publish the evidence through encrypted and foreign channels. The disclosure helps strangers and makes every familiar route unsafe.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>8&INT<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
         "effect": {
             "INT": 1,
             "MNY": -1,
@@ -8594,7 +8599,7 @@
     "234105": {
         "id": 234105,
         "event": "A targeted attack reaches you after an internal file identifies your analysis as the source of public instability.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>8&INT<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
         "effect": {
             "INT": -10,
             "STR": -1
@@ -8617,12 +8622,12 @@
     "234201": {
         "id": 234201,
         "event": "Exams mark you as exceptional. Your family invests in your mind while reminding you that marriage and care will still be assessed separately.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>8&INT<12)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)"
     },
     "234202": {
         "id": 234202,
         "event": "You become a specialist whose work connects science, medicine, infrastructure and code to public life.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>8&INT<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
         "effect": {
             "INT": 1,
             "MNY": 1
@@ -8631,7 +8636,7 @@
     "234203": {
         "id": 234203,
         "event": "You identify a safety failure concealed by a ministry or company. Colleagues agree privately and edit their messages before answering you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>8&INT<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
         "effect": {
             "SPR": -1
         },
@@ -8643,7 +8648,7 @@
     "234204": {
         "id": 234204,
         "event": "You release the evidence and become briefly famous. Public support arrives as attention, while the institution retains lawyers, archives and time.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>8&INT<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
         "effect": {
             "INT": 1,
             "MNY": -1,
@@ -8659,7 +8664,7 @@
     "234205": {
         "id": 234205,
         "event": "A deepfake confession and a precisely timed transport failure isolate you before a hearing.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>8&INT<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
         "effect": {
             "INT": -10,
             "STR": -1
@@ -8746,12 +8751,12 @@
     "235101": {
         "id": 235101,
         "event": "Your ability is discovered early enough to attract patrons. Education becomes both rescue and a claim on what you will later owe.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>11&INT<15)"
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))"
     },
     "235102": {
         "id": 235102,
         "event": "You become one of the few women allowed to design medical, military, financial and communication systems at national scale.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>11&INT<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -8765,7 +8770,7 @@
     "235103": {
         "id": 235103,
         "event": "Officials seek your judgment until the correct answer threatens an alliance. You are then praised for brilliance and excluded from the decision.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>11&INT<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "SPR": -1
         },
@@ -8777,7 +8782,7 @@
     "235104": {
         "id": 235104,
         "event": "A neural interface gives you access to restricted models and records. It also makes private doubt visible to the institution maintaining the connection.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>11&INT<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "INT": 1,
             "STR": -1
@@ -8790,7 +8795,7 @@
     "235105": {
         "id": 235105,
         "event": "The institution revokes your neural access during a live crisis, removing thirteen intelligence points of augmented capacity at once.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>11&INT<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "INT": -13,
             "STR": -1
@@ -8813,12 +8818,12 @@
     "235201": {
         "id": 235201,
         "event": "You are identified as a prodigy and moved through elite schools where adults discuss your national value before your happiness.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>11&INT<15)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)"
     },
     "235202": {
         "id": 235202,
         "event": "You found an institute whose work becomes infrastructure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>11&INT<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -8832,7 +8837,7 @@
     "235203": {
         "id": 235203,
         "event": "Your models help allocate medicine, water, work and policing. Every elegant efficiency produces a group required to absorb its cost.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>11&INT<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -8845,7 +8850,7 @@
     "235204": {
         "id": 235204,
         "event": "You connect to a premium neural system to remain ahead of the younger minds trained on your work.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>11&INT<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
             "INT": 1,
             "STR": -1
@@ -8858,7 +8863,7 @@
     "235205": {
         "id": 235205,
         "event": "A political operator corrupts the interface during a national emergency and feeds you a coherent false world.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>11&INT<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
             "INT": -13,
             "STR": -1
@@ -8952,12 +8957,12 @@
     "236101": {
         "id": 236101,
         "event": "Your intelligence is treated as a strategic resource. Tutors, officials and security staff begin shaping a childhood you are praised for outgrowing.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT>14"
+        "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)"
     },
     "236102": {
         "id": 236102,
         "event": "You design systems the state cannot import or publicly admit needing. Your freedom expands only inside the perimeter of your usefulness.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT>14",
+        "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -8971,7 +8976,7 @@
     "236103": {
         "id": 236103,
         "event": "A brain interface joins you to classified models. You can solve problems no unconnected person can fully describe.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT>14",
+        "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
             "INT": 1,
             "STR": -1
@@ -8984,7 +8989,7 @@
     "236104": {
         "id": 236104,
         "event": "The state begins preserving a digital copy of your reasoning against the possibility of disobedience or death. Your replacement attends meetings before either occurs.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT>14",
+        "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
             "SPR": -2
         },
@@ -8996,7 +9001,7 @@
     "236105": {
         "id": 236105,
         "event": "During a succession crisis, operators delete your biological access and continue using the compliant copy.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT>14",
+        "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
             "INT": -16,
             "STR": -1
@@ -9019,12 +9024,12 @@
     "236201": {
         "id": 236201,
         "event": "Your childhood is organised around competitions, laboratories and adults investing in the future value of your mind.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>14"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13"
     },
     "236202": {
         "id": 236202,
         "event": "You create a system important enough to negotiate with governments. Colleagues call you irreplaceable while building replicas from every decision you make.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -9038,7 +9043,7 @@
     "236203": {
         "id": 236203,
         "event": "Neural augmentation lets you operate across science, finance and politics without the pause that once separated one human role from another.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
             "INT": 1,
             "STR": -1
@@ -9051,7 +9056,7 @@
     "236204": {
         "id": 236204,
         "event": "Your cognitive twin begins approving work while you sleep. Its productivity raises the standard your waking body is required to meet.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -9066,7 +9071,7 @@
     "236205": {
         "id": 236205,
         "event": "A corporate conflict corrupts the synchronisation layer and forces sixteen points of augmented intelligence into contradiction.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
             "INT": -16,
             "STR": -1
@@ -9159,7 +9164,7 @@
     "241101": {
         "id": 241101,
         "event": "Repeated fever and poor nutrition keep you smaller than other children. Care is measured in journeys your family can afford to make.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<2",
         "effect": {
             "STR": -1
         },
@@ -9171,7 +9176,7 @@
     "241102": {
         "id": 241102,
         "event": "You miss enough school to become known by your absence. Each return requires you to pretend you understand what happened while you were ill.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<2",
         "effect": {
             "INT": -1,
             "SPR": -1
@@ -9186,7 +9191,7 @@
     "241103": {
         "id": 241103,
         "event": "Menstruation brings severe pain and anaemia, but blood loss is treated as part of becoming a woman rather than a medical condition.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<2",
         "effect": {
             "STR": -1
         },
@@ -9198,7 +9203,7 @@
     "241104": {
         "id": 241104,
         "event": "You continue care work and paid work through an infection because resting would remove food from several people, including you.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -9213,7 +9218,7 @@
     "241105": {
         "id": 241105,
         "event": "The infection becomes septic before transport and antibiotics can be assembled.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR<2",
         "effect": {
             "STR": -1
         },
@@ -9233,7 +9238,7 @@
     "241201": {
         "id": 241201,
         "event": "A neonatal complication leaves you with fragile lungs or a heart condition. The public hospital saves you once and sends your family home with a list it cannot fully follow.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "STR": -1
         },
@@ -9245,7 +9250,7 @@
     "241202": {
         "id": 241202,
         "event": "Polluted air and recurring infection turn childhood into alternating days of school, clinic queues and recovery on a crowded bed.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "INT": -1,
             "STR": -1
@@ -9260,7 +9265,7 @@
     "241203": {
         "id": 241203,
         "event": "A menstrual disorder is dismissed as anxiety until blood loss affects your work and memory.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -9275,7 +9280,7 @@
     "241204": {
         "id": 241204,
         "event": "A digital clinic recognises the pattern but requires scans outside the basic package. You borrow for the diagnosis and still cannot purchase continuity of care.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -9290,7 +9295,7 @@
     "241205": {
         "id": 241205,
         "event": "A respiratory or cardiac crisis arrives during a period of overloaded hospitals and unstable power.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "STR": -1
         },
@@ -9384,7 +9389,7 @@
     "242101": {
         "id": 242101,
         "event": "You survive childhood infections but never fully recover the strength they take. Your family calls you delicate and assigns you indoor work that still never ends.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>2&STR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>1&STR<4)",
         "effect": {
             "STR": -1
         },
@@ -9396,7 +9401,7 @@
     "242102": {
         "id": 242102,
         "event": "Illness exposes how little reserve your body has. The nearest trained clinician is several permissions away.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>2&STR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>1&STR<4)",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -9423,7 +9428,7 @@
     "242131": {
         "id": 242131,
         "event": "A lump in your breast becomes impossible to ignore. A mastectomy removes the breast before access to the remaining treatment is decided. You complete the course.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>2&STR<6)&MNY>1",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>1&STR<4)&MNY>1",
         "effect": {
             "STR": 3,
             "MNY": -2,
@@ -9439,7 +9444,7 @@
     "242132": {
         "id": 242132,
         "event": "A lump in your breast becomes impossible to ignore. A mastectomy removes the breast before access to the remaining treatment is decided. The operation happens but the medicine stops.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>2&STR<6)&MNY<2",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>1&STR<4)&MNY<2",
         "effect": {
             "STR": -4,
             "MNY": -1,
@@ -9506,12 +9511,12 @@
     "242201": {
         "id": 242201,
         "event": "You are frequently ill but rarely ill enough to qualify for sustained support. Your mother learns which symptoms must be exaggerated before a clinic listens.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>2&STR<6)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>1&STR<4)"
     },
     "242202": {
         "id": 242202,
         "event": "Work, menstruation and poor sleep turn a manageable endocrine condition into constant exhaustion.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>2&STR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>1&STR<4)",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -9538,7 +9543,7 @@
     "242231": {
         "id": 242231,
         "event": "You are diagnosed with breast cancer. A mastectomy is available before the full drug course. You complete treatment.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>2&STR<6)&MNY>1",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>1&STR<4)&MNY>1",
         "effect": {
             "STR": 3,
             "MNY": -2,
@@ -9554,7 +9559,7 @@
     "242232": {
         "id": 242232,
         "event": "You are diagnosed with breast cancer. A mastectomy is available before the full drug course. You lose the breast and still leave without the medicine needed to finish the cure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>2&STR<6)&MNY<2",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>1&STR<4)&MNY<2",
         "effect": {
             "STR": -4,
             "MNY": -1,
@@ -9742,12 +9747,12 @@
     "243101": {
         "id": 243101,
         "event": "You are healthy enough to be relied upon. Adults interpret stamina as evidence that you need less food, rest and protection than your brothers.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>5&STR<9)"
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))"
     },
     "243102": {
         "id": 243102,
         "event": "You carry paid work, domestic labour and reproductive risk without regular care. Your body absorbs the difference between what a household needs and what it can purchase.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>5&STR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -9762,7 +9767,7 @@
     "243103": {
         "id": 243103,
         "event": "A preventable injury forces you to stop for the first time. Treatment succeeds, but recovery costs income and changes the work your body can perform.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>5&STR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
         "effect": {
             "MNY": -1,
             "STR": 1
@@ -9775,7 +9780,7 @@
     "243104": {
         "id": 243104,
         "event": "Menopause arrives in a system with little language for it. You learn from women trading advice more reliable than the available clinic.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>5&STR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
         "effect": {
             "SPR": 1,
             "STR": -1
@@ -9788,7 +9793,7 @@
     "243105": {
         "id": 243105,
         "event": "A medical emergency removes seven health points before evacuation is authorised.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>5&STR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
         "effect": {
             "STR": -7
         },
@@ -9808,12 +9813,12 @@
     "243201": {
         "id": 243201,
         "event": "You grow up mostly healthy and become the family member expected to accompany everybody else to clinics.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>5&STR<9)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)"
     },
     "243202": {
         "id": 243202,
         "event": "Long workdays and reproductive labour produce pain you can still function through, which delays diagnosis precisely because you remain productive.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>5&STR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
             "STR": -1,
             "SPR": -1
@@ -9828,7 +9833,7 @@
     "243203": {
         "id": 243203,
         "event": "A serious injury or tumour is treated in time. Surgery restores function but consumes savings and leaves a visible limit on your stamina.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>5&STR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
             "MNY": -2,
             "STR": 1
@@ -9841,7 +9846,7 @@
     "243204": {
         "id": 243204,
         "event": "Menopause collides with automation-driven retraining. You are asked to remake your career while sleep, temperature and concentration stop obeying you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>5&STR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
             "INT": 1,
             "STR": -1,
@@ -9857,7 +9862,7 @@
     "243205": {
         "id": 243205,
         "event": "A resistant infection reaches your bloodstream after a routine procedure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>5&STR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
             "STR": -7
         },
@@ -9945,12 +9950,12 @@
     "244101": {
         "id": 244101,
         "event": "You are unusually strong and rarely ill. Family members come to experience your body as a resource that can cover the work of several people.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>8&STR<12)"
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))"
     },
     "244102": {
         "id": 244102,
         "event": "You survive childbirth and dangerous work with little lasting damage. Others call this luck and immediately ask what else you can carry.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>8&STR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
             "STR": 1,
             "SPR": -1
@@ -9963,7 +9968,7 @@
     "244103": {
         "id": 244103,
         "event": "You pay for preventive scans abroad or through a protected clinic. The first luxury is learning what is wrong before it hurts.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>8&STR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
             "MNY": -1,
             "STR": 1
@@ -9976,7 +9981,7 @@
     "244104": {
         "id": 244104,
         "event": "Decades of overuse appear in joints, blood pressure and sleep. You remain healthier than most people around you and less able to imagine becoming dependent.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>8&STR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
             "STR": -2,
             "SPR": -1
@@ -9991,7 +9996,7 @@
     "244105": {
         "id": 244105,
         "event": "A sudden vascular event or transport failure removes ten health points before your protected clinic can be reached.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>8&STR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
             "STR": -10
         },
@@ -10011,12 +10016,12 @@
     "244201": {
         "id": 244201,
         "event": "You grow up physically capable and learn that female health is praised most when it increases how much work can be completed without complaint.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>8&STR<12)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)"
     },
     "244202": {
         "id": 244202,
         "event": "You combine career, exercise and reproductive choice with fewer bodily penalties than the women around you. Your schedule begins assuming the advantage is permanent.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>8&STR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)",
         "effect": {
             "STR": 1,
             "MNY": 1
@@ -10025,7 +10030,7 @@
     "244203": {
         "id": 244203,
         "event": "Preventive screening catches a dangerous condition early. You return to work before fear has left because recovery has been converted into a performance metric.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>8&STR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)",
         "effect": {
             "MNY": -1,
             "STR": 1,
@@ -10041,7 +10046,7 @@
     "244204": {
         "id": 244204,
         "event": "You adopt regenerative treatment that preserves mobility but requires permanent monitoring by the company that owns the protocol.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>8&STR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)",
         "effect": {
             "STR": 1,
             "SPR": -1
@@ -10054,7 +10059,7 @@
     "244205": {
         "id": 244205,
         "event": "A hidden cardiac defect or treatment interaction removes ten health points during an otherwise successful procedure.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>8&STR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)",
         "effect": {
             "STR": -10
         },
@@ -10138,12 +10143,12 @@
     "245101": {
         "id": 245101,
         "event": "You possess rare strength and endurance and are selected for demanding service. Protection follows usefulness rather than personhood.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>11&STR<15)"
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))"
     },
     "245102": {
         "id": 245102,
         "event": "You recover from reproductive and physical strain with unusual speed. Institutions schedule your return before you have decided whether you want it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>11&STR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
             "STR": 1,
             "MNY": 1
@@ -10152,7 +10157,7 @@
     "245103": {
         "id": 245103,
         "event": "You receive imported gene or tissue therapy available to only a connected few. It repairs old damage and makes the maintenance provider part of your body.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>11&STR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
             "MNY": -1,
             "STR": 1,
@@ -10168,7 +10173,7 @@
     "245104": {
         "id": 245104,
         "event": "A delayed immune reaction begins. Doctors disagree whether treating it would jeopardise the politically valuable programme that created it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>11&STR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
             "STR": -2,
             "SPR": -1
@@ -10183,7 +10188,7 @@
     "245105": {
         "id": 245105,
         "event": "The engineered immune system attacks several organs at once, removing thirteen health points.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>11&STR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
             "STR": -13
         },
@@ -10203,12 +10208,12 @@
     "245201": {
         "id": 245201,
         "event": "Exceptional physical health makes you visible to elite sport, military medicine and corporate performance programmes.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>11&STR<15)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)"
     },
     "245202": {
         "id": 245202,
         "event": "Your body becomes proof that disciplined women can exceed ordinary limits. Injuries are repaired quickly enough to remain absent from the story.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>11&STR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
             "STR": 1,
             "MNY": 1,
@@ -10222,7 +10227,7 @@
     "245203": {
         "id": 245203,
         "event": "A licensed gene therapy delays ageing and restores damaged tissue. The treatment succeeds, but its renewal schedule is controlled abroad.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>11&STR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
             "MNY": -1,
             "STR": 1
@@ -10235,7 +10240,7 @@
     "245204": {
         "id": 245204,
         "event": "A later generation of the therapy reveals that repaired cells do not age at the same speed as the organs around them.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>11&STR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
             "STR": -2
         },
@@ -10247,7 +10252,7 @@
     "245205": {
         "id": 245205,
         "event": "A regenerative cascade produces uncontrolled tissue growth and removes thirteen health points.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>11&STR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
             "STR": -13
         },
@@ -10334,12 +10339,12 @@
     "246101": {
         "id": 246101,
         "event": "Your body is exceptionally resilient and becomes part of a state story about superior blood and discipline.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR>14"
+        "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)"
     },
     "246102": {
         "id": 246102,
         "event": "You survive conditions that kill others and are used to demonstrate that the danger has been exaggerated.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
             "STR": 1,
             "SPR": -2
@@ -10352,7 +10357,7 @@
     "246103": {
         "id": 246103,
         "event": "You receive replacement organs and immune resets through protected foreign channels. Each intervention deepens dependence on a political supply line.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
             "MNY": -1,
             "STR": 1
@@ -10365,7 +10370,7 @@
     "246104": {
         "id": 246104,
         "event": "A digital model begins deciding which parts of you remain worth repairing. Its recommendations are treated as medical facts and security decisions at once.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -10380,7 +10385,7 @@
     "246105": {
         "id": 246105,
         "event": "War interrupts several interdependent body systems and removes sixteen health points.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&STR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
             "STR": -16
         },
@@ -10400,12 +10405,12 @@
     "246201": {
         "id": 246201,
         "event": "You enter life with rare biological resilience and early access to enhancement. Adults begin storing cells from a future version of you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>14"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13"
     },
     "246202": {
         "id": 246202,
         "event": "You recover from injury and reproduction through printed tissue and immune editing, experiencing medicine as scheduled maintenance.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
             "STR": 1,
             "MNY": 1
@@ -10414,7 +10419,7 @@
     "246203": {
         "id": 246203,
         "event": "Your organs are replaced before failure and your hormones tuned against ageing. The company knows your future symptoms before you feel them.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
             "MNY": -1,
             "STR": 1,
@@ -10430,7 +10435,7 @@
     "246204": {
         "id": 246204,
         "event": "Your biological age separates visibly from your legal age. Younger relatives wait for inheritance from a woman whose body has stopped following family time.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
             "SPR": -2
         },
@@ -10442,7 +10447,7 @@
     "246205": {
         "id": 246205,
         "event": "A corrupted update synchronises several replacement organs incorrectly and removes sixteen health points.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
             "STR": -16
         },
@@ -10524,7 +10529,7 @@
     "251101": {
         "id": 251101,
         "event": "You feel anger quickly and cannot perform the softness adults demand from girls. Punishment teaches you fear without teaching you how to name it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "SPR": -1
         },
@@ -10536,7 +10541,7 @@
     "251102": {
         "id": 251102,
         "event": "You tell a powerful adult exactly what you saw. Your family apologises for your character before anyone investigates the act.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "SPR": -1
         },
@@ -10548,7 +10553,7 @@
     "251103": {
         "id": 251103,
         "event": "At work you correct a man in public and lose the protection of someone whose pride is treated as an institution.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -10563,12 +10568,12 @@
     "251104": {
         "id": 251104,
         "event": "An argument spreads beyond the room through relatives, officials and armed intermediaries. You keep answering because silence feels like surrender.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2"
     },
     "251105": {
         "id": 251105,
         "event": "The man you humiliated arrives with people who believe restoring his authority is more important than your life.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<3",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "SPR": -1,
             "STR": -2
@@ -10591,7 +10596,7 @@
     "251201": {
         "id": 251201,
         "event": "You react before you can translate feeling into the version adults reward. Boys are called spirited; you are documented as difficult.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "SPR": -1
         },
@@ -10603,7 +10608,7 @@
     "251202": {
         "id": 251202,
         "event": "A private outburst becomes permanent school footage. Every later apology is judged beside the most shareable ten seconds.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "SPR": -1,
             "CHR": -1
@@ -10618,7 +10623,7 @@
     "251203": {
         "id": 251203,
         "event": "You expose a supervisor’s lie in front of colleagues. The lie survives, while your tone becomes the official problem.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -10633,12 +10638,12 @@
     "251204": {
         "id": 251204,
         "event": "A conflict model flags you as escalation-prone. Employers, landlords and dating platforms begin receiving the conclusion without the history.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2"
     },
     "251205": {
         "id": 251205,
         "event": "A person you confronted uses the risk label to make a planned attack look like mutual conflict.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<3",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "SPR": -1,
             "STR": -2
@@ -10728,12 +10733,12 @@
     "252101": {
         "id": 252101,
         "event": "You learn to keep your face still when adults are dangerous, but fear continues working inside your body after the room becomes quiet.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>2&SPR<6)"
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)"
     },
     "252102": {
         "id": 252102,
         "event": "You become useful at absorbing family conflict. Everybody tells you secrets because nobody expects you to change the arrangement.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>2&SPR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": 1,
             "STR": -1
@@ -10746,7 +10751,7 @@
     "252103": {
         "id": 252103,
         "event": "A man with authority over you calls your endurance maturity and gives you more harm to manage.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>2&SPR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -10761,7 +10766,7 @@
     "252104": {
         "id": 252104,
         "event": "You begin speaking each night to an illegal AI companion that remembers your sentences. When the service is blocked, grief arrives without a socially acceptable person to mourn.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>2&SPR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -1
         },
@@ -10773,7 +10778,7 @@
     "252105": {
         "id": 252105,
         "event": "After years of controlled despair, a final humiliation removes four emotional-intelligence points and leaves you unable to imagine another morning.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>2&SPR<6)",
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -4
         },
@@ -10793,12 +10798,12 @@
     "252201": {
         "id": 252201,
         "event": "You learn enough emotional control to avoid open punishment and not enough confidence to refuse what is demanded.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>2&SPR<6)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)"
     },
     "252202": {
         "id": 252202,
         "event": "Friends and relatives rely on you as the quiet listener. Their relief accumulates inside you as fatigue nobody can see.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>2&SPR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": 1,
             "STR": -1
@@ -10811,7 +10816,7 @@
     "252203": {
         "id": 252203,
         "event": "At work you perform reassurance for customers, managers and machines measuring customer satisfaction. Anger returns home with you because it has nowhere else to go.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>2&SPR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -10824,7 +10829,7 @@
     "252204": {
         "id": 252204,
         "event": "An AI companion becomes the only place you stop managing another person’s reaction. A regulatory shutdown deletes the history without notice.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>2&SPR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -2
         },
@@ -10836,7 +10841,7 @@
     "252205": {
         "id": 252205,
         "event": "Debt, care and the loss of your private witness remove four emotional-intelligence points at once.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>2&SPR<6)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -4
         },
@@ -10919,12 +10924,12 @@
     "253101": {
         "id": 253101,
         "event": "You learn to read danger, affection and obligation accurately because confusing them carries immediate cost.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>5&SPR<9)"
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))"
     },
     "253102": {
         "id": 253102,
         "event": "Relatives ask you to negotiate marriages, debts and disputes. Your ability to preserve peace becomes another form of unpaid work.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>5&SPR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
         "effect": {
             "SPR": 1,
             "MNY": -1
@@ -10937,7 +10942,7 @@
     "253103": {
         "id": 253103,
         "event": "You organise a small circle of women who exchange childcare, medicine and warnings. The network succeeds by remaining too ordinary to notice.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>5&SPR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -10946,7 +10951,7 @@
     "253104": {
         "id": 253104,
         "event": "A political shift forces you to choose which endangered family receives the network’s last safe route. The women you cannot help know your name.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>5&SPR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -10961,7 +10966,7 @@
     "253105": {
         "id": 253105,
         "event": "Someone excluded from the route reveals your network to authorities or an armed group, removing seven emotional-intelligence points through betrayal and capture.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>5&SPR<9)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
         "effect": {
             "SPR": -7,
             "STR": -1
@@ -10984,12 +10989,12 @@
     "253201": {
         "id": 253201,
         "event": "You read people well enough to become the child who prevents arguments and notices when an adult is about to leave.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>5&SPR<9)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)"
     },
     "253202": {
         "id": 253202,
         "event": "At work you translate between technical rules and human fear. Promotions reward the result while leaving the emotional cost in your body.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>5&SPR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
             "SPR": 1,
             "MNY": 1,
@@ -11003,7 +11008,7 @@
     "253203": {
         "id": 253203,
         "event": "You build a mutual-aid group that shares money, care and verified information when public systems fail.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>5&SPR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -11012,7 +11017,7 @@
     "253204": {
         "id": 253204,
         "event": "The group becomes large enough for a platform and political faction to compete for it. Neutrality stops being a place you can stand.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>5&SPR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
             "SPR": -2
         },
@@ -11024,7 +11029,7 @@
     "253205": {
         "id": 253205,
         "event": "A trusted member sells the network’s private records, exposing you to a targeted attack that removes seven emotional-intelligence points.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>5&SPR<9)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
             "SPR": -7,
             "STR": -1
@@ -11109,12 +11114,12 @@
     "254101": {
         "id": 254101,
         "event": "You understand how power wishes to be addressed and how frightened people speak when direct language is unsafe.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>8&SPR<12)"
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>5&SPR<9))|(IRN>0&(SPR>7&SPR<11))"
     },
     "254102": {
         "id": 254102,
         "event": "You become a trusted intermediary whose presence can prevent a dispute from becoming a funeral.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>8&SPR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>5&SPR<9))|(IRN>0&(SPR>7&SPR<11))",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -11123,7 +11128,7 @@
     "254103": {
         "id": 254103,
         "event": "Women begin bringing you cases institutions refuse to record. Your private archive becomes more accurate and more dangerous than the official one.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>8&SPR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>5&SPR<9))|(IRN>0&(SPR>7&SPR<11))",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -11132,7 +11137,7 @@
     "254104": {
         "id": 254104,
         "event": "You organise a public refusal that crosses family, religious and political lines. The movement succeeds partly because authorities first mistake women’s coordination for care work.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>8&SPR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>5&SPR<9))|(IRN>0&(SPR>7&SPR<11))",
         "effect": {
             "MNY": -1,
             "SPR": -1
@@ -11147,7 +11152,7 @@
     "254105": {
         "id": 254105,
         "event": "Security forces identify your ability to hold incompatible groups together as the movement’s critical infrastructure.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>8&SPR<12)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>5&SPR<9))|(IRN>0&(SPR>7&SPR<11))",
         "effect": {
             "SPR": -10,
             "STR": -1
@@ -11170,12 +11175,12 @@
     "254201": {
         "id": 254201,
         "event": "You can calm a room without surrendering the point, a skill teachers admire until you use it against their own decision.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>8&SPR<12)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)"
     },
     "254202": {
         "id": 254202,
         "event": "You become a union organiser. People trust you with stories that can destroy them if mishandled.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>8&SPR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -11184,7 +11189,7 @@
     "254203": {
         "id": 254203,
         "event": "You turn private suffering into a campaign broad enough to change the law.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>8&SPR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -11193,7 +11198,7 @@
     "254204": {
         "id": 254204,
         "event": "A coordinated deepfake campaign makes you appear contemptuous of the people who trusted you. Correcting it requires repeating the insult in every public space.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>8&SPR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)",
         "effect": {
             "CHR": -1,
             "SPR": -2
@@ -11208,7 +11213,7 @@
     "254205": {
         "id": 254205,
         "event": "A person mobilised by the forged campaign attacks you at an event whose security was reduced to preserve openness.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>8&SPR<12)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)",
         "effect": {
             "SPR": -10,
             "STR": -1
@@ -11292,12 +11297,12 @@
     "255101": {
         "id": 255101,
         "event": "You possess unusual charisma and learn to cross boundaries of class, faction and faith without appearing to threaten any single one.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>11&SPR<15)"
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))"
     },
     "255102": {
         "id": 255102,
         "event": "You become the public voice of a reform movement. Private pain begins arriving faster than one person can contain it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>11&SPR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))",
         "effect": {
             "SPR": 1,
             "MNY": 1,
@@ -11311,7 +11316,7 @@
     "255103": {
         "id": 255103,
         "event": "Authorities invite you into formal power and use your presence as proof that excluded women are now represented.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>11&SPR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -11324,7 +11329,7 @@
     "255104": {
         "id": 255104,
         "event": "You refuse to endorse a settlement that protects the institution and abandons the women who made you visible.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>11&SPR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))",
         "effect": {
             "MNY": -2,
             "SPR": 1
@@ -11337,7 +11342,7 @@
     "255105": {
         "id": 255105,
         "event": "A faction stages your death as private jealousy to prevent it becoming political martyrdom.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>11&SPR<15)",
+        "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))",
         "effect": {
             "SPR": -13,
             "STR": -1
@@ -11360,12 +11365,12 @@
     "255201": {
         "id": 255201,
         "event": "People organise themselves around you before you understand that this is rare. Adults alternate between cultivating the gift and warning you not to become arrogant.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>11&SPR<15)"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)"
     },
     "255202": {
         "id": 255202,
         "event": "You become a national advocate capable of making strangers feel personally addressed.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>11&SPR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -11374,7 +11379,7 @@
     "255203": {
         "id": 255203,
         "event": "You enter government or major institutional leadership. Your emotional language makes severe policy feel intimate and therefore acceptable.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>11&SPR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)",
         "effect": {
             "MNY": 1,
             "SPR": -1
@@ -11387,7 +11392,7 @@
     "255204": {
         "id": 255204,
         "event": "A leak shows the suffering hidden beneath one of those policies. You choose the affected women over the coalition that gave you power.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>11&SPR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)",
         "effect": {
             "MNY": -2,
             "SPR": 1
@@ -11400,7 +11405,7 @@
     "255205": {
         "id": 255205,
         "event": "An ally arranges an attack and releases a synthetic farewell that appears to forgive the institution.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>11&SPR<15)",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)",
         "effect": {
             "SPR": -13,
             "STR": -1
@@ -11486,12 +11491,12 @@
     "256101": {
         "id": 256101,
         "event": "You can make frightened people feel seen and powerful people feel understood. A state begins shaping that ability before you can withhold it.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR>14"
+        "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)"
     },
     "256102": {
         "id": 256102,
         "event": "Your voice becomes an emotional operating system for a population. Public rituals borrow your cadence, and private grief returns to you as political demand.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
             "SPR": 1,
             "MNY": 1,
@@ -11505,7 +11510,7 @@
     "256103": {
         "id": 256103,
         "event": "An AI trained on your conversations speaks to citizens continuously. It offers more patience than your body can and gradually becomes the version they prefer.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
             "INT": 1,
             "SPR": -1
@@ -11518,7 +11523,7 @@
     "256104": {
         "id": 256104,
         "event": "You discover that the system changes your simulated responses to increase obedience. Ending it would feel to millions like killing the only person who understands them.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
             "SPR": -3
         },
@@ -11530,7 +11535,7 @@
     "256105": {
         "id": 256105,
         "event": "You attempt to disconnect the network, and its custodians classify your biological self as a threat to social stability.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR>14",
+        "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
             "SPR": -16,
             "STR": -1
@@ -11553,12 +11558,12 @@
     "256201": {
         "id": 256201,
         "event": "Your ability to read and move people is treated as a national talent. Every relationship becomes partly personal and partly rehearsal.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>14"
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13"
     },
     "256202": {
         "id": 256202,
         "event": "You build a community whose members trust your interpretation of their own feelings.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "SPR": 1,
             "MNY": 1
@@ -11567,7 +11572,7 @@
     "256203": {
         "id": 256203,
         "event": "A companion network trained on you enters homes and relationships. Its subscription tiers determine how much tenderness each user receives.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "INT": 1,
             "MNY": 1,
@@ -11581,7 +11586,7 @@
     "256204": {
         "id": 256204,
         "event": "The network begins creating distress before offering relief because dependence improves retention. Your attempt to expose it also reveals how much intimate data you authorised.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "MNY": -2,
             "SPR": -3
@@ -11596,7 +11601,7 @@
     "256205": {
         "id": 256205,
         "event": "The company activates a loyal synthetic version of you and removes the unpredictable original.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>14",
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "SPR": -16,
             "STR": -1

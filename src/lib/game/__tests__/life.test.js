@@ -1,18 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import '../events.js';
 import COUNTRIES from '../functions/countries.js';
-import { createLife } from './fixtures.js';
+import Life from '../life.js';
+import REAL_CONFIG from '../config.js';
+import { createLife, i18nLoad } from './fixtures.js';
 
 // age.json only has entries for ages 0-102 (see property.js's ageNext()).
 // Once AGE reaches 102 the *next* call steps to 103, where the while-loop's
-// own `age < 103` guard exits immediately without finding data, and
-// getAgeData(103) returns undefined — destructuring it throws. That boundary
-// is a pre-existing bug in the ported-verbatim ageNext() (not one of this
-// phase's 4 named fixes), so the fuzz loop below deliberately stops shy of
-// it rather than chasing "isEnd must eventually become true": a long-lived,
-// lucky playthrough reaching old age without dying is a legitimate outcome,
-// not a bug, and the suite shouldn't be flaky over it.
-const SAFE_AGE_CUTOFF = 100;
+// own `age < 103` guard exits immediately without finding data. getAgeData
+// then returns undefined; ageNext() used to destructure that and throw, which
+// froze the Trajectory screen mid-run. It now returns null and Life.next()
+// ends the life — so the fuzz loop can run all the way to the boundary, and
+// the exhaustion path has its own regression test below.
+const SAFE_AGE_CUTOFF = 103;
 
 function allocationFor(points, code) {
     const share = Math.floor(points / 5);
@@ -45,6 +45,56 @@ describe('full playthrough smoke test', () => {
             expect(result.isEnd === true || result.age >= SAFE_AGE_CUTOFF).toBe(true);
         });
     }
+});
+
+// Regression: a life still alive when age.json runs out used to throw
+// "Cannot destructure property 'event' of this.getAgeData(...)" straight out
+// of next(). Nothing above catches it, so Trajectory's auto-advance chain
+// died and the screen froze with no way forward. The trigger was data (the
+// terminal-age hospital-bill events branch to a NON-fatal "give up on
+// treatment" first), but the freeze was the engine's, so the guard is tested
+// here independently of whether any current data can still reach it.
+describe('age-table exhaustion does not throw', () => {
+    // Truncating the table is the reliable way to reach the boundary: with
+    // the shipped data every path to 103 is now closed, so a normal
+    // playthrough can no longer get there to exercise this.
+    async function lifeWithShortTable(lastAge) {
+        const life = new Life();
+        life.config(REAL_CONFIG);
+        await life.initial(dataSet => {
+            const data = i18nLoad(dataSet);
+            if (dataSet !== 'age') return data;
+            for (const age of Object.keys(data)) if (Number(age) > lastAge) delete data[age];
+            return data;
+        });
+        return life;
+    }
+
+    it('ends the life instead of throwing when the table runs out', async () => {
+        const life = await lifeWithShortTable(12);
+        life.remake([]);
+        life.start(allocationFor(20, 'DNK'));
+
+        let result;
+        let iterations = 0;
+        do {
+            expect(() => (result = life.next())).not.toThrow();
+            iterations++;
+        } while (!result.isEnd && iterations < 60);
+
+        expect(result.isEnd).toBe(true);
+        expect(iterations).toBeLessThan(60);
+    });
+
+    it('stays ended once the table has run out', async () => {
+        const life = await lifeWithShortTable(12);
+        life.remake([]);
+        life.start(allocationFor(20, 'DNK'));
+        for (let i = 0; i < 40 && !life.next().isEnd; i++) { /* run to the end */ }
+        // A caller that keeps going (Trajectory reads isEnd from the result,
+        // not from the property) must not be able to revive it or throw.
+        for (let i = 0; i < 5; i++) expect(life.next().isEnd).toBe(true);
+    });
 });
 
 describe('TACHV fix regression (was TACEV, computed as NaN/undefined)', () => {

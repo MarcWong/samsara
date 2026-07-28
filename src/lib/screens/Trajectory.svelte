@@ -366,7 +366,7 @@
 	// stat moves it by ~10-20 years. Values are empirically fitted, not
 	// derived; re-measure before changing one.
 	const BONUS_AMOUNT = {
-		JAP: 9, GBR: 8, DNK: 8, CH: 10, US: 7, IRN: 11,
+		JAP: 9, GBR: 8, DNK: 8, CH: 9, US: 7, IRN: 10,
 		PRK: 5, EGY: 5, IND: 7, UKR: 6,
 		AF: 5, HTI: 5,
 	};

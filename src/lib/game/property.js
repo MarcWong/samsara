@@ -385,7 +385,13 @@ class Property {
             this.change(this.TYPES.AGE, 1);
         }
         const age = this.get(this.TYPES.AGE);
-        const {event, talent} = this.getAgeData(age);
+        const data = this.getAgeData(age);
+        // Past the last row age.json defines (102). This used to destructure
+        // undefined and throw, which is not something a caller can recover
+        // from mid-run -- returning null lets Life.next() end the life
+        // instead. See the exhaustion branch there.
+        if (!data) return null;
+        const {event, talent} = data;
         return {age, event, talent};
     }
 
