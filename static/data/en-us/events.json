@@ -9,21 +9,20 @@
     },
     "10001": {
         "id": 10001,
-        "event": "A sudden illness knocks you flat.",
+        "event": "You're flattened by an illness out of nowhere. Heaven's line is busy—God is busy with someone else's prayer request.",
         "include": "STR<1",
         "branch": [
-            "STR<3&TLR>0:10000",
-            "STR<1&TLR=0:10000"
+            ":10000"
         ]
     },
     "10002": {
         "id": 10002,
         "event": "You can’t afford the hospital bill.",
-        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0&(TLR>0|STR>5|MNY<-17)",
+        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0",
         "branch": [
-            "STR>5:10003",
+            "STR>4:10003",
             "MNY<3&TLR>0:10000",
-            "MNY<-17&TLR=0:10000"
+            "MNY<0&TLR=0:10000"
         ]
     },
     "10003": {
@@ -85,38 +84,6 @@
             "MNY<-17&TLR=0:10000"
         ]
     },
-    "10010": {
-        "id": 10010,
-        "event": "Something that would have been survivable ten years ago is not. The report uses the word “underlying”, which is how a system describes a body it has already finished budgeting for.",
-        "branch": [
-            "STR<1:10000"
-        ],
-        "include": "STR<-7"
-    },
-    "10011": {
-        "id": 10011,
-        "event": "You stop recovering between the things that happen to you. There is no single cause on the certificate, only a list, and every item on the list is ordinary.",
-        "include": "STR<-4",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "10012": {
-        "id": 10012,
-        "event": "You wear out. The decline is unremarkable enough that nobody thinks to record when it began.",
-        "include": "STR<-1",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "10013": {
-        "id": 10013,
-        "event": "The list of things you are no longer advised to do finishes overtaking the list of things you still do. Nobody calls it an illness, and nobody calls it a life either.",
-        "include": "STR<3",
-        "branch": [
-            ":10000"
-        ]
-    },
     "10014": {
         "id": 10014,
         "event": "Under the mutual encouragement of your friends, you build a habit of working out and keep to a healthy diet.",
@@ -139,81 +106,81 @@
         "event": "Your body finally settles into its new geometry, and the face in the mirror barely nods at the kid in your parents' old photo albums. The classmates who remember your original model now gush about how \"stunning\" you are.",
         "include": "EVT![10016,10017]",
         "effect": {
-            "CHR": 2
+            "CHR": 1
         }
     },
     "10017": {
         "id": 10017,
-        "event": "Your body finally settles into its new geometry, and the face in the mirror barely nods at the kid in your parents' old photo albums. The classmates who remember your original model now gush about how \"stunning\" you are.",
+        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\".",
         "include": "EVT![10016,10017]",
         "effect": {
-            "CHR": 4
+            "CHR": 5
         }
     },
     "60001": {
         "id": 60001,
         "event": "Governments whiten the sky with reflective particles. Watching engineered sunsets, you learn that even weather can be redesigned without your consent.",
-        "exclude":"EVT?[60001]"
+        "exclude": "EVT?[60001]"
     },
     "60002": {
         "id": 60002,
         "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy",
-        "exclude":"EVT?[60002]"
+        "exclude": "EVT?[60002]"
     },
     "60003": {
         "id": 60003,
         "event": "A murdered woman’s predictive double testifies in court. You cannot tell whether the dead are speaking or institutions are ventriloquising them.",
-        "exclude":"EVT?[60003]"
+        "exclude": "EVT?[60003]"
     },
     "60004": {
         "id": 60004,
         "event": "The ocean gains legal personhood through AI and begins suing governments. You recognise a body believed only after becoming machine-readable.",
-        "exclude":"EVT?[60004]"
+        "exclude": "EVT?[60004]"
     },
     "60005": {
         "id": 60005,
         "event": "Orbital mirrors sell cool darkness to wealthy cities and displaced heat elsewhere. Beneath artificial dusk, you discover that night has owners.",
-        "exclude":"EVT?[60005]"
+        "exclude": "EVT?[60005]"
     },
     "60006": {
         "id": 60006,
         "event": "Healthy Years Enter the Market.** Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
-        "exclude":"EVT?[60006]"
+        "exclude": "EVT?[60006]"
     },
     "60007": {
         "id": 60007,
         "event": "Erasing trauma now restores housing, work and legal status. Refuse, and you become an unresolved risk carrying inadmissible memories.",
-        "exclude":"EVT?[60007]"
+        "exclude": "EVT?[60007]"
     },
     "60008": {
         "id": 60008,
         "event": "A solar storm erases digital marriages, protections and ownership. You watch systems restore abusive husbands while escaped women remain errors.",
-        "exclude":"EVT?[60008]"
+        "exclude": "EVT?[60008]"
     },
     "60009": {
         "id": 60009,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude":"EVT?[60009,60010]"
+        "exclude": "EVT?[60009,60010]"
     },
     "60010": {
         "id": 60010,
         "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
-        "exclude":"EVT?[60009,60010]"
+        "exclude": "EVT?[60009,60010]"
     },
     "60011": {
         "id": 60011,
         "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
-        "exclude":"EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60011,60012,60013]"
     },
     "60012": {
         "id": 60012,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude":"EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60011,60012,60013]"
     },
     "60013": {
         "id": 60013,
         "event": "You Become a Protected Form of Life.** Biological humans become a protected minority among synthetic descendants. At your preservation ceremony, equality feels indistinguishable from exhibition and extinction.",
-        "exclude":"EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60011,60012,60013]"
     },
     "74001": {
         "id": 74001,
@@ -6801,11 +6768,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "211104": {
         "id": 211104,
@@ -6849,11 +6812,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "211204": {
         "id": 211204,
@@ -6894,11 +6853,7 @@
     "211303": {
         "id": 211303,
         "event": "Rent, childcare and care for an older relative consume more than your wages. The welfare interface congratulates you for remaining economically active.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY<3",
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY<3"
     },
     "211304": {
         "id": 211304,
@@ -6987,11 +6942,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": 1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "212204": {
         "id": 212204,
@@ -7095,19 +7046,6 @@
             "SPR": -1
         }
     },
-    "213105": {
-        "id": 213105,
-        "event": "A demand for money consumes seven wealth points before the deadline.",
-        "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
-        "effect": {
-            "MNY": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
     "213201": {
         "id": 213201,
         "event": "You enter a household with stable housing, education plans and enough savings to imagine a future rather than merely the next payment.",
@@ -7137,15 +7075,6 @@
         "effect": {
             "INT": 1,
             "MNY": -2
-        }
-    },
-    "213205": {
-        "id": 213205,
-        "event": "A financial loss removes seven wealth points in a single settlement.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
-        "effect": {
-            "MNY": -7,
-            "SPR": -1
         }
     },
     "213301": {
@@ -7185,16 +7114,11 @@
     },
     "213305": {
         "id": 213305,
-        "event": "A combined housing and medical shock requires seven wealth points after insurers classify both losses as exceptional exclusions.",
+        "event": "You suffered huge financial loss combined housing and medical shock after insurers classify both losses as exceptional exclusions.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>5&MNY<9)",
         "effect": {
-            "MNY": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "MNY": -5
+        }
     },
     "214101": {
         "id": 214101,
@@ -7579,19 +7503,6 @@
             "SPR": -1
         }
     },
-    "216305": {
-        "id": 216305,
-        "event": "A systemic crash removes sixteen liquid wealth points before your private institutions can coordinate.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY>14",
-        "effect": {
-            "MNY": -16,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
     "221101": {
         "id": 221101,
         "event": "A visible facial difference makes adults discuss your future while you are standing beside them.",
@@ -7620,11 +7531,7 @@
         "effect": {
             "MNY": -1,
             "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "221105": {
         "id": 221105,
@@ -7911,13 +7818,8 @@
         "event": "A man who has tracked you since your public work waits outside your home after authorities dismiss his messages as admiration.",
         "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
-            "CHR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "SPR": -3
+        }
     },
     "223201": {
         "id": 223201,
@@ -7950,19 +7852,6 @@
             "INT": 1,
             "CHR": -2
         }
-    },
-    "223205": {
-        "id": 223205,
-        "event": "The person who created the deepfake converts years of messages and location data into a physical attack.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
-        "effect": {
-            "CHR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
     },
     "223301": {
         "id": 223301,
@@ -8002,13 +7891,8 @@
         "event": "An obsessive subscriber uses leaked biometric data to bypass your building and reach you during a live appearance.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>5&CHR<9)",
         "effect": {
-            "CHR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "SPR": -3
+        }
     },
     "224101": {
         "id": 224101,
@@ -8041,7 +7925,7 @@
         "event": "A concealed anti-ageing procedure causes tissue death and a systemic infection while your team delays disclosure to protect the brand.",
         "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
-            "CHR": -10,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8099,7 +7983,7 @@
         "event": "A regenerative facial implant fails, and every doctor waits for the brand’s legal team before removing it.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
-            "CHR": -10,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8153,7 +8037,7 @@
         "event": "An illegal clinic combines neural anaesthesia with accelerated tissue renewal to keep you aligned with your digital double.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
         "effect": {
-            "CHR": -10,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8213,7 +8097,7 @@
         "event": "A former sponsor treats your attempt to control your own image as theft of something that belongs to them.",
         "include": "((HTI>0|AF>0|PRK>0)&(CHR>8&CHR<12))|(IRN>0&(CHR>10&CHR<14))",
         "effect": {
-            "CHR": -13,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8268,7 +8152,7 @@
         "event": "An obsessive fan uses a leaked care robot credential to enter your recovery suite after a rejuvenation procedure.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)",
         "effect": {
-            "CHR": -13,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8323,7 +8207,7 @@
         "event": "An anti-ageing immune reset mistakes regenerated facial tissue for a threat and attacks several organs.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
         "effect": {
-            "CHR": -13,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8391,7 +8275,7 @@
         "event": "A full facial and neural renewal is rushed before a succession ceremony, causing immune collapse.",
         "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
-            "CHR": -16,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8437,7 +8321,7 @@
         "event": "A replacement-body programme rejects the neural identity key used to authenticate you.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
-            "CHR": -16,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8486,7 +8370,7 @@
         "event": "A premium renewal cascade replaces too much tissue at once, and the system cannot reconcile the living body with its registered template.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&CHR>14",
         "effect": {
-            "CHR": -16,
+            "CHR": -7,
             "STR": -1
         },
         "branch": [
@@ -8798,19 +8682,6 @@
             "SPR": -1
         }
     },
-    "233105": {
-        "id": 233105,
-        "event": "An evacuation model relies on corrupted population data, and your careful correction is rejected because you lack the newly recognised credential.",
-        "include": "((HTI>0|AF>0|PRK>0)&(INT>3&INT<6))|(IRN>0&(INT>3&INT<8))",
-        "effect": {
-            "INT": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
     "233201": {
         "id": 233201,
         "event": "You perform well enough to be called promising and ordinarily enough to know that one examination can still change the family’s direction.",
@@ -8841,19 +8712,6 @@
             "INT": -1,
             "SPR": -1
         }
-    },
-    "233205": {
-        "id": 233205,
-        "event": "A model conceals a structural failure inside a confidence score, and your employer penalises the delay required to verify it.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
-        "effect": {
-            "INT": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
     },
     "233301": {
         "id": 233301,
@@ -8891,13 +8749,8 @@
         "event": "The subscription fails during a regional emergency, and the manual protocol assumes knowledge that decades of automation erased.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>5&INT<9)",
         "effect": {
-            "INT": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "INT": -3
+        }
     },
     "234101": {
         "id": 234101,
@@ -8933,7 +8786,7 @@
         "event": "A targeted attack reaches you after an internal file identifies your analysis as the source of public instability.",
         "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
         "effect": {
-            "INT": -10,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -8975,7 +8828,7 @@
         "event": "A deepfake confession and a precisely timed transport failure isolate you before a hearing.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
         "effect": {
-            "INT": -10,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -9016,7 +8869,7 @@
         "event": "A network radicalised by the campaign identifies your home through leaked research metadata.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>8&INT<12)",
         "effect": {
-            "INT": -10,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -9052,19 +8905,6 @@
         "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "INT": 1,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
-    "235105": {
-        "id": 235105,
-        "event": "The institution revokes your neural access during a live crisis, removing thirteen intelligence points of augmented capacity at once.",
-        "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
-        "effect": {
-            "INT": -13,
             "STR": -1
         },
         "branch": [
@@ -9112,7 +8952,7 @@
         "event": "A political operator corrupts the interface during a national emergency and feeds you a coherent false world.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
-            "INT": -13,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -9150,19 +8990,6 @@
             "INT": 1,
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
-    "235305": {
-        "id": 235305,
-        "event": "A hostile update withdraws thirteen points of augmented cognition while you are directing a critical system.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>11&INT<15)",
-        "effect": {
-            "INT": -13,
-            "STR": -1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -9208,7 +9035,7 @@
         "event": "During a succession crisis, operators delete your biological access and continue using the compliant copy.",
         "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
-            "INT": -16,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -9255,19 +9082,6 @@
             "STR<-19&TLR=0:200004"
         ]
     },
-    "236205": {
-        "id": 236205,
-        "event": "A corporate conflict corrupts the synchronisation layer and forces sixteen points of augmented intelligence into contradiction.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
-        "effect": {
-            "INT": -16,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
     "236301": {
         "id": 236301,
         "event": "You are identified as an extreme cognitive outlier and placed inside a private educational system built around ownership disguised as opportunity.",
@@ -9307,7 +9121,7 @@
         "event": "A governance protocol decides that the biological node introduces unacceptable variance and removes sixteen intelligence points of network support.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT>14",
         "effect": {
-            "INT": -16,
+            "INT": -7,
             "STR": -1
         },
         "branch": [
@@ -9516,11 +9330,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(STR>1&STR<4)",
         "effect": {
             "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "242102": {
         "id": 242102,
@@ -9529,11 +9339,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "242105": {
         "id": 242105,
@@ -9567,8 +9373,7 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004"
+            "STR<4&TLR>0:200004"
         ]
     },
     "242141": {
@@ -9622,11 +9427,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "242205": {
         "id": 242205,
@@ -9660,13 +9461,12 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004"
+            "STR<4&TLR>0:200004"
         ]
     },
     "242241": {
         "id": 242241,
-        "event": "Reconstructive surgery restores two appearance points and the recovery takes place in private.",
+        "event": "You went for a reconstructive surgery that made you prettier.",
         "include": "EVT?[242231]&TLR>0",
         "effect": {
             "CHR": 2,
@@ -9716,11 +9516,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "242305": {
         "id": 242305,
@@ -9754,13 +9550,12 @@
             "CHR": -2
         },
         "branch": [
-            "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004"
+            "STR<4&TLR>0:200004"
         ]
     },
     "242341": {
         "id": 242341,
-        "event": "Regenerative reconstruction restores two appearance points before menopause intensifies your symptoms.",
+        "event": "Regenerative reconstruction makes you pretter before menopause intensifies your symptoms.",
         "include": "EVT?[242331]&TLR>0",
         "effect": {
             "CHR": 2,
@@ -9810,11 +9605,7 @@
     "243102": {
         "id": 243102,
         "event": "You carry paid work, domestic labour and reproductive risk without regular care. Your body absorbs the difference between what a household needs and what it can purchase.",
-        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))"
     },
     "243103": {
         "id": 243103,
@@ -9832,23 +9623,7 @@
         "effect": {
             "SPR": 1,
             "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
-    "243105": {
-        "id": 243105,
-        "event": "A medical emergency removes seven health points before evacuation is authorised.",
-        "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
-        "effect": {
-            "STR": -7
-        },
-        "branch": [
-            "STR<7&TLR>0:243155",
-            "STR<-13&TLR=0:243155"
-        ]
+        }
     },
     "243155": {
         "id": 243155,
@@ -9870,11 +9645,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "243203": {
         "id": 243203,
@@ -9893,31 +9664,15 @@
             "INT": 1,
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "243205": {
         "id": 243205,
         "event": "A resistant infection reaches your bloodstream after a routine procedure.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
-            "STR": -7
-        },
-        "branch": [
-            "STR<7&TLR>0:243255",
-            "STR<-13&TLR=0:243255"
-        ]
-    },
-    "243255": {
-        "id": 243255,
-        "event": "You die in a hospital that successfully completed the procedure and failed to contain its aftermath.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+            "STR": -3
+        }
     },
     "243301": {
         "id": 243301,
@@ -9931,11 +9686,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "243303": {
         "id": 243303,
@@ -9953,31 +9704,7 @@
         "effect": {
             "MNY": -1,
             "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
-    "243305": {
-        "id": 243305,
-        "event": "A novel infection or surgical complication removes seven health points faster than the regional triage model updates.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(STR>5&STR<9)",
-        "effect": {
-            "STR": -7
-        },
-        "branch": [
-            "STR<7&TLR>0:243355",
-            "STR<-13&TLR=0:243355"
-        ]
-    },
-    "243355": {
-        "id": 243355,
-        "event": "You die during the delay between an accurate diagnosis and an available staffed bed.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+        }
     },
     "244101": {
         "id": 244101,
@@ -10008,11 +9735,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
-        ]
+        }
     },
     "244105": {
         "id": 244105,
@@ -10168,31 +9891,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
-        ]
-    },
-    "245105": {
-        "id": 245105,
-        "event": "The engineered immune system attacks several organs at once, removing thirteen health points.",
-        "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
-        "effect": {
-            "STR": -13
-        },
-        "branch": [
-            "STR<13&TLR>0:245155",
-            "STR<-7&TLR=0:245155"
-        ]
-    },
-    "245155": {
-        "id": 245155,
-        "event": "You die after the trial calls your body an important contribution to future safety.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+        }
     },
     "245201": {
         "id": 245201,
@@ -10224,31 +9923,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
             "STR": -1
-        },
-        "branch": [
-            "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
-        ]
-    },
-    "245205": {
-        "id": 245205,
-        "event": "A regenerative cascade produces uncontrolled tissue growth and removes thirteen health points.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
-        "effect": {
-            "STR": -13
-        },
-        "branch": [
-            "STR<13&TLR>0:245255",
-            "STR<-7&TLR=0:245255"
-        ]
-    },
-    "245255": {
-        "id": 245255,
-        "event": "You die as the clinic protects the programme by calling your case biologically unique.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+        }
     },
     "245301": {
         "id": 245301,
@@ -10281,23 +9956,7 @@
         "effect": {
             "STR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
-        ]
-    },
-    "245305": {
-        "id": 245305,
-        "event": "The emergency upgrade triggers systemic rejection and removes thirteen health points.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(STR>11&STR<15)",
-        "effect": {
-            "STR": -13
-        },
-        "branch": [
-            "STR<13&TLR>0:245355",
-            "STR<-7&TLR=0:245355"
-        ]
+        }
     },
     "245355": {
         "id": 245355,
@@ -10337,11 +9996,7 @@
         "effect": {
             "SPR": -1,
             "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+        }
     },
     "246105": {
         "id": 246105,
@@ -10743,19 +10398,6 @@
             "STR<-19&TLR=0:200004"
         ]
     },
-    "253105": {
-        "id": 253105,
-        "event": "Someone excluded from the route reveals your network to authorities or an armed group, removing seven emotional-intelligence points through betrayal and capture.",
-        "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
-        "effect": {
-            "SPR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
-    },
     "253201": {
         "id": 253201,
         "event": "You read people well enough to become the child who prevents arguments and notices when an adult is about to leave.",
@@ -10793,16 +10435,11 @@
     },
     "253205": {
         "id": 253205,
-        "event": "A trusted member sells the network’s private records, exposing you to a targeted attack that removes seven emotional-intelligence points.",
+        "event": "A trusted member sells the network’s private records, exposing you to a targeted attack.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
-            "SPR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "SPR": -3
+        }
     },
     "253301": {
         "id": 253301,
@@ -10840,16 +10477,11 @@
     },
     "253305": {
         "id": 253305,
-        "event": "A data breach exposes people escaping violent partners and directs retaliation toward you, removing seven emotional-intelligence points.",
+        "event": "A data breach exposes people escaping violent partners and directs retaliation toward you.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>5&SPR<9)",
         "effect": {
-            "SPR": -7,
-            "STR": -1
-        },
-        "branch": [
-            "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
-        ]
+            "SPR": -3
+        }
     },
     "254101": {
         "id": 254101,
