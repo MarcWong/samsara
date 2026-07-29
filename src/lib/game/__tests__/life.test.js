@@ -125,21 +125,24 @@ describe('Talent.check() arity fix regression', () => {
     });
 });
 
-describe('death-branch chain (STR<1 / MNY<1 primary-stat terminal events)', () => {
+describe('death-branch chain (STR<1 primary-stat terminal events)', () => {
     // The legacy attribute-band system this suite originally covered
     // (810001/820001/910001/920001) was removed in favor of the doc-driven
     // attribute pool (200001-260000): a cluster's lowest-band event (e.g.
-    // 211105) applies a MNY/STR hit and then branches straight to a bespoke
-    // NoRandom terminal event -- 211155/211355 for MNY, 241155/241355 for
-    // STR -- once that same stat crosses below 1. 2111xx/2411xx gate on the
-    // constrained cluster (HTI/AF/IRN/PRK); 2113xx/2413xx gate on the
-    // wealthy cluster (JAP/US/GBR/DNK). Exercising both funnels is the
+    // 241105) applies a STR hit and then branches straight to a bespoke
+    // NoRandom terminal event -- 241155/241355 -- once STR crosses below 1.
+    // 2411xx gates on the constrained cluster (HTI/AF/IRN/PRK); 2413xx on
+    // the wealthy cluster (JAP/US/GBR/DNK). Exercising both funnels is the
     // point: this mechanic was worked on heavily earlier in the project for
     // exactly the low-point countries.
+    //
+    // Health is the only stat left with instant-death receipts. The wealth
+    // and appearance equivalents (2111xx/2113xx, 2211xx/2213xx) were deleted
+    // along with every branch pointing at them, so W=0 and A=0 can only run
+    // through the three-step 20{1..4}{cc}{s} cascade, which ends by branching
+    // into 10000 rather than by carrying LIF itself.
     const scenarios = [
-        { label: 'wealthy country, MNY<1', code: 'US', stat: 'MNY', eventId: 211355 },
         { label: 'wealthy country, STR<1', code: 'US', stat: 'STR', eventId: 241355 },
-        { label: 'constrained country, MNY<1', code: 'AF', stat: 'MNY', eventId: 211155 },
         { label: 'constrained country, STR<1', code: 'AF', stat: 'STR', eventId: 241155 },
     ];
 
