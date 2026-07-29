@@ -127,6 +127,11 @@ export class CanvasVideoPlayer {
 	#lastFrame = null;
 	// Active clip-boundary alignment (see play()'s `align` option), or null.
 	#align = null;
+	// Same idea, other end of the clip (see play()'s `alignOut` option). Held
+	// past end-of-clip on purpose -- #align self-clears once eased out, but
+	// this one is still in force on the frozen final frame, so redraw() after
+	// a resize has to keep applying it.
+	#alignOut = null;
 
 	constructor(canvas) {
 		this.#canvas = canvas;
@@ -172,6 +177,24 @@ export class CanvasVideoPlayer {
 				dh *= ky;
 			}
 		}
+		// Same warp, ramped IN over the clip's tail instead of out over its
+		// head: zero at durationMs before the end, full on the final frame.
+		// Used where the NEXT clip's framing is the fixed thing and this one
+		// has to arrive at it (8.mp4 -> 1.mp4: the restart clip's last frame
+		// sits further back than 1.mp4's opening, so the woman snaps larger
+		// on the handoff). easeInOutCubic rather than a cubic ramp so the
+		// correction both starts and settles at zero velocity -- it reads as
+		// the tail of the dolly, not a lurch at the cut.
+		const b = this.#alignOut;
+		if (b) {
+			const left = (b.endUs - frame.timestamp) / b.durationUs;
+			const p = 1 - Math.min(1, Math.max(0, left)); // 0 far from end, 1 at end
+			const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+			dx += s * b.ux * e;
+			dy += s * b.uy * e;
+			dw *= 1 + (b.kx - 1) * e;
+			dh *= 1 + (b.ky - 1) * e;
+		}
 		this.#ctx.drawImage(frame, dx, dy, dw, dh);
 	}
 
@@ -194,10 +217,24 @@ export class CanvasVideoPlayer {
 	// Applied in full at t=0 and eased out over durationMs of media time,
 	// so consecutive clips shot with slightly different framing join as a
 	// continuous camera move. Not reapplied on loop restarts.
-	play(media, { loop = false, onEnded = null, rate = 1, align = null } = {}) {
+	//
+	// alignOut: same shape, applied at the clip's END instead -- zero until
+	// durationMs before the last frame, full on it. For the case where the
+	// clip that follows owns the framing and this one has to land on it.
+	// The clip's end in media time comes from the chunk timestamps rather
+	// than a container duration, so it is exact for the frames we actually
+	// present (max, not last: decode order is not presentation order).
+	play(media, { loop = false, onEnded = null, rate = 1, align = null, alignOut = null } = {}) {
 		this.stop(false); // keep #lastFrame: bridges the switch between clips
 		this.#align = align ? { ...align, durationUs: align.durationMs * 1000 } : null;
 		const { config, chunks } = media;
+		this.#alignOut = alignOut
+			? {
+					...alignOut,
+					durationUs: alignOut.durationMs * 1000,
+					endUs: chunks.reduce((m, c) => (c.timestamp > m ? c.timestamp : m), 0),
+				}
+			: null;
 
 		const session = { aborted: false, raf: 0, timer: 0, flushing: false };
 		this.#session = session;

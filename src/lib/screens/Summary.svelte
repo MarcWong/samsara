@@ -118,6 +118,17 @@
 	// Background.svelte -- a sibling under +page.svelte, not a child this
 	// screen can pass props into -- reads the same per-frame value.
 	const RESTART_CLIP = `${base}/videos/8.mp4`;
+	// 8.mp4's final frame sits slightly further back than 1.mp4's opening
+	// (the woman reads smaller, the whole frame a touch up-right), so the
+	// CITYINTRO handoff showed as a small zoom/position snap. This is the
+	// inverse of the affine mismatch measured between those two frames
+	// (OpenCV ECC, correlation 0.991, shear ~0.0007 so pure scale+offset
+	// holds; NCC across the cut 0.883 -> 0.985 with it applied): ramped IN
+	// over the clip's last 1.6s by videoPlayer's alignOut, it plays as the
+	// tail of the dolly and the final frame lands exactly on 1.mp4's
+	// framing. Only the END matters here -- the clip's opening clouds have
+	// no alignment reference, so nothing warps the head.
+	const ALIGN_OUT_8 = { kx: 1.0263, ky: 1.0369, ux: -16.6, uy: 12.2, durationMs: 1600 };
 	// 8.mp4's exact runtime (169 frames @ 24fps + the tail of the last
 	// frame), so the screen switch lands on the clip's final frame rather
 	// than cutting it short or holding a frozen frame afterwards.
@@ -139,7 +150,7 @@
 		// it -- restartProgress is plain elapsed fraction (NOT eased) and is
 		// only used to cross-fade this screen's own layers over the footage.
 		// Easing it would desynchronise those fades from the picture.
-		if (videoStage.supported) videoStage.play(RESTART_CLIP).catch(() => {});
+		if (videoStage.supported) videoStage.play(RESTART_CLIP, { alignOut: ALIGN_OUT_8 }).catch(() => {});
 		else videoStage.playFallback(RESTART_CLIP, { muted: true });
 
 		const start = performance.now();

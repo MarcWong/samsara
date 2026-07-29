@@ -20,35 +20,37 @@
         "event": "You can’t afford the hospital bill.",
         "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0",
         "branch": [
-            "STR>4:10003",
-            "MNY<3&TLR>0:10000",
-            "MNY<0&TLR=0:10000"
+            "STR>0:10003",
+            "STR<1&MNY<3&TLR>0:10000",
+            "STR<1&MNY<0&TLR=0:10000"
         ]
     },
     "10003": {
         "id": 10003,
         "event": "You give up on treatment and walk out of the hospital. Your health takes a serious hit.",
         "effect": {
-            "STR": -4
+            "STR": -3
         },
+        "branch": [
+            "STR<1&MNY<3&TLR>0:10000",
+            "STR<1&MNY<0&TLR=0:10000"
+        ],
         "NoRandom": 1
     },
     "10004": {
         "id": 10004,
         "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
         "branch": [
-            "STR<100&TLR>0:10000",
-            "STR<96&TLR=0:10000"
+            ":10000"
         ]
     },
     "10005": {
         "id": 10005,
         "event": "You develop a rare disease and your condition worsens by the day. The doctors keep trying, but there is no possibility of a cure in your country.",
-        "include": "MNY<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)&(TLR>0|STR>5|MNY<-17)",
+        "include": "STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
         "branch": [
-            "STR>5:10003",
-            "MNY<3&TLR>0:10000",
-            "MNY<-17&TLR=0:10000"
+            "STR>0:10003",
+            "STR<1:10000"
         ]
     },
     "10006": {
