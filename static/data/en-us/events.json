@@ -136,7 +136,7 @@
     },
     "10016": {
         "id": 10016,
-        "event": "Your body finishes rearranging itself, and the face in the mirror stops matching the child in the family photographs. Classmates who knew you then tell you that you have become beautiful.",
+        "event": "Your body finally settles into its new geometry, and the face in the mirror barely nods at the kid in your parents' old photo albums. The classmates who remember your original model now gush about how \"stunning\" you are.",
         "include": "EVT![10016,10017]",
         "effect": {
             "CHR": 2
@@ -144,7 +144,7 @@
     },
     "10017": {
         "id": 10017,
-        "event": "Your body finishes rearranging itself, and the face in the mirror stops matching the child in the family photographs. Classmates who knew you then tell you that you have become beautiful.",
+        "event": "Your body finally settles into its new geometry, and the face in the mirror barely nods at the kid in your parents' old photo albums. The classmates who remember your original model now gush about how \"stunning\" you are.",
         "include": "EVT![10016,10017]",
         "effect": {
             "CHR": 4
@@ -5438,22 +5438,6 @@
         "event": "Full marriage equality finally passes during a secular political swing. You marry the woman who has lived beside you for nineteen years, feeling joy sharpened by anger that the country has named your family only after most of it has already happened.",
         "include": "IND>0&TLR>0&LBTQ>0"
     },
-    "200001": {
-        "id": 200001,
-        "event": "The loss leaves you without the money, shelter or access required to survive.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
-    },
-    "200002": {
-        "id": 200002,
-        "event": "Your face has been doing the work of a wage, a lease and a protector. With nothing left to trade on you are refused hiring, refused rooms and refused care, and not one of those refusals is recorded as a cause of death.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
-    },
     "200004": {
         "id": 200004,
         "event": "The condition overwhelms your remaining physical reserve.",
@@ -6755,8 +6739,6 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -6768,11 +6750,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "211105": {
         "id": 211105,
@@ -6783,18 +6761,8 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1&TLR>0:211155",
-            "MNY<-19&TLR=0:211155",
             "STR<2&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "211155": {
-        "id": 211155,
-        "event": "You die while your family is still assembling the price of reaching treatment.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "211201": {
@@ -6819,8 +6787,6 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -6832,11 +6798,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "211205": {
         "id": 211205,
@@ -6847,18 +6809,8 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1&TLR>0:211255",
-            "MNY<-19&TLR=0:211255",
             "STR<3&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "211255": {
-        "id": 211255,
-        "event": "Treatment begins too late, and your death is recorded as a medical complication rather than a price decision.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "211301": {
@@ -6873,11 +6825,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "211303": {
         "id": 211303,
@@ -6909,18 +6857,8 @@
             "STR": -2
         },
         "branch": [
-            "MNY<1&TLR>0:211355",
-            "MNY<-19&TLR=0:211355",
             "STR<3&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "211355": {
-        "id": 211355,
-        "event": "You die during the appeal, while the premium clinic advertises the treatment’s success rate.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "212101": {
@@ -6954,8 +6892,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -6966,19 +6902,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
             "MNY": -4
-        },
-        "branch": [
-            "MNY<4&TLR>0:212155",
-            "MNY<-16&TLR=0:212155"
-        ]
-    },
-    "212155": {
-        "id": 212155,
-        "event": "Your resources fall below zero before help arrives; the receipt records death by an otherwise survivable emergency.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+        }
     },
     "212201": {
         "id": 212201,
@@ -7012,11 +6936,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "212205": {
         "id": 212205,
@@ -7027,18 +6947,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<4&TLR>0:212255",
-            "MNY<-16&TLR=0:212255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "212255": {
-        "id": 212255,
-        "event": "Your balance becomes negative, treatment is interrupted and the game prints the cost breakdown beneath the time of death.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "212301": {
@@ -7053,11 +6963,7 @@
         "effect": {
             "INT": 1,
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "212303": {
         "id": 212303,
@@ -7076,8 +6982,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<1&TLR=0:200004"
         ]
@@ -7091,18 +6995,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<4&TLR>0:212355",
-            "MNY<-16&TLR=0:212355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "212355": {
-        "id": 212355,
-        "event": "You cannot purchase the complete treatment pathway, and a manageable condition becomes fatal between appointments.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "213101": {
@@ -7135,11 +7029,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "213105": {
         "id": 213105,
@@ -7150,18 +7040,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<7&TLR>0:213155",
-            "MNY<-13&TLR=0:213155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "213155": {
-        "id": 213155,
-        "event": "Your balance turns negative and the protection system abandons you at the moment it becomes most necessary.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "213201": {
@@ -7193,11 +7073,7 @@
         "effect": {
             "INT": 1,
             "MNY": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "213205": {
         "id": 213205,
@@ -7206,19 +7082,7 @@
         "effect": {
             "MNY": -7,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<7&TLR>0:213255",
-            "MNY<-13&TLR=0:213255"
-        ]
-    },
-    "213255": {
-        "id": 213255,
-        "event": "The loss pushes your resources below zero; housing and treatment collapse together, and no later attribute event is generated.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
+        }
     },
     "213301": {
         "id": 213301,
@@ -7251,8 +7115,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<1&TLR=0:200004"
         ]
@@ -7266,18 +7128,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<7&TLR>0:213355",
-            "MNY<-13&TLR=0:213355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "213355": {
-        "id": 213355,
-        "event": "Your resources fall below zero, and a life described as secure ends inside two unrelated claims departments.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "214101": {
@@ -7309,11 +7161,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "214105": {
         "id": 214105,
@@ -7324,18 +7172,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10&TLR>0:214155",
-            "MNY<-10&TLR=0:214155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "214155": {
-        "id": 214155,
-        "event": "Your wealth falls below zero before negotiation or transfer is completed, and access proves indistinguishable from delay.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "214201": {
@@ -7366,11 +7204,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "MNY": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "214205": {
         "id": 214205,
@@ -7381,18 +7215,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10&TLR>0:214255",
-            "MNY<-10&TLR=0:214255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "214255": {
-        "id": 214255,
-        "event": "The emergency converts illiquid privilege into a negative balance; the game ends before ownership becomes usable.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "214301": {
@@ -7423,11 +7247,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>8&MNY<12)",
         "effect": {
             "MNY": -2
-        },
-        "branch": [
-            "MNY<3&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "214305": {
         "id": 214305,
@@ -7438,18 +7258,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<10&TLR>0:214355",
-            "MNY<-10&TLR=0:214355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "214355": {
-        "id": 214355,
-        "event": "Your balance falls below zero in time, not assets; the treatment window closes while lawyers confirm that you remain rich.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "215101": {
@@ -7481,11 +7291,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<3&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "215105": {
         "id": 215105,
@@ -7496,18 +7302,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13&TLR>0:215155",
-            "MNY<-7&TLR=0:215155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "215155": {
-        "id": 215155,
-        "event": "Your protection balance becomes negative; the escape route fails at the one moment it was built to prevent.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "215201": {
@@ -7539,11 +7335,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<3&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "215205": {
         "id": 215205,
@@ -7554,18 +7346,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13&TLR>0:215255",
-            "MNY<-7&TLR=0:215255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "215255": {
-        "id": 215255,
-        "event": "Your score crosses below zero; the institution that insured every ordinary risk classifies your death as force majeure.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "215301": {
@@ -7597,11 +7379,7 @@
         "effect": {
             "MNY": -2,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "215305": {
         "id": 215305,
@@ -7612,18 +7390,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<13&TLR>0:215355",
-            "MNY<-7&TLR=0:215355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "215355": {
-        "id": 215355,
-        "event": "Your protection architecture reaches a negative balance and collapses; wealth survives in the estate after it fails to preserve you.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "216101": {
@@ -7655,11 +7423,7 @@
         "effect": {
             "MNY": -3,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<3&TLR>0:200001",
-            "MNY<-17&TLR=0:200001"
-        ]
+        }
     },
     "216105": {
         "id": 216105,
@@ -7670,18 +7434,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16&TLR>0:216155",
-            "MNY<-4&TLR=0:216155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "216155": {
-        "id": 216155,
-        "event": "Your wealth score falls below zero; guards change sides, routes close and the receipt lists an empire of assets with no surviving owner.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "216201": {
@@ -7724,18 +7478,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16&TLR>0:216255",
-            "MNY<-4&TLR=0:216255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "216255": {
-        "id": 216255,
-        "event": "Your score becomes negative; the network survives by deleting you as its most expensive liability.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "216301": {
@@ -7780,18 +7524,8 @@
             "STR": -1
         },
         "branch": [
-            "MNY<16&TLR>0:216355",
-            "MNY<-4&TLR=0:216355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "216355": {
-        "id": 216355,
-        "event": "Your balance falls below zero for the first time; the network protects its continuity by allowing the biological owner to die.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "221101": {
@@ -7813,11 +7547,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "CHR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "221104": {
         "id": 221104,
@@ -7828,8 +7558,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -7843,18 +7571,8 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):221155",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):221155",
             "STR<2&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "221155": {
-        "id": 221155,
-        "event": "You die from sepsis after an appearance treatment sold as your last chance to be treated normally.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "221201": {
@@ -7868,11 +7586,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "CHR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "221203": {
         "id": 221203,
@@ -7880,11 +7594,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "221204": {
         "id": 221204,
@@ -7895,8 +7605,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -7910,18 +7618,8 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):221255",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):221255",
             "STR<2&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "221255": {
-        "id": 221255,
-        "event": "You die after the platform labels the infection an unrelated medical condition and closes your refund claim.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "221301": {
@@ -7936,11 +7634,7 @@
         "effect": {
             "CHR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "221303": {
         "id": 221303,
@@ -7948,11 +7642,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&CHR<3",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "221304": {
         "id": 221304,
@@ -7963,8 +7653,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -7978,18 +7666,8 @@
             "STR": -2
         },
         "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):221355",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):221355",
             "STR<2&TLR>0:200004",
             "STR<1&TLR=0:200004"
-        ]
-    },
-    "221355": {
-        "id": 221355,
-        "event": "You die overnight while the app continues recording your recovery as within normal parameters.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "222101": {
@@ -8003,11 +7681,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "222103": {
         "id": 222103,
@@ -8016,11 +7690,7 @@
         "effect": {
             "INT": 1,
             "CHR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "222104": {
         "id": 222104,
@@ -8031,8 +7701,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8046,18 +7714,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&TLR>0&(STR<5|MNY<5):222155",
-            "CHR<-16&TLR=0&(STR<5|MNY<5):222155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "222155": {
-        "id": 222155,
-        "event": "Your appearance score falls below zero as the attempt to become employable causes fatal organ failure.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "222201": {
@@ -8072,11 +7730,7 @@
         "effect": {
             "CHR": 1,
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "222203": {
         "id": 222203,
@@ -8095,8 +7749,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8110,18 +7762,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&TLR>0&(STR<5|MNY<5):222255",
-            "CHR<-16&TLR=0&(STR<5|MNY<5):222255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "222255": {
-        "id": 222255,
-        "event": "You die during emergency reconstruction; the advertisement using your before-image remains online.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "222301": {
@@ -8136,11 +7778,7 @@
         "effect": {
             "CHR": 1,
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "222303": {
         "id": 222303,
@@ -8158,13 +7796,7 @@
         "effect": {
             "MNY": -1,
             "CHR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "222305": {
         "id": 222305,
@@ -8175,18 +7807,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<4&TLR>0&(STR<5|MNY<5):222355",
-            "CHR<-16&TLR=0&(STR<5|MNY<5):222355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "222355": {
-        "id": 222355,
-        "event": "Your score crosses below zero before the premium response team accepts the case.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "223101": {
@@ -8209,11 +7831,7 @@
         "effect": {
             "MNY": -1,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "223104": {
         "id": 223104,
@@ -8222,11 +7840,7 @@
         "effect": {
             "CHR": -2,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "223105": {
         "id": 223105,
@@ -8237,18 +7851,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&TLR>0&(STR<5|MNY<5):223155",
-            "CHR<-13&TLR=0&(STR<5|MNY<5):223155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "223155": {
-        "id": 223155,
-        "event": "He kills you, and the public account of your death describes the attention that preceded it as evidence of your success.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "223201": {
@@ -8272,11 +7876,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "223204": {
         "id": 223204,
@@ -8285,11 +7885,7 @@
         "effect": {
             "INT": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "223205": {
         "id": 223205,
@@ -8300,18 +7896,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&TLR>0&(STR<5|MNY<5):223255",
-            "CHR<-13&TLR=0&(STR<5|MNY<5):223255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "223255": {
-        "id": 223255,
-        "event": "You die after the platform determines that no single message crossed its threshold for a credible threat.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "223301": {
@@ -8335,11 +7921,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "223304": {
         "id": 223304,
@@ -8349,11 +7931,7 @@
             "INT": 1,
             "MNY": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "223305": {
         "id": 223305,
@@ -8364,18 +7942,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<7&TLR>0&(STR<5|MNY<5):223355",
-            "CHR<-13&TLR=0&(STR<5|MNY<5):223355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "223355": {
-        "id": 223355,
-        "event": "You are killed by a viewer whose paid access had been designed to feel like a relationship.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "224101": {
@@ -8402,11 +7970,7 @@
         "effect": {
             "INT": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "224105": {
         "id": 224105,
@@ -8417,8 +7981,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&TLR>0&(STR<5|MNY<5):224155",
-            "CHR<-10&TLR=0&(STR<5|MNY<5):224155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8430,11 +7992,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "224132": {
         "id": 224132,
@@ -8444,14 +8002,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "224155": {
-        "id": 224155,
-        "event": "You die after your own publicity office issues a statement describing the hospitalisation as rest.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "224201": {
         "id": 224201,
@@ -8478,11 +8028,7 @@
             "INT": 1,
             "MNY": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "224205": {
         "id": 224205,
@@ -8493,8 +8039,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&TLR>0&(STR<5|MNY<5):224255",
-            "CHR<-10&TLR=0&(STR<5|MNY<5):224255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8506,11 +8050,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "224232": {
         "id": 224232,
@@ -8520,14 +8060,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "224255": {
-        "id": 224255,
-        "event": "You die from cascading infection while sponsored posts continue to display the procedure as safe.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "224301": {
         "id": 224301,
@@ -8550,11 +8082,7 @@
         "effect": {
             "CHR": -2,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "224305": {
         "id": 224305,
@@ -8565,8 +8093,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<10&TLR>0&(STR<5|MNY<5):224355",
-            "CHR<-10&TLR=0&(STR<5|MNY<5):224355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8578,11 +8104,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "224332": {
         "id": 224332,
@@ -8592,14 +8114,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "224355": {
-        "id": 224355,
-        "event": "You die during the procedure; the licensed younger version releases a memorial message in your voice.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "225101": {
         "id": 225101,
@@ -8628,11 +8142,7 @@
             "INT": 1,
             "MNY": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "225105": {
         "id": 225105,
@@ -8643,8 +8153,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&TLR>0&(STR<5|MNY<5):225155",
-            "CHR<-7&TLR=0&(STR<5|MNY<5):225155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8656,11 +8164,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "225132": {
         "id": 225132,
@@ -8670,14 +8174,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "225155": {
-        "id": 225155,
-        "event": "You are killed after years of being presented as public property make private refusal appear illegitimate.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "225201": {
         "id": 225201,
@@ -8701,11 +8197,7 @@
             "INT": 1,
             "MNY": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "225205": {
         "id": 225205,
@@ -8716,8 +8208,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&TLR>0&(STR<5|MNY<5):225255",
-            "CHR<-7&TLR=0&(STR<5|MNY<5):225255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8729,11 +8219,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "225232": {
         "id": 225232,
@@ -8743,14 +8229,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "225255": {
-        "id": 225255,
-        "event": "You die where wealth, fame and medical privacy were supposed to make intrusion impossible.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "225301": {
         "id": 225301,
@@ -8774,11 +8252,7 @@
             "INT": 1,
             "MNY": 1,
             "CHR": -2
-        },
-        "branch": [
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "225305": {
         "id": 225305,
@@ -8789,8 +8263,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<13&TLR>0&(STR<5|MNY<5):225355",
-            "CHR<-7&TLR=0&(STR<5|MNY<5):225355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8802,11 +8274,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "225332": {
         "id": 225332,
@@ -8816,14 +8284,6 @@
             "MNY": 1,
             "INT": 1
         }
-    },
-    "225355": {
-        "id": 225355,
-        "event": "You die while the studio’s digital version of you completes the press tour without cancelling an appearance.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
-        ]
     },
     "226101": {
         "id": 226101,
@@ -8860,11 +8320,7 @@
             "INT": 1,
             "CHR": -3,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-17&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "226105": {
         "id": 226105,
@@ -8875,18 +8331,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&TLR>0&(STR<5|MNY<5):226155",
-            "CHR<-4&TLR=0&(STR<5|MNY<5):226155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "226155": {
-        "id": 226155,
-        "event": "You die while the state preserves your face as proof that continuity has not been interrupted.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "226201": {
@@ -8920,11 +8366,7 @@
         "effect": {
             "CHR": -3,
             "MNY": 1
-        },
-        "branch": [
-            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-17&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "226205": {
         "id": 226205,
@@ -8935,18 +8377,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&TLR>0&(STR<5|MNY<5):226255",
-            "CHR<-4&TLR=0&(STR<5|MNY<5):226255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "226255": {
-        "id": 226255,
-        "event": "Your biological body dies while two licensed copies dispute which one is entitled to continue your contracts.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "226301": {
@@ -8981,8 +8413,6 @@
             "STR": -1
         },
         "branch": [
-            "CHR<3&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-17&TLR=0&(STR<5|MNY<5):200002",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8996,18 +8426,8 @@
             "STR": -1
         },
         "branch": [
-            "CHR<16&TLR>0&(STR<5|MNY<5):226355",
-            "CHR<-4&TLR=0&(STR<5|MNY<5):226355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
-        ]
-    },
-    "226355": {
-        "id": 226355,
-        "event": "You die as an authentication failure; your subscribers receive uninterrupted access to every version except the woman who created them.",
-        "NoRandom": 1,
-        "branch": [
-            ":10000"
         ]
     },
     "231101": {
@@ -9030,11 +8450,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "231104": {
         "id": 231104,
@@ -9081,11 +8497,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "231204": {
         "id": 231204,
@@ -9094,11 +8506,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "231205": {
         "id": 231205,
@@ -9132,11 +8540,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT<3",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "231304": {
         "id": 231304,
@@ -9328,11 +8732,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "233105": {
         "id": 233105,
@@ -9420,11 +8820,7 @@
         "effect": {
             "MNY": -1,
             "INT": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "233305": {
         "id": 233305,
@@ -9466,11 +8862,7 @@
             "INT": 1,
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "234105": {
         "id": 234105,
@@ -9512,11 +8904,7 @@
             "INT": 1,
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "234205": {
         "id": 234205,
@@ -9557,11 +8945,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "234305": {
         "id": 234305,
@@ -9909,8 +9293,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9982,8 +9364,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -10033,8 +9413,6 @@
             "MNY": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -10046,11 +9424,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "241305": {
         "id": 241305,
@@ -10117,13 +9491,7 @@
             "STR": 3,
             "MNY": -2,
             "CHR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "242132": {
         "id": 242132,
@@ -10136,11 +9504,7 @@
         },
         "branch": [
             "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004",
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
+            "STR<-16&TLR=0:200004"
         ]
     },
     "242141": {
@@ -10151,11 +9515,7 @@
             "CHR": 2,
             "MNY": -1,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "242142": {
         "id": 242142,
@@ -10224,13 +9584,7 @@
             "STR": 3,
             "MNY": -2,
             "CHR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "242232": {
         "id": 242232,
@@ -10243,11 +9597,7 @@
         },
         "branch": [
             "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004",
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
+            "STR<-16&TLR=0:200004"
         ]
     },
     "242241": {
@@ -10258,11 +9608,7 @@
             "CHR": 2,
             "MNY": -1,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "242242": {
         "id": 242242,
@@ -10271,11 +9617,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "242243": {
         "id": 242243,
@@ -10336,13 +9678,7 @@
             "STR": 3,
             "MNY": -2,
             "CHR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "242332": {
         "id": 242332,
@@ -10355,11 +9691,7 @@
         },
         "branch": [
             "STR<4&TLR>0:200004",
-            "STR<-16&TLR=0:200004",
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
+            "STR<-16&TLR=0:200004"
         ]
     },
     "242341": {
@@ -10370,11 +9702,7 @@
             "CHR": 2,
             "MNY": -1,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "242342": {
         "id": 242342,
@@ -10431,11 +9759,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "243104": {
         "id": 243104,
@@ -10495,11 +9819,7 @@
         "effect": {
             "MNY": -2,
             "STR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "243204": {
         "id": 243204,
@@ -10560,11 +9880,7 @@
         "effect": {
             "MNY": -2,
             "STR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "243304": {
         "id": 243304,
@@ -10575,8 +9891,6 @@
             "STR": -1
         },
         "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -10621,11 +9935,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "244104": {
         "id": 244104,
@@ -10681,11 +9991,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "244204": {
         "id": 244204,
@@ -10736,11 +10042,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "244304": {
         "id": 244304,
@@ -10793,11 +10095,7 @@
             "MNY": -1,
             "STR": 1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "245104": {
         "id": 245104,
@@ -10854,11 +10152,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "245204": {
         "id": 245204,
@@ -10914,11 +10208,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "245304": {
         "id": 245304,
@@ -10974,11 +10264,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "246104": {
         "id": 246104,
@@ -11035,11 +10321,7 @@
             "MNY": -1,
             "STR": 1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "246204": {
         "id": 246204,
@@ -11090,11 +10372,7 @@
         "effect": {
             "MNY": -1,
             "STR": 1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "246304": {
         "id": 246304,
@@ -11143,11 +10421,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "251104": {
         "id": 251104,
@@ -11181,11 +10455,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "CHR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "251203": {
         "id": 251203,
@@ -11193,11 +10463,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "251204": {
         "id": 251204,
@@ -11236,11 +10502,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "251304": {
         "id": 251304,
@@ -11283,11 +10545,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "252104": {
         "id": 252104,
@@ -11367,11 +10625,7 @@
         "effect": {
             "SPR": 1,
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "252304": {
         "id": 252304,
@@ -11401,11 +10655,7 @@
         "effect": {
             "SPR": 1,
             "MNY": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "253103": {
         "id": 253103,
@@ -11567,11 +10817,7 @@
         "effect": {
             "MNY": -1,
             "SPR": -1
-        },
-        "branch": [
-            "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001"
-        ]
+        }
     },
     "254105": {
         "id": 254105,
@@ -11616,11 +10862,7 @@
         "effect": {
             "CHR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "254205": {
         "id": 254205,
@@ -11665,11 +10907,7 @@
         "effect": {
             "CHR": -1,
             "SPR": -1
-        },
-        "branch": [
-            "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
-        ]
+        }
     },
     "254305": {
         "id": 254305,
@@ -11718,11 +10956,7 @@
         "effect": {
             "MNY": -2,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "255105": {
         "id": 255105,
@@ -11767,11 +11001,7 @@
         "effect": {
             "MNY": -2,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "255205": {
         "id": 255205,
@@ -11815,11 +11045,7 @@
         "effect": {
             "MNY": -2,
             "SPR": 1
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "255305": {
         "id": 255305,
@@ -11911,11 +11137,7 @@
         "effect": {
             "MNY": -2,
             "SPR": -2
-        },
-        "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<1&TLR=0:200001"
-        ]
+        }
     },
     "256205": {
         "id": 256205,
