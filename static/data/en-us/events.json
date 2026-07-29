@@ -47,7 +47,7 @@
     "10005": {
         "id": 10005,
         "event": "You develop a rare disease and your condition worsens by the day. The doctors keep trying, but there is no possibility of a cure in your country.",
-        "include": "STR<3&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
+        "include": "STR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
         "branch": [
             "STR>0:10003",
             "STR<1:10000"
@@ -86,10 +86,19 @@
             "MNY<-17&TLR=0:10000"
         ]
     },
+    "10013": {
+        "id": 10013,
+        "event": "A distant relative you have barely heard of wires money home from abroad. For the first time in years the family eats without counting, and nobody asks you to leave anything on the plate.",
+        "include": "(AF>0|IRN>0|PRK>0|HTI>0|IND>0)&MNY<3&STR<3&EVT![10013]",
+        "effect": {
+            "MNY": 1,
+            "STR": 3
+        }
+    },
     "10014": {
         "id": 10014,
         "event": "Under the mutual encouragement of your friends, you build a habit of working out and keep to a healthy diet.",
-        "include": "EVT![10014]",
+        "include": "EVT![10014]&(TLR>0|(AF=0&IRN=0&PRK=0&HTI=0&IND=0))",
         "effect": {
             "STR": 3
         }
