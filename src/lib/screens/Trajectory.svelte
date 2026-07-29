@@ -14,23 +14,16 @@
 	const STAT_KEYS = ['MNY', 'CHR', 'INT', 'STR', 'SPR'];
 	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'EQ' };
 
-	// Internal age (0-102, how age.json's content density is indexed) maps to
-	// a sparser, more realistic-looking display age -- more life happens in
-	// youth, time compresses in old age. Ported verbatim from trajectory.js;
-	// this table is load-bearing for how the story reads, not decorative.
-	const AGE = {
-		0: 0, 1: 1, 2: 2, 3: 2, 4: 3, 5: 3, 6: 4, 7: 5, 8: 5, 9: 6, 10: 6,
-		11: 7, 12: 8, 13: 9, 14: 10, 15: 10, 16: 11, 17: 11, 18: 12, 19: 12,
-		20: 13, 21: 13, 22: 14, 23: 15, 24: 15, 25: 16, 26: 17, 27: 17, 28: 18,
-		29: 18, 30: 19, 31: 19, 32: 20, 33: 20, 34: 21, 35: 21, 36: 22, 37: 23,
-		38: 23, 39: 24, 40: 25, 41: 25, 42: 26, 43: 26, 44: 27, 45: 27, 46: 28,
-		47: 28, 48: 29, 49: 29, 50: 30, 51: 31, 52: 31, 53: 32, 54: 33, 55: 34,
-		56: 34, 57: 35, 58: 36, 59: 37, 60: 37, 61: 38, 62: 39, 63: 40, 64: 41,
-		65: 41, 66: 42, 67: 42, 68: 43, 69: 43, 70: 44, 71: 44, 72: 45, 73: 46,
-		74: 47, 75: 48, 76: 48, 77: 49, 78: 51, 79: 53, 80: 54, 81: 54, 82: 55,
-		83: 56, 84: 59, 85: 60, 86: 61, 87: 62, 88: 63, 89: 64, 90: 65, 91: 66,
-		92: 68, 93: 70, 94: 77, 95: 78, 96: 80, 97: 89, 98: 97, 102: 102,
-	};
+	// The displayed age is age.json's own `age` field, read from the row the
+	// tick landed on. It used to be a hardcoded table here, ported from
+	// trajectory.js, which drifted badly out of step with the data: that table
+	// still described 100 internal ages while age.json defines only 72 rows,
+	// so events written for adults were rendering as childhood (a marriage at
+	// "13", a university entrance at "11"). Taking the number from the row
+	// itself means the two can no longer disagree -- whoever edits age.json
+	// sets the age that shows.
+	const property = core.request(core.Module.PROPERTY);
+	const displayAge = internal => Number(property.getAgeData(internal)?.age ?? internal);
 
 	// Country/orientation arrive as plain draft fields now (Plaza no longer
 	// resolves them into a full propertyAllocate object itself -- stat
@@ -176,18 +169,23 @@
 	}
 
 	function renderTrajectory(age, content) {
-		const realAge = AGE[age];
+		const realAge = displayAge(age);
 		const newEffects = { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 };
-		const statChanges = [];
 
 		const joined = content
 			.map(({ type, description, effect, name, postEvent }) => {
 				if (effect) {
 					for (const key of STAT_KEYS) {
-						if (effect[key]) {
-							newEffects[key] = effect[key];
-							statChanges.push([key, effect[key]]);
-						}
+						// Accumulate rather than overwrite. One tick can carry
+						// several contents that touch the same stat -- a talent
+						// alongside an event, an event plus the branch target
+						// doEvent() recurses into, or a zero-state cascade rung
+						// (those carry 2-4 stat effects each). Assigning here
+						// showed only the last one in the stat bar, and pushing
+						// a row per content produced two `SPR` entries in the
+						// keyed each below, which Svelte rejects outright:
+						// each_key_duplicate.
+						if (effect[key]) newEffects[key] += effect[key];
 					}
 				}
 				switch (type) {
@@ -203,6 +201,12 @@
 			.join('\n');
 
 		effects = newEffects;
+
+		// One row per stat that actually moved this year, in STAT_KEYS order.
+		// Deriving it from the totals is what guarantees the keyed each block
+		// below sees each stat name once; it also makes the row order stable
+		// instead of depending on which content happened to come first.
+		const statChanges = STAT_KEYS.filter(key => newEffects[key]).map(key => [key, newEffects[key]]);
 
 		const statChangesText = statChanges
 			.map(([prop, value]) => `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`)
