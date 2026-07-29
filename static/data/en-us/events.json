@@ -10,7 +10,7 @@
     "10001": {
         "id": 10001,
         "event": "You're flattened by an illness out of nowhere. Heaven's line is busy—God is busy with someone else's prayer request.",
-        "include": "STR<1",
+        "include": "STR<0",
         "branch": [
             ":10000"
         ]
