@@ -12,7 +12,7 @@
 	// Wealth first, matching this session's stat-ordering fix applied
 	// everywhere else in the app.
 	const STAT_KEYS = ['MNY', 'CHR', 'INT', 'STR', 'SPR'];
-	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'EQ' };
+	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'Happiness' };
 
 	// The displayed age is age.json's own `age` field, read from the row the
 	// tick landed on. It used to be a hardcoded table here, ported from
@@ -36,7 +36,11 @@
 	const countryCode = $draft.countryCode;
 	const countryData = COUNTRIES.find(({ code }) => code === countryCode);
 	const country = countryData?.name;
-	const sex = $draft.orientation == 1 ? 'LBTQ' : 'Straight';
+	// LGBTQ, not LBTQ -- this string is what the statbar, the print block and
+	// Summary's identity row all show. The condition-DSL property key stays
+	// `LBTQ` (every events.json include is written against it); only the
+	// label the player reads is spelled out in full.
+	const sex = $draft.orientation == 1 ? 'LGBTQ' : 'Straight';
 
 	// -- stat allocation (ported verbatim from Plaza's old property step,
 	// now shown over the stairwell's frozen sky highlight instead of a DOS
@@ -358,26 +362,20 @@
 		JAP: 9, GBR: 9, US: 9, DNK: 9,
 	};
 
-	// How much the free-allocation bonus is worth, per country. It used to be
-	// a flat +5 everywhere; it varies now so that a PRIVILEGED life's
-	// expectancy ranks the way real-world life expectancy does (Japan/UK/
-	// Denmark longest, Ukraine/Haiti/Afghanistan shortest). This is the only
-	// knob with real leverage over that: measured across the whole event
-	// tree, ~80% of a privileged life's deaths come from stat-driven events
-	// (the universal 10001/10002/10005 and the attribute-pool underflow
-	// receipts), not from that country's own scripted deaths -- so gating
-	// country events barely moves the number, while a point of starting
-	// stat moves it by ~10-20 years. Values are empirically fitted, not
-	// derived; re-measure before changing one.
-	const BONUS_AMOUNT = {
-		JAP: 9, GBR: 8, DNK: 8, CH: 9, US: 7, IRN: 10,
-		PRK: 5, EGY: 5, IND: 7, UKR: 6,
-		AF: 5, HTI: 5,
-	};
+	// How much the free-allocation bonus is worth. A flat +5 for every
+	// country, per the attribute-pool design doc's privilege rule.
+	// This was briefly a per-country table (JAP/CH 9, IRN 10, ... HTI 5),
+	// fitted so that privileged life expectancy ranked the way real-world
+	// life expectancy does. That made the bonus mean something different
+	// depending on where you were born, which is not what the mechanic is:
+	// the privilege top-up is the same gift everywhere, and only the world
+	// you spend it in differs. Ranking privileged lifespans is the event
+	// tree's job, not this constant's.
+	const BONUS_AMOUNT = 5;
 
 	// The rail hint's "see what happens" promise, and the Summary hint's own
 	// line about a boost, are a real mechanic: reaching this country's own
-	// trigger value in any single stat adds that country's BONUS_AMOUNT to
+	// trigger value in any single stat adds BONUS_AMOUNT to
 	// all five attributes, each capped at 17 (the attribute-pool design
 	// doc's privilege rule -- this replaced the earlier top-up-to-5, so
 	// poorer countries' privileged runs can actually reach the higher
@@ -389,7 +387,7 @@
 	// flag too, to decide whether to re-roll this life's lucky charms.
 	function applyBonus(propertyAllocate) {
 		const trigger = BONUS_TRIGGER[countryCode] ?? 8;
-		const amount = BONUS_AMOUNT[countryCode] ?? 5;
+		const amount = BONUS_AMOUNT;
 		let max = 0;
 		for (const key of STAT_KEYS) {
 			const value = propertyAllocate[types[key]];
@@ -452,7 +450,7 @@
 			`Appearance: ${propertyAllocate[types.CHR]}\n` +
 			`IQ: ${propertyAllocate[types.INT]}\n` +
 			`Healthy: ${propertyAllocate[types.STR]}\n` +
-			`EQ: ${propertyAllocate[types.SPR]}\n\n`;
+			`Happiness: ${propertyAllocate[types.SPR]}\n\n`;
 		core.start(propertyAllocate);
 		stats = core.propertys;
 		allocating = false;

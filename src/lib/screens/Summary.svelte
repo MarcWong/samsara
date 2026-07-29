@@ -31,7 +31,7 @@
 		[types.HCHR, 'Appearance', 'CHR'],
 		[types.HINT, 'IQ', 'INT'],
 		[types.HSTR, 'Health', 'STR'],
-		[types.HSPR, 'EQ', 'SPR'],
+		[types.HSPR, 'Happiness', 'SPR'],
 	].map(([type, label, key]) => {
 		const value = Math.max(0, finals[types[key]] ?? 0);
 		return {
@@ -324,9 +324,10 @@
 	</div>
 
 	{#if !triedAllInOneStat}
-		<!-- Deliberately no longer names a number: the bonus is per-country
-		     now (see BONUS_AMOUNT in Trajectory.svelte), so "+5" would be
-		     wrong for every country but three. -->
+		<!-- Stays unnumbered even though the bonus is a flat +5 again (see
+		     BONUS_AMOUNT in Trajectory.svelte): what varies per country is
+		     the TRIGGER, so naming a number here would invite reading it as
+		     the threshold rather than the reward. -->
 		<p class="hint">Throw all your tokens into one attribute,<br/>get a boost on every stat automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
 	{/if}
 

@@ -24,7 +24,7 @@ class Property {
         TLT: "TLT", // 天赋 talent TLT
         EVT: "EVT", // 事件 event EVT
         TMS: "TMS", // 次数 times TMS
-        LBTQ: "LBTQ", // 性向 LBTQ
+        LBTQ: "LGBTQ", // 性向 LBTQ
         TLR: "TLR", // 天龙人 (free-allocation bonus triggered) TLR
         ...NATION_KEY_TO_CODE, // 国别: one entry per functions/countries.js
 
