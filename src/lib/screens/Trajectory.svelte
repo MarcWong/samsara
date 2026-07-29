@@ -537,14 +537,22 @@
 					</div>
 				{/each}
 			</div>
-			<button
-				type="button"
-				class="alloc-action start start-row"
-				disabled={allocLeft > 0}
-				onclick={confirmAllocation}
-			>
-				Start
-			</button>
+			<!-- Start sits inside its own hover ring: the 0.5cqh of padding
+			     around the button is a second trigger for the hint below,
+			     while the button's own face is excluded (see the :has()
+			     rule in the stylesheet). Wrapping rather than growing the
+			     button keeps Start's hit area exactly what it looks like --
+			     a click 0.5cqh outside the pill must not start the run. -->
+			<div class="start-hover-zone">
+				<button
+					type="button"
+					class="alloc-action start start-row"
+					disabled={allocLeft > 0}
+					onclick={confirmAllocation}
+				>
+					Start
+				</button>
+			</div>
 			<!-- Moved inside the glass panel, below Start, but keeping the
 			     original hover-to-reveal discovery -- invisible until this
 			     strip itself is hovered, same "hidden in plain sight" tip as
@@ -1370,6 +1378,37 @@
 		pointer-events: none;
 	}
 	.alloc-hint-zone:hover .alloc-hint {
+		opacity: 1;
+		transition: opacity 300ms ease;
+	}
+	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
+	   wrapper for hit-testing and the equal negative margin takes the growth
+	   back out of the flex column, so Start's on-screen position and the
+	   panel's spacing are byte-identical to before. The button keeps its own
+	   box, so what is clickable as Start is still exactly the pill. */
+	.start-hover-zone {
+		display: flex;
+		justify-content: center;
+		/* Vertical: the 2cqh that used to be Start's own margin, minus the
+		   0.5cqh now spent on padding, so the gap above and below the pill is
+		   unchanged. Horizontal: a plain -0.5cqh cancelling the padding.
+		   Start's margin has to move up here rather than stay on the button --
+		   left in place it would sit INSIDE the ring, making the ring 2.5cqh
+		   tall on those two edges instead of 0.5cqh (measured: 19.5px vs the
+		   3.9px the sides get). */
+		margin: 1.5cqh -0.5cqh;
+		padding: 0.5cqh;
+	}
+	.start-hover-zone > .alloc-action.start-row {
+		margin: 0;
+	}
+	/* Hovering the ring reveals the hint; hovering Start itself does not.
+	   :has() is what draws that line -- the wrapper is hovered in both cases
+	   (the button is inside it), so the button's own :hover has to veto.
+	   The hint lives in a later sibling, hence `~`. Leaving the ring for the
+	   button falls back to .alloc-hint's own 3s dissolve, the same slow fade
+	   as moving the pointer away entirely. */
+	.start-hover-zone:hover:not(:has(.alloc-action:hover)) ~ .alloc-hint-zone .alloc-hint {
 		opacity: 1;
 		transition: opacity 300ms ease;
 	}
