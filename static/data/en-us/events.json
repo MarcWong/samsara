@@ -30,7 +30,7 @@
         "id": 10003,
         "event": "You give up on treatment and walk out of the hospital. Your health takes a serious hit.",
         "effect": {
-            "STR": -5
+            "STR": -4
         },
         "NoRandom": 1
     },
@@ -149,6 +149,71 @@
         "effect": {
             "CHR": 4
         }
+    },
+    "60001": {
+        "id": 60001,
+        "event": "Governments whiten the sky with reflective particles. Watching engineered sunsets, you learn that even weather can be redesigned without your consent.",
+        "exclude":"EVT?[60001]"
+    },
+    "60002": {
+        "id": 60002,
+        "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy",
+        "exclude":"EVT?[60002]"
+    },
+    "60003": {
+        "id": 60003,
+        "event": "A murdered woman’s predictive double testifies in court. You cannot tell whether the dead are speaking or institutions are ventriloquising them.",
+        "exclude":"EVT?[60003]"
+    },
+    "60004": {
+        "id": 60004,
+        "event": "The ocean gains legal personhood through AI and begins suing governments. You recognise a body believed only after becoming machine-readable.",
+        "exclude":"EVT?[60004]"
+    },
+    "60005": {
+        "id": 60005,
+        "event": "Orbital mirrors sell cool darkness to wealthy cities and displaced heat elsewhere. Beneath artificial dusk, you discover that night has owners.",
+        "exclude":"EVT?[60005]"
+    },
+    "60006": {
+        "id": 60006,
+        "event": "Healthy Years Enter the Market.** Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
+        "exclude":"EVT?[60006]"
+    },
+    "60007": {
+        "id": 60007,
+        "event": "Erasing trauma now restores housing, work and legal status. Refuse, and you become an unresolved risk carrying inadmissible memories.",
+        "exclude":"EVT?[60007]"
+    },
+    "60008": {
+        "id": 60008,
+        "event": "A solar storm erases digital marriages, protections and ownership. You watch systems restore abusive husbands while escaped women remain errors.",
+        "exclude":"EVT?[60008]"
+    },
+    "60009": {
+        "id": 60009,
+        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
+        "exclude":"EVT?[60009,60010]"
+    },
+    "60010": {
+        "id": 60010,
+        "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
+        "exclude":"EVT?[60009,60010]"
+    },
+    "60011": {
+        "id": 60011,
+        "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
+        "exclude":"EVT?[60011,60012,60013]"
+    },
+    "60012": {
+        "id": 60012,
+        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
+        "exclude":"EVT?[60011,60012,60013]"
+    },
+    "60013": {
+        "id": 60013,
+        "event": "You Become a Protected Form of Life.** Biological humans become a protected minority among synthetic descendants. At your preservation ceremony, equality feels indistinguishable from exhibition and extinction.",
+        "exclude":"EVT?[60011,60012,60013]"
     },
     "74001": {
         "id": 74001,
@@ -5461,7 +5526,7 @@
         "event": "A clinic changes the colour and dosage of your medicine, but the audio instructions never download through the weak network. You take the old dose and the new tablets together.",
         "include": "EVT?[201010]&EVT![201011]",
         "effect": {
-            "STR": -6,
+            "STR": -3,
             "SPR": -1
         }
     },
@@ -5488,7 +5553,7 @@
         "event": "You buy antibiotics from an informal stall and follow a pictogram copied from a different drug. Nobody at home will admit that the state’s education ban made the label inaccessible.",
         "include": "EVT?[201020]&EVT![201021]",
         "effect": {
-            "STR": -6
+            "STR": -3
         }
     },
     "201022": {
@@ -5515,7 +5580,7 @@
         "include": "EVT?[201030]&EVT![201031]",
         "effect": {
             "SPR": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "201032": {
@@ -5541,7 +5606,7 @@
         "event": "A supervisor orders you to continue after a symbol on the machine changes from routine heat to toxic pressure. Asking what it means would confirm the score assigned to you.",
         "include": "EVT?[201040]&EVT![201041]",
         "effect": {
-            "STR": -6
+            "STR": -3
         }
     },
     "201042": {
@@ -5568,7 +5633,7 @@
         "include": "EVT?[201050]&EVT![201051]",
         "effect": {
             "CHR": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "201052": {
@@ -5620,7 +5685,7 @@
         "event": "A dust-storm warning appears as a symbol you have never been taught. Production targets remain visible in numbers large enough for everyone to recognise.",
         "include": "EVT?[201070]&EVT![201071]",
         "effect": {
-            "STR": -5
+            "STR": -4
         }
     },
     "201072": {
@@ -5647,7 +5712,7 @@
         "include": "EVT?[201080]&EVT![201081]",
         "effect": {
             "SPR": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "201082": {
@@ -5673,7 +5738,7 @@
         "event": "Your care robot receives two contradictory medication updates. The premium explanation layer could ask you which prescription changed, but your plan authorises silent compliance.",
         "include": "EVT?[201090]&EVT![201091]",
         "effect": {
-            "STR": -6
+            "STR": -3
         }
     },
     "201092": {
@@ -5700,7 +5765,7 @@
         "include": "EVT?[201100]&EVT![201101]",
         "effect": {
             "SPR": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "201102": {
@@ -5726,7 +5791,7 @@
         "event": "Your smart inhaler changes cartridges after a national procurement switch. The accessible audio warning remains unavailable while the supplier updates its compliance certificate.",
         "include": "EVT?[201110]&EVT![201111]",
         "effect": {
-            "STR": -6
+            "STR": -3
         }
     },
     "201112": {
@@ -5753,7 +5818,7 @@
         "include": "EVT?[201120]&EVT![201121]",
         "effect": {
             "SPR": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "201122": {
@@ -5805,7 +5870,7 @@
         "include": "EVT?[202020]&EVT![202021]",
         "effect": {
             "MNY": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "202022": {
@@ -5831,7 +5896,7 @@
         "include": "EVT?[202030]&EVT![202031]",
         "effect": {
             "INT": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "202032": {
@@ -5857,7 +5922,7 @@
         "include": "EVT?[202040]&EVT![202041]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "202042": {
@@ -5883,7 +5948,7 @@
         "include": "EVT?[202050]&EVT![202051]",
         "effect": {
             "MNY": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "202052": {
@@ -5935,7 +6000,7 @@
         "include": "EVT?[202070]&EVT![202071]",
         "effect": {
             "INT": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "202072": {
@@ -5962,7 +6027,7 @@
         "include": "EVT?[202080]&EVT![202081]",
         "effect": {
             "INT": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "202082": {
@@ -5988,7 +6053,7 @@
         "event": "An AI companion becomes the only relationship that does not punish your tone. When regulators withdraw its personality model, the replacement speaks correctly and remembers nothing you survived together.",
         "include": "EVT?[202090]&EVT![202091]",
         "effect": {
-            "STR": -5
+            "STR": -4
         }
     },
     "202092": {
@@ -6015,7 +6080,7 @@
         "include": "EVT?[202100]&EVT![202101]",
         "effect": {
             "MNY": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "202102": {
@@ -6041,7 +6106,7 @@
         "include": "EVT?[202110]&EVT![202111]",
         "effect": {
             "CHR": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "202112": {
@@ -6067,7 +6132,7 @@
         "include": "EVT?[202120]&EVT![202121]",
         "effect": {
             "INT": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "202122": {
@@ -6094,7 +6159,7 @@
         "effect": {
             "INT": -1,
             "SPR": -2,
-            "STR": -5
+            "STR": -4
         }
     },
     "203012": {
@@ -6119,7 +6184,7 @@
         "event": "You escape without a male guardian, money or the biometric household record needed for aid. A brick kiln accepts you because it can deduct shelter and bread from wages you will never receive.",
         "include": "EVT?[203020]&EVT![203021]",
         "effect": {
-            "STR": -5,
+            "STR": -4,
             "SPR": -2
         }
     },
@@ -6147,7 +6212,7 @@
         "effect": {
             "INT": -2,
             "SPR": -2,
-            "STR": -5
+            "STR": -4
         }
     },
     "203032": {
@@ -6172,7 +6237,7 @@
         "event": "You are assigned to repay the state through labour in a mine. Food is deducted for missed quotas, so malnutrition makes each following quota harder to reach.",
         "include": "EVT?[203040]&EVT![203041]",
         "effect": {
-            "STR": -6,
+            "STR": -3,
             "INT": -1
         }
     },
@@ -6199,7 +6264,7 @@
         "include": "EVT?[203050]&EVT![203051]",
         "effect": {
             "CHR": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "203052": {
@@ -6252,7 +6317,7 @@
         "include": "EVT?[203070]&EVT![203071]",
         "effect": {
             "INT": -2,
-            "STR": -5,
+            "STR": -4,
             "SPR": -2
         }
     },
@@ -6281,7 +6346,7 @@
             "CHR": -1,
             "INT": -2,
             "SPR": -2,
-            "STR": -5
+            "STR": -4
         }
     },
     "203082": {
@@ -6333,7 +6398,7 @@
         "include": "EVT?[203100]&EVT![203101]",
         "effect": {
             "INT": -1,
-            "STR": -5
+            "STR": -4
         }
     },
     "203102": {
@@ -6414,7 +6479,7 @@
         "include": "EVT?[204010]&EVT![204011]",
         "effect": {
             "MNY": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "204012": {
@@ -6439,7 +6504,7 @@
         "event": "The wound repeatedly reopens, but the clinic has no female specialist and will not admit you alone. A travelling healer seals it with industrial adhesive beneath a veil.",
         "include": "EVT?[204020]&EVT![204021]",
         "effect": {
-            "STR": -6,
+            "STR": -3,
             "INT": -1
         }
     },
@@ -6467,7 +6532,7 @@
         "include": "EVT?[204030]&EVT![204031]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204032": {
@@ -6494,7 +6559,7 @@
         "include": "EVT?[204040]&EVT![204041]",
         "effect": {
             "INT": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "204042": {
@@ -6521,7 +6586,7 @@
         "include": "EVT?[204050]&EVT![204051]",
         "effect": {
             "MNY": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "204052": {
@@ -6548,7 +6613,7 @@
         "include": "EVT?[204060]&EVT![204061]",
         "effect": {
             "MNY": -1,
-            "STR": -6
+            "STR": -3
         }
     },
     "204062": {
@@ -6574,7 +6639,7 @@
         "include": "EVT?[204070]&EVT![204071]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204072": {
@@ -6601,7 +6666,7 @@
         "include": "EVT?[204080]&EVT![204081]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204082": {
@@ -6628,7 +6693,7 @@
         "include": "EVT?[204090]&EVT![204091]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204092": {
@@ -6655,7 +6720,7 @@
         "include": "EVT?[204100]&EVT![204101]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204102": {
@@ -6681,7 +6746,7 @@
         "include": "EVT?[204110]&EVT![204111]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204112": {
@@ -6707,7 +6772,7 @@
         "include": "EVT?[204120]&EVT![204121]",
         "effect": {
             "MNY": -2,
-            "STR": -6
+            "STR": -3
         }
     },
     "204122": {
