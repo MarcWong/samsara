@@ -12,7 +12,7 @@
     "90002": {
         "id": "90002",
         "name": "Airplane Crash",
-        "description": "You experience a severe accident, and you are dead.",
+        "description": "You experience a airplane crash.",
         "condition": "AGE?[35]",
         "grade": 0,
         "effect": {
@@ -62,7 +62,7 @@
             90008
         ],
         "effect": {
-            "CHR": 10
+            "CHR": 8
         }
     },
     "90007": {
@@ -107,6 +107,88 @@
         "grade": 0,
         "effect": {
             "INT": 3
+        }
+    },
+    "90011": {
+        "id": "90011",
+        "name": "Pac-Man Power",
+        "description": "Nano-swarm eats your arterial gunk while playing digital Pac-Man. Your mitochondria get so hyped they act 12 again—congratulations, you just stole 40 extra years for being a good host.",
+        "condition": "AGE?[16]",
+        "grade": 0,
+        "effect": {
+            "STR": 5
+        }
+    },
+    "90012": {
+        "id": "90012",
+        "name": "Iron Lung",
+        "description": "Lost a lung in a hoverboard oopsie; they print a new one with coral-reef stem-cell ink. Now it photosynthesizes and filters smog—you outlive everyone purely because you breathe profit.",
+        "condition": "AGE?[58]",
+        "grade": 0,
+        "effect": {
+            "STR": 1
+        }
+    },
+    "90013": {
+        "id": "90013",
+        "name": "meta-Zen",
+        "description": "A mandatory empathy-drop plugs you into a day as a grumpy octopus off Chile. After that, your ex’s texts feel like static—you achieve meta-Zen and start cackling at funerals.",
+        "condition": "AGE?[27]",
+        "grade": 0,
+        "effect": {
+            "SPR": 3
+        }
+    },
+    "90014": {
+        "id": "90014",
+        "name": "Emo Implant",
+        "description": "You buy the Emotional Climate Control implant—it mutes your ex’s dopamine hits and filters global dread. You cry happy tears for three days straight and still don’t know why.",
+        "condition": "AGE?[73]",
+        "grade": 0,
+        "effect": {
+            "SPR": 4
+        }
+    },
+    "90015": {
+        "id": "90015",
+        "name": "Dumb Luck Tsunami",
+        "description": "You accidentally buy 50k stinky-rock NFTs; a senile trillionaire decides they're the next big thing. You wake up owning a floating trash-barge island—but hey, it's your trash barge.",
+        "condition": "AGE?[34]",
+        "grade": 0,
+        "effect": {
+            "MNY": 5
+        }
+    },
+    "90016": {
+        "id": "90016",
+        "name": "The Silence of the Lambs",
+        "description": "Your dentures’ Wi-Fi signature has a unique quantum wobble; a Telecom cartel pays you billions for the \"spectrum rights\" to your mouth. You get paid to keep shut—numbers now use scientific notation.",
+        "condition": "AGE?[89]",
+        "grade": 0,
+        "effect": {
+            "MNY": 5
+        }
+    },
+    "90017": {
+        "id": "90017",
+        "name": "Gul'dan, what must we give it return?",
+        "description": "The Quantum Brain Bridge vaccine makes you solve differential equations in your sleep—but permanently erases \"potato\" from your memory. You argue Kant with your toaster; +40 IQ, minus social grace.",
+        "condition": "AGE?[13]",
+        "grade": 0,
+        "effect": {
+            "INT": 4,
+            "SPR": -1
+        }
+    },
+    "90018": {
+        "id": "90018",
+        "name": "Cognition Curse",
+        "description": "You snort Cognition Dust at a retro-rave and compress the Library of Congress into your temporal lobe. You can recite Pi to 10k digits—and precisely calculate how much everyone annoys you. Genius, and you hate it.",
+        "condition": "AGE?[49]",
+        "grade": 0,
+        "effect": {
+            "INT": 5,
+            "SPR": -2
         }
     }
 }

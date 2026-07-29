@@ -134,21 +134,6 @@
             "STR": 2
         }
     },
-    "20000": {
-        "id": 20000,
-        "event": "Your IQ turns 0, you cannot do anything.",
-        "include": "INT<1&STR>0"
-    },
-    "20001": {
-        "id": 20001,
-        "event": "Your EQ turns 0, you cannot do anything.",
-        "include": "SPR<1&STR>0"
-    },
-    "20002": {
-        "id": 20002,
-        "event": "Your wealth turns 0, you cannot do anything.",
-        "include": "MNY<1&STR>0"
-    },
     "74001": {
         "id": 74001,
         "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.\nYou are DEAD again, mortal.",
@@ -5476,6 +5461,958 @@
             "LIF": -1
         },
         "NoRandom": 1
+    },
+    "201010": {
+        "id": 201010,
+        "event": "The aid system decides that your contradictory answers prove fraud rather than cognitive difficulty. A relative becomes your authorised reader and begins selling part of every ration issued in your name.",
+        "include": "INT<1&HINT>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201011": {
+        "id": 201011,
+        "event": "A clinic changes the colour and dosage of your medicine, but the audio instructions never download through the weak network. You take the old dose and the new tablets together.",
+        "include": "EVT?[201010]&EVT![201011]",
+        "effect": {
+            "STR": -6,
+            "SPR": -1
+        }
+    },
+    "201012": {
+        "id": 201012,
+        "event": "Toxicity causes vomiting and dehydration. The emergency form repeats the same questions that previously marked you as unreliable, and transport is refused.",
+        "include": "EVT?[201011]&EVT![201012]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201020": {
+        "id": 201020,
+        "event": "Years excluded from school leave you unable to read the new biometric ration and medical rules. Your male guardian controls the account and tells each office that you have already received your share.",
+        "include": "INT<1&HINT>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201021": {
+        "id": 201021,
+        "event": "You buy antibiotics from an informal stall and follow a pictogram copied from a different drug. Nobody at home will admit that the state’s education ban made the label inaccessible.",
+        "include": "EVT?[201020]&EVT![201021]",
+        "effect": {
+            "STR": -6
+        }
+    },
+    "201022": {
+        "id": 201022,
+        "event": "The wrong dose suppresses the infection without curing it. Sepsis develops after the nearest women’s clinic closes for lack of trained female staff.",
+        "include": "EVT?[201021]&EVT![201022]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201030": {
+        "id": 201030,
+        "event": "A national cognitive assessment classifies you as unable to manage identity, money or reproductive consent. A court-appointed guardian receives your benefits and approves a compulsory neural-rehabilitation programme.",
+        "include": "INT<1&HINT>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201031": {
+        "id": 201031,
+        "event": "The programme forces stimulation beyond the level you can communicate as painful. Staff interpret resistance as further evidence that the treatment is necessary.",
+        "include": "EVT?[201030]&EVT![201031]",
+        "effect": {
+            "SPR": -2,
+            "STR": -6
+        }
+    },
+    "201032": {
+        "id": 201032,
+        "event": "A seizure begins during an unsupervised stimulation cycle. The institution edits the recording so the device can remain approved for more compliant patients.",
+        "include": "EVT?[201031]&EVT![201032]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201040": {
+        "id": 201040,
+        "event": "You fail the combined aptitude and loyalty examination. The result sends you to repetitive chemical work where warning language changes more often than workers are retrained.",
+        "include": "INT<1&HINT>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201041": {
+        "id": 201041,
+        "event": "A supervisor orders you to continue after a symbol on the machine changes from routine heat to toxic pressure. Asking what it means would confirm the score assigned to you.",
+        "include": "EVT?[201040]&EVT![201041]",
+        "effect": {
+            "STR": -6
+        }
+    },
+    "201042": {
+        "id": 201042,
+        "event": "The vessel releases gas across the workshop. Officials evacuate the equipment technicians and leave low-score workers inside to contain the leak.",
+        "include": "EVT?[201041]&EVT![201042]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201050": {
+        "id": 201050,
+        "event": "An aptitude platform places you below every formal training threshold and assigns your finances to a commercial guardian. He sends you to dismantle imported electronic waste under a contract you cannot read.",
+        "include": "INT<1&HINT>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201051": {
+        "id": 201051,
+        "event": "The tutorial assumes literacy and a premium headset. You open swollen batteries by copying the fastest worker and conceal burns because reporting them reduces the guardian’s payment.",
+        "include": "EVT?[201050]&EVT![201051]",
+        "effect": {
+            "CHR": -1,
+            "STR": -6
+        }
+    },
+    "201052": {
+        "id": 201052,
+        "event": "A damaged battery explodes beside a solvent bath. The subcontractor deletes your work profile before inspectors arrive, so no hospital can identify the chemicals in your lungs.",
+        "include": "EVT?[201051]&EVT![201052]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201060": {
+        "id": 201060,
+        "event": "The emergency network excludes you from its brain-interface channel after a cognitive score of zero. Public warnings remain technically universal because a text version still exists inside an inaccessible application.",
+        "include": "INT<1&HINT>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201061": {
+        "id": 201061,
+        "event": "During an air alert, you cannot interpret whether the building icon means shelter, evacuation or system maintenance. Neighbours assume your calmness means you understand something they do not.",
+        "include": "EVT?[201060]&EVT![201061]",
+        "effect": {
+            "SPR": -1,
+            "STR": -4
+        }
+    },
+    "201062": {
+        "id": 201062,
+        "event": "You remain in the building when the accessible shelter opens elsewhere. A strike collapses the floor before anyone notices that you never joined the evacuation list.",
+        "include": "EVT?[201061]&EVT![201062]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201070": {
+        "id": 201070,
+        "event": "A factory replaces spoken training with an AI safety interface and classifies you as too slow for the explanatory version. The supervisor signs your consent to continue on the basic display.",
+        "include": "INT<1&HINT>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201071": {
+        "id": 201071,
+        "event": "A dust-storm warning appears as a symbol you have never been taught. Production targets remain visible in numbers large enough for everyone to recognise.",
+        "include": "EVT?[201070]&EVT![201071]",
+        "effect": {
+            "STR": -5
+        }
+    },
+    "201072": {
+        "id": 201072,
+        "event": "You open the ventilation chamber at the moment the system seals it. Silica and chemical dust fill the room, and the company reports failure to follow instructions.",
+        "include": "EVT?[201071]&EVT![201072]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201080": {
+        "id": 201080,
+        "event": "Your cognitive score falls below the standard for a brain interface, formal work and independent consent. A care institution receives your labour allocation and calls permanent guardianship humane optimisation.",
+        "include": "INT<1&HINT>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201081": {
+        "id": 201081,
+        "event": "You are placed in a memory-drug trial because the institution can sign on your behalf. The assistant model translates distress into noncompliance rather than an adverse reaction.",
+        "include": "EVT?[201080]&EVT![201081]",
+        "effect": {
+            "SPR": -2,
+            "STR": -6
+        }
+    },
+    "201082": {
+        "id": 201082,
+        "event": "The trial’s dosage model excludes patients who cannot complete its cognitive tests. A fatal reaction is removed from the dataset as invalid participation.",
+        "include": "EVT?[201081]&EVT![201082]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201090": {
+        "id": 201090,
+        "event": "A capacity assessment transfers your contracts and medical choices to an automated guardian. The service speaks gently while removing every decision it predicts you may misunderstand.",
+        "include": "INT<1&HINT>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201091": {
+        "id": 201091,
+        "event": "Your care robot receives two contradictory medication updates. The premium explanation layer could ask you which prescription changed, but your plan authorises silent compliance.",
+        "include": "EVT?[201090]&EVT![201091]",
+        "effect": {
+            "STR": -6
+        }
+    },
+    "201092": {
+        "id": 201092,
+        "event": "The robot administers both doses and records that you accepted them. Your guardian notices the error only when the monthly efficiency report arrives.",
+        "include": "EVT?[201091]&EVT![201092]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201100": {
+        "id": 201100,
+        "event": "A court model interprets your cognitive score as permanent incapacity. A commercial guardian controls benefits, housing and medical consent while charging each account for the supervision.",
+        "include": "INT<1&HINT>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201101": {
+        "id": 201101,
+        "event": "When you resist a move to cheaper housing, police take you to jail rather than an accessible crisis unit. Staff use a restraint protocol designed for deliberate refusal.",
+        "include": "EVT?[201100]&EVT![201101]",
+        "effect": {
+            "SPR": -2,
+            "STR": -6
+        }
+    },
+    "201102": {
+        "id": 201102,
+        "event": "A second sedative is administered after the jail and guardian databases fail to synchronise. You stop breathing while every agency shows another one as medically responsible.",
+        "include": "EVT?[201101]&EVT![201102]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201110": {
+        "id": 201110,
+        "event": "An automated capacity assessment decides that you cannot manage benefits or treatment. Supported housing receives your allowance and replaces appointments with instructions inside an application you cannot navigate.",
+        "include": "INT<1&HINT>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "201111": {
+        "id": 201111,
+        "event": "Your smart inhaler changes cartridges after a national procurement switch. The accessible audio warning remains unavailable while the supplier updates its compliance certificate.",
+        "include": "EVT?[201110]&EVT![201111]",
+        "effect": {
+            "STR": -6
+        }
+    },
+    "201112": {
+        "id": 201112,
+        "event": "The inhaler delivers an incompatible dose during an asthma attack. A remote worker follows the old script until your call goes silent.",
+        "include": "EVT?[201111]&EVT![201112]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "201120": {
+        "id": 201120,
+        "event": "The digital state responds to your zero cognitive score with comprehensive guardianship. A municipal trustee controls money, treatment and housing through a system designed to prevent every unsafe choice.",
+        "include": "INT<1&HINT>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -1,
+            "STR": -1
+        }
+    },
+    "201121": {
+        "id": 201121,
+        "event": "The trustee enrols you in adaptive neuro-rehabilitation because declining would count as a choice you are no longer authorised to make. Stimulation settings rise whenever progress slows.",
+        "include": "EVT?[201120]&EVT![201121]",
+        "effect": {
+            "SPR": -2,
+            "STR": -6
+        }
+    },
+    "201122": {
+        "id": 201122,
+        "event": "A software update removes the seizure limit from your device profile. The overnight care centre receives an alert but trusts the programme’s automatic reassurance.",
+        "include": "EVT?[201121]&EVT![201122]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202010": {
+        "id": 202010,
+        "event": "At a gang checkpoint, you answer an insult with another insult and refuse to lower your eyes. A bystander uploads the exchange because courage and recklessness look identical in a short clip.",
+        "include": "SPR<1&HSPR>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202011": {
+        "id": 202011,
+        "event": "The clip becomes a challenge to the checkpoint commander. People who once hid you stop answering because sheltering the woman in the video now threatens the entire block.",
+        "include": "EVT?[202010]&EVT![202011]",
+        "effect": {
+            "MNY": -2,
+            "STR": -4
+        }
+    },
+    "202012": {
+        "id": 202012,
+        "event": "Gunmen find you in an abandoned house and kill you on a livestream designed to restore the authority your refusal briefly damaged.",
+        "include": "EVT?[202011]&EVT![202012]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202020": {
+        "id": 202020,
+        "event": "You publicly refuse an order from the man registered as your guardian and describe his violence without the respectful language expected from you. Family mediators focus on the humiliation your tone caused.",
+        "include": "SPR<1&HSPR>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202021": {
+        "id": 202021,
+        "event": "You continue arguing during the reconciliation meeting and expose the compromises of every man in the room. The meeting becomes a judgment on your character rather than his violence.",
+        "include": "EVT?[202020]&EVT![202021]",
+        "effect": {
+            "MNY": -1,
+            "STR": -5
+        }
+    },
+    "202022": {
+        "id": 202022,
+        "event": "Your guardian kills you after the elders leave and reports that you attacked him during a period of female instability.",
+        "include": "EVT?[202021]&EVT![202022]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202030": {
+        "id": 202030,
+        "event": "You answer a morality officer with unfiltered contempt. The confrontation is filmed, and your refusal to perform fear is interpreted as evidence that an organisation trained you.",
+        "include": "SPR<1&HSPR>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202031": {
+        "id": 202031,
+        "event": "In detention, you keep correcting interrogators and are transferred to a psychiatric unit where anger is treated as a neurological disorder requiring chemical control.",
+        "include": "EVT?[202030]&EVT![202031]",
+        "effect": {
+            "INT": -2,
+            "STR": -6
+        }
+    },
+    "202032": {
+        "id": 202032,
+        "event": "A forced medication escalation causes cardiac arrest. The public statement calls your death a pre-existing mental-health crisis unrelated to detention.",
+        "include": "EVT?[202031]&EVT![202032]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202040": {
+        "id": 202040,
+        "event": "At a public mourning ceremony, you cannot produce the expected grief quickly enough. A neighbour reports your expression before someone can report hers.",
+        "include": "SPR<1&HSPR>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "STR": -1
+        }
+    },
+    "202041": {
+        "id": 202041,
+        "event": "Interrogators repeat the same loyalty question until your frustration becomes the answer they need. Your household is removed from the food list while you enter detention labour.",
+        "include": "EVT?[202040]&EVT![202041]",
+        "effect": {
+            "MNY": -2,
+            "STR": -6
+        }
+    },
+    "202042": {
+        "id": 202042,
+        "event": "You collapse during punishment exercise. Guards leave you standing against the wall in the record and move the body only after inspection.",
+        "include": "EVT?[202041]&EVT![202042]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202050": {
+        "id": 202050,
+        "event": "After daily harassment, you strike a man and shout at everyone filming instead of helping. The clip is edited into proof that a woman from your community is dangerous and sexually immoral.",
+        "include": "SPR<1&HSPR>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -2,
+            "STR": -1
+        }
+    },
+    "202051": {
+        "id": 202051,
+        "event": "Local political accounts circulate your address and a false religious insult. Police advise your family to keep you indoors but do not remove the crowd forming outside.",
+        "include": "EVT?[202050]&EVT![202051]",
+        "effect": {
+            "MNY": -1,
+            "STR": -5
+        }
+    },
+    "202052": {
+        "id": 202052,
+        "event": "The crowd breaks into the house and kills you while livestreams compete to label the violence spontaneous self-defence.",
+        "include": "EVT?[202051]&EVT![202052]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202060": {
+        "id": 202060,
+        "event": "Years of alarms and grief leave you unable to distinguish suspicion from immediate danger. You accuse an armed shelter volunteer of stealing aid and refuse to de-escalate when others intervene.",
+        "include": "SPR<1&HSPR>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202061": {
+        "id": 202061,
+        "event": "A clipped recording enters a wartime betrayal channel. Your address and movement pattern are shared as proof that you support the enemy.",
+        "include": "EVT?[202060]&EVT![202061]",
+        "effect": {
+            "MNY": -1,
+            "STR": -4
+        }
+    },
+    "202062": {
+        "id": 202062,
+        "event": "An armed vigilante follows the channel’s instructions and kills you before investigators establish that the original dispute concerned a missing food parcel.",
+        "include": "EVT?[202061]&EVT![202062]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202070": {
+        "id": 202070,
+        "event": "You shout about years of family violence in front of neighbours and refuse to protect the household’s reputation. Relatives call the disclosure hysteria and sign an emergency psychiatric admission.",
+        "include": "SPR<1&HSPR>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202071": {
+        "id": 202071,
+        "event": "You fight the restraints because nobody explains the injection. Resistance is entered as the indication for a second dose rather than its consequence.",
+        "include": "EVT?[202070]&EVT![202071]",
+        "effect": {
+            "INT": -1,
+            "STR": -6
+        }
+    },
+    "202072": {
+        "id": 202072,
+        "event": "Respiratory failure begins behind a curtain while the ward changes shifts. Your husband collects the discharge papers after your body has already been taken away.",
+        "include": "EVT?[202071]&EVT![202072]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202080": {
+        "id": 202080,
+        "event": "A livestream captures you screaming at a supervisor, customers and the moderation bot without pausing long enough for anyone to edit you sympathetically. The clip becomes a permanent example of dangerous female instability.",
+        "include": "SPR<1&HSPR>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "CHR": -2,
+            "MNY": -1,
+            "STR": -1
+        }
+    },
+    "202081": {
+        "id": 202081,
+        "event": "Police process the incident as quarrel-picking, then persuade your family to choose psychiatric commitment instead of prosecution. The hospital’s behaviour score rises each time you object to the diagnosis.",
+        "include": "EVT?[202080]&EVT![202081]",
+        "effect": {
+            "INT": -2,
+            "STR": -6
+        }
+    },
+    "202082": {
+        "id": 202082,
+        "event": "A depot medication interacts with a stimulant prescribed to keep institutional patients productive. Staff interpret your collapse as another refusal to cooperate.",
+        "include": "EVT?[202081]&EVT![202082]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202090": {
+        "id": 202090,
+        "event": "You stop performing gratitude, apology and customer warmth at work. The company records each blunt answer as aggression and shares the emotional-risk profile across the service industry.",
+        "include": "SPR<1&HSPR>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202091": {
+        "id": 202091,
+        "event": "An AI companion becomes the only relationship that does not punish your tone. When regulators withdraw its personality model, the replacement speaks correctly and remembers nothing you survived together.",
+        "include": "EVT?[202090]&EVT![202091]",
+        "effect": {
+            "STR": -5
+        }
+    },
+    "202092": {
+        "id": 202092,
+        "event": "You stop eating and answering the door. The loneliness monitor treats your companion’s automated messages as human contact and closes the case before you die.",
+        "include": "EVT?[202091]&EVT![202092]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202100": {
+        "id": 202100,
+        "event": "A rage platform rewards your confrontations with money and attention until you can no longer recognise the boundary between performance and danger. You challenge an armed neighbour live on camera.",
+        "include": "SPR<1&HSPR>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": 1,
+            "CHR": -1,
+            "STR": -1
+        }
+    },
+    "202101": {
+        "id": 202101,
+        "event": "The platform pushes your location to viewers because the threat is producing exceptional engagement. An automated police report describes both parties as armed despite your empty hands.",
+        "include": "EVT?[202100]&EVT![202101]",
+        "effect": {
+            "MNY": -1,
+            "STR": -5
+        }
+    },
+    "202102": {
+        "id": 202102,
+        "event": "Police arrive inside the story generated by the platform and shoot you when your shouting is classified as an imminent threat.",
+        "include": "EVT?[202101]&EVT![202102]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202110": {
+        "id": 202110,
+        "event": "You lose control during a benefits interview and describe the system with every word the aggression model was trained to detect. Security removes you while the case file changes from vulnerable to threatening.",
+        "include": "SPR<1&HSPR>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "STR": -1
+        }
+    },
+    "202111": {
+        "id": 202111,
+        "event": "The risk flag excludes you from ordinary temporary accommodation. During a heat wave, police find you shouting outside a cooling centre and restrain you face-down.",
+        "include": "EVT?[202110]&EVT![202111]",
+        "effect": {
+            "CHR": -1,
+            "STR": -6
+        }
+    },
+    "202112": {
+        "id": 202112,
+        "event": "Your breathing stops during the restraint. The review concludes that every officer followed the behaviour protocol generated from your own earlier interview.",
+        "include": "EVT?[202111]&EVT![202112]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "202120": {
+        "id": 202120,
+        "event": "A municipal wellbeing system identifies that you can no longer regulate conflict or read social cues. It offers intensive affect therapy, and refusal would suspend the services keeping you housed.",
+        "include": "SPR<1&HSPR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "MNY": -1,
+            "STR": -1
+        }
+    },
+    "202121": {
+        "id": 202121,
+        "event": "A therapeutic companion AI regulates your days more successfully than any person. A national backlash against machine dependency removes the model overnight, leaving your nervous system without the routines built around it.",
+        "include": "EVT?[202120]&EVT![202121]",
+        "effect": {
+            "INT": -1,
+            "STR": -5
+        }
+    },
+    "202122": {
+        "id": 202122,
+        "event": "You leave the supported flat during a winter dissociative episode. The municipal system records purposeful travel until exposure stops your heart outside the sensor boundary.",
+        "include": "EVT?[202121]&EVT![202122]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203010": {
+        "id": 203010,
+        "event": "The lender who financed your family’s food takes your stall, identity papers and room as interest. You begin sorting metal and plastic beside a gang-controlled dump, sleeping wherever the night collector permits.",
+        "include": "MNY<1&HMNY>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203011": {
+        "id": 203011,
+        "event": "You pretend not to understand the men demanding the remaining debt. They sell you to an improvised clinic as a psychiatric patient, where sedatives keep you quiet enough to clean for free.",
+        "include": "EVT?[203010]&EVT![203011]",
+        "effect": {
+            "INT": -1,
+            "SPR": -2,
+            "STR": -5
+        }
+    },
+    "203012": {
+        "id": 203012,
+        "event": "The clinic returns you to the creditor after your body stops responding to the drugs. To make an example of a debt that can no longer be collected, his gunmen kill and dismember you beside the road.",
+        "include": "EVT?[203011]&EVT![203012]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203020": {
+        "id": 203020,
+        "event": "A food and medicine debt is converted into a family obligation. A male relative sends you to the creditor’s household as an unpaid domestic worker and calls the transfer protection.",
+        "include": "MNY<1&HMNY>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203021": {
+        "id": 203021,
+        "event": "You escape without a male guardian, money or the biometric household record needed for aid. A brick kiln accepts you because it can deduct shelter and bread from wages you will never receive.",
+        "include": "EVT?[203020]&EVT![203021]",
+        "effect": {
+            "STR": -5,
+            "SPR": -2
+        }
+    },
+    "203022": {
+        "id": 203022,
+        "event": "A kiln injury becomes infected. The creditor refuses permission for a female health worker to examine you, and the untreated infection reaches your blood.",
+        "include": "EVT?[203021]&EVT![203022]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203030": {
+        "id": 203030,
+        "event": "The debt court freezes your benefit wallet, transport identity and legal wages. You hide in cash-only domestic work while collectors send your relatives a daily price for your humiliation.",
+        "include": "MNY<1&HMNY>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203031": {
+        "id": 203031,
+        "event": "During a collection raid, you imitate psychosis so nobody can force a coherent confession from you. The performance becomes a diagnosis, and a contracted institution places you on heavy depot medication.",
+        "include": "EVT?[203030]&EVT![203031]",
+        "effect": {
+            "INT": -2,
+            "SPR": -2,
+            "STR": -5
+        }
+    },
+    "203032": {
+        "id": 203032,
+        "event": "A medication increase coincides with a summer power and water failure. Your breathing slows in a locked ward whose staff have already left the overheated building.",
+        "include": "EVT?[203031]&EVT![203032]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203040": {
+        "id": 203040,
+        "event": "A market lender reports your unpaid grain debt as illegal speculation. Your household loses its place in the subsidised food queue, and neighbours stop trading with you before loyalty inspectors notice them.",
+        "include": "MNY<1&HMNY>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -2
+        }
+    },
+    "203041": {
+        "id": 203041,
+        "event": "You are assigned to repay the state through labour in a mine. Food is deducted for missed quotas, so malnutrition makes each following quota harder to reach.",
+        "include": "EVT?[203040]&EVT![203041]",
+        "effect": {
+            "STR": -6,
+            "INT": -1
+        }
+    },
+    "203042": {
+        "id": 203042,
+        "event": "A tunnel support fails after workers are ordered to continue through a warning. Rescue teams recover equipment first and leave your body underground.",
+        "include": "EVT?[203041]&EVT![203042]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203050": {
+        "id": 203050,
+        "event": "Your microloan default is announced through the neighbourhood payment network. Relatives remove you from the household account, and you join women sorting electronic waste for copper and intact data chips.",
+        "include": "MNY<1&HMNY>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203051": {
+        "id": 203051,
+        "event": "The recycler pays in food and sleeping space while your biometric wallet remains controlled by the lender. Acid baths and battery dust begin damaging your lungs and skin.",
+        "include": "EVT?[203050]&EVT![203051]",
+        "effect": {
+            "CHR": -1,
+            "STR": -5
+        }
+    },
+    "203052": {
+        "id": 203052,
+        "event": "A stack of unlicensed batteries ignites inside the sorting shed. The locked exit protects valuable components from theft and prevents you from escaping the toxic fire.",
+        "include": "EVT?[203051]&EVT![203052]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203060": {
+        "id": 203060,
+        "event": "War damage, rent arrears and medical debt consume the last compensation attached to your home. You move through emergency shelters while every address is treated as temporary evidence rather than a place to live.",
+        "include": "MNY<1&HMNY>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203061": {
+        "id": 203061,
+        "event": "A salvage contractor pays you to recover batteries and navigation chips from destroyed drones. The equipment identifies explosives but reserves live warnings for insured workers.",
+        "include": "EVT?[203060]&EVT![203061]",
+        "effect": {
+            "INT": -1,
+            "STR": -4,
+            "SPR": -1
+        }
+    },
+    "203062": {
+        "id": 203062,
+        "event": "A damaged battery enters thermal runaway in the unheated warehouse where you sleep. The fire door remains sealed to prevent stolen military components leaving the site.",
+        "include": "EVT?[203061]&EVT![203062]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203070": {
+        "id": 203070,
+        "event": "A household debt enters the future debtor registry under your name. Your husband’s family expels you to protect its credit score, and the collection court schedules detention you cannot afford to appeal.",
+        "include": "MNY<1&HMNY>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203071": {
+        "id": 203071,
+        "event": "You perform madness whenever collectors approach, hoping to become too troublesome to imprison. A private contractor certifies the performance as illness and transfers you to a psychiatric ward paid by occupancy.",
+        "include": "EVT?[203070]&EVT![203071]",
+        "effect": {
+            "INT": -2,
+            "STR": -5,
+            "SPR": -2
+        }
+    },
+    "203072": {
+        "id": 203072,
+        "event": "Staff inject a second sedative dose during a heat blackout because the first dose is missing from the offline record. Respiratory failure is entered as an existing mental-health complication.",
+        "include": "EVT?[203071]&EVT![203072]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203080": {
+        "id": 203080,
+        "event": "The debtor system removes long-distance travel, formal renting and non-emergency medical deposits from your identity. Relatives stop answering because every transfer to you is now reviewed as concealment of assets.",
+        "include": "MNY<1&HMNY>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -1
+        }
+    },
+    "203081": {
+        "id": 203081,
+        "event": "You livestream yourself begging and pretending not to recognise collectors. The clip becomes entertainment, then evidence of social disturbance; your family is persuaded to authorise compulsory psychiatric treatment.",
+        "include": "EVT?[203080]&EVT![203081]",
+        "effect": {
+            "CHR": -1,
+            "INT": -2,
+            "SPR": -2,
+            "STR": -5
+        }
+    },
+    "203082": {
+        "id": 203082,
+        "event": "Two hospitals use incompatible medication records after a database migration. A depot injection is repeated, and staff leave you restrained while your heart rhythm collapses.",
+        "include": "EVT?[203081]&EVT![203082]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203090": {
+        "id": 203090,
+        "event": "The welfare office prevents immediate starvation and assigns you a tiny room, a food card and an employment plan. Debt deductions leave nothing for transport, heating or the co-payments that make the plan physically possible.",
+        "include": "MNY<1&HMNY>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -1,
+            "STR": -1
+        }
+    },
+    "203091": {
+        "id": 203091,
+        "event": "You move between the assigned room, an overnight café and casual cleaning shifts. Each agency assumes another one has seen you in person because your check-in avatar continues reporting compliance.",
+        "include": "EVT?[203090]&EVT![203091]",
+        "effect": {
+            "SPR": -3,
+            "STR": -4
+        }
+    },
+    "203092": {
+        "id": 203092,
+        "event": "During a humid heat wave, the room sensor mistakes your immobility for sleep and closes the welfare alert. You die alone before the scheduled human visit.",
+        "include": "EVT?[203091]&EVT![203092]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203100": {
+        "id": 203100,
+        "event": "Medical debt takes your car, eviction takes your address, and losing the address closes the benefits account that required it. You enter a tent encampment beneath the same hospital network that owns the debt.",
+        "include": "MNY<1&HMNY>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -2,
+            "STR": -2
+        }
+    },
+    "203101": {
+        "id": 203101,
+        "event": "You sell plasma, reproductive data and participation in an underinsured neural-drug trial. The payment goes directly to a debt broker while an infected implant remains inside you.",
+        "include": "EVT?[203100]&EVT![203101]",
+        "effect": {
+            "INT": -1,
+            "STR": -5
+        }
+    },
+    "203102": {
+        "id": 203102,
+        "event": "Private security clears the encampment during an extreme-heat emergency. Your medication and water are discarded with the tents, and the untreated infection becomes fatal.",
+        "include": "EVT?[203101]&EVT![203102]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203110": {
+        "id": 203110,
+        "event": "The benefits system keeps you nominally alive in temporary accommodation while debt deductions consume the cash allowance. Every appeal asks for documents that were lost during the eviction.",
+        "include": "MNY<1&HMNY>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -1,
+            "STR": -1
+        }
+    },
+    "203111": {
+        "id": 203111,
+        "event": "A missed biometric appointment triggers a sanction. You sleep between a moulded hotel room and friends’ sofas while the housing portal continues calling you safely accommodated.",
+        "include": "EVT?[203110]&EVT![203111]",
+        "effect": {
+            "CHR": -1,
+            "SPR": -2,
+            "STR": -4
+        }
+    },
+    "203112": {
+        "id": 203112,
+        "event": "A heat-wave holiday closes the office processing your appeal. The old building retains heat through the night, and an overstretched NHS line records your breathing difficulty without dispatching help in time.",
+        "include": "EVT?[203111]&EVT![203112]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
+    },
+    "203120": {
+        "id": 203120,
+        "event": "Universal assistance gives you a subsistence card, a small apartment and an activation schedule. You do not starve, but every hour of your life is now conditional data supplied to the municipality.",
+        "include": "MNY<1&HMNY>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120]",
+        "effect": {
+            "SPR": -1,
+            "STR": -1
+        }
+    },
+    "203121": {
+        "id": 203121,
+        "event": "After repeated absences, the system interprets exhaustion as refusal and sends you for a compulsory capacity assessment. Sedation makes compliance easier and work less possible.",
+        "include": "EVT?[203120]&EVT![203121]",
+        "effect": {
+            "INT": -1,
+            "SPR": -2,
+            "STR": -4
+        }
+    },
+    "203122": {
+        "id": 203122,
+        "event": "A dosage change is approved automatically after your home sensor reports agitation. The monitor reads the resulting stillness as successful treatment while organ failure develops overnight.",
+        "include": "EVT?[203121]&EVT![203122]",
+        "branch": [
+            "AGE>-1:10000"
+        ]
     },
     "211101": {
         "id": 211101,
