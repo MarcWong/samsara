@@ -363,8 +363,14 @@ class Property {
     }
 
     judge(prop) {
-        const value = this.get(prop);
+        return this.judgeOf(prop, this.get(prop));
+    }
 
+    // Grade an arbitrary value against a property's judgement table rather than
+    // whatever that property currently holds. Only the H* keys (plus HAGE/SUM)
+    // have tables at all, so grading a stat's value AT DEATH means borrowing
+    // its high-water counterpart's table -- which is what Summary does.
+    judgeOf(prop, value) {
         const d = this.#judge[prop];
         let length = d.length;
 

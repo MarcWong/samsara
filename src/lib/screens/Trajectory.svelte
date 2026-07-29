@@ -1333,10 +1333,23 @@
 	   of floating over the background footage -- the hover-zone needs its
 	   own reserved padding here (there's no bright rail band to lean on
 	   anymore) so there's still something to find by hovering. */
+	/* The hover target, deliberately larger than the text it reveals. Every
+	   extra padding step is cancelled by an equal negative margin, so the box
+	   grows for hit-testing while its footprint in this flex column -- and so
+	   the hint's on-screen position -- is unchanged.
+	   The growth is capped by what is actually reachable rather than chosen
+	   freely: .alloc-panel clips with BOTH overflow:hidden and a tapering
+	   clip-path, and clipping applies to pointer events too, so anything
+	   past the panel edge would be dead area. Measured at the zone's own
+	   height there are ~22px to the Start button above, ~22px to the panel
+	   floor below, and ~24px to the taper on each side; +2.5cqh / +1.5cqw
+	   (~19px) stays inside all three. Staying clear of Start also matters
+	   because this div follows it in the DOM and both are positioned, so an
+	   overlap would paint on top and swallow the button's clicks. */
 	.alloc-hint-zone {
 		position: relative;
-		margin-top: 1cqh;
-		padding: 1cqh 2cqw;
+		margin: -1.5cqh -1.5cqw -2.5cqh;
+		padding: 3.5cqh 3.5cqw;
 	}
 	/* Two different transition speeds, one per direction. The duration
 	   declared here is the one that runs on the way BACK to this state --

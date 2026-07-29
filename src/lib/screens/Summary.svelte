@@ -14,12 +14,18 @@
 	// from Trajectory, keyed by the plain stat key -- shown as
 	// "initial -> final" per row when available.
 	const initial = $draft.initial ?? null;
-	// These are the H* properties -- each stat's high-water mark for the run
-	// (property.js resolves them with util.max), not its value at death. So a
-	// life that peaked at Health 7 and ended at 0 reports 7 here, and the row
-	// will not match the last stat bar the player saw on the trajectory
-	// screen. That divergence is deliberate: the summary reports the best the
-	// life ever reached, not the state it collapsed to.
+	// The value after the arrow is the stat AT DEATH, taken from the same
+	// core.propertys the trajectory stat bar renders and carrying the same
+	// floor at 0, so the two screens cannot disagree. It deliberately is NOT
+	// the H* high-water mark: those resolve through util.max, so a life that
+	// peaked at Health 7 and died at 0 used to report "4 -> 7" -- an arrow
+	// claiming a rise the player had just watched being contradicted. No
+	// upper clamp either; the stat bar has none, and capping at 13 would put
+	// the two screens back out of step for any stat that ended above it.
+	// The grade is re-derived from the death value against the H* judgement
+	// table (the only table these stats have) instead of inherited from the peak.
+	const property = core.request(core.Module.PROPERTY);
+	const finals = core.propertys;
 	const ROWS = [
 		[types.HMNY, 'Wealth', 'MNY'],
 		[types.HCHR, 'Appearance', 'CHR'],
@@ -27,11 +33,11 @@
 		[types.HSTR, 'Health', 'STR'],
 		[types.HSPR, 'EQ', 'SPR'],
 	].map(([type, label, key]) => {
-		const data = summary[type];
+		const value = Math.max(0, finals[types[key]] ?? 0);
 		return {
 			label,
-			value: data.value > 13 ? 13 : data.value,
-			grade: data.grade,
+			value,
+			grade: property.judgeOf(type, value).grade,
 			start: initial ? initial[key] : null,
 		};
 	});
@@ -157,9 +163,9 @@
 	// Kiosk-style idle reset: this screen is a dead end otherwise (no
 	// auto-advance the way Trajectory has), so a visitor who walks away
 	// without pressing anything would leave the app parked on someone
-	// else's finished life indefinitely. 30s with neither button touched
+	// else's finished life indefinitely. A minute with neither button touched
 	// triggers the exact same Restart Life flow a click would.
-	const IDLE_MS = 30000;
+	const IDLE_MS = 60000;
 	let idleTimer = null;
 	function resetIdleTimer() {
 		clearTimeout(idleTimer);
