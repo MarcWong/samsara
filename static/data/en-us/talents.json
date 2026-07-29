@@ -26,7 +26,7 @@
         "condition": "AGE?[22]",
         "grade": 0,
         "effect": {
-            "STR": -1
+            "SPR": -1
         }
     },
     "90004": {

@@ -10,10 +10,10 @@
     "10001": {
         "id": 10001,
         "event": "A sudden illness knocks you flat.",
-        "include": "STR<2&IRN=0&(TLR>0|STR<-18)",
+        "include": "STR<1",
         "branch": [
-            "STR<2&TLR>0:10000",
-            "STR<-18&TLR=0:10000"
+            "STR<3&TLR>0:10000",
+            "STR<1&TLR=0:10000"
         ]
     },
     "10002": {
@@ -87,10 +87,10 @@
     },
     "10010": {
         "id": 10010,
-        "event": "Something that would have been survivable ten years ago is not. The report uses the word “underlying”, which is how a system describes a body it has already finished budgeting for.\nYou are DEAD again, mortal.",
-        "effect": {
-            "LIF": -1
-        },
+        "event": "Something that would have been survivable ten years ago is not. The report uses the word “underlying”, which is how a system describes a body it has already finished budgeting for.",
+        "branch": [
+            "STR<1:10000"
+        ],
         "include": "STR<-7"
     },
     "10011": {
@@ -116,6 +116,38 @@
         "effect": {
             "LIF": -1
         }
+    },
+    "10014": {
+        "id": 10014,
+        "event": "Under the mutual encouragement of your friends, you build a habit of working out and keep to a healthy diet.",
+        "include": "EVT![10014]",
+        "effect": {
+            "STR": 3
+        }
+    },
+    "10015": {
+        "id": 10015,
+        "event": "A sudden illness knocks you flat, but you see God spares your life on the Highway to Hell. Doctor said that is a miracle of life.",
+        "include": "STR<1",
+        "exclude": "EVT?[10015]",
+        "effect": {
+            "STR": 2
+        }
+    },
+    "20000": {
+        "id": 20000,
+        "event": "Your IQ turns 0, you cannot do anything.",
+        "include": "INT<1&STR>0"
+    },
+    "20001": {
+        "id": 20001,
+        "event": "Your EQ turns 0, you cannot do anything.",
+        "include": "SPR<1&STR>0"
+    },
+    "20002": {
+        "id": 20002,
+        "event": "Your wealth turns 0, you cannot do anything.",
+        "include": "MNY<1&STR>0"
     },
     "74001": {
         "id": 74001,
@@ -5455,23 +5487,15 @@
         "event": "A required payment arrives at the wrong week. You miss a term and begin doing work that adults call temporary.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
-            "INT": -1,
-            "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": -1
+        }
     },
     "211103": {
         "id": 211103,
         "event": "A lender advances your family enough to survive the month, then claims part of every wage you earn. Repayment becomes a second employer that never sleeps.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&MNY<2",
         "effect": {
-            "MNY": -1,
-            "STR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
@@ -5490,9 +5514,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "211105": {
@@ -5507,7 +5529,7 @@
             "MNY<1&TLR>0:211155",
             "MNY<-19&TLR=0:211155",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "211155": {
@@ -5530,19 +5552,14 @@
         "effect": {
             "INT": -1,
             "SPR": 1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003"
-        ]
+        }
     },
     "211203": {
         "id": 211203,
         "event": "A platform offers instant work and instant credit through the same account. Missing one shift raises the interest rate on the device you need to accept the next shift.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2",
         "effect": {
-            "MNY": -1,
-            "STR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
@@ -5561,9 +5578,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "211205": {
@@ -5577,8 +5592,8 @@
         "branch": [
             "MNY<1&TLR>0:211255",
             "MNY<-19&TLR=0:211255",
-            "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<3&TLR>0:200004",
+            "STR<1&TLR=0:200004"
         ]
     },
     "211255": {
@@ -5604,24 +5619,16 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "211303": {
         "id": 211303,
         "event": "Rent, childcare and care for an older relative consume more than your wages. The welfare interface congratulates you for remaining economically active.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY<3",
-        "effect": {
-            "STR": -1,
-            "SPR": -1
-        },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "211304": {
@@ -5647,8 +5654,8 @@
         "branch": [
             "MNY<1&TLR>0:211355",
             "MNY<-19&TLR=0:211355",
-            "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<3&TLR>0:200004",
+            "STR<1&TLR=0:200004"
         ]
     },
     "211355": {
@@ -5678,13 +5685,8 @@
         "event": "Your income improves when you learn to move money through informal and digital channels. Inspectors, relatives and armed intermediaries each discover a reason to take a share.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(MNY>1&MNY<4)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "212104": {
         "id": 212104,
@@ -5696,7 +5698,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -5731,21 +5733,15 @@
         "event": "You enter a vocational or low-cost university track chosen for employment rather than desire. The qualification raises your prospects and the family’s expectations at the same time.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "212203": {
         "id": 212203,
         "event": "You obtain a salaried position and begin repaying education, housing and family loans. Your new stability belongs partly to every institution deducting money before you see it.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
-            "MNY": 1,
-            "STR": -1
+            "MNY": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -5762,9 +5758,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "212205": {
@@ -5813,13 +5807,8 @@
         "event": "You achieve a stable professional title without a stable contract. A mortgage algorithm treats your future labour as more dependable than your employer does.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>2&MNY<6)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "212304": {
         "id": 212304,
@@ -5831,9 +5820,9 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "212305": {
@@ -5870,13 +5859,8 @@
         "include": "((HTI>0|AF>0|PRK>0)&(MNY>3&MNY<6))|(IRN>0&(MNY>3&MNY<8))",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "213103": {
         "id": 213103,
@@ -5897,9 +5881,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "213105": {
@@ -5944,13 +5926,8 @@
         "event": "You purchase an apartment or business share. It gives you security and makes every policy change, interest rate and neighbourhood plan feel physically personal.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "213204": {
         "id": 213204,
@@ -5962,7 +5939,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "213205": {
@@ -5975,9 +5952,7 @@
         },
         "branch": [
             "MNY<7&TLR>0:213255",
-            "MNY<-13&TLR=0:213255",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-13&TLR=0:213255"
         ]
     },
     "213255": {
@@ -6020,9 +5995,9 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "213305": {
@@ -6067,13 +6042,8 @@
         "event": "You operate a business across borders. Employees depend on decisions you can make from a safer place.",
         "include": "((HTI>0|AF>0|PRK>0)&(MNY>5&MNY<9))|(IRN>0&(MNY>7&MNY<11))",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "214104": {
         "id": 214104,
@@ -6085,9 +6055,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "214105": {
@@ -6132,13 +6100,8 @@
         "event": "You own property, intellectual rights and a growing company. When your public image becomes valuable, advisers begin translating moral decisions into market exposure.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "214204": {
         "id": 214204,
@@ -6149,7 +6112,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "214205": {
@@ -6194,13 +6157,8 @@
         "event": "You purchase private healthcare, clean food and time. The most important luxury is no longer an object but the right to avoid waiting beside everybody else.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>8&MNY<12)",
         "effect": {
-            "STR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "STR": 1
+        }
     },
     "214304": {
         "id": 214304,
@@ -6210,8 +6168,8 @@
             "MNY": -2
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<3&TLR>0:200001",
+            "MNY<1&TLR=0:200001"
         ]
     },
     "214305": {
@@ -6256,13 +6214,8 @@
         "event": "You own infrastructure other people experience as public life: transport, communications, medicine, water and access to officials.",
         "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "215104": {
         "id": 215104,
@@ -6270,13 +6223,11 @@
         "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))",
         "effect": {
             "MNY": -2,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<3&TLR>0:200001",
+            "MNY<1&TLR=0:200001"
         ]
     },
     "215105": {
@@ -6313,26 +6264,16 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": 1,
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "215203": {
         "id": 215203,
         "event": "You acquire data, media and infrastructure, and begin influencing the policies that price your own industry. Public consultation arrives after the business model.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "215204": {
         "id": 215204,
@@ -6340,13 +6281,11 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)",
         "effect": {
             "MNY": -2,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
-            "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<3&TLR>0:200001",
+            "MNY<1&TLR=0:200001"
         ]
     },
     "215205": {
@@ -6391,13 +6330,8 @@
         "event": "Your portfolio owns pieces of care, culture, food and political communication. The systems judging citizens are now investments reporting to you.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>11&MNY<15)",
         "effect": {
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "215304": {
         "id": 215304,
@@ -6409,7 +6343,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "215305": {
@@ -6445,13 +6379,8 @@
         "event": "You inherit access to borders, licences and protected supply chains. Public institutions become extensions of private family logistics.",
         "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "216103": {
         "id": 216103,
@@ -6460,11 +6389,7 @@
         "effect": {
             "STR": 1,
             "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "216104": {
         "id": 216104,
@@ -6472,13 +6397,11 @@
         "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "MNY": -3,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
             "MNY<3&TLR>0:200001",
-            "MNY<-17&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-17&TLR=0:200001"
         ]
     },
     "216105": {
@@ -6514,13 +6437,8 @@
         "event": "You inherit voting control rather than a job. Thousands of women experience your preferences as policy without ever learning your name.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "216203": {
         "id": 216203,
@@ -6528,13 +6446,8 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY>13",
         "effect": {
             "MNY": 1,
-            "INT": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "216204": {
         "id": 216204,
@@ -6543,11 +6456,7 @@
         "effect": {
             "INT": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "216205": {
         "id": 216205,
@@ -6584,11 +6493,7 @@
         "effect": {
             "MNY": 1,
             "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "216303": {
         "id": 216303,
@@ -6598,11 +6503,7 @@
             "MNY": 1,
             "STR": 1,
             "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "216304": {
         "id": 216304,
@@ -6611,11 +6512,7 @@
         "effect": {
             "INT": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "216305": {
         "id": 216305,
@@ -6651,25 +6548,18 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "221103": {
         "id": 221103,
         "event": "An employer keeps you away from customers and calls it practical. You are paid less for work that becomes invisible the moment it is done.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&CHR<2",
         "effect": {
-            "CHR": -1,
-            "SPR": -1
+            "CHR": -1
         },
         "branch": [
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "221104": {
@@ -6699,7 +6589,7 @@
             "CHR<1&TLR>0&(STR<5|MNY<5):221155",
             "CHR<-19&TLR=0&(STR<5|MNY<5):221155",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "221155": {
@@ -6720,14 +6610,11 @@
         "event": "A class group turns an altered picture of your face into a sticker pack. Removing one copy only proves to the platform that the image creates engagement.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
-            "CHR": -1,
-            "SPR": -1
+            "CHR": -1
         },
         "branch": [
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "221203": {
@@ -6735,14 +6622,11 @@
         "event": "Recruitment software repeatedly ranks your recorded interviews below your written tests. The company denies using beauty metrics and sells its model to another employer.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR<2",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "221204": {
@@ -6772,7 +6656,7 @@
             "CHR<1&TLR>0&(STR<5|MNY<5):221255",
             "CHR<-19&TLR=0&(STR<5|MNY<5):221255",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "221255": {
@@ -6798,9 +6682,7 @@
         },
         "branch": [
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "221303": {
@@ -6808,14 +6690,11 @@
         "event": "An employer celebrates visible diversity in advertising and quietly keeps you away from promotion roles built around client trust.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&CHR<3",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "221304": {
@@ -6845,7 +6724,7 @@
             "CHR<1&TLR>0&(STR<5|MNY<5):221355",
             "CHR<-19&TLR=0&(STR<5|MNY<5):221355",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "221355": {
@@ -6866,14 +6745,11 @@
         "event": "You spend part of every morning making yourself look respectable enough to avoid comment. The products cost money and the labour is never counted.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(CHR>1&CHR<4)",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "222103": {
@@ -6950,13 +6826,8 @@
         "event": "Your performance earns a promotion, but the client-facing title goes to a colleague whose image tests better. You train her to do the job.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>1&CHR<4)",
         "effect": {
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "222204": {
         "id": 222204,
@@ -7007,14 +6878,11 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>2&CHR<6)",
         "effect": {
             "CHR": 1,
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "222303": {
@@ -7074,13 +6942,8 @@
         "event": "An employer places you in front of customers. Your wages rise, and so does the number of men who believe access is included.",
         "include": "((HTI>0|AF>0|PRK>0)&(CHR>3&CHR<6))|(IRN>0&(CHR>3&CHR<8))",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "223103": {
         "id": 223103,
@@ -7105,9 +6968,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "223105": {
@@ -7144,13 +7005,8 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>3&CHR<8)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "223203": {
         "id": 223203,
@@ -7162,9 +7018,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "223204": {
@@ -7177,7 +7031,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "223205": {
@@ -7214,13 +7068,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>5&CHR<9)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "223303": {
         "id": 223303,
@@ -7232,9 +7081,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "223304": {
@@ -7248,7 +7095,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "223305": {
@@ -7288,13 +7135,8 @@
         "event": "Your image becomes recognisable. Protection arrives with a manager who controls your schedule, earnings and contact with anyone outside the arrangement.",
         "include": "((HTI>0|AF>0|PRK>0)&(CHR>5&CHR<9))|(IRN>0&(CHR>7&CHR<11))",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "224104": {
         "id": 224104,
@@ -7306,7 +7148,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "224105": {
@@ -7334,9 +7176,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "224132": {
@@ -7370,13 +7210,8 @@
         "event": "You become a screen performer. Your contract owns changes to your face that have not happened yet.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>7&CHR<11)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "224204": {
         "id": 224204,
@@ -7389,7 +7224,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "224205": {
@@ -7417,9 +7252,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "224232": {
@@ -7450,13 +7283,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>8&CHR<12)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "224304": {
         "id": 224304,
@@ -7468,9 +7296,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "224305": {
@@ -7498,9 +7324,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "224332": {
@@ -7527,11 +7351,7 @@
         "effect": {
             "MNY": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "225102": {
         "id": 225102,
@@ -7541,11 +7361,7 @@
             "MNY": 1,
             "CHR": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "225104": {
         "id": 225104,
@@ -7558,7 +7374,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225105": {
@@ -7586,9 +7402,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "225132": {
@@ -7619,13 +7433,8 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(CHR>10&CHR<14)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "225204": {
         "id": 225204,
@@ -7638,7 +7447,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225205": {
@@ -7666,9 +7475,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "225232": {
@@ -7699,13 +7506,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(CHR>11&CHR<15)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "225304": {
         "id": 225304,
@@ -7718,7 +7520,7 @@
         },
         "branch": [
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "225305": {
@@ -7746,9 +7548,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "225332": {
@@ -7779,13 +7579,8 @@
         "include": "((HTI>0|AF>0|PRK>0)&CHR>11)|(IRN>0&CHR>13)",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "226103": {
         "id": 226103,
@@ -7797,9 +7592,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "226104": {
@@ -7813,9 +7606,7 @@
         },
         "branch": [
             "CHR<3&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-17&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-17&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "226105": {
@@ -7852,13 +7643,8 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&CHR>13",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "226203": {
         "id": 226203,
@@ -7868,11 +7654,7 @@
             "MNY": 1,
             "INT": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "226204": {
         "id": 226204,
@@ -7921,13 +7703,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&CHR>14",
         "effect": {
             "MNY": 1,
-            "CHR": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "CHR": 1
+        }
     },
     "226303": {
         "id": 226303,
@@ -7935,13 +7712,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&CHR>14",
         "effect": {
             "MNY": 1,
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "226304": {
         "id": 226304,
@@ -7991,15 +7763,8 @@
         "event": "School ends early because repeated failure is treated as evidence that teaching you is wasteful. Your brother is allowed to explain documents you are expected to sign.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&INT<2",
         "effect": {
-            "INT": -1,
-            "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": -1
+        }
     },
     "231103": {
         "id": 231103,
@@ -8011,9 +7776,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "231104": {
@@ -8026,9 +7789,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "231105": {
@@ -8040,10 +7801,8 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):231155",
-            "INT<-19&TLR=0&(STR<5|MNY<5):231155",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "231155": {
@@ -8064,29 +7823,19 @@
         "event": "A school platform keeps lowering the difficulty of your lessons until it stops presenting new material. Your completion statistics improve while your education disappears.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
-            "INT": -1,
-            "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": -1
+        }
     },
     "231203": {
         "id": 231203,
         "event": "A recruiter places you in repetitive monitored work. The contract grants the platform control of your pay account because it classifies you as requiring assistance.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT<2",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "231204": {
@@ -8099,9 +7848,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "231205": {
@@ -8113,10 +7860,8 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):231255",
-            "INT<-19&TLR=0&(STR<5|MNY<5):231255",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "231255": {
@@ -8137,29 +7882,19 @@
         "event": "Adaptive software helps you communicate, then the school uses the same data to place you on a permanently reduced curriculum.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT<3",
         "effect": {
-            "INT": -1,
-            "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": -1
+        }
     },
     "231303": {
         "id": 231303,
         "event": "A supported-work provider keeps most of the payment for supervising you. Customers praise the programme whenever you smile.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT<3",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "231304": {
@@ -8168,11 +7903,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT<3",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "231305": {
         "id": 231305,
@@ -8183,10 +7914,8 @@
             "STR": -2
         },
         "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):231355",
-            "INT<-19&TLR=0&(STR<5|MNY<5):231355",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "231355": {
@@ -8216,15 +7945,8 @@
         "event": "A voice assistant reads contracts and translates bureaucratic language for you. When authorities block the service, your independence disappears overnight.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)",
         "effect": {
-            "INT": -1,
-            "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": -1
+        }
     },
     "232104": {
         "id": 232104,
@@ -8247,8 +7969,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&TLR>0&(STR<5|MNY<5):232155",
-            "INT<-16&TLR=0&(STR<5|MNY<5):232155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8280,13 +8000,8 @@
         "event": "An AI assistant turns forms, schedules and technical manuals into language you can use. Your employer quietly expands the job without raising the wage.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>1&INT<4)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "232204": {
         "id": 232204,
@@ -8295,13 +8010,7 @@
         "effect": {
             "INT": -1,
             "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "232205": {
         "id": 232205,
@@ -8312,8 +8021,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&TLR>0&(STR<5|MNY<5):232255",
-            "INT<-16&TLR=0&(STR<5|MNY<5):232255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8345,13 +8052,8 @@
         "event": "A cognitive assistant lets you draft reports and navigate regulations. Your manager uses the productivity gain to remove the colleague who once checked your work.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>2&INT<6)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "232304": {
         "id": 232304,
@@ -8362,8 +8064,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8377,8 +8077,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<4&TLR>0&(STR<5|MNY<5):232355",
-            "INT<-16&TLR=0&(STR<5|MNY<5):232355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8403,11 +8101,7 @@
         "effect": {
             "INT": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "233103": {
         "id": 233103,
@@ -8428,9 +8122,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "233105": {
@@ -8442,8 +8134,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&TLR>0&(STR<5|MNY<5):233155",
-            "INT<-13&TLR=0&(STR<5|MNY<5):233155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8475,13 +8165,8 @@
         "event": "AI absorbs the routine half of your job. You retrain to supervise exceptions, gaining responsibility faster than authority.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>3&INT<8)",
         "effect": {
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "233204": {
         "id": 233204,
@@ -8490,13 +8175,7 @@
         "effect": {
             "INT": -1,
             "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "233205": {
         "id": 233205,
@@ -8507,8 +8186,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&TLR>0&(STR<5|MNY<5):233255",
-            "INT<-13&TLR=0&(STR<5|MNY<5):233255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8540,13 +8217,8 @@
         "event": "You retrain as AI removes the tasks that once built expertise. New workers supervise systems without ever practising the work underneath them.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>5&INT<9)",
         "effect": {
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "233304": {
         "id": 233304,
@@ -8558,9 +8230,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "233305": {
@@ -8572,8 +8242,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<7&TLR>0&(STR<5|MNY<5):233355",
-            "INT<-13&TLR=0&(STR<5|MNY<5):233355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8603,14 +8271,7 @@
     "234103": {
         "id": 234103,
         "event": "You discover manipulated records and diverted aid. The first person you warn asks who else knows.",
-        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "((HTI>0|AF>0|PRK>0)&(INT>5&INT<9))|(IRN>0&(INT>7&INT<11))"
     },
     "234104": {
         "id": 234104,
@@ -8623,9 +8284,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "234105": {
@@ -8637,8 +8296,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&TLR>0&(STR<5|MNY<5):234155",
-            "INT<-10&TLR=0&(STR<5|MNY<5):234155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8668,14 +8325,7 @@
     "234203": {
         "id": 234203,
         "event": "You identify a safety failure concealed by a ministry or company. Colleagues agree privately and edit their messages before answering you.",
-        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>7&INT<11)"
     },
     "234204": {
         "id": 234204,
@@ -8688,9 +8338,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "234205": {
@@ -8702,8 +8350,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&TLR>0&(STR<5|MNY<5):234255",
-            "INT<-10&TLR=0&(STR<5|MNY<5):234255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8733,14 +8379,7 @@
     "234303": {
         "id": 234303,
         "event": "You discover that a profitable model discriminates against women while remaining statistically defensible to the people selling it.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>8&INT<12)",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>8&INT<12)"
     },
     "234304": {
         "id": 234304,
@@ -8748,13 +8387,11 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>8&INT<12)",
         "effect": {
             "MNY": -1,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "234305": {
@@ -8766,8 +8403,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<10&TLR>0&(STR<5|MNY<5):234355",
-            "INT<-10&TLR=0&(STR<5|MNY<5):234355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8791,13 +8426,8 @@
         "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "235103": {
         "id": 235103,
@@ -8805,11 +8435,7 @@
         "include": "((HTI>0|AF>0|PRK>0)&(INT>8&INT<12))|(IRN>0&(INT>10&INT<14))",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "235104": {
         "id": 235104,
@@ -8833,8 +8459,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&TLR>0&(STR<5|MNY<5):235155",
-            "INT<-7&TLR=0&(STR<5|MNY<5):235155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8858,26 +8482,16 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "235203": {
         "id": 235203,
         "event": "Your models help allocate medicine, water, work and policing. Every elegant efficiency produces a group required to absorb its cost.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(INT>10&INT<14)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "235204": {
         "id": 235204,
@@ -8901,8 +8515,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&TLR>0&(STR<5|MNY<5):235255",
-            "INT<-7&TLR=0&(STR<5|MNY<5):235255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8926,26 +8538,16 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>11&INT<15)",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "235303": {
         "id": 235303,
         "event": "Your work becomes too consequential to leave entirely under your control. Boards preserve your name while distributing your authority.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(INT>11&INT<15)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "235304": {
         "id": 235304,
@@ -8958,9 +8560,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "235305": {
@@ -8972,8 +8572,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<13&TLR>0&(STR<5|MNY<5):235355",
-            "INT<-7&TLR=0&(STR<5|MNY<5):235355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -8997,21 +8595,15 @@
         "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "236103": {
         "id": 236103,
         "event": "A brain interface joins you to classified models. You can solve problems no unconnected person can fully describe.",
         "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
-            "INT": 1,
-            "STR": -1
+            "INT": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -9023,12 +8615,8 @@
         "event": "The state begins preserving a digital copy of your reasoning against the possibility of disobedience or death. Your replacement attends meetings before either occurs.",
         "include": "((HTI>0|AF>0|PRK>0)&INT>11)|(IRN>0&INT>13)",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "236105": {
         "id": 236105,
@@ -9039,8 +8627,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&TLR>0&(STR<5|MNY<5):236155",
-            "INT<-4&TLR=0&(STR<5|MNY<5):236155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9064,21 +8650,15 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "236203": {
         "id": 236203,
         "event": "Neural augmentation lets you operate across science, finance and politics without the pause that once separated one human role from another.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
-            "INT": 1,
-            "STR": -1
+            "INT": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -9090,12 +8670,10 @@
         "event": "Your cognitive twin begins approving work while you sleep. Its productivity raises the standard your waking body is required to meet.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&INT>13",
         "effect": {
-            "SPR": -2,
+            "SPR": -1,
             "STR": -1
         },
         "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9109,8 +8687,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&TLR>0&(STR<5|MNY<5):236255",
-            "INT<-4&TLR=0&(STR<5|MNY<5):236255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9134,28 +8710,19 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT>14",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "236303": {
         "id": 236303,
         "event": "You merge with a continuous neural service whose premium tier makes unaided thought feel slow and emotionally distant.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT>14",
         "effect": {
-            "INT": 1,
-            "STR": -1,
-            "SPR": -1
+            "INT": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "236304": {
@@ -9163,12 +8730,8 @@
         "event": "Your legal identity is divided among the biological woman, the active model and the trust that owns both sets of outputs.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT>14",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "236305": {
         "id": 236305,
@@ -9179,8 +8742,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<16&TLR>0&(STR<5|MNY<5):236355",
-            "INT<-4&TLR=0&(STR<5|MNY<5):236355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9212,13 +8773,7 @@
         "effect": {
             "INT": -1,
             "SPR": -1
-        },
-        "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "241103": {
         "id": 241103,
@@ -9288,8 +8843,6 @@
             "STR": -1
         },
         "branch": [
-            "INT<1&TLR>0&(STR<5|MNY<5):200003",
-            "INT<-19&TLR=0&(STR<5|MNY<5):200003",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -9304,9 +8857,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "241204": {
@@ -9359,22 +8910,14 @@
     "241302": {
         "id": 241302,
         "event": "School provides accommodations that disappear whenever the staff member responsible changes. You learn to document your body before you learn to trust it.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR<3",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR<3"
     },
     "241303": {
         "id": 241303,
         "event": "You enter adulthood with a care plan spread across providers that cannot see one another’s records without a premium data bridge.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR<3",
         "effect": {
-            "MNY": -1,
-            "STR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
@@ -9393,9 +8936,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "241305": {
@@ -9440,9 +8981,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242105": {
@@ -9468,9 +9007,9 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242132": {
@@ -9488,7 +9027,7 @@
             "MNY<1&TLR>0:200001",
             "MNY<-19&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242141": {
@@ -9511,11 +9050,7 @@
         "include": "EVT?[242131]&TLR=0",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "242143": {
         "id": 242143,
@@ -9527,9 +9062,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242155": {
@@ -9555,9 +9088,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242205": {
@@ -9583,9 +9114,9 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242232": {
@@ -9603,7 +9134,7 @@
             "MNY<1&TLR>0:200001",
             "MNY<-19&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242241": {
@@ -9630,9 +9161,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "242243": {
@@ -9645,9 +9174,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242255": {
@@ -9673,9 +9200,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242305": {
@@ -9701,9 +9226,9 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
+            "MNY<1&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242332": {
@@ -9721,7 +9246,7 @@
             "MNY<1&TLR>0:200001",
             "MNY<-19&TLR=0:200001",
             "CHR<2&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-18&TLR=0&(STR<5|MNY<5):200002"
+            "CHR<1&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "242341": {
@@ -9748,9 +9273,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242343": {
@@ -9763,9 +9286,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "242355": {
@@ -9785,15 +9306,9 @@
         "id": 243102,
         "event": "You carry paid work, domestic labour and reproductive risk without regular care. Your body absorbs the difference between what a household needs and what it can purchase.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>3&STR<6))|(IRN>0&(STR>3&STR<8))",
-        "effect": {
-            "STR": -1,
-            "SPR": -1
-        },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "243103": {
@@ -9857,9 +9372,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "243203": {
@@ -9872,7 +9385,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "243204": {
@@ -9886,9 +9399,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "243205": {
@@ -9926,9 +9437,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "243303": {
@@ -9941,7 +9450,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "243304": {
@@ -9989,13 +9498,8 @@
         "event": "You survive childbirth and dangerous work with little lasting damage. Others call this luck and immediately ask what else you can carry.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
-            "STR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "STR": 1
+        }
     },
     "244103": {
         "id": 244103,
@@ -10015,14 +9519,12 @@
         "event": "Decades of overuse appear in joints, blood pressure and sleep. You remain healthier than most people around you and less able to imagine becoming dependent.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
-            "STR": -2,
+            "STR": -1,
             "SPR": -1
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<1&TLR=0:200004"
         ]
     },
     "244105": {
@@ -10065,14 +9567,11 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>7&STR<11)",
         "effect": {
             "MNY": -1,
-            "STR": 1,
-            "SPR": -1
+            "STR": 1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "244204": {
@@ -10082,11 +9581,7 @@
         "effect": {
             "STR": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "244205": {
         "id": 244205,
@@ -10118,13 +9613,8 @@
         "event": "You build adult life around quantified fitness and reproductive planning. The data offers control and trains employers and insurers to expect disclosure.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(STR>8&STR<12)",
         "effect": {
-            "STR": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "STR": 1
+        }
     },
     "244303": {
         "id": 244303,
@@ -10146,11 +9636,7 @@
         "effect": {
             "STR": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "244305": {
         "id": 244305,
@@ -10197,9 +9683,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "245104": {
@@ -10207,14 +9691,12 @@
         "event": "A delayed immune reaction begins. Doctors disagree whether treating it would jeopardise the politically valuable programme that created it.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
-            "STR": -2,
+            "STR": -1,
             "SPR": -1
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<1&TLR=0:200004"
         ]
     },
     "245105": {
@@ -10250,11 +9732,7 @@
             "STR": 1,
             "MNY": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "245203": {
         "id": 245203,
@@ -10274,11 +9752,11 @@
         "event": "A later generation of the therapy reveals that repaired cells do not age at the same speed as the organs around them.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>10&STR<14)",
         "effect": {
-            "STR": -2
+            "STR": -1
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "245205": {
@@ -10314,11 +9792,7 @@
             "STR": 1,
             "MNY": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "245303": {
         "id": 245303,
@@ -10338,14 +9812,12 @@
         "event": "The therapy’s oldest cohort develops an immune fault. Your provider offers an emergency upgrade in exchange for permanent neural monitoring.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(STR>11&STR<15)",
         "effect": {
-            "STR": -2,
+            "STR": -1,
             "SPR": -1
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "STR<1&TLR=0:200004"
         ]
     },
     "245305": {
@@ -10380,11 +9852,7 @@
         "effect": {
             "STR": 1,
             "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "246103": {
         "id": 246103,
@@ -10404,12 +9872,10 @@
         "event": "A digital model begins deciding which parts of you remain worth repairing. Its recommendations are treated as medical facts and security decisions at once.",
         "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
-            "SPR": -2,
+            "SPR": -1,
             "STR": -1
         },
         "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -10459,9 +9925,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "246204": {
@@ -10469,12 +9933,8 @@
         "event": "Your biological age separates visibly from your legal age. Younger relatives wait for inheritance from a woman whose body has stopped following family time.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "246205": {
         "id": 246205,
@@ -10516,14 +9976,11 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR>14",
         "effect": {
             "MNY": -1,
-            "STR": 1,
-            "SPR": -1
+            "STR": 1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "246304": {
@@ -10531,12 +9988,8 @@
         "event": "You remain physically capable while friends on lower tiers disappear. Longevity produces a new form of grief that the service markets its companion AI to manage.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR>14",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "246305": {
         "id": 246305,
@@ -10564,37 +10017,23 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "251102": {
         "id": 251102,
         "event": "You tell a powerful adult exactly what you saw. Your family apologises for your character before anyone investigates the act.",
-        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2"
     },
     "251103": {
         "id": 251103,
         "event": "At work you correct a man in public and lose the protection of someone whose pride is treated as an institution.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&SPR<2",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "251104": {
@@ -10611,10 +10050,8 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):251155",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):251155",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "251155": {
@@ -10631,23 +10068,16 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "251202": {
         "id": 251202,
         "event": "A private outburst becomes permanent school footage. Every later apology is judged beside the most shareable ten seconds.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
-            "SPR": -1,
             "CHR": -1
         },
         "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005",
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
             "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
@@ -10657,14 +10087,11 @@
         "event": "You expose a supervisor’s lie in front of colleagues. The lie survives, while your tone becomes the official problem.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR<2",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "251204": {
@@ -10681,10 +10108,8 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):251255",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):251255",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "251255": {
@@ -10701,37 +10126,23 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "251302": {
         "id": 251302,
         "event": "A school wellbeing system records every conflict but forgets every reconciliation. Your risk profile grows more coherent than your actual self.",
-        "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3",
-        "effect": {
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3"
     },
     "251303": {
         "id": 251303,
         "event": "You reject scripted empathy at work and are sent to mandatory emotional retraining run by the same AI that scored you.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "251304": {
@@ -10748,10 +10159,8 @@
             "STR": -2
         },
         "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):251355",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):251355",
             "STR<2&TLR>0:200004",
-            "STR<-18&TLR=0:200004"
+            "STR<1&TLR=0:200004"
         ]
     },
     "251355": {
@@ -10772,8 +10181,7 @@
         "event": "You become useful at absorbing family conflict. Everybody tells you secrets because nobody expects you to change the arrangement.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
-            "SPR": 1,
-            "STR": -1
+            "SPR": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -10785,14 +10193,11 @@
         "event": "A man with authority over you calls your endurance maturity and gives you more harm to manage.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
-            "MNY": -1,
-            "SPR": -1
+            "MNY": -1
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "252104": {
@@ -10801,11 +10206,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "252105": {
         "id": 252105,
@@ -10813,11 +10214,7 @@
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -4
-        },
-        "branch": [
-            "SPR<4&TLR>0&(STR<5|MNY<5):252155",
-            "SPR<-16&TLR=0&(STR<5|MNY<5):252155"
-        ]
+        }
     },
     "252155": {
         "id": 252155,
@@ -10837,8 +10234,7 @@
         "event": "Friends and relatives rely on you as the quiet listener. Their relief accumulates inside you as fatigue nobody can see.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
-            "SPR": 1,
-            "STR": -1
+            "SPR": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -10850,25 +10246,16 @@
         "event": "At work you perform reassurance for customers, managers and machines measuring customer satisfaction. Anger returns home with you because it has nowhere else to go.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "252204": {
         "id": 252204,
         "event": "An AI companion becomes the only place you stop managing another person’s reaction. A regulatory shutdown deletes the history without notice.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "252205": {
         "id": 252205,
@@ -10876,11 +10263,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>1&SPR<4)",
         "effect": {
             "SPR": -4
-        },
-        "branch": [
-            "SPR<4&TLR>0&(STR<5|MNY<5):252255",
-            "SPR<-16&TLR=0&(STR<5|MNY<5):252255"
-        ]
+        }
     },
     "252255": {
         "id": 252255,
@@ -10902,11 +10285,7 @@
         "effect": {
             "MNY": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "252303": {
         "id": 252303,
@@ -10926,12 +10305,8 @@
         "event": "The companion is withdrawn after a political panic about social stability. Your appeal can recover the data but not the personality you depended on.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>2&SPR<6)",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "252305": {
         "id": 252305,
@@ -10939,11 +10314,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>2&SPR<6)",
         "effect": {
             "SPR": -4
-        },
-        "branch": [
-            "SPR<4&TLR>0&(STR<5|MNY<5):252355",
-            "SPR<-16&TLR=0&(STR<5|MNY<5):252355"
-        ]
+        }
     },
     "252355": {
         "id": 252355,
@@ -10985,12 +10356,10 @@
         "event": "A political shift forces you to choose which endangered family receives the network’s last safe route. The women you cannot help know your name.",
         "include": "((HTI>0|AF>0|PRK>0)&(SPR>3&SPR<6))|(IRN>0&(SPR>3&SPR<8))",
         "effect": {
-            "SPR": -2,
+            "SPR": -1,
             "STR": -1
         },
         "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11004,8 +10373,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&TLR>0&(STR<5|MNY<5):253155",
-            "SPR<-13&TLR=0&(STR<5|MNY<5):253155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11029,8 +10396,7 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
             "SPR": 1,
-            "MNY": 1,
-            "STR": -1
+            "MNY": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -11051,12 +10417,8 @@
         "event": "The group becomes large enough for a platform and political faction to compete for it. Neutrality stops being a place you can stand.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>3&SPR<8)",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "253205": {
         "id": 253205,
@@ -11067,8 +10429,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&TLR>0&(STR<5|MNY<5):253255",
-            "SPR<-13&TLR=0&(STR<5|MNY<5):253255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11100,8 +10460,7 @@
         "event": "You create a local network for care, housing and companionship. Its value lies in people knowing one another beyond a profile.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>5&SPR<9)",
         "effect": {
-            "SPR": 1,
-            "STR": -1
+            "SPR": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -11113,12 +10472,8 @@
         "event": "A public-private platform absorbs the network and replaces reciprocal help with rated transactions. Members blame you for accepting the only funding available.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>5&SPR<9)",
         "effect": {
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -1
+        }
     },
     "253305": {
         "id": 253305,
@@ -11129,8 +10484,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<7&TLR>0&(STR<5|MNY<5):253355",
-            "SPR<-13&TLR=0&(STR<5|MNY<5):253355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11176,9 +10529,7 @@
         },
         "branch": [
             "MNY<1&TLR>0:200001",
-            "MNY<-19&TLR=0:200001",
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<-19&TLR=0:200001"
         ]
     },
     "254105": {
@@ -11190,8 +10541,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&TLR>0&(STR<5|MNY<5):254155",
-            "SPR<-10&TLR=0&(STR<5|MNY<5):254155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11233,13 +10582,11 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>7&SPR<11)",
         "effect": {
             "CHR": -1,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "254205": {
@@ -11251,8 +10598,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&TLR>0&(STR<5|MNY<5):254255",
-            "SPR<-10&TLR=0&(STR<5|MNY<5):254255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11294,13 +10639,11 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>8&SPR<12)",
         "effect": {
             "CHR": -1,
-            "SPR": -2
+            "SPR": -1
         },
         "branch": [
             "CHR<1&TLR>0&(STR<5|MNY<5):200002",
-            "CHR<-19&TLR=0&(STR<5|MNY<5):200002",
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
+            "CHR<-19&TLR=0&(STR<5|MNY<5):200002"
         ]
     },
     "254305": {
@@ -11312,8 +10655,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<10&TLR>0&(STR<5|MNY<5):254355",
-            "SPR<-10&TLR=0&(STR<5|MNY<5):254355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11350,13 +10691,8 @@
         "event": "Authorities invite you into formal power and use your presence as proof that excluded women are now represented.",
         "include": "((HTI>0|AF>0|PRK>0)&(SPR>8&SPR<12))|(IRN>0&(SPR>10&SPR<14))",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "255104": {
         "id": 255104,
@@ -11368,7 +10704,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "255105": {
@@ -11380,8 +10716,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&TLR>0&(STR<5|MNY<5):255155",
-            "SPR<-7&TLR=0&(STR<5|MNY<5):255155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11415,11 +10749,7 @@
         "effect": {
             "MNY": 1,
             "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+        }
     },
     "255204": {
         "id": 255204,
@@ -11431,7 +10761,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "255205": {
@@ -11443,8 +10773,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&TLR>0&(STR<5|MNY<5):255255",
-            "SPR<-7&TLR=0&(STR<5|MNY<5):255255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11476,13 +10804,8 @@
         "event": "You gain formal power and discover that institutions value empathy most when it persuades people to accept an unchanged distribution of cost.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>11&SPR<15)",
         "effect": {
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "255304": {
         "id": 255304,
@@ -11494,7 +10817,7 @@
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "255305": {
@@ -11506,8 +10829,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<13&TLR>0&(STR<5|MNY<5):255355",
-            "SPR<-7&TLR=0&(STR<5|MNY<5):255355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11531,8 +10852,7 @@
         "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
             "SPR": 1,
-            "MNY": 1,
-            "STR": -1
+            "MNY": 1
         },
         "branch": [
             "STR<1&TLR>0:200004",
@@ -11544,25 +10864,16 @@
         "event": "An AI trained on your conversations speaks to citizens continuously. It offers more patience than your body can and gradually becomes the version they prefer.",
         "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
-            "INT": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "INT": 1
+        }
     },
     "256104": {
         "id": 256104,
         "event": "You discover that the system changes your simulated responses to increase obedience. Ending it would feel to millions like killing the only person who understands them.",
         "include": "((HTI>0|AF>0|PRK>0)&SPR>11)|(IRN>0&SPR>13)",
         "effect": {
-            "SPR": -3
-        },
-        "branch": [
-            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-17&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "SPR": -2
+        }
     },
     "256105": {
         "id": 256105,
@@ -11573,8 +10884,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&TLR>0&(STR<5|MNY<5):256155",
-            "SPR<-4&TLR=0&(STR<5|MNY<5):256155",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11607,13 +10916,8 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -1
-        },
-        "branch": [
-            "SPR<1&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-19&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "256204": {
         "id": 256204,
@@ -11621,13 +10925,11 @@
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "MNY": -2,
-            "SPR": -3
+            "SPR": -2
         },
         "branch": [
             "MNY<2&TLR>0:200001",
-            "MNY<-18&TLR=0:200001",
-            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-17&TLR=0&(STR<5|MNY<5):200005"
+            "MNY<1&TLR=0:200001"
         ]
     },
     "256205": {
@@ -11639,8 +10941,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&TLR>0&(STR<5|MNY<5):256255",
-            "SPR<-4&TLR=0&(STR<5|MNY<5):256255",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
@@ -11673,13 +10973,8 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR>14",
         "effect": {
             "INT": 1,
-            "MNY": 1,
-            "SPR": -2
-        },
-        "branch": [
-            "SPR<2&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-18&TLR=0&(STR<5|MNY<5):200005"
-        ]
+            "MNY": 1
+        }
     },
     "256304": {
         "id": 256304,
@@ -11687,13 +10982,11 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR>14",
         "effect": {
             "STR": -1,
-            "SPR": -3
+            "SPR": -2
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<-19&TLR=0:200004",
-            "SPR<3&TLR>0&(STR<5|MNY<5):200005",
-            "SPR<-17&TLR=0&(STR<5|MNY<5):200005"
+            "STR<-19&TLR=0:200004"
         ]
     },
     "256305": {
@@ -11705,8 +10998,6 @@
             "STR": -1
         },
         "branch": [
-            "SPR<16&TLR>0&(STR<5|MNY<5):256355",
-            "SPR<-4&TLR=0&(STR<5|MNY<5):256355",
             "STR<1&TLR>0:200004",
             "STR<-19&TLR=0:200004"
         ]
