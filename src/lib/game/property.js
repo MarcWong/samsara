@@ -24,7 +24,15 @@ class Property {
         TLT: "TLT", // 天赋 talent TLT
         EVT: "EVT", // 事件 event EVT
         TMS: "TMS", // 次数 times TMS
-        LBTQ: "LGBTQ", // 性向 LBTQ
+        // 性向. The VALUE must stay "LBTQ": it is the storage key, and every
+        // condition string in events.json addresses the property by that
+        // exact spelling (163 includes write LBTQ>0 / LBTQ=0). It briefly
+        // held "LGBTQ" -- get("LBTQ") then matched no case, fell through to
+        // `default: return 0`, and orientation silently never affected any
+        // event for any player. The player-facing label is spelled "LGBTQ"
+        // where it is displayed (Plaza / Trajectory / Summary), which is a
+        // presentation concern and must not travel through this key.
+        LBTQ: "LBTQ",
         TLR: "TLR", // 天龙人 (free-allocation bonus triggered) TLR
         ...NATION_KEY_TO_CODE, // 国别: one entry per functions/countries.js
 
@@ -182,14 +190,6 @@ class Property {
     get(prop) {
         const util = this.#util;
         if (NATION_CODES.has(prop)) return util.clone(this.#data[prop]);
-        // Alias: every condition string in events.json spells orientation
-        // "LBTQ", but the storage key is TYPES.LBTQ === "LGBTQ" (and that is
-        // the key the allocation screen writes through). Without this mapping
-        // the lookup fell through to `default: return 0`, so LBTQ>0 was false
-        // and LBTQ=0 true for EVERY life regardless of the player's actual
-        // choice -- queer players got the straight storyline and none of the
-        // 136 queer-gated events could ever fire.
-        if (prop === 'LBTQ') prop = this.TYPES.LBTQ;
         switch(prop) {
             case this.TYPES.AGE:
             case this.TYPES.CHR:
