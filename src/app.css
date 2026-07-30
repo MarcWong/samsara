@@ -21,6 +21,25 @@
 	box-sizing: border-box;
 }
 
+/* Touch: `manipulation` removes the 300ms double-tap-to-zoom gesture (and
+   with it the click delay) -- required for skip.js's double-tap skip to be
+   usable without the browser zooming the footage instead. Harmless on
+   desktop, so it stays unconditional. */
+html {
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+/* Text selection is disabled ONLY on coarse-pointer (touch) devices, where
+   the iOS long-press selection callout kept firing from the stair log. On
+   desktop, text must stay selectable -- with a global user-select:none the
+   event log reads as a flat image you can't copy a line out of. */
+@media (pointer: coarse) {
+	html {
+		-webkit-user-select: none;
+		user-select: none;
+	}
+}
+
 html,
 body {
 	margin: 0;

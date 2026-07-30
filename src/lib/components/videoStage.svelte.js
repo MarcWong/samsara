@@ -52,12 +52,44 @@ class VideoStage {
 		this.#player.redraw(); // resizing clears the canvas -- repaint current frame
 	}
 
+	// Once a decode/demux failure has been seen, every later play() routes
+	// to the <video> fallback for the rest of the session -- a device that
+	// failed one H.264 stream will fail the next seven the same way.
+	#demoted = false;
+
 	// Loads (via videoPlayer.js's shared URL cache) and plays a clip on the
-	// shared canvas. Rejects if this clip fails to fetch/demux; callers keep
-	// their existing catch-and-degrade behavior.
+	// shared canvas. Rejects if this clip fails to fetch outright; a demux
+	// or DECODE failure instead demotes this and every subsequent clip to
+	// the shared <video> element, replaying the current one there so the
+	// screen flow (which hangs on onEnded) never stalls. Fallback playback
+	// is muted: on the WebCodecs path each screen already plays the clip's
+	// soundtrack through its own <audio>, and that keeps working -- an
+	// unmuted fallback would double it.
 	async play(url, { loop = false, onEnded = null, rate = 1, align = null, alignOut = null } = {}) {
-		const media = await loadMp4(url);
-		this.#player.play(media, { loop, onEnded, rate, align, alignOut });
+		if (this.#demoted || !this.#player) {
+			this.playFallback(url, { loop, rate, muted: true, onEnded });
+			return;
+		}
+		let media;
+		try {
+			media = await loadMp4(url);
+		} catch (err) {
+			console.error('[videoStage] demux failed, demoting to <video>', err);
+			this.#demoted = true;
+			this.playFallback(url, { loop, rate, muted: true, onEnded });
+			return;
+		}
+		this.#player.play(media, {
+			loop,
+			onEnded,
+			rate,
+			align,
+			alignOut,
+			onError: () => {
+				this.#demoted = true;
+				this.playFallback(url, { loop, rate, muted: true, onEnded });
+			},
+		});
 	}
 
 	// Fallback path: update the shared <video>'s reactive props. `key`

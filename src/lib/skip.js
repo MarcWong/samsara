@@ -33,6 +33,10 @@ export function skippable(node) {
 	return { destroy: off };
 }
 
+function fireSkip() {
+	for (const fn of [...listeners]) fn();
+}
+
 if (typeof window !== 'undefined') {
 	window.addEventListener('keydown', e => {
 		if (e.code !== 'Space') return;
@@ -47,6 +51,27 @@ if (typeof window !== 'undefined') {
 			for (const fn of [...listeners]) fn();
 		} else {
 			lastSpaceAt = now;
+		}
+	});
+
+	// Touch equivalent: two quick taps anywhere non-interactive. Uses
+	// touchend (not click) so a double-tap is recognized even where a
+	// screen's own single-tap handler consumes the click -- and the same
+	// interactive-target guard as Space, so double-tapping a button is two
+	// activations, never a skip. app.css sets `touch-action: manipulation`
+	// globally, which is what stops the browser reading the second tap as
+	// double-tap-to-zoom. Mouse users are untouched: no `click` fallback,
+	// or fast clickers advancing the stair log would trigger skips.
+	let lastTapAt = 0;
+	window.addEventListener('touchend', e => {
+		const tag = /** @type {HTMLElement} */ (e.target)?.tagName;
+		if (tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'TEXTAREA') return;
+		const now = performance.now();
+		if (now - lastTapAt < DOUBLE_TAP_MS) {
+			lastTapAt = 0;
+			fireSkip();
+		} else {
+			lastTapAt = now;
 		}
 	});
 }

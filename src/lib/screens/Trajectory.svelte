@@ -879,7 +879,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		margin-left: calc(var(--step, 0) * 2.6cqw);
-		font-size: 2.6cqh;
+		font-size: max(0.82rem, 2.6cqh);
 		max-width: 100%;
 	}
 	/* Same frosted-glass recipe as .alloc-glass (tint + backdrop-blur +
@@ -949,7 +949,7 @@
 		position: fixed;
 		left: 0;
 		right: 0;
-		bottom: 1.5rem;
+		bottom: calc(1.5rem + env(safe-area-inset-bottom));
 		display: flex;
 		justify-content: center;
 	}
@@ -1057,7 +1057,7 @@
 	}
 	.alloc-title {
 		margin: 0 0 0.3cqh;
-		font-size: 3.4cqh;
+		font-size: max(1rem, 3.4cqh);
 		font-weight: bold;
 	}
 	.alloc-tokens {
@@ -1065,7 +1065,7 @@
 		justify-content: center;
 		gap: 1.4em;
 		margin: 0 0 2cqh;
-		font-size: 2.1cqh;
+		font-size: max(0.75rem, 2.1cqh);
 		color: #17262e;
 	}
 	.alloc-stats {
@@ -1083,12 +1083,12 @@
 	.alloc-label {
 		flex: 1;
 		text-align: left;
-		font-size: 2.6cqh;
+		font-size: max(0.82rem, 2.6cqh);
 	}
 	.alloc-value {
 		width: 1.6em;
 		text-align: center;
-		font-size: 2.8cqh;
+		font-size: max(0.85rem, 2.8cqh);
 		font-weight: bold;
 	}
 	/* The Random row: same width as .alloc-stats (its sibling below) so the
@@ -1105,14 +1105,14 @@
 		   -- without matching font-size here, 1.9em resolves to a different
 		   px width than the real step buttons use and the slot drifts off
 		   .alloc-value's actual center. */
-		font-size: 2.4cqh;
+		font-size: max(0.8rem, 2.4cqh);
 		width: 1.9em;
 		height: 1.9em;
 		visibility: hidden;
 	}
 	.value-slot {
 		position: relative;
-		font-size: 2.8cqh;
+		font-size: max(0.85rem, 2.8cqh);
 		width: 1.6em;
 	}
 	/* Mini liquid-glass pills, same recipe as .alloc-panel/Button.svelte
@@ -1132,7 +1132,7 @@
 		color: #17262e;
 		border-radius: 50%;
 		cursor: pointer;
-		font-size: 2.4cqh;
+		font-size: max(0.8rem, 2.4cqh);
 		padding: 0;
 		box-shadow:
 			0 2px 6px rgba(10, 20, 28, 0.18),
@@ -1379,7 +1379,7 @@
 		position: relative;
 		margin: 0;
 		max-width: 100%;
-		font-size: 1.5cqh;
+		font-size: max(0.7rem, 1.5cqh);
 		letter-spacing: 0.06em;
 		line-height: 1.4;
 		color: rgba(23, 38, 46, 0.72);
@@ -1421,5 +1421,13 @@
 	.start-hover-zone:hover:not(:has(.alloc-action:hover)) ~ .alloc-hint-zone .alloc-hint {
 		opacity: 1;
 		transition: opacity 300ms ease;
+	}
+	/* Touch devices have no hover, so the hidden-in-plain-sight reveal can
+	   never fire there -- the tip would simply not exist. Show it standing,
+	   slightly dimmed so it reads as a caption rather than a callout. */
+	@media (hover: none) {
+		.alloc-hint {
+			opacity: 0.8;
+		}
 	}
 </style>

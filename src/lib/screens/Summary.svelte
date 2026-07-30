@@ -369,7 +369,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 1.1rem;
-		padding: 1.75rem 1.5rem 1.25rem;
+		padding: calc(1.75rem + env(safe-area-inset-top)) calc(1.5rem + env(safe-area-inset-right)) calc(1.25rem + env(safe-area-inset-bottom)) calc(1.5rem + env(safe-area-inset-left));
 		color: #dce8ee;
 		/* opacity/filter are driven per-frame from $restartProgress
 		   (see fgOpacity/blurPx in the script) rather than a CSS
