@@ -84,7 +84,7 @@
         "branch": [
             "STR>3:10003",
             "MNY<3&TLR>0:10000",
-            "MNY<-17&TLR=0:10000"
+            "MNY<0&TLR=0:10000"
         ]
     },
     "10013": {
@@ -785,10 +785,7 @@
     "101003": {
         "id": 101003,
         "event": "The basic brain plan now forgets names after thirty days. Premium remembers your mother.",
-        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<6",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY<6"
     },
     "101004": {
         "id": 101004,
@@ -810,10 +807,7 @@
     "101006": {
         "id": 101006,
         "event": "Your health score recommends pregnancy timing. The report calls your uterus a national asset.",
-        "include": "CH>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "CH>0"
     },
     "101007": {
         "id": 101007,
@@ -827,51 +821,35 @@
     "101008": {
         "id": 101008,
         "event": "Your postcode decides which reproductive clinic may answer your call. Freedom has a map now.",
-        "include": "US>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "US>0"
     },
     "101009": {
         "id": 101009,
         "event": "You change degrees again. Denmark pays for the search; nobody can tell you what to find.",
         "include": "DNK>0&MNY<8",
         "effect": {
-            "INT": 1,
-            "SPR": -1
+            "INT": 1
         }
     },
     "101010": {
         "id": 101010,
         "event": "Your neighbour speaks perfect Danish. Your uncle still calls him the integration problem.",
-        "include": "DNK>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "DNK>0"
     },
     "101011": {
         "id": 101011,
         "event": "Your welfare counsellor says you are free to become anything. You feel professionally unemployed by possibility.",
-        "include": "DNK>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "DNK>0"
     },
     "101012": {
         "id": 101012,
         "event": "Britain debates who belongs here. Your hospital queue keeps getting longer in every language.",
-        "include": "GBR>0&MNY<7",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "GBR>0&MNY<7"
     },
     "101013": {
         "id": 101013,
         "event": "A politician promises to take Britain back. You ask back to which woman, and lose the room.",
-        "include": "GBR>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "GBR>0"
     },
     "101014": {
         "id": 101014,
@@ -912,9 +890,6 @@
         "id": 101018,
         "event": "Your company sells rainbow merchandise all June. Your group chat is still not searchable in July.",
         "include": "CH>0&LBTQ>0",
-        "effect": {
-            "SPR": -1
-        },
         "exclude": "EVT?[101018]"
     },
     "101019": {
@@ -929,10 +904,7 @@
     "101020": {
         "id": 101020,
         "event": "Scientists link the polluted air to falling fertility. Television panels blame women first.",
-        "include": "CH>0|US>0|JAP>0|GBR>0|IND>0|EGY>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "CH>0|US>0|JAP>0|GBR>0|IND>0|EGY>0"
     },
     "101021": {
         "id": 101021,
@@ -1023,10 +995,7 @@
     "101031": {
         "id": 101031,
         "event": "A new museum calls colonial history a shared journey. Your family calls it a different kind of inheritance.",
-        "include": "GBR>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "GBR>0"
     },
     "101032": {
         "id": 101032,
@@ -1040,10 +1009,7 @@
     "101033": {
         "id": 101033,
         "event": "Your parents call the natural-human movement backward. Its members call your implant a leased soul.",
-        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "US>0|CH>0|JAP>0|GBR>0|DNK>0"
     },
     "101034": {
         "id": 101034,
@@ -1158,10 +1124,7 @@
     "101049": {
         "id": 101049,
         "event": "The government calls food security a triumph. Your village calls it the year nobody farmed anymore.",
-        "include": "CH>0|IND>0|US>0",
-        "effect": {
-            "SPR": -1
-        }
+        "include": "CH>0|IND>0|US>0"
     },
     "102001": {
         "id": 102001,
@@ -6876,7 +6839,7 @@
         "event": "Beauty scoring is officially illegal, yet insurance, employment and dating systems share enough proxy data to reduce your visible desirability to zero after an injury. Public care restores function but classifies symmetry as consumption.",
         "include": "CHR<1&HCHR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
-            "SPR": -2,
+            "SPR": -1,
             "STR": -1
         }
     },
@@ -7532,7 +7495,7 @@
         "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "STR": 1,
-            "SPR": -2
+            "SPR": -1
         }
     },
     "216104": {
@@ -7609,7 +7572,7 @@
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY>14",
         "effect": {
             "MNY": 1,
-            "SPR": -2
+            "SPR": -1
         }
     },
     "216303": {
@@ -7619,7 +7582,7 @@
         "effect": {
             "MNY": 1,
             "STR": 1,
-            "SPR": -2
+            "SPR": -1
         }
     },
     "216304": {
@@ -10033,7 +9996,7 @@
         "include": "((HTI>0|AF>0|PRK>0)&STR>11)|(IRN>0&STR>13)",
         "effect": {
             "STR": 1,
-            "SPR": -2
+            "SPR": -1
         }
     },
     "246103": {
