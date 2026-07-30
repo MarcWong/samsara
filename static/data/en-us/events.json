@@ -9,7 +9,7 @@
     },
     "10001": {
         "id": 10001,
-        "event": "You're flattened by an illness out of nowhere. Heaven's line is busy—God is busy with someone else's prayer request.",
+        "event": "You're flattened by an illness out of nowhere. Heaven's line is busy—God is answering someone else's prayer request.",
         "include": "STR<0",
         "branch": [
             ":10000"
@@ -114,10 +114,10 @@
     },
     "10016": {
         "id": 10016,
-        "event": "Your body finally settles into its new geometry, and the face in the mirror barely nods at the kid in your parents' old photo albums. The classmates who remember your original model now gush about how \"stunning\" you are.",
+        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\".",
         "include": "EVT![10016,10017]",
         "effect": {
-            "CHR": 1
+            "CHR": 3
         }
     },
     "10017": {
@@ -205,11 +205,11 @@
         "id": 74002,
         "event": "You’ve been shut out and shoved aside your whole life. Then, by chance, a friend’s phone shows you a video of another world outside the border. You decide to risk everything and try to slip across into China.",
         "include": "PRK>0&EVT![86001,86002]",
-        "exclude": "EVT?[74002]",
+        "exclude": "EVT?[74002, 86001, 86002]",
         "branch": [
-            "MNY>4:74003",
-            "MNY>2:74004",
-            "MNY<=2:74005"
+            "MNY>2&STR>1:74003",
+            "MNY>0|STR>0:74004",
+            "MNY<1&STR<1:74005"
         ]
     },
     "74003": {
@@ -217,7 +217,8 @@
         "event": "You make it across, into China, and keep moving until North Korea shrinks into a story you tell in a language it took you years to learn.",
         "NoRandom": 1,
         "effect": {
-            "PRK": -1
+            "PRK": -1,
+            "CH": 1
         }
     },
     "74004": {
@@ -5229,7 +5230,7 @@
     "112501": {
         "id": 112501,
         "event": "You die from contaminated village water after the local clinic runs out of rehydration medicine. Your death is entered into a health dashboard that reports improving rural sanitation.",
-        "include": "IND>0&TLR=0&(STR<1|MNY<1)",
+        "include": "IND>0&TLR=0&(STR<1&MNY<1)",
         "branch": [
             ":10000"
         ]
@@ -7244,8 +7245,7 @@
         "event": "A market failure and a medical emergency arrive in the same fortnight, and everything you own sits inside trusts and instruments that take ninety days to become money. You borrow against yourself at punitive rates, and the delay costs more than the borrowing does.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>8&MNY<12)",
         "effect": {
-            "MNY": -7,
-            "STR": -1
+            "MNY": -7
         },
         "branch": [
             "STR<1&TLR>0:200004"
@@ -7253,7 +7253,7 @@
     },
     "215101": {
         "id": 215101,
-        "event": "Your family position places you inside the small class that receives warning before rules change.",
+        "event": "Your family position places you inside the privileged class that receives warning before rules change.",
         "include": "((HTI>0|AF>0|PRK>0)&(MNY>8&MNY<12))|(IRN>0&(MNY>10&MNY<14))"
     },
     "215102": {

@@ -179,3 +179,26 @@ describe('$$event / $$on / $$off pub-sub shim', () => {
         expect(received).toEqual(['first']);
     });
 });
+
+describe('LBTQ condition alias regression', () => {
+    // Conditions in events.json spell orientation "LBTQ" while the storage
+    // key (and the key the allocation screen writes) is TYPES.LBTQ ===
+    // "LGBTQ". property.get() used to miss every case for the bare "LBTQ"
+    // string and fall through to `return 0`, which made LBTQ>0 false and
+    // LBTQ=0 true for every life -- the queer storyline was unreachable.
+    it('LBTQ>0 / LBTQ=0 track the orientation the UI actually sets', async () => {
+        const life = await createLife();
+        const check = life.function(life.Function.CONDITION).checkCondition;
+        const property = life.request(life.Module.PROPERTY);
+
+        life.remake([]);
+        life.start({ US: 1, [life.PropertyTypes.LBTQ]: 1, CHR: 1, INT: 1, STR: 1, MNY: 1, SPR: 1 });
+        expect(check(property, 'LBTQ>0')).toBe(true);
+        expect(check(property, 'LBTQ=0')).toBe(false);
+
+        life.remake([]);
+        life.start({ US: 1, [life.PropertyTypes.LBTQ]: 0, CHR: 1, INT: 1, STR: 1, MNY: 1, SPR: 1 });
+        expect(check(property, 'LBTQ>0')).toBe(false);
+        expect(check(property, 'LBTQ=0')).toBe(true);
+    });
+});

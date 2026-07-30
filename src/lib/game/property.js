@@ -182,6 +182,14 @@ class Property {
     get(prop) {
         const util = this.#util;
         if (NATION_CODES.has(prop)) return util.clone(this.#data[prop]);
+        // Alias: every condition string in events.json spells orientation
+        // "LBTQ", but the storage key is TYPES.LBTQ === "LGBTQ" (and that is
+        // the key the allocation screen writes through). Without this mapping
+        // the lookup fell through to `default: return 0`, so LBTQ>0 was false
+        // and LBTQ=0 true for EVERY life regardless of the player's actual
+        // choice -- queer players got the straight storyline and none of the
+        // 136 queer-gated events could ever fire.
+        if (prop === 'LBTQ') prop = this.TYPES.LBTQ;
         switch(prop) {
             case this.TYPES.AGE:
             case this.TYPES.CHR:

@@ -248,7 +248,7 @@
 		// by unprivileged lives and at any age). realAge is the DISPLAYED
 		// age -- the number the player actually watched her die at -- not
 		// the internal 0-102 content index.
-		if (fatal && bonusTriggered && realAge < 30) {
+		if (fatal && bonusTriggered && realAge < 75) {
 			const coda = 'Relax, even when you are privileged, nothing is in control';
 			deathLine = deathLine ? `${deathLine}\n${coda}` : coda;
 		}
@@ -413,6 +413,17 @@
 	// bundled with MNY-1 (the lucky-charm doc's cosmetic-procedure cost),
 	// not a clean positive.
 	const GOOD_TALENT_POOL = [5, 6, 8, 9];
+	// The five outright misfortunes (Earthquake, Airplane Crash, Farewell
+	// Mom, Bankruptcy, Rape). The privileged re-draw is no longer fully
+	// insulated from them: they stay in the pool at a weight that gives the
+	// bad five ~5% of each pick between them (5 x 0.042 vs 4 good at 1 --
+	// 0.21 / 4.21 ~ 4.99%), against ~95% good. With the Poisson charm count
+	// (~0.98 draws per life) that lands at roughly one privileged life in
+	// twenty catching a misfortune anyway -- including, rarely, the plane
+	// crash the privilege coda was written for.
+	const BAD_TALENT_POOL = [0, 1, 2, 3, 4];
+	const TLR_TALENT_POOL = [...BAD_TALENT_POOL, ...GOOD_TALENT_POOL];
+	const TLR_TALENT_WEIGHTS = Object.fromEntries(BAD_TALENT_POOL.map(i => [i, 0.042]));
 
 	function confirmAllocation() {
 		if (allocLeft > 0) return;
@@ -431,16 +442,17 @@
 		bonusTriggered = bonus.triggered;
 		if (bonus.triggered) {
 			// The free-allocation trick already handed her an easier start --
-			// re-roll this life's lucky charms from the good-only pool so
-			// none of the random misfortunes (earthquake, bankruptcy, rape,
-			// a plane crash) can also land on top of it. How MANY are drawn
+			// re-roll this life's lucky charms from a pool that is ~95% the
+			// four clean positives, with the five misfortunes kept in at a
+			// sliver of weight (see TLR_TALENT_WEIGHTS): privilege shields
+			// her from bad luck, it does not repeal it. How MANY are drawn
 			// is Poisson (see talentDraw.js), so this re-roll often yields
 			// one charm and sometimes none -- it is not a guaranteed set.
 			// core.remake() was
 			// already called once in Plaza with the original draw; calling
 			// it again here fully replaces that selection before core.start()
 			// ever applies any of it.
-			talents = drawTalentsFrom(core.talentRandom(), { pool: GOOD_TALENT_POOL });
+			talents = drawTalentsFrom(core.talentRandom(), { pool: TLR_TALENT_POOL, weights: TLR_TALENT_WEIGHTS });
 			core.remake(talents.map(t => t.id));
 		}
 		printText =

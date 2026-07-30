@@ -9,7 +9,7 @@
 	// than waiting on initGame().
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
-	import { BG_VOLUME, BG_RAMP_MS } from '../audio.js';
+	import { BG_VOLUME, BG_RAMP_MS, BG_RESTORE_RAMP_MS } from '../audio.js';
 	import { bgMusicScale } from '../stores.js';
 
 	let el = $state(null);
@@ -29,9 +29,16 @@
 			el.volume = target;
 			return;
 		}
+		// Direction picks the duration: ducking has to be done before the clip
+		// soundtrack it makes room for gets going (600ms), but the restore on
+		// Summary has nothing to hurry for -- a slow 3s swell instead of the
+		// music suddenly stepping up. Linear on purpose: perceived loudness of
+		// a linear volume ramp already back-loads (equal volume steps sound
+		// bigger near the top), which is the swell shape wanted here anyway.
+		const ms = target > from ? BG_RESTORE_RAMP_MS : BG_RAMP_MS;
 		const t0 = performance.now();
 		const step = now => {
-			const k = Math.min(1, (now - t0) / BG_RAMP_MS);
+			const k = Math.min(1, (now - t0) / ms);
 			el.volume = from + (target - from) * k;
 			if (k < 1) rampRaf = requestAnimationFrame(step);
 		};

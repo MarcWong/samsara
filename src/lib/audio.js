@@ -28,3 +28,11 @@ export const BG_DUCKED_SCALE = 0.25;
 // a click or a sudden drop-out -- where a short ramp reads as the mix moving.
 // Short enough to be finished well before the first event line lands.
 export const BG_RAMP_MS = 600;
+
+// The return to full level on the Summary screen gets its own, much slower
+// ramp. Going DOWN has a deadline (the clip soundtrack it makes room for is
+// already starting), but coming back UP has none -- the run is over and the
+// bed swelling back is the closing gesture, so at 600ms it read as the music
+// suddenly getting loud. BackgroundMusic picks between the two by direction:
+// any decrease uses BG_RAMP_MS, any increase uses this.
+export const BG_RESTORE_RAMP_MS = 3000;
