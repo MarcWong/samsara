@@ -249,11 +249,18 @@ class Life {
     }
 
     random(events) {
-        return util.weightRandom(
-            events.filter(
-                ([eventId])=>this.#event.check(eventId, this.#property)
-            )
+        const eligible = events.filter(
+            ([eventId])=>this.#event.check(eventId, this.#property)
         );
+        // A pool whose weights sum below 1 fires with that probability and
+        // is otherwise a quiet year. Without this, a lone fractional-weight
+        // event (e.g. a purge at *0.01) becomes a certainty whenever nothing
+        // else in the row is eligible, since weightRandom only compares
+        // weights relatively.
+        let total = 0;
+        for(const [, weight] of eligible) total += weight;
+        if(total < 1 && Math.random() >= total) return undefined;
+        return util.weightRandom(eligible);
     }
 
     talentRandom() {

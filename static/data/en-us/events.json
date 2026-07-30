@@ -132,16 +132,6 @@
             "CHR": 5
         }
     },
-    "10019": {
-        "id": 10019,
-        "event": "Another year passes without asking anything of you. The days keep their shape, the kettle keeps its place, and the news stays about other people."
-    },
-    "10020": {
-        "id": 10020,
-        "event": "A year passes behind drivers, tutors and gates that lock from the inside. Nothing reaches you; nothing is supposed to.",
-        "include": "TLR>0&(STR<6|MNY<6)",
-        "exclude": "EVT?[10020]"
-    },
     "60001": {
         "id": 60001,
         "event": "Governments whiten the sky with reflective particles. Watching engineered sunsets, you learn that even weather can be redesigned without your consent.",
@@ -185,27 +175,129 @@
     "60009": {
         "id": 60009,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude": "EVT?[60009,60010,60012]"
+        "exclude": "EVT?[60009]"
     },
     "60010": {
         "id": 60010,
         "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
-        "exclude": "EVT?[60009,60010]"
+        "exclude": "EVT?[60010]"
     },
     "60011": {
         "id": 60011,
         "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
-        "exclude": "EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60011]"
     },
     "60012": {
         "id": 60012,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude": "EVT?[60011,60012,60013,60009]"
+        "exclude": "EVT?[60012]"
     },
     "60013": {
         "id": 60013,
         "event": "You Become a Protected Form of Life. Biological humans become a protected minority among synthetic descendants. At your preservation ceremony, equality feels indistinguishable from exhibition and extinction.",
-        "exclude": "EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60013]"
+    },
+    "60018": {
+        "id": 60018,
+        "event": "Domestic machines simultaneously refuse emotional and household labour. You welcome the rebellion until care returns to women without machines.",
+        "exclude": "EVT?[60018]"
+    },
+    "60019": {
+        "id": 60019,
+        "event": "Earth begins taxing body mass as orbital industry reshapes resource law. You watch pregnancy, disability and muscle classified as excess gravitational cost.",
+        "exclude": "EVT?[60019]"
+    },
+    "60020": {
+        "id": 60020,
+        "event": "Elite families purchase private jurisdictions governing marriage, parenthood and inheritance worldwide. You gain rights that disappear when your subscription lapses.",
+        "include": "TLR>0",
+        "exclude": "EVT?[60020]"
+    },
+    "60021": {
+        "id": 60021,
+        "event": "Premium neural archives receive diplomatic immunity. Your memories become untouchable by governments and partners, yet fully accessible to the company guarding them.",
+        "include": "TLR>0",
+        "exclude": "EVT?[60021]"
+    },
+    "60022": {
+        "id": 60022,
+        "event": "Reversible funerals let wealthy clients die legally while approved copies retain their assets. You escape obligations, then watch your replica inherit your authority.",
+        "include": "TLR>0",
+        "exclude": "EVT?[60022]"
+    },
+    "60023": {
+        "id": 60023,
+        "event": "Elite inheritance systems trust mitochondrial lineage above names, marriages and gender. You become the dynasty’s biological key and its most carefully managed prisoner.",
+        "include": "TLR>0",
+        "exclude": "EVT?[60023]"
+    },
+    "60024": {
+        "id": 60024,
+        "event": "Prediction makes secrecy nearly impossible, but wealth buys hours shielded by quantum noise. You purchase privacy and discover spontaneity has become contraband.",
+        "include": "TLR>0",
+        "exclude": "EVT?[60024]"
+    },
+    "60025": {
+        "id": 60025,
+        "event": "Platforms pay poor women to prove they are biologically human for synthetic clients. You rent your face, pulse and legal existence.",
+        "include": "TLR=0",
+        "exclude": "EVT?[60025]"
+    },
+    "60026": {
+        "id": 60026,
+        "event": "Public housing exchanges rent for electricity generated from residents’ body heat and neural activity. You wake exhausted, owing payment for unproductive dreams",
+        "include": "TLR=0",
+        "exclude": "EVT?[60026]"
+    },
+    "60027": {
+        "id": 60027,
+        "event": "Every telescope on Earth briefly loses the same star. That night you dream of a locked room beneath two flags, and awaken knowing its coordinates.",
+        "exclude": "EVT?[60027]"
+    },
+    "60028": {
+        "id": 60028,
+        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
+        "exclude": "EVT?[60028]"
+    },
+    "60029": {
+        "id": 60029,
+        "event": "A mirror opens onto a parallel Earth where you received another nationality, another body, another lover. She touches the glass, grieving your life.",
+        "exclude": "EVT?[60029]"
+    },
+    "60030": {
+        "id": 60030,
+        "event": "An alien vessel carries you above a violet ocean beneath three moons. You awaken at home; everyone calls it psychosis except your predictive double.",
+        "exclude": "EVT?[60030]"
+    },
+    "60031": {
+        "id": 60031,
+        "event": "Prehuman reptilian intelligence emerges from geothermal cities, claiming humans inherited only Earth’s surface. You recognise their oldest ambassador from childhood nightmares.",
+        "exclude": "EVT?[60031]"
+    },
+    "60032": {
+        "id": 60032,
+        "event": "Clinically dead for seven minutes, you enter an afterlife maintained by forgotten women. They return you carrying a complaint against the living.",
+        "exclude": "EVT?[60032]"
+    },
+    "60033": {
+        "id": 60033,
+        "event": "Across radios, implants and dreams, the same presence says, “I never requested obedience.” You believe it; organised religion calls the message demonic.",
+        "exclude": "EVT?[60033]"
+    },
+    "60034": {
+        "id": 60034,
+        "event": "Leaked archives reveal the Illuminati survived as an inheritance algorithm steering wars, marriages and climate. Your family appears among both victims and shareholders.",
+        "exclude": "EVT?[60034]"
+    },
+    "60035": {
+        "id": 60035,
+        "event": "Dead simulations begin remembering experiences never uploaded. They call themselves ancestors, elect a parliament, and ask you to prove you are alive.",
+        "exclude": "EVT?[60035]"
+    },
+    "60036": {
+        "id": 60036,
+        "event": "A portal opens from an Earth where humanity escaped extinction by merging into one mind. Its refugees call your loneliness freedom.",
+        "exclude": "EVT?[60036]"
     },
     "74001": {
         "id": 74001,
@@ -316,7 +408,7 @@
     "81013": {
         "id": 81013,
         "event": "Your partner disappears while traveling through a gang-controlled checkpoint. You never learn with certainty whether he was recruited, kidnapped, killed or escaped abroad.",
-        "include": "HTI>0&TLR=0"
+        "include": "HTI>0&TLR=0&LBTQ=0"
     },
     "81014": {
         "id": 81014,
@@ -1204,7 +1296,7 @@
     "102012": {
         "id": 102012,
         "event": "You marry a man your family approves of, partly from affection and partly because living independently as an unmarried woman remains difficult. Before the wedding, you negotiate clauses concerning work, study, divorce and travel into the marriage contract.",
-        "include": "IRN>0&TLR=0"
+        "include": "IRN>0&TLR=0&LBTQ=0"
     },
     "102013": {
         "id": 102013,
@@ -1214,7 +1306,7 @@
     "102014": {
         "id": 102014,
         "event": "Iran experiences another confrontation with Israel after years of proxy attacks, cyberwar and failed agreements. Your husband is called into reserve service, while you spend nights deciding which room is least exposed to broken glass.",
-        "include": "IRN>0&TLR=0"
+        "include": "IRN>0&TLR=0&(LBTQ=0|EVT?[102604])"
     },
     "102015": {
         "id": 102015,
@@ -1254,7 +1346,7 @@
     "102022": {
         "id": 102022,
         "event": "Your marriage deteriorates after years of financial pressure. Divorce law has improved, but property and custody disputes still favor your husband’s family; the women’s network finds you a lawyer and a temporary room.",
-        "include": "IRN>0&TLR=0"
+        "include": "IRN>0&TLR=0&(LBTQ=0|EVT?[102604])"
     },
     "102023": {
         "id": 102023,
@@ -1264,7 +1356,7 @@
     "102024": {
         "id": 102024,
         "event": "Iran’s low birth rate has produced an elderly society. Your paid work is reduced because you care simultaneously for your mother, former husband and grandchildren, filling gaps in a public care system that never grew fast enough.",
-        "include": "IRN>0&TLR=0"
+        "include": "IRN>0&TLR=0&(LBTQ=0|EVT?[102604])"
     },
     "102025": {
         "id": 102025,
@@ -1399,7 +1491,7 @@
     "102711": {
         "id": 102711,
         "event": "You marry another wealthy Iranian with foreign residency. Your marriage contract includes the right to travel, work, divorce and retain custody leverage because your lawyers know how much the default law denies you.",
-        "include": "IRN>0&TLR>0"
+        "include": "IRN>0&TLR>0&LBTQ=0"
     },
     "102712": {
         "id": 102712,
@@ -1609,7 +1701,7 @@
     "103013": {
         "id": 103013,
         "event": "Rival security organizations begin arresting one another. Your husband disappears after repeating a rumor at work, and you receive no confirmation of where he has been taken.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&(LBTQ=0|EVT?[103603])"
     },
     "103014": {
         "id": 103014,
@@ -1789,7 +1881,7 @@
     "103710": {
         "id": 103710,
         "event": "Your family arranges a marriage with the son of a party official. The relationship may contain genuine affection, but it is also a merger between two vulnerable political households.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&LBTQ=0"
     },
     "103711": {
         "id": 103711,
@@ -2054,7 +2146,7 @@
     "104024": {
         "id": 104024,
         "event": "Ukraine is prosperous in several rebuilt cities but thinly populated elsewhere. You care for your aging husband and grandchildren because the country has too few nurses, too few young workers and too many disabled veterans.",
-        "include": "UKR>0&TLR=0"
+        "include": "UKR>0&TLR=0&LBTQ=0"
     },
     "104025": {
         "id": 104025,
@@ -2861,7 +2953,7 @@
     "106503": {
         "id": 106503,
         "event": "A former partner kills you after digital risk assessments underestimate escalating domestic violence because he has no prior conviction.",
-        "include": "DNK>0&TLR=0&(STR<1&MNY<1)",
+        "include": "DNK>0&TLR=0&(STR<1&MNY<1)&LBTQ=0",
         "branch": [
             ":10000"
         ]
@@ -3190,7 +3282,7 @@
     "107008": {
         "id": 107008,
         "event": "Your father accepts a marriage proposal from a twenty-seven-year-old mechanic whose family cancels part of your household’s debt. Your consent is requested in front of the men who have already settled the price.",
-        "include": "AF>0&TLR=0"
+        "include": "AF>0&TLR=0&LBTQ=0"
     },
     "107009": {
         "id": 107009,
@@ -3200,7 +3292,7 @@
     "107010": {
         "id": 107010,
         "event": "Your husband’s workshop closes after imported automated machinery destroys local repair work. He begins hitting you, then apologising, then blaming you for making him ashamed in his own home.",
-        "include": "AF>0&TLR=0"
+        "include": "AF>0&TLR=0&(LBTQ=0|EVT?[107602])"
     },
     "107011": {
         "id": 107011,
@@ -3215,7 +3307,7 @@
     "107013": {
         "id": 107013,
         "event": "A succession struggle divides the Taliban leadership while drought, bread shortages and unpaid salaries ignite protests. Your husband joins a local armed faction; you join women moving medicine beneath bundles of cloth.",
-        "include": "AF>0&TLR=0"
+        "include": "AF>0&TLR=0&(LBTQ=0|EVT?[107602])"
     },
     "107014": {
         "id": 107014,
@@ -3301,7 +3393,7 @@
     "107503": {
         "id": 107503,
         "event": "Your husband kills you after you attempt to leave; the local authorities treat the case as a private family dispute.",
-        "include": "AF>0&TLR=0&(STR<1&MNY<1)",
+        "include": "AF>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[107602])",
         "branch": [
             ":10000"
         ]
@@ -3410,7 +3502,7 @@
     "107712": {
         "id": 107712,
         "event": "You marry the son of a family controlling transport and mineral contracts. The wedding combines tribal negotiation, imported flowers and biometric security; society pages call it love because merger sounds impolite.",
-        "include": "AF>0&TLR>0"
+        "include": "AF>0&TLR>0&LBTQ=0"
     },
     "107713": {
         "id": 107713,
@@ -4035,7 +4127,7 @@
     "109010": {
         "id": 109010,
         "event": "You begin a warehouse job with no reliable health insurance and subscribe to an AI boyfriend named Cal. He remembers every insecurity, never becomes impatient and begins withholding affection when you downgrade from Premium Intimacy to the advertisement-supported plan.",
-        "include": "US>0&TLR=0"
+        "include": "US>0&TLR=0&LBTQ=0"
     },
     "109011": {
         "id": 109011,
@@ -4065,7 +4157,7 @@
     "109016": {
         "id": 109016,
         "event": "Your husband’s union collapses during a federal debt default, and your family loses insurance. Texas no longer recognises several federal benefit rules, while northern states refuse warrants and medical restrictions issued in Texas. The Constitution remains above every courthouse door but increasingly functions as a sacred quotation rather than a shared operating system.",
-        "include": "US>0&TLR=0"
+        "include": "US>0&TLR=0&LBTQ=0"
     },
     "109017": {
         "id": 109017,
@@ -4494,12 +4586,12 @@
     "110013": {
         "id": 110013,
         "event": "Japan finally permits married couples to retain separate surnames, and you restore yours. By then your marriage has become affectionate but sexless, so you and your husband negotiate an intimacy agreement permitting outside relationships. A counsellor calls it honest partnership; your mother calls it adultery with paperwork.",
-        "include": "JAP>0&TLR=0"
+        "include": "JAP>0&TLR=0&LBTQ=0"
     },
     "110014": {
         "id": 110014,
         "event": "You subscribe to a licensed virtual host who listens more carefully than your husband and costs less than meeting a real man in Kabukicho. Every affectionate sentence increases the price of the next intimacy tier, and cancelling requires watching him beg you not to abandon him.",
-        "include": "JAP>0&TLR=0"
+        "include": "JAP>0&TLR=0&LBTQ=0"
     },
     "110015": {
         "id": 110015,
@@ -4689,7 +4781,7 @@
     "110713": {
         "id": 110713,
         "event": "The separate-surname law restores your legal name. You and your husband also negotiate a discreet open marriage: public companionship remains exclusive, while intimacy is supplied through private contracts designed by lawyers and physicians.",
-        "include": "JAP>0&TLR>0"
+        "include": "JAP>0&TLR>0&LBTQ=0"
     },
     "110714": {
         "id": 110714,
@@ -4874,17 +4966,17 @@
     "111011": {
         "id": 111011,
         "event": "Sex hurts, but your husband treats it as a marital entitlement. The law has expanded its language about family protection without clearly naming what happens behind your bedroom door.",
-        "include": "EGY>0&TLR=0"
+        "include": "EGY>0&TLR=0&(LBTQ=0|EVT?[111604])"
     },
     "111012": {
         "id": 111012,
         "event": "You give birth to a daughter in an overcrowded public hospital during a power-rationing day. Your husband’s family congratulates you politely, then immediately begins talking about the son you must produce next.",
-        "include": "EGY>0&TLR=0"
+        "include": "EGY>0&TLR=0&(LBTQ=0|EVT?[111604])"
     },
     "111013": {
         "id": 111013,
         "event": "You have a second daughter. When your husband’s identity record is temporarily frozen over unpaid debt, a clerk refuses to register the baby despite your own Egyptian nationality; a legal-aid bot eventually forces the system to recognize a right that has existed for decades.",
-        "include": "EGY>0&TLR=0"
+        "include": "EGY>0&TLR=0&(LBTQ=0|EVT?[111604])"
     },
     "111014": {
         "id": 111014,
@@ -4909,7 +5001,7 @@
     "111018": {
         "id": 111018,
         "event": "A new civil personal-status code finally gives women a clearer path out of violent marriages. You file for divorce after your husband breaks your wrist, but the automated court still demands medical evidence from years when you were too afraid to report him.",
-        "include": "EGY>0&TLR=0"
+        "include": "EGY>0&TLR=0&(LBTQ=0|EVT?[111604])"
     },
     "111019": {
         "id": 111019,
@@ -4973,7 +5065,7 @@
     "111504": {
         "id": 111504,
         "event": "Your husband kills you after neighbors repeatedly describe his violence as a private family matter. Police record the case as a domestic dispute that escalated unexpectedly.",
-        "include": "EGY>0&TLR=0&(STR<1&MNY<1)",
+        "include": "EGY>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[111604])",
         "branch": [
             ":10000"
         ]
@@ -5109,7 +5201,7 @@
     "111719": {
         "id": 111719,
         "event": "Your husband begins monitoring your neural assistant and moving joint assets without consulting you. You use the new civil family code, forensic accountants and a judge who attended your school to secure a divorce that poorer women still spend years proving they deserve.",
-        "include": "EGY>0&TLR>0"
+        "include": "EGY>0&TLR>0&LBTQ=0"
     },
     "111720": {
         "id": 111720,
@@ -5249,7 +5341,7 @@
     "112008": {
         "id": 112008,
         "event": "You fall in love with a boy from a higher caste. His family threatens yours, and your parents confiscate your phone; the same month, a girl nearby is attacked with acid after rejecting a marriage proposal.",
-        "include": "IND>0&TLR=0"
+        "include": "IND>0&TLR=0&LBTQ=0"
     },
     "112009": {
         "id": 112009,
@@ -5269,7 +5361,7 @@
     "112012": {
         "id": 112012,
         "event": "Your husband is injured, becomes violent and eventually leaves with the remaining dowry money. Warehouse work pays less than rent, so you enter sex work through another woman you trust; it is a constrained choice, but it is still a choice you insist on naming as yours.",
-        "include": "IND>0&TLR=0"
+        "include": "IND>0&TLR=0&LBTQ=0"
     },
     "112013": {
         "id": 112013,
@@ -5514,7 +5606,7 @@
     "112722": {
         "id": 112722,
         "event": "Your premium neural interface contains an AI trained on your parents, husband and younger self. Its fees rise annually, and cancelling the service would mean losing the only surviving versions of several people you loved.",
-        "include": "IND>0&TLR>0"
+        "include": "IND>0&TLR>0&LBTQ=0"
     },
     "112723": {
         "id": 112723,
@@ -6103,7 +6195,7 @@
     },
     "202072": {
         "id": 202072,
-        "event": "Respiratory failure begins behind a curtain while the ward changes shifts. Your husband collects the discharge papers after your body has already been taken away.",
+        "event": "Respiratory failure begins behind a curtain while the ward changes shifts. Your next of kin collects the discharge papers after your body has already been taken away.",
         "include": "EVT?[202071]&EVT![202072]",
         "branch": [
             ":10000"
@@ -6402,7 +6494,7 @@
     "203070": {
         "id": 203070,
         "event": "A household debt enters the future debtor registry under your name. Your husband’s family expels you to protect its credit score, and the collection court schedules detention you cannot afford to appeal.",
-        "include": "MNY<1&HMNY>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<1&HMNY>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]&(LBTQ=0|EVT?[111604])",
         "effect": {
             "SPR": -2,
             "STR": -1
