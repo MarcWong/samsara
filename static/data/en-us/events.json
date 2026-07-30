@@ -132,6 +132,16 @@
             "CHR": 5
         }
     },
+    "10019": {
+        "id": 10019,
+        "event": "Another year passes without asking anything of you. The days keep their shape, the kettle keeps its place, and the news stays about other people."
+    },
+    "10020": {
+        "id": 10020,
+        "event": "A year passes behind drivers, tutors and gates that lock from the inside. Nothing reaches you; nothing is supposed to.",
+        "include": "TLR>0&(STR<6|MNY<6)",
+        "exclude": "EVT?[10020]"
+    },
     "60001": {
         "id": 60001,
         "event": "Governments whiten the sky with reflective particles. Watching engineered sunsets, you learn that even weather can be redesigned without your consent.",
@@ -10907,10 +10917,6 @@
             "STR<1&TLR>0:200004"
         ]
     },
-    "10019": {
-        "id": 10019,
-        "event": "Another year passes without asking anything of you. The days keep their shape, the kettle keeps its place, and the news stays about other people."
-    },
     "82805": {
         "id": 82805,
         "event": "You use the family guesthouse to shelter LGBTQ activists during a wave of violence. Your parents approve of helping them in principle but panic when neighbors begin associating the family name with “that movement.”",
@@ -10940,10 +10946,5 @@
         "event": "You finance trans healthcare and LGBTQ shelters during a political backlash. Activists welcome the money but refuse to let you control the campaign, and their refusal feels more genuinely equal than any gala held in your honour.",
         "include": "GBR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[105905]"
-    },
-    "10020": {
-        "id": 10020,
-        "event": "A year passes behind drivers, tutors and gates that lock from the inside. Nothing reaches you; nothing is supposed to.",
-        "include": "TLR>0&(STR<6|MNY<6)"
     }
 }
