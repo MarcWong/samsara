@@ -7017,7 +7017,7 @@
     },
     "211201": {
         "id": 211201,
-        "event": "You are born into a household whose wages arrive already divided among rent, debt and relatives. A broken appliance is a family financial event.",
+        "event": "You are born into a household whose wages arrive already divided among rent, debt and relatives. A broken appliance is a family financial event. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2"
     },
     "211202": {
@@ -7382,7 +7382,7 @@
     },
     "214201": {
         "id": 214201,
-        "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future.",
+        "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)"
     },
     "214202": {
@@ -7506,7 +7506,7 @@
     },
     "215201": {
         "id": 215201,
-        "event": "You are born into national-level wealth: family companies, political introductions and property distributed across several cities.",
+        "event": "You are born into national-level wealth: family companies, political introductions and property distributed across several cities. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)"
     },
     "215202": {
