@@ -48,6 +48,7 @@
     "10005": {
         "id": 10005,
         "event": "You develop a rare disease and your condition worsens by the day. The doctors keep trying, but there is no possibility of a cure in your country.",
+        "exclude": "EVT?[10005]",
         "include": "STR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
         "branch": [
             "STR>0:10003",
@@ -57,6 +58,7 @@
     "10006": {
         "id": 10006,
         "event": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
+        "exclude": "EVT?[10006]",
         "effect": {
             "CHR": -3
         }
@@ -81,6 +83,7 @@
         "id": 10009,
         "event": "Your operation is booked, then postponed, then moved behind a longer list. Nobody refuses you treatment; you simply get worse in the queue instead of in a ward.",
         "include": "MNY<3&GBR>0&STR<7",
+        "exclude": "EVT?[10009]",
         "branch": [
             "STR>3:10003",
             "MNY<3&TLR>0:10000",
@@ -1711,7 +1714,7 @@
     },
     "103604": {
         "id": 103604,
-        "event": "You marry because marriage offers social cover and access to housing. You continue meeting the woman you love during market trips, carrying contraband affection alongside contraband food.",
+        "event": "Your marriage offers social cover and access to housing. You continue meeting the woman you love during market trips, carrying contraband affection alongside contraband food.",
         "include": "PRK>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[103604]"
     },
