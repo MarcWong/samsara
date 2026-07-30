@@ -23,7 +23,8 @@
             "STR>0:10003",
             "STR<1&MNY<3&TLR>0:10000",
             "STR<1&MNY<0&TLR=0:10000"
-        ]
+        ],
+        "exclude": "EVT?[10002]"
     },
     "10003": {
         "id": 10003,
@@ -39,7 +40,7 @@
     },
     "10004": {
         "id": 10004,
-        "event": "Your sight, hearing, taste, smell — all fading now. Your heart starts giving trouble too.",
+        "event": "Your sight, hearing, taste, smell — all fading now, one at a time, without ceremony. On an ordinary morning your heart stops, and the morning stays ordinary.",
         "branch": [
             ":10000"
         ]
@@ -79,9 +80,9 @@
     "10009": {
         "id": 10009,
         "event": "Your operation is booked, then postponed, then moved behind a longer list. Nobody refuses you treatment; you simply get worse in the queue instead of in a ward.",
-        "include": "MNY<3&GBR>0&(TLR>0|STR>5|MNY<-17)",
+        "include": "MNY<3&GBR>0&STR<7",
         "branch": [
-            "STR>5:10003",
+            "STR>3:10003",
             "MNY<3&TLR>0:10000",
             "MNY<-17&TLR=0:10000"
         ]
@@ -190,7 +191,7 @@
     },
     "60013": {
         "id": 60013,
-        "event": "You Become a Protected Form of Life.** Biological humans become a protected minority among synthetic descendants. At your preservation ceremony, equality feels indistinguishable from exhibition and extinction.",
+        "event": "You Become a Protected Form of Life. Biological humans become a protected minority among synthetic descendants. At your preservation ceremony, equality feels indistinguishable from exhibition and extinction.",
         "exclude": "EVT?[60011,60012,60013]"
     },
     "74001": {
@@ -10797,5 +10798,9 @@
         "branch": [
             "STR<1&TLR>0:200004"
         ]
+    },
+    "10019": {
+        "id": 10019,
+        "event": "Another year passes without asking anything of you. The days keep their shape, the kettle keeps its place, and the news stays about other people."
     }
 }
