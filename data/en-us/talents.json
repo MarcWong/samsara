@@ -12,7 +12,7 @@
     "90002": {
         "id": "90002",
         "name": "Airplane Crash",
-        "description": "You experience a severe accident, and you are dead.",
+        "description": "You experience a airplane crash.",
         "condition": "AGE?[35]",
         "grade": 0,
         "effect": {
@@ -22,17 +22,17 @@
     "90003": {
         "id": "90003",
         "name": "Farewell, Mom",
-        "description": "Your mom dies from an incurable rare disease. You experienced a mental breakdown.",
+        "description": "Your mom dies from an incurable rare disease. You experience a mental breakdown.",
         "condition": "AGE?[22]",
         "grade": 0,
         "effect": {
-            "STR": -1
+            "SPR": -1
         }
     },
     "90004": {
         "id": "90004",
         "name": "Bankruptcy",
-        "description": "After being scammed out of a large sum of money, you fell seriously ill.",
+        "description": "After being scammed out of a large sum of money, you fall seriously ill.",
         "condition": "AGE?[61]",
         "grade": 0,
         "effect": {
@@ -58,15 +58,18 @@
         "description": "Almost overnight, you become drop-dead gorgeous and become the center of attention ever since.",
         "condition": "AGE?[18]",
         "grade": 0,
+        "exclude": [
+            90008
+        ],
         "effect": {
-            "CHR": 10
+            "CHR": 8
         }
     },
     "90007": {
         "id": "90007",
         "name": "Job oppotunity",
         "condition": "AGE?[33]",
-        "description": "You have gained an opportunity to realize your personal value.",
+        "description": "You gain an opportunity to realize your personal value.",
         "grade": 0,
         "effect": {
             "MNY": 3
@@ -75,9 +78,12 @@
     "90008": {
         "id": "90008",
         "name": "You are beautiful",
-        "description": "You underwent a minimally invasive cosmetic procedure.",
+        "description": "You undergo a minimally invasive cosmetic procedure.",
         "condition": "AGE?[18]",
         "grade": 0,
+        "exclude": [
+            90006
+        ],
         "effect": {
             "CHR": 3,
             "MNY": -1
@@ -87,7 +93,7 @@
         "id": "90009",
         "name": "A miracle of life",
         "condition": "STR<4&AGE>21",
-        "description": "You became a participant in the latest full-body medical scan, and during the examination, every ailment you had—whether major or minor—was cured all at once.",
+        "description": "You become a participant in the latest full-body medical scan, and during the examination, every ailment you have—whether major or minor—is cured all at once.",
         "grade": 0,
         "effect": {
             "STR": 3
@@ -96,7 +102,7 @@
     "90010": {
         "id": "90010",
         "name": "Queen's gambit",
-        "description": "Your mom make you take the new \"Grow Happy\" drug. It significantly boosts your intelligence.",
+        "description": "Your mom makes you take the new \"Grow Happy\" drug. It significantly boosts your intelligence.",
         "condition": "AGE?[8]",
         "grade": 0,
         "effect": {
@@ -105,13 +111,86 @@
     },
     "90011": {
         "id": "90011",
-        "name": "Menopause",
-        "description": "Once you hit menopause, sweats rip you from sleep. As you touch your aging face, you realize your very femininity is confiscated by time, no one desires you anymore.",
-        "condition": "AGE?[50]",
+        "name": "Pac-Man Power",
+        "description": "Nano-swarm eats your arterial gunk while playing digital Pac-Man. Your mitochondria get so hyped they act 12 again—congratulations, you are blessed for being a good host.",
+        "condition": "AGE?[16]",
         "grade": 0,
-        "exclusive": true,
         "effect": {
-            "CHR": -3
+            "SPR": 3,
+            "INT": 3,
+            "STR": 7
+        }
+    },
+    "90012": {
+        "id": "90012",
+        "name": "Iron Lung",
+        "description": "Lost a lung in a hoverboard oopsie; they print a new one with coral-reef stem-cell ink. Now it photosynthesizes and filters smog—you outlive everyone purely because you breathe profit.",
+        "condition": "AGE?[58]",
+        "grade": 0,
+        "effect": {
+            "STR": 1
+        }
+    },
+    "90013": {
+        "id": "90013",
+        "name": "meta-Zen",
+        "description": "A mandatory empathy-drop plugs you into a day as a grumpy octopus off Chile. After that, your ex’s texts feel like static—you achieve meta-Zen and start cackling at funerals.",
+        "condition": "AGE?[27]",
+        "grade": 0,
+        "effect": {
+            "SPR": 3
+        }
+    },
+    "90014": {
+        "id": "90014",
+        "name": "Emo Implant",
+        "description": "You buy the Emotional Climate Control implant—it mutes your ex’s dopamine hits and filters global dread. You cry happy tears for three days straight and still don’t know why.",
+        "condition": "AGE?[73]",
+        "grade": 0,
+        "effect": {
+            "SPR": 4
+        }
+    },
+    "90015": {
+        "id": "90015",
+        "name": "Dumb Luck Tsunami",
+        "description": "You accidentally buy 50k stinky-rock NFTs; a senile trillionaire decides they're the next big thing. You wake up owning a floating trash-barge island—but hey, it's your trash barge.",
+        "condition": "AGE?[34]",
+        "grade": 0,
+        "effect": {
+            "MNY": 5
+        }
+    },
+    "90016": {
+        "id": "90016",
+        "name": "The Silence of the Lambs",
+        "description": "Your dentures’ Wi-Fi signature has a unique quantum wobble; a Telecom cartel pays you billions for the \"spectrum rights\" to your mouth. You get paid to keep shut—numbers now use scientific notation.",
+        "condition": "AGE?[89]",
+        "grade": 0,
+        "effect": {
+            "MNY": 5
+        }
+    },
+    "90017": {
+        "id": "90017",
+        "name": "Gul'dan, what must we give it return?",
+        "description": "The Quantum Brain Bridge vaccine makes you solve differential equations in your sleep—but permanently erases \"potato\" from your memory. You argue Kant with your toaster; +4 IQ, minus social grace.",
+        "condition": "AGE?[13]",
+        "grade": 0,
+        "effect": {
+            "INT": 4,
+            "SPR": -1
+        }
+    },
+    "90018": {
+        "id": "90018",
+        "name": "Cognition Curse",
+        "description": "You snort Cognition Dust at a retro-rave and compress the Library of Congress into your temporal lobe. You can recite Pi to 10k digits—and precisely calculate how much everyone annoys you. Genius, and you hate it.",
+        "condition": "AGE?[49]",
+        "grade": 0,
+        "effect": {
+            "INT": 5,
+            "SPR": -2
         }
     }
 }
