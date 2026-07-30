@@ -118,7 +118,7 @@
     },
     "10016": {
         "id": 10016,
-        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\".",
+        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\" you are.",
         "include": "EVT![10016,10017]",
         "effect": {
             "CHR": 3
@@ -126,7 +126,7 @@
     },
     "10017": {
         "id": 10017,
-        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\".",
+        "event": "You volunteered to participate in a human experiment. When summer ends, your friends who remember your original model now gush about how \"stunning\" you are.",
         "include": "EVT![10016,10017]",
         "effect": {
             "CHR": 5
