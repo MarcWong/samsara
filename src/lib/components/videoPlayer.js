@@ -224,7 +224,7 @@ export class CanvasVideoPlayer {
 	// The clip's end in media time comes from the chunk timestamps rather
 	// than a container duration, so it is exact for the frames we actually
 	// present (max, not last: decode order is not presentation order).
-	play(media, { loop = false, onEnded = null, rate = 1, align = null, alignOut = null } = {}) {
+	play(media, { loop = false, onEnded = null, rate = 1, align = null, alignOut = null, onError = null } = {}) {
 		this.stop(false); // keep #lastFrame: bridges the switch between clips
 		this.#align = align ? { ...align, durationUs: align.durationMs * 1000 } : null;
 		const { config, chunks } = media;
@@ -251,9 +251,28 @@ export class CanvasVideoPlayer {
 				if (session.aborted) frame.close();
 				else frames.push(frame);
 			},
-			error: err => console.error('[videoPlayer] decode error', err),
+			error: err => {
+				console.error('[videoPlayer] decode error', err);
+				// Surface hard decoder failures to the stage so it can demote
+				// the whole session to the <video> path. `typeof VideoDecoder`
+				// passing does NOT guarantee this stream's profile actually
+				// decodes on this device -- the classic mobile failure mode is
+				// an API that exists and a decoder that errors on first frame,
+				// which used to leave a black canvas with onEnded never firing
+				// (the screen flow stalls forever behind it).
+				if (!session.aborted) {
+					session.aborted = true;
+					onError?.(err);
+				}
+			},
 		});
-		decoder.configure(config);
+		try {
+			decoder.configure(config);
+		} catch (err) {
+			session.aborted = true;
+			onError?.(err);
+			return;
+		}
 
 		// Debug double-space skip (see skip.js): burst-decodes the whole clip
 		// with a throwaway decoder (no real-time pacing) to get its true last

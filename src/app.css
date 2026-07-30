@@ -21,6 +21,18 @@
 	box-sizing: border-box;
 }
 
+/* Touch: `manipulation` removes the 300ms double-tap-to-zoom gesture (and
+   with it the click delay) -- required for skip.js's double-tap skip to be
+   usable without the browser zooming the footage instead. Text selection is
+   also disabled globally: every string on screen is game UI, and the long-
+   press selection callout on iOS constantly fired from the stair log. */
+html {
+	touch-action: manipulation;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
 html,
 body {
 	margin: 0;

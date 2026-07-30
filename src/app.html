@@ -2,7 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- viewport-fit=cover lets the page draw under the notch/rounded
+		     corners on phones; the screens that need clearance pad with
+		     env(safe-area-inset-*) themselves. Without it, iOS letterboxes
+		     landscape with white pillars either side of the footage. -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#0b141a" />
 		<meta name="text-scale" content="scale" />
 		%sveltekit.head%
 	</head>

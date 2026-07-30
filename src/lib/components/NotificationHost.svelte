@@ -13,7 +13,7 @@
 <style>
 	.host {
 		position: fixed;
-		top: 1.5rem;
+		top: calc(1.5rem + env(safe-area-inset-top));
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 100;
