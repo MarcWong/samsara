@@ -55,9 +55,9 @@ class VideoStage {
 	// Loads (via videoPlayer.js's shared URL cache) and plays a clip on the
 	// shared canvas. Rejects if this clip fails to fetch/demux; callers keep
 	// their existing catch-and-degrade behavior.
-	async play(url, { loop = false, onEnded = null, rate = 1, align = null } = {}) {
+	async play(url, { loop = false, onEnded = null, rate = 1, align = null, alignOut = null } = {}) {
 		const media = await loadMp4(url);
-		this.#player.play(media, { loop, onEnded, rate, align });
+		this.#player.play(media, { loop, onEnded, rate, align, alignOut });
 	}
 
 	// Fallback path: update the shared <video>'s reactive props. `key`

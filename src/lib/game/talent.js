@@ -105,14 +105,14 @@ class Talent {
 
         const talentList = {};
         for (const talentId in this.#talents) {
-            const { id, grade, name, description, exclusive } = this.#talents[talentId];
+            const { id, grade, name, description, exclusive, exclude } = this.#talents[talentId];
             if (!!exclusive) continue;
             if (id == include) {
-                include = { grade, name, description, id };
+                include = { grade, name, description, id, exclude };
                 continue;
             }
-            if (!talentList[grade]) talentList[grade] = [{ grade, name, description, id }];
-            else talentList[grade].push({ grade, name, description, id });
+            if (!talentList[grade]) talentList[grade] = [{ grade, name, description, id, exclude }];
+            else talentList[grade].push({ grade, name, description, id, exclude });
         }
 
         return talentList[0]

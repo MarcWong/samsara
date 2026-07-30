@@ -5,6 +5,7 @@
 	import { wireNotifications } from '$lib/notify.js';
 	import SCREENS from '$lib/screens.js';
 	import Background from '$lib/components/Background.svelte';
+	import BackgroundMusic from '$lib/components/BackgroundMusic.svelte';
 	import NotificationHost from '$lib/components/NotificationHost.svelte';
 	import VideoStage from '$lib/components/VideoStage.svelte';
 
@@ -21,6 +22,11 @@
 <!-- Persistent across every screen swap -- see videoStage.svelte.js for why
      this can't be conditionally rendered per-screen the way it used to be. -->
 <VideoStage />
+
+<!-- Also persistent, and deliberately outside the {#if ready} gate below:
+     the background track should be running before the game data finishes
+     loading, not after. -->
+<BackgroundMusic />
 
 {#if $screen === 'SUMMARY'}
 	<Background screen={$screen} />

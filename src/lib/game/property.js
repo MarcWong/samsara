@@ -24,7 +24,15 @@ class Property {
         TLT: "TLT", // 天赋 talent TLT
         EVT: "EVT", // 事件 event EVT
         TMS: "TMS", // 次数 times TMS
-        LBTQ: "LBTQ", // 性向 LBTQ
+        // 性向. The VALUE must stay "LBTQ": it is the storage key, and every
+        // condition string in events.json addresses the property by that
+        // exact spelling (163 includes write LBTQ>0 / LBTQ=0). It briefly
+        // held "LGBTQ" -- get("LBTQ") then matched no case, fell through to
+        // `default: return 0`, and orientation silently never affected any
+        // event for any player. The player-facing label is spelled "LGBTQ"
+        // where it is displayed (Plaza / Trajectory / Summary), which is a
+        // presentation concern and must not travel through this key.
+        LBTQ: "LBTQ",
         TLR: "TLR", // 天龙人 (free-allocation bonus triggered) TLR
         ...NATION_KEY_TO_CODE, // 国别: one entry per functions/countries.js
 
@@ -110,7 +118,15 @@ class Property {
 
             talent = talent.map(v=>Number(v));
 
-            age[a] = { event, talent };
+            // Spread the original row rather than replacing it: age.json rows
+            // also carry an `age` field, the number the player is meant to see
+            // for this internal index. Rebuilding the row as `{event, talent}`
+            // dropped it, so getAgeData(x).age was always undefined and
+            // Trajectory's displayAge() silently fell through to its `?? internal`
+            // fallback -- the screen showed the raw 0-102 index, which is not
+            // contiguous (age.json omits 23, 26-30, 42, 73-77, 81-88, 90-96,
+            // 98-101), so the log visibly jumped 22->24->25->31 and 80->89->97.
+            age[a] = { ...age[a], event, talent };
         }
         this.#total = total;
     }
@@ -363,8 +379,14 @@ class Property {
     }
 
     judge(prop) {
-        const value = this.get(prop);
+        return this.judgeOf(prop, this.get(prop));
+    }
 
+    // Grade an arbitrary value against a property's judgement table rather than
+    // whatever that property currently holds. Only the H* keys (plus HAGE/SUM)
+    // have tables at all, so grading a stat's value AT DEATH means borrowing
+    // its high-water counterpart's table -- which is what Summary does.
+    judgeOf(prop, value) {
         const d = this.#judge[prop];
         let length = d.length;
 
@@ -385,7 +407,13 @@ class Property {
             this.change(this.TYPES.AGE, 1);
         }
         const age = this.get(this.TYPES.AGE);
-        const {event, talent} = this.getAgeData(age);
+        const data = this.getAgeData(age);
+        // Past the last row age.json defines (102). This used to destructure
+        // undefined and throw, which is not something a caller can recover
+        // from mid-run -- returning null lets Life.next() end the life
+        // instead. See the exhaustion branch there.
+        if (!data) return null;
+        const {event, talent} = data;
         return {age, event, talent};
     }
 

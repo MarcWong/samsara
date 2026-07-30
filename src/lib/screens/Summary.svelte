@@ -1,7 +1,9 @@
 <script>
+	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { videoStage } from '../components/videoStage.svelte.js';
-	import { draft, goToScreen, emptyDraft, restartProgress } from '../stores.js';
+	import { loadMp4 } from '../components/videoPlayer.js';
+	import { draft, goToScreen, emptyDraft, restartProgress, bgMusicScale } from '../stores.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
 
@@ -12,18 +14,30 @@
 	// from Trajectory, keyed by the plain stat key -- shown as
 	// "initial -> final" per row when available.
 	const initial = $draft.initial ?? null;
+	// The value after the arrow is the stat AT DEATH, taken from the same
+	// core.propertys the trajectory stat bar renders and carrying the same
+	// floor at 0, so the two screens cannot disagree. It deliberately is NOT
+	// the H* high-water mark: those resolve through util.max, so a life that
+	// peaked at Health 7 and died at 0 used to report "4 -> 7" -- an arrow
+	// claiming a rise the player had just watched being contradicted. No
+	// upper clamp either; the stat bar has none, and capping at 13 would put
+	// the two screens back out of step for any stat that ended above it.
+	// The grade is re-derived from the death value against the H* judgement
+	// table (the only table these stats have) instead of inherited from the peak.
+	const property = core.request(core.Module.PROPERTY);
+	const finals = core.propertys;
 	const ROWS = [
 		[types.HMNY, 'Wealth', 'MNY'],
 		[types.HCHR, 'Appearance', 'CHR'],
 		[types.HINT, 'IQ', 'INT'],
 		[types.HSTR, 'Health', 'STR'],
-		[types.HSPR, 'EQ', 'SPR'],
+		[types.HSPR, 'Happiness', 'SPR'],
 	].map(([type, label, key]) => {
-		const data = summary[type];
+		const value = Math.max(0, finals[types[key]] ?? 0);
 		return {
 			label,
-			value: data.value > 13 ? 13 : data.value,
-			grade: data.grade,
+			value,
+			grade: property.judgeOf(type, value).grade,
 			start: initial ? initial[key] : null,
 		};
 	});
@@ -72,74 +86,77 @@
 		'© 2022 Yuwei Jiang'
 	];
 
-	// Restart Life, staged as one continuous ~5s camera move:
+	// Restart Life plays videos/8.mp4 -- a purpose-shot transition clip that
+	// opens on drifting cloud/sky (the same look Background.svelte's shader
+	// paints behind this screen) and pushes through it into the morgue,
+	// ending on 1.mp4's own opening framing. Verified against the source:
+	// its last frame matches 1.mp4's first frame (NCC 0.89), so handing off
+	// to CITYINTRO at the end is a continuation, not a cut.
 	//
-	//   1. The reveal layer underneath everything is a STILL -- an
-	//      "extreme long shot" built by outpainting 1.mp4's own first
-	//      frame (static/images/intro-longshot.png, 2560x1440: the real
-	//      1280x720 frame feathered into a blurred, darkened 2x surround,
-	//      so the morgue reads as a small lit pocket inside a much larger
-	//      dark expanse).
-	//   2. Clicking Restart drives restartProgress 0->1 over DURATION_MS.
-	//      The camera pushes in the whole time (scale 1 -> 2 on that
-	//      still; at exactly 2x, the outpainted image's central region --
-	//      the true first frame of 1.mp4 -- fills the viewport, matching
-	//      the framing CityIntro opens on).
-	//   3. Simultaneously the cloud layer disperses from the CENTER
-	//      outward: the reveal still carries a radial mask whose opaque
-	//      center disc grows from nothing until it passes the corners, so
-	//      Background.svelte's drifting shader clouds (kept fully opaque
-	//      underneath, scaling gently outward -- see its own reading of
-	//      restartProgress) are swallowed edge-ward and finally slip off
-	//      the frame borders.
-	//   4. Near the end the shared VideoStage canvas quietly starts 1.mp4
-	//      (cached since the intro), so when goToScreen('CITYINTRO') fires
-	//      at completion the loop is already painting underneath -- the
-	//      push-in's final frame IS 1.mp4's first frame, and playback
-	//      continues from there with nothing to flash.
+	// This replaces an earlier CSS approximation of the same move (a
+	// locally-outpainted still scaled 1->2 under a growing radial mask).
+	// Measuring 8.mp4 frame-by-frame is what retired it: the real move is a
+	// CONSTANT-RATE dolly (~1.096x per second, ~1.9x over the full clip;
+	// exponential fit rms 0.023) whereas the CSS version eased in and out on
+	// a smoothstep (rms 0.067 against the same data) over only 5s. Playing
+	// the clip matches length and zoom exactly rather than approximating
+	// them, and drops the fake still entirely.
+	//
+	//   1. Clicking Restart starts 8.mp4 on the shared VideoStage canvas
+	//      (which +page.svelte keeps mounted across screen swaps) and drives
+	//      restartProgress 0->1 over the clip's own runtime.
+	//   2. The summary panel dissolves early; Background.svelte's shader
+	//      clouds cross-fade out over the clip's own opening clouds (see its
+	//      reading of restartProgress), so the swap from live shader to
+	//      footage happens while both are showing cloud.
+	//   3. At completion goToScreen('CITYINTRO') mounts the intro, which
+	//      starts 1.mp4 on that same canvas. CanvasVideoPlayer keeps the
+	//      previous clip's last frame painted across a switch, so there is
+	//      no gap to flash.
 	//
 	// restartProgress is a shared store rather than local state because
 	// Background.svelte -- a sibling under +page.svelte, not a child this
 	// screen can pass props into -- reads the same per-frame value.
-	const DURATION_MS = 5000;
+	const RESTART_CLIP = `${base}/videos/8.mp4`;
+	// 8.mp4's final frame sits slightly further back than 1.mp4's opening
+	// (the woman reads smaller, the whole frame a touch up-right), so the
+	// CITYINTRO handoff showed as a small zoom/position snap. This is the
+	// inverse of the affine mismatch measured between those two frames
+	// (OpenCV ECC, correlation 0.991, shear ~0.0007 so pure scale+offset
+	// holds; NCC across the cut 0.883 -> 0.985 with it applied): ramped IN
+	// over the clip's last 1.6s by videoPlayer's alignOut, it plays as the
+	// tail of the dolly and the final frame lands exactly on 1.mp4's
+	// framing. Only the END matters here -- the clip's opening clouds have
+	// no alignment reference, so nothing warps the head.
+	const ALIGN_OUT_8 = { kx: 1.0263, ky: 1.0369, ux: -16.6, uy: 12.2, durationMs: 1600 };
+	// 8.mp4's exact runtime (169 frames @ 24fps + the tail of the last
+	// frame), so the screen switch lands on the clip's final frame rather
+	// than cutting it short or holding a frozen frame afterwards.
+	const DURATION_MS = 7042;
 	let restarting = $state(false);
 
-	// Derived purely from $restartProgress (already eased -- see the
-	// smoothstep in onAgain below) so every visual reads off one number.
-	// Foreground summary panel dissolves early (gone by ~35%) so the rest
-	// of the move plays out over the clouds alone.
-	let fgOpacity = $derived(1 - Math.min(1, $restartProgress / 0.35));
-	let blurPx = $derived(Math.min(1, $restartProgress / 0.35) * 16);
-	// The push-in: 1 -> 2. At 2x the outpainted still's central 1280x720
-	// region (1.mp4's actual first frame) exactly fills the viewport.
-	let pushScale = $derived(1 + $restartProgress);
-	// Dispersal disc: radius 0% -> 155% of the viewport's larger half-axis
-	// (needs to pass ~71% to reach the corners, plus the feather width, so
-	// 155% guarantees the soft edge itself has fully left the frame).
-	let discR = $derived($restartProgress * 155);
-	let revealMask = $derived(
-		`radial-gradient(circle at center, black ${Math.max(0, discR - 18)}%, transparent ${discR}%)`
-	);
-
-	let prerollStarted = false;
-	$effect(() => {
-		// Pre-roll 1.mp4 on the shared VideoStage during the last stretch of
-		// the push-in (still fully hidden under the reveal still), so the
-		// canvas underneath is already painting the loop when the screen
-		// switches -- loadMp4's cache makes this a decoder spin-up only.
-		if ($restartProgress >= 0.9 && !prerollStarted) {
-			prerollStarted = true;
-			videoStage.play(`${base}/videos/1.mp4`, { loop: true, rate: 0.5 }).catch(() => {});
-		}
-	});
+	// The panel dissolves over the clip's first ~20% (~1.4s), which is the
+	// stretch 8.mp4 spends in full cloud before the morgue resolves --
+	// measured: the sky layer clears between t=1.0s and t=1.7s.
+	let fgOpacity = $derived(1 - Math.min(1, $restartProgress / 0.2));
+	let blurPx = $derived(Math.min(1, $restartProgress / 0.2) * 16);
 
 	function onAgain() {
 		if (restarting) return;
 		restarting = true;
+		clearTimeout(idleTimer);
+
+		// The clip itself carries the camera move, so nothing here re-times
+		// it -- restartProgress is plain elapsed fraction (NOT eased) and is
+		// only used to cross-fade this screen's own layers over the footage.
+		// Easing it would desynchronise those fades from the picture.
+		if (videoStage.supported) videoStage.play(RESTART_CLIP, { alignOut: ALIGN_OUT_8 }).catch(() => {});
+		else videoStage.playFallback(RESTART_CLIP, { muted: true });
+
 		const start = performance.now();
 		function tick(now) {
 			const t = Math.min(1, (now - start) / DURATION_MS);
-			restartProgress.set(t * t * (3 - 2 * t)); // smoothstep
+			restartProgress.set(t);
 			if (t < 1) requestAnimationFrame(tick);
 			else {
 				draft.set(emptyDraft());
@@ -147,12 +164,36 @@
 				// Both consumers of this store (this screen and Background)
 				// unmount on the line above -- resetting here means the NEXT
 				// life's Summary doesn't inherit a finished transition (fg
-				// invisible, clouds scaled out) from this one.
+				// invisible, clouds faded out) from this one.
 				restartProgress.set(0);
 			}
 		}
 		requestAnimationFrame(tick);
 	}
+
+	// Kiosk-style idle reset: this screen is a dead end otherwise (no
+	// auto-advance the way Trajectory has), so a visitor who walks away
+	// without pressing anything would leave the app parked on someone
+	// else's finished life indefinitely. A minute with neither button touched
+	// triggers the exact same Restart Life flow a click would.
+	const IDLE_MS = 60000;
+	let idleTimer = null;
+	function resetIdleTimer() {
+		clearTimeout(idleTimer);
+		if (restarting) return;
+		idleTimer = setTimeout(onAgain, IDLE_MS);
+	}
+	onMount(() => {
+		// The run is over: bring the background bed back up to full from the
+		// level Trajectory ducked it to on Start.
+		bgMusicScale.set(1);
+		resetIdleTimer();
+		// Prefetch+demux the restart clip while the player is still reading
+		// the summary, so the click starts playback instead of a network
+		// wait. loadMp4 is URL-cached, so onAgain's play() reuses this.
+		if (videoStage.supported) loadMp4(RESTART_CLIP).catch(() => {});
+		return () => clearTimeout(idleTimer);
+	});
 
 	// printText's own header block (built in Trajectory.svelte, before any
 	// of this screen's "initial -> final" arrow data existed) only has the
@@ -226,19 +267,10 @@
 </script>
 
 <div class="summary-outer">
-	<!-- The extreme-long-shot still the restart camera pushes into (see the
-	     staging comment in the script block). Hidden entirely at rest (the
-	     mask disc has zero radius until Restart drives it), so it costs
-	     nothing while the summary is just being read. -->
-	{#if restarting}
-		<img
-			class="reveal-shot"
-			src="{base}/images/intro-longshot.png"
-			alt=""
-			style="transform: scale({pushScale}); mask-image: {revealMask}; -webkit-mask-image: {revealMask};"
-		/>
-	{/if}
-
+	<!-- Nothing to render for the restart move itself: 8.mp4 plays on the
+	     shared VideoStage canvas that +page.svelte keeps mounted behind
+	     every screen (see the staging comment in the script block). This
+	     screen only fades its own layers out over it. -->
 	<div
 		class="summary"
 		class:restarting
@@ -298,12 +330,16 @@
 	{/if}
 
 	<div class="actions">
-		<Button variant="print" onclick={onPrintTxt}>Print</Button>
-		<Button onclick={onAgain}>Restart Life</Button>
+		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>Print</Button>
+		<Button onclick={() => { onAgain(); resetIdleTimer(); }}>Restart Life</Button>
 	</div>
 
 	{#if !triedAllInOneStat}
-		<p class="hint">Throw all your tokens into one attribute,<br/>get +5 on all stats automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
+		<!-- Stays unnumbered even though the bonus is a flat +5 again (see
+		     BONUS_AMOUNT in Trajectory.svelte): what varies per country is
+		     the TRIGGER, so naming a number here would invite reading it as
+		     the threshold rather than the reward. -->
+		<p class="hint">Throw all your tokens into one attribute,<br/>get a boost on every stat automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
 	{/if}
 
 	<div class="credits">
@@ -461,11 +497,22 @@
 		flex-wrap: wrap;
 		justify-content: center;
 	}
+	/* Same treatment .title and .credits already use for text floating
+	   straight over the cloud background: a near-opaque light tint plus a
+	   dark drop shadow, rather than a flat white dimmed with opacity. At
+	   0.6 opacity and no shadow this was washing out completely against
+	   the shader's bright cloud-lit patches, which is exactly the failure
+	   .credits below documents. Sized up too -- it's the one piece of
+	   guidance on this screen, so it shouldn't read smaller than the
+	   talent rows beside it. */
 	.hint {
 		margin: 0;
-		font-size: 1.15rem;
-		color: #ffffff;
-		opacity: 0.6;
+		font-size: 1.2rem;
+		line-height: 1.5;
+		color: rgba(238, 246, 250, 0.95);
+		text-shadow:
+			0 1px 3px rgba(6, 12, 18, 0.9),
+			0 2px 12px rgba(6, 12, 18, 0.7);
 	}
 	/* Pinned to the very bottom of the screen (not just after the hint in
 	   normal flow) via margin-top: auto -- .summary is a flex column with
@@ -488,25 +535,4 @@
 		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
 	}
 
-	/* The outpainted long-shot still. z-index -1 keeps it just above
-	   Background.svelte's shader canvas (also -1, but earlier in the DOM,
-	   so it paints first/lower) and below .summary -- the growing radial
-	   mask (inline, driven from restartProgress) is what actually reveals
-	   it from the center outward over the clouds, and the inline scale is
-	   the camera push. object-fit: cover maps the 2560x1440 still onto the
-	   viewport exactly the way the canvas cover-fits 1.mp4, so the 2x
-	   push's endpoint lines up with the clip's own framing on every
-	   aspect ratio. */
-	.reveal-shot {
-		position: fixed;
-		inset: 0;
-		z-index: -1;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-		/* The push must expand from the frame's center -- the same origin
-		   the dispersal disc opens from. */
-		transform-origin: center center;
-	}
 </style>

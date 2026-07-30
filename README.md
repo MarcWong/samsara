@@ -53,10 +53,16 @@ node repl
 
 ## Credits
 
-- Story design: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
+- Lead Direction Narrative Design: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
 
-- Developer: Yao Wang
+- Developer & Co-Design: Yao Wang
 
 - Audio design: Guanyu Xie
 
-- Code modified from Life Restart https://liferestart.syaro.io/
+- Built upon the open-source codebase of LifeRestart by VickScarlet https://liferestart.syaro.io/
+
+- Contact: sabinajiang0505@outlook.com
+
+![by me a coffee](static/images/qr-code_coffee.png)
+
+![follow Ins](static/images/qr-code_ins.png)

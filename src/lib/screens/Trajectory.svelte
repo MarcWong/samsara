@@ -12,25 +12,18 @@
 	// Wealth first, matching this session's stat-ordering fix applied
 	// everywhere else in the app.
 	const STAT_KEYS = ['MNY', 'CHR', 'INT', 'STR', 'SPR'];
-	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'EQ' };
+	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'Happiness' };
 
-	// Internal age (0-102, how age.json's content density is indexed) maps to
-	// a sparser, more realistic-looking display age -- more life happens in
-	// youth, time compresses in old age. Ported verbatim from trajectory.js;
-	// this table is load-bearing for how the story reads, not decorative.
-	const AGE = {
-		0: 0, 1: 1, 2: 2, 3: 2, 4: 3, 5: 3, 6: 4, 7: 5, 8: 5, 9: 6, 10: 6,
-		11: 7, 12: 8, 13: 9, 14: 10, 15: 10, 16: 11, 17: 11, 18: 12, 19: 12,
-		20: 13, 21: 13, 22: 14, 23: 15, 24: 15, 25: 16, 26: 17, 27: 17, 28: 18,
-		29: 18, 30: 19, 31: 19, 32: 20, 33: 20, 34: 21, 35: 21, 36: 22, 37: 23,
-		38: 23, 39: 24, 40: 25, 41: 25, 42: 26, 43: 26, 44: 27, 45: 27, 46: 28,
-		47: 28, 48: 29, 49: 29, 50: 30, 51: 31, 52: 31, 53: 32, 54: 33, 55: 34,
-		56: 34, 57: 35, 58: 36, 59: 37, 60: 37, 61: 38, 62: 39, 63: 40, 64: 41,
-		65: 41, 66: 42, 67: 42, 68: 43, 69: 43, 70: 44, 71: 44, 72: 45, 73: 46,
-		74: 47, 75: 48, 76: 48, 77: 49, 78: 51, 79: 53, 80: 54, 81: 54, 82: 55,
-		83: 56, 84: 59, 85: 60, 86: 61, 87: 62, 88: 63, 89: 64, 90: 65, 91: 66,
-		92: 68, 93: 70, 94: 77, 95: 78, 96: 80, 97: 89, 98: 97, 102: 102,
-	};
+	// The displayed age is age.json's own `age` field, read from the row the
+	// tick landed on. It used to be a hardcoded table here, ported from
+	// trajectory.js, which drifted badly out of step with the data: that table
+	// still described 100 internal ages while age.json defines only 72 rows,
+	// so events written for adults were rendering as childhood (a marriage at
+	// "13", a university entrance at "11"). Taking the number from the row
+	// itself means the two can no longer disagree -- whoever edits age.json
+	// sets the age that shows.
+	const property = core.request(core.Module.PROPERTY);
+	const displayAge = internal => Number(property.getAgeData(internal)?.age ?? internal);
 
 	// Country/orientation arrive as plain draft fields now (Plaza no longer
 	// resolves them into a full propertyAllocate object itself -- stat
@@ -43,7 +36,11 @@
 	const countryCode = $draft.countryCode;
 	const countryData = COUNTRIES.find(({ code }) => code === countryCode);
 	const country = countryData?.name;
-	const sex = $draft.orientation == 1 ? 'LBTQ' : 'Straight';
+	// LGBTQ, not LBTQ -- this string is what the statbar, the print block and
+	// Summary's identity row all show. The condition-DSL property key stays
+	// `LBTQ` (every events.json include is written against it); only the
+	// label the player reads is spelled out in full.
+	const sex = $draft.orientation == 1 ? 'LGBTQ' : 'Straight';
 
 	// -- stat allocation (ported verbatim from Plaza's old property step,
 	// now shown over the stairwell's frozen sky highlight instead of a DOS
@@ -98,6 +95,11 @@
 	let propertyAllocate = null;
 	let printText = '';
 	let triedAllInOneStat = false;
+	// Whether the free-allocation bonus (+5 to every attribute) fired for
+	// this life -- read back in renderTrajectory for the privilege coda
+	// below. Kept as its own flag rather than re-reading the TLR property,
+	// so the two can't drift if TLR ever gains another meaning.
+	let bonusTriggered = false;
 	let stats = $state(null);
 	let effects = $state({ CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 });
 	let entries = $state([]);
@@ -108,6 +110,16 @@
 		requestAnimationFrame(() => {
 			logEl?.scrollTo({ top: logEl.scrollHeight, behavior: 'smooth' });
 		});
+	}
+
+	// The log's top edge carries a fade so entries dissolve as they scroll
+	// up out of view -- but at rest (scrollTop 0) there is nothing above the
+	// first entry to dissolve, so that same fade just ate the top of it: the
+	// "Age 0" tread and its first line of text rendered nearly invisible.
+	// Only apply the fade once something is actually scrolled past.
+	let scrolledFromTop = $state(false);
+	function onLogScroll() {
+		scrolledFromTop = (logEl?.scrollTop ?? 0) > 4;
 	}
 
 	// Auto-plays age-by-age instead of waiting on clicks -- a click still
@@ -161,18 +173,23 @@
 	}
 
 	function renderTrajectory(age, content) {
-		const realAge = AGE[age];
+		const realAge = displayAge(age);
 		const newEffects = { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0 };
-		const statChanges = [];
 
-		const text = content
+		const joined = content
 			.map(({ type, description, effect, name, postEvent }) => {
 				if (effect) {
 					for (const key of STAT_KEYS) {
-						if (effect[key]) {
-							newEffects[key] = effect[key];
-							statChanges.push([key, effect[key]]);
-						}
+						// Accumulate rather than overwrite. One tick can carry
+						// several contents that touch the same stat -- a talent
+						// alongside an event, an event plus the branch target
+						// doEvent() recurses into, or a zero-state cascade rung
+						// (those carry 2-4 stat effects each). Assigning here
+						// showed only the last one in the stat bar, and pushing
+						// a row per content produced two `SPR` entries in the
+						// keyed each below, which Svelte rejects outright:
+						// each_key_duplicate.
+						if (effect[key]) newEffects[key] += effect[key];
 					}
 				}
 				switch (type) {
@@ -189,13 +206,58 @@
 
 		effects = newEffects;
 
+		// One row per stat that actually moved this year, in STAT_KEYS order.
+		// Deriving it from the totals is what guarantees the keyed each block
+		// below sees each stat name once; it also makes the row order stable
+		// instead of depending on which content happened to come first.
+		const statChanges = STAT_KEYS.filter(key => newEffects[key]).map(key => [key, newEffects[key]]);
+
 		const statChangesText = statChanges
 			.map(([prop, value]) => `${STAT_LABELS[prop]} ${value > 0 ? '+' : ''}${value}`)
 			.join('  ');
 
-		printText += `Age: ${realAge}\n${text}${statChangesText ? `\n${statChangesText}` : ''}\n`;
-
 		const fatal = content.some(c => (c.effect?.LIF ?? 0) < 0);
+
+		// A year that both changes a stat and kills reads wrong with the
+		// numbers last: the standardized "You are DEAD..." declaration is the
+		// closing beat of the whole life, so a "Health -1" printed under it
+		// buries it. Split that one trailing line off the joined text so it
+		// can render BELOW the stat deltas -- i.e. the attribute change moves
+		// up and the death has the last word:
+		//
+		//   Medicine keeps a serious congenital condition compatible with...
+		//   The condition overwhelms your remaining physical reserve.
+		//   Health -1
+		//   You are DEAD again, mortal.
+		//
+		// Every death event in events.json now carries that marker as its own
+		// final line, so this matches on all of them. Fatal content is sorted
+		// last by life.js's next(), which is why the marker is reliably the
+		// last line of the joined text.
+		const deathMatch = fatal ? joined.match(/\n(You are DEAD[^\n]*)$/i) : null;
+		const text = deathMatch ? joined.slice(0, deathMatch.index) : joined;
+		let deathLine = deathMatch ? deathMatch[1] : '';
+
+		// Privilege coda: a life that triggered the free-allocation bonus
+		// (+5 to every attribute) and still died young gets one extra line
+		// under the death. The pairing is the whole point -- the bonus is
+		// this game's "born lucky" lever, so the earlier it fails the more
+		// pointed the line is. Runtime-conditional on purpose: it depends on
+		// this run's bonus flag and death age, not on which event killed
+		// her, so it can't live in events.json (the same event is reachable
+		// by unprivileged lives and at any age). realAge is the DISPLAYED
+		// age -- the number the player actually watched her die at -- not
+		// the internal 0-102 content index.
+		if (fatal && bonusTriggered && realAge < 75) {
+			const coda = 'Relax, even when you are privileged, nothing is in control';
+			deathLine = deathLine ? `${deathLine}\n${coda}` : coda;
+		}
+
+		printText +=
+			`Age: ${realAge}\n${text}` +
+			(statChangesText ? `\n${statChangesText}` : '') +
+			(deathLine ? `\n${deathLine}` : '') +
+			'\n';
 
 		entries = [
 			...entries,
@@ -204,12 +266,13 @@
 				year: 2022 + realAge,
 				age: realAge,
 				text,
+				deathLine,
 				statChanges,
 				fatal,
 			},
 		];
 
-		return text;
+		return joined;
 	}
 
 	// View Summary no longer cuts straight to the SUMMARY screen: it hides
@@ -299,12 +362,24 @@
 		JAP: 9, GBR: 9, US: 9, DNK: 9,
 	};
 
+	// How much the free-allocation bonus is worth. A flat +5 for every
+	// country, per the attribute-pool design doc's privilege rule.
+	// This was briefly a per-country table (JAP/CH 9, IRN 10, ... HTI 5),
+	// fitted so that privileged life expectancy ranked the way real-world
+	// life expectancy does. That made the bonus mean something different
+	// depending on where you were born, which is not what the mechanic is:
+	// the privilege top-up is the same gift everywhere, and only the world
+	// you spend it in differs. Ranking privileged lifespans is the event
+	// tree's job, not this constant's.
+	const BONUS_AMOUNT = 5;
+
 	// The rail hint's "see what happens" promise, and the Summary hint's own
-	// "+5 on all stats" line, are a real mechanic: reaching this country's
-	// own trigger value in any single stat adds +5 to all five attributes,
-	// each capped at 17 (per the attribute-pool design doc's privilege
-	// rule -- this replaced the earlier top-up-to-5, so poorer countries'
-	// privileged runs can actually reach the higher attribute bands).
+	// line about a boost, are a real mechanic: reaching this country's own
+	// trigger value in any single stat adds BONUS_AMOUNT to
+	// all five attributes, each capped at 17 (the attribute-pool design
+	// doc's privilege rule -- this replaced the earlier top-up-to-5, so
+	// poorer countries' privileged runs can actually reach the higher
+	// attribute bands).
 	// Every group's trigger value is at or below that group's own point
 	// budget, so dumping every point into one stat always meets it -- no
 	// separate "all in one stat" fallback needed.
@@ -312,6 +387,7 @@
 	// flag too, to decide whether to re-roll this life's lucky charms.
 	function applyBonus(propertyAllocate) {
 		const trigger = BONUS_TRIGGER[countryCode] ?? 8;
+		const amount = BONUS_AMOUNT;
 		let max = 0;
 		for (const key of STAT_KEYS) {
 			const value = propertyAllocate[types[key]];
@@ -321,7 +397,7 @@
 		if (triggered) {
 			for (const key of STAT_KEYS) {
 				const t = types[key];
-				propertyAllocate[t] = Math.min(propertyAllocate[t] + 5, 17);
+				propertyAllocate[t] = Math.min(propertyAllocate[t] + amount, 17);
 			}
 		}
 		return { propertyAllocate, triggered };
@@ -337,6 +413,17 @@
 	// bundled with MNY-1 (the lucky-charm doc's cosmetic-procedure cost),
 	// not a clean positive.
 	const GOOD_TALENT_POOL = [5, 6, 8, 9];
+	// The five outright misfortunes (Earthquake, Airplane Crash, Farewell
+	// Mom, Bankruptcy, Rape). The privileged re-draw is no longer fully
+	// insulated from them: they stay in the pool at a weight that gives the
+	// bad five ~5% of each pick between them (5 x 0.042 vs 4 good at 1 --
+	// 0.21 / 4.21 ~ 4.99%), against ~95% good. With the Poisson charm count
+	// (~0.98 draws per life) that lands at roughly one privileged life in
+	// twenty catching a misfortune anyway -- including, rarely, the plane
+	// crash the privilege coda was written for.
+	const BAD_TALENT_POOL = [0, 1, 2, 3, 4];
+	const TLR_TALENT_POOL = [...BAD_TALENT_POOL, ...GOOD_TALENT_POOL];
+	const TLR_TALENT_WEIGHTS = Object.fromEntries(BAD_TALENT_POOL.map(i => [i, 0.042]));
 
 	function confirmAllocation() {
 		if (allocLeft > 0) return;
@@ -352,15 +439,20 @@
 		// off it, the same way LBTQ already does for orientation -- see
 		// the country-tree events gated "<CODE>>0&TLR>0" / "...&TLR=0".
 		propertyAllocate[types.TLR] = bonus.triggered ? 1 : 0;
+		bonusTriggered = bonus.triggered;
 		if (bonus.triggered) {
 			// The free-allocation trick already handed her an easier start --
-			// re-roll this life's 3 lucky charms from the good-only pool so
-			// none of the random misfortunes (earthquake, bankruptcy, rape,
-			// a plane crash) can also land on top of it. core.remake() was
+			// re-roll this life's lucky charms from a pool that is ~95% the
+			// four clean positives, with the five misfortunes kept in at a
+			// sliver of weight (see TLR_TALENT_WEIGHTS): privilege shields
+			// her from bad luck, it does not repeal it. How MANY are drawn
+			// is Poisson (see talentDraw.js), so this re-roll often yields
+			// one charm and sometimes none -- it is not a guaranteed set.
+			// core.remake() was
 			// already called once in Plaza with the original draw; calling
 			// it again here fully replaces that selection before core.start()
 			// ever applies any of it.
-			talents = drawTalentsFrom(core.talentRandom(), { pool: GOOD_TALENT_POOL });
+			talents = drawTalentsFrom(core.talentRandom(), { pool: TLR_TALENT_POOL, weights: TLR_TALENT_WEIGHTS });
 			core.remake(talents.map(t => t.id));
 		}
 		printText =
@@ -370,7 +462,7 @@
 			`Appearance: ${propertyAllocate[types.CHR]}\n` +
 			`IQ: ${propertyAllocate[types.INT]}\n` +
 			`Healthy: ${propertyAllocate[types.STR]}\n` +
-			`EQ: ${propertyAllocate[types.SPR]}\n\n`;
+			`Happiness: ${propertyAllocate[types.SPR]}\n\n`;
 		core.start(propertyAllocate);
 		stats = core.propertys;
 		allocating = false;
@@ -455,14 +547,22 @@
 					</div>
 				{/each}
 			</div>
-			<button
-				type="button"
-				class="alloc-action start start-row"
-				disabled={allocLeft > 0}
-				onclick={confirmAllocation}
-			>
-				Start
-			</button>
+			<!-- Start sits inside its own hover ring: the 0.5cqh of padding
+			     around the button is a second trigger for the hint below,
+			     while the button's own face is excluded (see the :has()
+			     rule in the stylesheet). Wrapping rather than growing the
+			     button keeps Start's hit area exactly what it looks like --
+			     a click 0.5cqh outside the pill must not start the run. -->
+			<div class="start-hover-zone">
+				<button
+					type="button"
+					class="alloc-action start start-row"
+					disabled={allocLeft > 0}
+					onclick={confirmAllocation}
+				>
+					Start
+				</button>
+			</div>
 			<!-- Moved inside the glass panel, below Start, but keeping the
 			     original hover-to-reveal discovery -- invisible until this
 			     strip itself is hovered, same "hidden in plain sight" tip as
@@ -495,7 +595,18 @@
 				     catch up, unsynced from the +N badge that had already
 				     moved on -- read as the statbar randomly flashing/
 				     re-rendering on its own. -->
-				<span class="stat-value">{stats[types[key]]}</span>
+				<!-- Floored at 0 for display only; the model keeps the real
+				     value. A no-bonus life runs a deficit for decades before a
+				     fatal branch fires (see the TLR=0 thresholds in
+				     events.json), so the raw number spends most of a run
+				     negative, reaching -19. That deficit is load-bearing for
+				     how long these lives last -- clamping the property itself
+				     would collapse the no-bonus lifespan from ~50 to ~8 -- so
+				     the floor lives here instead. The delta badge below still
+				     reports what the year actually did, which is the intended
+				     read once the bar hits bottom: it cannot get lower, and it
+				     keeps being taken from anyway. -->
+				<span class="stat-value">{Math.max(0, stats[types[key]])}</span>
 				<!-- Always rendered (never conditionally removed) so the row's
 				     total width -- and thus whether flex-wrap kicks in and
 				     the bar's own height -- never depends on whether a delta
@@ -531,8 +642,13 @@
 		     plain (untransformed) element so its overflow:hidden edge is a
 		     reliable, predictable rectangle regardless of anything the log
 		     itself does visually. -->
-		<div class="stair-log-viewport">
-			<div class="stair-log" bind:this={logEl}>
+		<div
+			class="stair-log-viewport"
+			class:scrolled={scrolledFromTop}
+			bind:this={logEl}
+			onscroll={onLogScroll}
+		>
+			<div class="stair-log">
 				{#each entries as entry, i (entry.id)}
 					<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
 						<div class="step-tread">Age {entry.age}</div>
@@ -546,6 +662,12 @@
 										</span>
 									{/each}
 								</div>
+							{/if}
+							<!-- Below the deltas on purpose -- see renderTrajectory: the
+							     death declaration is the entry's last word, so the
+							     year's stat changes sit above it rather than after. -->
+							{#if entry.deathLine}
+								<p class="entry-text death-line">{entry.deathLine}</p>
 							{/if}
 						</div>
 					</div>
@@ -604,7 +726,16 @@
 			inset 0 -10px 16px rgba(20, 40, 55, 0.06),
 			0 6px 18px rgba(5, 12, 18, 0.3);
 		flex-wrap: nowrap;
-		overflow: hidden;
+		/* clip, not hidden: `hidden` makes this a scroll container (it can be
+		   scrolled programmatically and can absorb a wheel/touch gesture even
+		   with no visible scrollbar), which is wrong for a fixed readout --
+		   `clip` crops identically but is not scrollable at all. Paired with
+		   pointer-events:none so a wheel over the bar falls through to the
+		   event log behind it instead of dying here. Nothing in the bar is
+		   interactive, so nothing is lost. */
+		overflow: clip;
+		pointer-events: none;
+		overscroll-behavior: none;
 		font-size: 1rem;
 		color: #17262e;
 	}
@@ -678,13 +809,42 @@
 	   from this box, so the two need enough of a permanent gap that the
 	   button can never sit over the newest, most-recently-scrolled-into-
 	   view step. */
+	/* This box is also the scroll container, so the player can wheel/drag
+	   back through earlier years while the run is still going. The inner
+	   .stair-log below is a plain content column that grows past this
+	   height; scrolling the clip boundary itself (rather than a separate
+	   absolutely-positioned child) is what makes the scrollable area
+	   exactly equal to the visible area. .scene is pointer-events:none so
+	   the huge cover-fit rect it spans can't swallow clicks meant for
+	   anything over the footage, so this one element opts back in --
+	   without that, wheel and touch never reach it. */
 	.stair-log-viewport {
 		position: absolute;
 		left: 6%;
 		top: calc(5% + 6.5rem);
 		width: 58%;
 		height: calc(80% - 6.5rem);
-		overflow: hidden;
+		overflow-y: auto;
+		overflow-x: hidden;
+		pointer-events: auto;
+		/* Don't hand the wheel off to an ancestor once this hits its end --
+		   the log is the only thing on this screen meant to scroll. */
+		overscroll-behavior: contain;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.stair-log-viewport::-webkit-scrollbar {
+		display: none;
+	}
+	/* Applied only while scrolled (see onLogScroll) -- at rest this fade
+	   had nothing above the first entry to dissolve and simply erased its
+	   own top edge, taking the "Age 0" tread and first text line with it. */
+	.stair-log-viewport.scrolled {
+		/* Short band (was 15%, ~70px -- a full line of text plus its age
+		   chip): enough to soften an entry leaving the top, not enough to
+		   render the topmost readable line illegible. */
+		mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 100%);
+		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 7%, black 100%);
 	}
 	/* The climb log itself: one step per entry, scrolled to the bottom as
 	   new ones arrive (scrollToEnd()). Previously carried a 3D
@@ -692,43 +852,33 @@
 	   rotated element's own on-screen bounding box is provably larger than
 	   its flat layout box (measured live: 886px wide vs. a real 742px, on
 	   an element with no explicit width past its container) -- neither
-	   overflow:hidden here nor on the wrapper above clips it at the
-	   intended edge, which is what let entry text visibly run past the
-	   right edge of the screen. Each step's own small 2D rotateZ tilt
-	   (below) still reads as "stairs" without that problem: it's a
-	   same-plane rotation, so its bounding box matches its layout box and
-	   normal clipping/wrapping behaves exactly as authored. Scrollbar
-	   hidden since scrollToEnd() drives it. Fills its clipping wrapper
-	   exactly (inset:0) rather than repeating that wrapper's own
-	   position/size. */
+	   overflow:hidden on the wrapper above nor on this element clips it at
+	   the intended edge, which is what let entry text visibly run past the
+	   right edge of the screen. Each step's own sideways stagger (below)
+	   reads as "stairs" without that problem, and without even the
+	   milder rotateZ tilt this used to carry -- no rotation at all means
+	   its bounding box always matches its layout box, so clipping/
+	   wrapping behaves exactly as authored. Plain in-flow content now (it
+	   used to be absolutely positioned and own the scrolling itself): the
+	   wrapper above is the scroll container, so this just grows past it
+	   and gets scrolled. */
 	.stair-log {
-		position: absolute;
-		inset: 0;
-		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 1.6cqh;
-		mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-		-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-		scrollbar-width: none;
-		-ms-overflow-style: none;
 	}
-	.stair-log::-webkit-scrollbar {
-		display: none;
-	}
-	/* One step = one entry: the tread (age) and riser (event) share a
-	   single tilt so they read as one physical step, and each step
-	   outsets sideways from the last on a 5-step sawtooth -- a real
-	   ascending flight alternates which way a tread juts relative to the
-	   one below it; a plain vertical stack read as a list, not stairs. A
-	   same-plane rotateZ only (no perspective/rotateY -- see .stair-log
-	   above), so it can't inflate this card's own clipped/wrapped width. */
+	/* One step = one entry, outset sideways from the last on a 5-step
+	   sawtooth -- a real ascending flight alternates which way a tread
+	   juts relative to the one below it; a plain vertical stack read as a
+	   list, not stairs. That sideways stagger alone reads as "stairs";
+	   the earlier rotateZ(-2.5deg) tilt on top of it made the whole card
+	   look crooked/tilted up rather than like a level flight, so each
+	   step now sits flat like the rest of the staircase. */
 	.step {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		margin-left: calc(var(--step, 0) * 2.6cqw);
-		transform: rotateZ(-2.5deg);
 		font-size: 2.6cqh;
 		max-width: 100%;
 	}
@@ -737,7 +887,12 @@
 	   still reads as the stair's own surface rather than a UI chrome
 	   sitting on top of it. */
 	.step-tread {
-		background: linear-gradient(180deg, rgba(129, 214, 191, 0.55) 0%, rgba(37, 79, 71, 0.62) 100%);
+		/* Was 0.55/0.62 -- too see-through over the walking loop's brightest
+		   frames (the pale stair treads), where the age chip washed out to
+		   near-invisible while the same chip over a darker part of the
+		   footage read solid. Opaque enough now to read the same wherever a
+		   step happens to land. */
+		background: linear-gradient(180deg, rgba(129, 214, 191, 0.82) 0%, rgba(37, 79, 71, 0.9) 100%);
 		-webkit-backdrop-filter: blur(14px) saturate(160%);
 		backdrop-filter: blur(14px) saturate(160%);
 		color: #f2fbf7;
@@ -751,7 +906,10 @@
 			0 2px 8px rgba(5, 12, 18, 0.5);
 	}
 	.step-riser {
-		background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(210, 228, 236, 0.66) 100%);
+		/* A touch more opaque than the original 0.26/0.66 -- the walking
+		   loop's own footage was still showing through enough to make
+		   entry-text harder to read than it should be. */
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(210, 228, 236, 0.8) 100%);
 		-webkit-backdrop-filter: blur(16px) saturate(160%);
 		backdrop-filter: blur(16px) saturate(160%);
 		padding: 0.6em 1em 0.7em;
@@ -772,6 +930,11 @@
 		white-space: pre-line;
 		line-height: 1.4;
 		color: #17262e;
+	}
+	/* After .entry-text so its margin:0 shorthand doesn't win on source
+	   order -- both are single-class selectors on the same element. */
+	.death-line {
+		margin-top: 0.5em;
 	}
 	.entry-deltas {
 		margin-top: 0.5em;
@@ -1188,11 +1351,30 @@
 	   of floating over the background footage -- the hover-zone needs its
 	   own reserved padding here (there's no bright rail band to lean on
 	   anymore) so there's still something to find by hovering. */
+	/* The hover target, deliberately larger than the text it reveals. Every
+	   extra padding step is cancelled by an equal negative margin, so the box
+	   grows for hit-testing while its footprint in this flex column -- and so
+	   the hint's on-screen position -- is unchanged.
+	   The growth is capped by what is actually reachable rather than chosen
+	   freely: .alloc-panel clips with BOTH overflow:hidden and a tapering
+	   clip-path, and clipping applies to pointer events too, so anything
+	   past the panel edge would be dead area. Measured at the zone's own
+	   height there are ~22px to the Start button above, ~22px to the panel
+	   floor below, and ~24px to the taper on each side; +2.5cqh / +1.5cqw
+	   (~19px) stays inside all three. Staying clear of Start also matters
+	   because this div follows it in the DOM and both are positioned, so an
+	   overlap would paint on top and swallow the button's clicks. */
 	.alloc-hint-zone {
 		position: relative;
-		margin-top: 1cqh;
-		padding: 1cqh 2cqw;
+		margin: -1.5cqh -1.5cqw -2.5cqh;
+		padding: 3.5cqh 3.5cqw;
 	}
+	/* Two different transition speeds, one per direction. The duration
+	   declared here is the one that runs on the way BACK to this state --
+	   i.e. after the pointer leaves -- so the hint takes a slow 3s to
+	   dissolve, staying readable long enough to finish the sentence after
+	   you've moved on. The :hover rule below overrides it with a short
+	   duration for the reveal, which should feel immediate. */
 	.alloc-hint {
 		position: relative;
 		margin: 0;
@@ -1202,10 +1384,42 @@
 		line-height: 1.4;
 		color: rgba(23, 38, 46, 0.72);
 		opacity: 0;
-		transition: opacity 300ms ease;
+		transition: opacity 3000ms ease;
 		pointer-events: none;
 	}
 	.alloc-hint-zone:hover .alloc-hint {
 		opacity: 1;
+		transition: opacity 300ms ease;
+	}
+	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
+	   wrapper for hit-testing and the equal negative margin takes the growth
+	   back out of the flex column, so Start's on-screen position and the
+	   panel's spacing are byte-identical to before. The button keeps its own
+	   box, so what is clickable as Start is still exactly the pill. */
+	.start-hover-zone {
+		display: flex;
+		justify-content: center;
+		/* Vertical: the 2cqh that used to be Start's own margin, minus the
+		   0.5cqh now spent on padding, so the gap above and below the pill is
+		   unchanged. Horizontal: a plain -0.5cqh cancelling the padding.
+		   Start's margin has to move up here rather than stay on the button --
+		   left in place it would sit INSIDE the ring, making the ring 2.5cqh
+		   tall on those two edges instead of 0.5cqh (measured: 19.5px vs the
+		   3.9px the sides get). */
+		margin: 1.5cqh -0.5cqh;
+		padding: 0.5cqh;
+	}
+	.start-hover-zone > .alloc-action.start-row {
+		margin: 0;
+	}
+	/* Hovering the ring reveals the hint; hovering Start itself does not.
+	   :has() is what draws that line -- the wrapper is hovered in both cases
+	   (the button is inside it), so the button's own :hover has to veto.
+	   The hint lives in a later sibling, hence `~`. Leaving the ring for the
+	   button falls back to .alloc-hint's own 3s dissolve, the same slow fade
+	   as moving the pointer away entirely. */
+	.start-hover-zone:hover:not(:has(.alloc-action:hover)) ~ .alloc-hint-zone .alloc-hint {
+		opacity: 1;
+		transition: opacity 300ms ease;
 	}
 </style>

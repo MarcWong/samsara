@@ -6,6 +6,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { videoStage } from './videoStage.svelte.js';
 	import { skippable } from '../skip.js';
+	import { CLIP_VOLUME } from '../audio.js';
 
 	let stageEl = $state();
 	let canvasEl = $state();
@@ -26,6 +27,10 @@
 		videoEl.load();
 		videoEl.playbackRate = rate;
 		videoEl.muted = muted;
+		// On this path the clip's own soundtrack comes out of the <video>
+		// itself rather than a sibling <audio>, so it needs the same level
+		// against the bg.opus bed that CityIntro sets on its elements.
+		videoEl.volume = CLIP_VOLUME;
 		videoEl.play().catch(() => {});
 	});
 </script>

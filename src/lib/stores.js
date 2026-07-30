@@ -28,9 +28,15 @@ const draft = writable(emptyDraft());
 // shader canvas in lockstep with Summary's own foreground/reveal video.
 const restartProgress = writable(0);
 
+// Multiplier on the background bed's level (see audio.js). CityIntro ducks it
+// on the first click and Summary restores it on arrival. A shared store for
+// the same reason restartProgress is one: BackgroundMusic.svelte is a sibling
+// under +page.svelte, not a child either screen can pass a prop to.
+const bgMusicScale = writable(1);
+
 function goToScreen(key, patch) {
     if (patch) draft.update(d => ({ ...d, ...patch }));
     screen.set(key);
 }
 
-export { screen, draft, goToScreen, emptyDraft, restartProgress };
+export { screen, draft, goToScreen, emptyDraft, restartProgress, bgMusicScale };
