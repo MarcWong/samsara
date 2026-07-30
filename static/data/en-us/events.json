@@ -175,7 +175,7 @@
     "60009": {
         "id": 60009,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude": "EVT?[60009,60010]"
+        "exclude": "EVT?[60009,60010,60012]"
     },
     "60010": {
         "id": 60010,
@@ -190,7 +190,7 @@
     "60012": {
         "id": 60012,
         "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
-        "exclude": "EVT?[60011,60012,60013]"
+        "exclude": "EVT?[60011,60012,60013,60009]"
     },
     "60013": {
         "id": 60013,
@@ -644,7 +644,10 @@
         "exclude": "EVT?[86001,86002]",
         "effect": {
             "INT": 3,
-            "STR": 3,
+            "STR": 5,
+            "MNY": 3,
+            "CHR": 3,
+            "DK": 1,
             "AF": -1,
             "EGY": -1,
             "IND": -1,
@@ -660,7 +663,11 @@
         "include": "MNY>7&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
         "exclude": "EVT?[86001,86002]",
         "effect": {
+            "INT": 3,
+            "STR": 3,
+            "MNY": 3,
             "CHR": 5,
+            "UK": 1,
             "AF": -1,
             "EGY": -1,
             "IND": -1,
@@ -10903,5 +10910,40 @@
     "10019": {
         "id": 10019,
         "event": "Another year passes without asking anything of you. The days keep their shape, the kettle keeps its place, and the news stays about other people."
+    },
+    "82805": {
+        "id": 82805,
+        "event": "You use the family guesthouse to shelter LGBTQ activists during a wave of violence. Your parents approve of helping them in principle but panic when neighbors begin associating the family name with “that movement.”",
+        "include": "HTI>0&TLR>0&LBTQ>0",
+        "exclude": "EVT?[82805]"
+    },
+    "104605": {
+        "id": 104605,
+        "event": "The nationalist emergency government describes LGBTQ organisations as foreign ideological networks. Police raid your community centre, and you are furious that years of queer military service can be erased by one convenient political slogan.",
+        "include": "UKR>0&TLR=0&LBTQ>0",
+        "exclude": "EVT?[104605]"
+    },
+    "104905": {
+        "id": 104905,
+        "event": "From exile during the constitutional coup, you finance LGBTQ soldiers, journalists and medical networks. Government media portrays you as a wealthy foreign-controlled degenerate, making your face recognisable to people who have never heard your actual voice.",
+        "include": "UKR>0&TLR>0&LBTQ>0",
+        "exclude": "EVT?[104905]"
+    },
+    "105605": {
+        "id": 105605,
+        "event": "The hard-right government restricts LGBTQ material in schools and narrows recognition for trans people. At Pride, companies still sell rainbow sandwiches while friends quietly update emergency contacts and legal documents.",
+        "include": "GBR>0&TLR=0&LBTQ>0",
+        "exclude": "EVT?[105605]"
+    },
+    "105905": {
+        "id": 105905,
+        "event": "You finance trans healthcare and LGBTQ shelters during a political backlash. Activists welcome the money but refuse to let you control the campaign, and their refusal feels more genuinely equal than any gala held in your honour.",
+        "include": "GBR>0&TLR>0&LBTQ>0",
+        "exclude": "EVT?[105905]"
+    },
+    "10020": {
+        "id": 10020,
+        "event": "A year passes behind drivers, tutors and gates that lock from the inside. Nothing reaches you; nothing is supposed to.",
+        "include": "TLR>0&(STR<6|MNY<6)"
     }
 }
