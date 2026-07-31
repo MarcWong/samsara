@@ -15,24 +15,26 @@ function excludes(a, b) {
     return !!(a.exclude?.includes(b.id) || b.exclude?.includes(a.id));
 }
 
-// HOW MANY charms a life gets is itself random now -- Poisson(lambda = 1),
+// HOW MANY charms a life gets is itself random now -- Poisson(lambda = 1.5),
 // with the whole k>=3 tail folded onto k=3 so the count never exceeds three:
 //
-//   P(0) = e^-1        ~ 36.8%
-//   P(1) = e^-1        ~ 36.8%
-//   P(2) = e^-1 / 2    ~ 18.4%
-//   P(3) = 1 - 2.5e^-1 ~  8.0%   (all remaining mass)
+//   P(0) = e^-1.5              ~ 22.3%
+//   P(1) = 1.5 e^-1.5          ~ 33.5%
+//   P(2) = 1.125 e^-1.5        ~ 25.1%
+//   P(3) = 1 - 3.625 e^-1.5    ~ 19.1%   (all remaining mass)
 //
-// Mean ~0.98 charms per life, where it used to be a flat 3 every time. That
+// Mean ~1.4 charms per life, where it used to be a flat 3 every time. That
 // flat 3 was what made any individual charm feel guaranteed: the bonus
 // re-draw picks from a 4-charm good pool, so taking 3 of them handed each
 // one a 3/4 chance every single run (Helen of Troy included). Drawing a
-// Poisson count instead makes a charm an event rather than a fixture, and
-// most lives now run with none at all.
-const E_INV = Math.exp(-1);
+// Poisson count instead makes a charm an event rather than a fixture. It
+// started at lambda = 1, but a 36.8% zero rate stacked with the ~72%
+// in-life trigger rate meant four charm-less lives in a row happened to
+// 1 in 12 players; lambda = 1.5 puts that streak below 1 in 80.
+const E_INV = Math.exp(-1.5);
 // Cumulative thresholds for k = 0, 1, 2; anything above the last is k = 3,
-// which is exactly the folded tail (1 - 2.5e^-1).
-const COUNT_CDF = [E_INV, 2 * E_INV, 2.5 * E_INV];
+// which is exactly the folded tail (1 - 3.625 e^-1.5).
+const COUNT_CDF = [E_INV, 2.5 * E_INV, 3.625 * E_INV];
 
 function drawCount() {
     const r = Math.random();
