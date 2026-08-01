@@ -119,13 +119,10 @@ class Property {
             talent = talent.map(v=>Number(v));
 
             // Spread the original row rather than replacing it: age.json rows
-            // also carry an `age` field, the number the player is meant to see
-            // for this internal index. Rebuilding the row as `{event, talent}`
-            // dropped it, so getAgeData(x).age was always undefined and
-            // Trajectory's displayAge() silently fell through to its `?? internal`
-            // fallback -- the screen showed the raw 0-102 index, which is not
-            // contiguous (age.json omits 23, 26-30, 42, 73-77, 81-88, 90-96,
-            // 98-101), so the log visibly jumped 22->24->25->31 and 80->89->97.
+            // also carry the player-facing `age`. The table is now continuous
+            // from 0 to 102, but retaining this field keeps display and event
+            // scheduling explicit and prevents future data edits from leaking
+            // internal row numbers into the life log.
             age[a] = { ...age[a], event, talent };
         }
         this.#total = total;

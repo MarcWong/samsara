@@ -139,7 +139,7 @@
     },
     "60002": {
         "id": 60002,
-        "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy",
+        "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy.",
         "exclude": "EVT?[60002]"
     },
     "60003": {
@@ -159,7 +159,7 @@
     },
     "60006": {
         "id": 60006,
-        "event": "Healthy Years Enter the Market.** Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
+        "event": "Healthy Years Enter the Market. Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
         "exclude": "EVT?[60006]"
     },
     "60007": {
@@ -174,22 +174,22 @@
     },
     "60009": {
         "id": 60009,
-        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
+        "event": "Three rival identity systems make you a different legal woman at each border. Every government calls its version of you freedom.",
         "exclude": "EVT?[60009]"
     },
     "60010": {
         "id": 60010,
-        "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
+        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
         "exclude": "EVT?[60010]"
     },
     "60011": {
         "id": 60011,
-        "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
+        "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
         "exclude": "EVT?[60011]"
     },
     "60012": {
         "id": 60012,
-        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
+        "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
         "exclude": "EVT?[60012]"
     },
     "60013": {
@@ -256,17 +256,17 @@
     },
     "60028": {
         "id": 60028,
-        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
+        "event": "An alien vessel carries you above a violet ocean beneath three moons. You awaken at home; everyone calls it psychosis except your predictive double.",
         "exclude": "EVT?[60028]"
     },
     "60029": {
         "id": 60029,
-        "event": "A mirror opens onto a parallel Earth where you received another nationality, another body, another lover. She touches the glass, grieving your life.",
+        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
         "exclude": "EVT?[60029]"
     },
     "60030": {
         "id": 60030,
-        "event": "An alien vessel carries you above a violet ocean beneath three moons. You awaken at home; everyone calls it psychosis except your predictive double.",
+        "event": "A mirror opens onto a parallel Earth where you received another nationality, another body, another lover. She touches the glass, grieving your life.",
         "exclude": "EVT?[60030]"
     },
     "60031": {
@@ -308,42 +308,68 @@
         ],
         "exclude": "EVT?[74001]"
     },
-    "74002": {
-        "id": 74002,
-        "event": "You’ve been shut out and shoved aside your whole life. Then, by chance, a friend’s phone shows you a video of another world outside the border. You decide to risk everything and try to slip across into China.",
-        "include": "PRK>0&EVT![86001,86002]",
-        "exclude": "EVT?[74002, 86001, 86002]",
-        "branch": [
-            "MNY>2&STR>1:74003",
-            "MNY>0|STR>0:74004",
-            "MNY<1&STR<1:74005"
-        ]
-    },
-    "74003": {
-        "id": 74003,
-        "event": "You make it across, into China, and keep moving until North Korea shrinks into a story you tell in a language it took you years to learn.",
+    "74006": {
+        "id": 74006,
+        "event": "You cross the river into China and disappear into a factory dormitory among undocumented North Korean women. A broker takes most of your money; police raids and traffickers make every knock sound like repatriation. Diplomats debate whether women like you are refugees, migrants or evidence.",
         "NoRandom": 1,
         "effect": {
-            "PRK": -1,
-            "CH": 1
+            "STR": -1,
+            "MNY": -1
         }
     },
-    "74004": {
-        "id": 74004,
-        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. Your family manages to bribe the guards — the only reason you’re not one of the ones who disappear.",
-        "NoRandom": 1,
+    "74007": {
+        "id": 74007,
+        "event": "Chinese patrols catch you before dawn and hand you back across the river. No bribe saves you. Guards hood you, record the names of your relatives and send you to an interrogation centre, where surviving becomes another form of silence.",
+        "NoRandom": 1
+    },
+    "74008": {
+        "id": 74008,
+        "event": "Interrogators demand the names of brokers and women who crossed with you. Months of hunger, forced labour and unanswered questions strip away your remaining savings and strength. You leave detention alive, but under surveillance, as the state begins collapsing around its own prisons.",
+        "include": "PRK>0&TLR=0&EVT?[74007]",
         "effect": {
             "STR": -2,
-            "MNY": -2
+            "MNY": -1,
+            "SPR": -1
         }
     },
-    "74005": {
-        "id": 74005,
-        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. No one ever hears from you again. You’re dead.",
+    "74009": {
+        "id": 74009,
+        "event": "Chinese police return you at the border. With no money, strength or relative able to bargain for you, you disappear into a detention transport. Your family receives neither a body nor an official explanation. You are dead.",
         "NoRandom": 1,
         "branch": [
             ":10000"
         ]
+    },
+    "74010": {
+        "id": 74010,
+        "event": "A military aircraft carries you to Russia with sealed technical files chained to an officer’s wrist. The cabin holds officials, scientists and their families; everyone understands that the documents, not the people, are what earned seats.",
+        "NoRandom": 1
+    },
+    "74011": {
+        "id": 74011,
+        "event": "Your family is removed from the Russian evacuation list after a final purge. A diplomatic driver gets you across the Chinese border, where security officers confiscate your documents and place you in a guarded villa. Your knowledge has made you valuable, not free.",
+        "NoRandom": 1,
+        "effect": {
+            "MNY": -1,
+            "SPR": -1
+        }
+    },
+    "74012": {
+        "id": 74012,
+        "event": "Your name appears on both the evacuation list and the arrest list. At the military airfield, security officers separate you from your family and shoot you beside the runway while the aircraft leaves without you. You are dead.",
+        "NoRandom": 1,
+        "branch": [
+            ":10000"
+        ]
+    },
+    "74013": {
+        "id": 74013,
+        "event": "After three years of guarded interrogations in China, you surrender names, procurement routes and fragments of the weapons programme. A multinational agreement moves you to Seoul under a protected identity. You have reached safety by converting state secrets into your own temporary value.",
+        "include": "PRK>0&TLR>0&EVT?[74011]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -1
+        }
     },
     "81001": {
         "id": 81001,
@@ -738,46 +764,6 @@
         "branch": [
             ":10000"
         ]
-    },
-    "86001": {
-        "id": 86001,
-        "event": "Your family moved to Finland to avoid political persecution. You finally don't have to worry about what to eat on the next day, and the teachers in your school treat every student equally.",
-        "include": "MNY>4&MNY<8&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
-        "exclude": "EVT?[86001,86002]",
-        "effect": {
-            "INT": 3,
-            "STR": 5,
-            "MNY": 3,
-            "CHR": 3,
-            "DK": 1,
-            "AF": -1,
-            "EGY": -1,
-            "IND": -1,
-            "IRN": -1,
-            "PRK": -1,
-            "UKR": -1,
-            "HTI": -1
-        }
-    },
-    "86002": {
-        "id": 86002,
-        "event": "Your family moved to Australia. Your parents bought a big house nearby the sea, and sent you to a private school. There you met the son of a well-known company's CEO.",
-        "include": "MNY>7&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
-        "exclude": "EVT?[86001,86002]",
-        "effect": {
-            "INT": 3,
-            "STR": 3,
-            "MNY": 3,
-            "CHR": 5,
-            "UK": 1,
-            "AF": -1,
-            "EGY": -1,
-            "IND": -1,
-            "IRN": -1,
-            "PRK": -1,
-            "UKR": -1,
-            "HTI": -1
-        }
     },
     "87001": {
         "id": 87001,
@@ -1387,7 +1373,7 @@
     "102503": {
         "id": 102503,
         "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[102604])",
         "branch": [
             ":10000"
         ]
@@ -1716,32 +1702,39 @@
     "103016": {
         "id": 103016,
         "event": "A poor harvest and factional fighting weaken central control. You depend on real maize, vegetables and illegally slaughtered animals from local markets; the food is natural, scarce and sometimes contaminated. Senior officials receive sealed Russian nutrient packs and printed protein while Chinese and Russian forces secure the borders and nuclear sites.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0",
+        "exclude": "EVT?[103605]"
     },
     "103017": {
         "id": 103017,
         "event": "You join thousands walking toward the Chinese border. You do not call yourself a defector; you tell your daughter that you are only looking for food and will return when the roads are safe.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0",
+        "exclude": "EVT?[103605]",
+        "branch": [
+            "MNY>1&STR>1:74006",
+            "MNY>0|STR>0:74007",
+            "MNY<1&STR<1:74009"
+        ]
     },
     "103018": {
         "id": 103018,
-        "event": "At an internationally supervised refugee centre, an unrestricted AI reconstructs world history, explains your legal rights and speaks in the voice you select. You trust it more quickly than the human counsellors, then become paranoid that this new world may simply have built a more persuasive form of propaganda. Some visitors romanticise you as unaugmented and pure, confusing enforced isolation with innocence.",
-        "include": "PRK>0&TLR=0"
+        "event": "An emergency agreement moves you from hiding in China to an internationally supervised border centre. An unrestricted AI reconstructs history, explains your rights and speaks in the voice you choose. You trust it faster than the counsellors, then wonder whether freedom has simply built more persuasive propaganda.",
+        "include": "PRK>0&TLR=0&EVT?[74006]"
     },
     "103019": {
         "id": 103019,
         "event": "The old regime formally collapses. A transitional northern administration opens archives, dismantles some prison camps and permits political parties, but former security officers use hidden money and local connections to retain influence.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103018,74008,103605]"
     },
     "103020": {
         "id": 103020,
         "event": "You vote for the first time. The ballot is confusing and exhilarating, but unemployment, organized crime and humiliating comparisons with wealthy South Korea quickly weaken faith in democracy.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103019]"
     },
     "103021": {
         "id": 103021,
         "event": "A northern strongman wins power by promising order, dignity and protection from southern corporations. He does not restore the old dynasty, but he rebuilds censorship and surrounds himself with veterans and business families.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103020]"
     },
     "103022": {
         "id": 103022,
@@ -1799,6 +1792,7 @@
         "id": 103505,
         "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.",
         "include": "PRK>0&TLR=0&(STR<1&MNY<1)",
+        "exclude": "EVT?[103605]",
         "branch": [
             ":10000"
         ]
@@ -1900,28 +1894,35 @@
     },
     "103714": {
         "id": 103714,
-        "event": "State control fractures. You are placed on an aircraft to Russia with technical documents, while other officials flee toward China and competing army units attempt to seize nuclear weapons and missile sites.",
-        "include": "PRK>0&TLR>0"
+        "event": "As rival units fight over nuclear sites, your family learns that evacuation lists are also purge lists. The documents in your possession may buy passage, immunity or a quieter execution; for the first time, privilege feels less like protection than evidence.",
+        "include": "PRK>0&TLR>0",
+        "exclude": "EVT?[103905]",
+        "branch": [
+            "LBTQ>0&MNY>5&STR>5:103905",
+            "MNY>5&STR>5:74010",
+            "MNY>0|STR>0:74011",
+            "MNY<1&STR<1:74012"
+        ]
     },
     "103715": {
         "id": 103715,
         "event": "You negotiate with foreign specialists trying to account for nuclear material. Americans and South Koreans distrust you as a regime insider; Chinese and Russians fear you will reveal what they supplied.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[74010,103905]"
     },
     "103716": {
         "id": 103716,
         "event": "The transitional government offers immunity to officials who cooperate. You testify privately about the weapons program but avoid speaking about forced labor, knowing that honesty on one subject may expose your complicity in another.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103715,74013]"
     },
     "103717": {
         "id": 103717,
         "event": "You return to Pyongyang as a wealthy consultant. Former party families convert political access into property, logistics and telecommunications, creating a new elite before most citizens understand that privatization has begun.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103716]"
     },
     "103718": {
         "id": 103718,
         "event": "The elected northern strongman appoints you to a technology council. You recognize familiar habits beneath democratic language: loyalty tests, controlled media, manufactured enemies and contracts awarded to friends.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103717]"
     },
     "103719": {
         "id": 103719,
@@ -1986,6 +1987,7 @@
         "id": 103804,
         "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.",
         "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
+        "exclude": "EVT?[103905,74010,74011]",
         "branch": [
             ":10000"
         ]
@@ -2026,7 +2028,7 @@
         "id": 103905,
         "event": "As the regime begins to fracture, you escape to Russia carrying official documents. During questioning, intelligence officers focus on your sexuality as a blackmail risk, and you realise that crossing the border has changed the government above you but not the habit of treating your private life as leverage.",
         "include": "PRK>0&TLR>0&LBTQ>0",
-        "exclude": "EVT?[103905]"
+        "exclude": "EVT?[103905,103714]"
     },
     "104001": {
         "id": 104001,
@@ -3707,22 +3709,22 @@
     "108014": {
         "id": 108014,
         "event": "You give birth to a daughter. Your husband controls the household account and begins hitting walls, then you; the family-stability system describes the situation as elevated mutual conflict.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108015": {
         "id": 108015,
         "event": "The night before you file for divorce, the marital cooling-off period is extended to one year under the Compulsory Marriage Law. Your husband fractured your wrist, but because the injury was not life-threatening, the court orders continued family mediation and sends you back to the apartment you are trying to escape.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108016": {
         "id": 108016,
         "event": "The Two-Child Responsibility Law requires every married woman to produce two children before forty-five. Non-compliant families lose housing priority, pension credits and their first child’s eligibility to sit the Gaokao. Because you have one daughter and an unfinished divorce, the system schedules both reproductive counselling and marital reconciliation.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108017": {
         "id": 108017,
         "event": "A provincial data engineer releases records showing concealed domestic-violence deaths, manipulated birth statistics and forced reproductive procedures. Your ignored police report appears in the files. Public anger finally wins you a divorce and limited data-audit reforms, but the marriage and two-child laws survive under the new description “temporary demographic emergency measures.”",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108018": {
         "id": 108018,
@@ -3808,7 +3810,7 @@
     "108503": {
         "id": 108503,
         "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.",
-        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
+        "include": "CH>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[108012])",
         "branch": [
             ":10000"
         ]
@@ -3844,13 +3846,13 @@
     "108603": {
         "id": 108603,
         "event": "One year after escaping your first husband, you are unmarried again and therefore in violation of the Compulsory Marriage Law. The compatibility bureau assigns you another husband. He tells you on the wedding night that he is gay; you agree to live as roommates while your real partners enter the apartment as trusted family friends.",
-        "include": "CH>0&TLR=0&LBTQ>0",
+        "include": "CH>0&TLR=0&LBTQ>0&EVT?[108012]",
         "exclude": "EVT?[108603]"
     },
     "108604": {
         "id": 108604,
         "event": "The Two-Child Responsibility Law catches up with your assigned marriage. After two state-scheduled embryo transfers, you give birth to a second daughter. Officials congratulate your household for fulfilling its demographic duty, while neither child is permitted to know the women and men their legal parents actually love.",
-        "include": "CH>0&TLR=0&LBTQ>0",
+        "include": "CH>0&TLR=0&LBTQ>0&EVT?[108603]",
         "exclude": "EVT?[108604]"
     },
     "108605": {
@@ -4447,11 +4449,7 @@
     "109730": {
         "id": 109730,
         "event": "Schoolchildren in three countries learn incompatible histories of the former United States. Your digital copies advise governments on every side, allowing your family to remain American long after America has ceased to be a country.",
-        "include": "US>0&TLR>0",
-        "branch": [
-            "STR<100&TLR>0:10000",
-            "STR<96&TLR=0:10000"
-        ]
+        "include": "US>0&TLR>0"
     },
     "109801": {
         "id": 109801,
@@ -4600,7 +4598,7 @@
     },
     "110016": {
         "id": 110016,
-        "event": "Japan enters the Pacific war after attacks on shipping and military bases draw it into the conflict beside the Pacific Commonwealth. Your family evacuates during missile alerts while your husband repairs military rail lines and your care facility moves patients underground.",
+        "event": "Japan enters the Pacific war after attacks on shipping and military bases draw it into the conflict beside the Pacific Commonwealth. Your family evacuates during missile alerts while your spouse repairs military rail lines and your care facility moves patients underground.",
         "include": "JAP>0&TLR=0"
     },
     "110017": {
@@ -5356,7 +5354,7 @@
     "112011": {
         "id": 112011,
         "event": "You give birth to a daughter. Your mother-in-law accepts the baby without celebration and begins explaining which fertility clinic can improve your chance of producing a son.",
-        "include": "IND>0&TLR=0"
+        "include": "IND>0&TLR=0&(LBTQ=0|EVT?[112603])"
     },
     "112012": {
         "id": 112012,

@@ -9,6 +9,8 @@ import Talent from './talent.js';
 import Achievement from './achievement.js';
 import Character from './character.js';
 
+const CHINA_BIRTH_BLESSING = 'Your mother consulted an AI fortune teller to chart your destiny, then obtained a "No-Trouble" pendant for you, hoping it will keep your whole life safe and sound.';
+
 class Life {
     constructor() {
         this.#property = new Property(this);
@@ -56,7 +58,7 @@ class Life {
 
         const total = {
             [this.PropertyTypes.TACHV]: this.#achievement.initial({achievements}),
-            [this.PropertyTypes.TEVT]: this.#event.initial({events}),
+            [this.PropertyTypes.TEVT]: this.#event.initial({events, age}),
             [this.PropertyTypes.TTLT]: this.#talent.initial({talents}),
         };
         this.#property.initial({age, total});
@@ -119,6 +121,7 @@ class Life {
             this.#initialData[key] = util.clone(allocation[key]);
         }
         this.#property.restart(this.#initialData);
+        this.#event.restart();
         this.doTalent()
         this.#property.restartLastStep();
         this.#achievement.achieve(this.AchievementOpportunity.START);
@@ -159,7 +162,19 @@ class Life {
         const {age, event, talent} = step;
 
         const talentContent = this.doTalent(talent);
-        const selectedEvent = this.random(event);
+        // Ambient country deaths have a calibrated absolute hazard rather than
+        // pretending an age-row weight is a percentage. They replace this
+        // year's ordinary draw when they occur, preserving the one-event-per-
+        // age rhythm of the game.
+        // Attribute collapse is already a terminal state and has the highest
+        // narrative priority. Do not let the tiny ambient-hazard roll replace
+        // its cause of death; the zero-state branch itself still performs the
+        // established 40% national / 60% universal death replacement.
+        const ambientEvent = this.#event.hasEligibleZeroState(event)
+            ? null
+            : this.#event.randomAmbient(age);
+        if(ambientEvent) this.#event.noteExternalEvent();
+        const selectedEvent = ambientEvent ?? this.#event.select(age, event);
         // A year can have a talent fire with no event to show alongside it:
         // several lucky charms trigger at ages age.json schedules nothing for
         // (Queen's gambit at 8, Rape at 27, Job opportunity at 33, Airplane
@@ -233,8 +248,23 @@ class Life {
         return contents;
     }
 
-    doEvent(eventId) {
-        const { effect, next, description, postEvent, grade } = this.#event.do(eventId);
+    doEvent(eventId, isRootEvent = true) {
+        let { effect, next, description, postEvent, grade, suppressDescription } = this.#event.do(eventId);
+
+        // Age zero draws from shared wealth-tier events rather than a separate
+        // China row. Append the blessing at render time so every Chinese life
+        // receives it without leaking the sentence into India, Ukraine or
+        // Egypt, which share the same underlying birth-event IDs. Three older
+        // descriptions contain a similar sentence, but the requested exact
+        // wording is still appended because those originals must remain intact.
+        const alreadyHasExactBlessing = description?.includes(CHINA_BIRTH_BLESSING);
+        if(
+            isRootEvent
+            && this.#property.get(this.PropertyTypes.AGE) === 0
+            && this.#property.get(this.PropertyTypes.CHN) > 0
+            && !alreadyHasExactBlessing
+        ) description = `${description} ${CHINA_BIRTH_BLESSING}`;
+
         this.#property.change(this.PropertyTypes.EVT, eventId);
         this.#property.effect(effect);
         const content = {
@@ -244,8 +274,9 @@ class Life {
             grade,
             effect
         }
-        if(next) return [content, this.doEvent(next)].flat();
-        return [content];
+        const current = suppressDescription ? [] : [content];
+        if(next) return [current, this.doEvent(next, false)].flat();
+        return current;
     }
 
     random(events) {
