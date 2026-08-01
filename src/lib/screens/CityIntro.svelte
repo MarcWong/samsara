@@ -319,7 +319,19 @@
 	{/if}
 
 	<div class="content" class:hidden={phase !== 'loop'}>
-		<h1 class="title">♀Samsara</h1>
+		<!-- The ♀ is drawn as an inline SVG rather than a text glyph: the
+		     title font (Agency FB) has no U+2640, so the character fell
+		     back to a system font whose thin, misaligned mark clashed with
+		     the heavy condensed wordmark. Stroke width is tuned to match
+		     Agency FB's bold stems at this size. -->
+		<h1 class="title" aria-label="♀Samsara">
+			<svg class="venus" viewBox="0 0 84 122" aria-hidden="true">
+				<circle cx="42" cy="34" r="27" />
+				<line x1="42" y1="61" x2="42" y2="114" />
+				<line x1="21" y1="90" x2="63" y2="90" />
+			</svg>Samsara
+		</h1>
+		<p class="credit">by Yuwei Jiang</p>
 		<p class="hint">click anywhere to begin</p>
 	</div>
 
@@ -356,13 +368,48 @@
 		gap: 1rem;
 		pointer-events: none;
 	}
+	/* Slow reveal: a keyframe animation (not a transition) so it reliably
+	   plays from the moment .hidden is removed -- a transition can be
+	   swallowed when the hidden state never got painted (phase flips to
+	   'loop' within the first frames of a fast load). Hiding stays instant. */
+	.content:not(.hidden) {
+		animation: content-fade 3.2s ease both;
+	}
 	.content.hidden {
 		opacity: 0;
+	}
+	@keyframes content-fade {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 	.title {
 		font-size: clamp(2.5rem, 7vw, 4rem);
 		margin: 0;
 		text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+		display: flex;
+		align-items: center;
+		gap: 0.08em;
+	}
+	.venus {
+		height: 0.8em;
+		width: auto;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 13;
+		stroke-linecap: round;
+		/* Matches .title's text-shadow, which SVG strokes don't inherit. */
+		filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+	}
+	.credit {
+		margin: -0.4rem 0 0;
+		font-size: 1.05rem;
+		letter-spacing: 0.22em;
+		color: rgba(255, 255, 255, 0.65);
+		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 	}
 	.hint {
 		margin: 0;

@@ -102,12 +102,12 @@ for(const category in AMBIENT_BY_CATEGORY)
 // feeling around 2% while allowing nationality and privilege to matter.
 const EARLY_AMBIENT_RATE = {
     poor: {
-        HTI: .04, AF: .04, PRK: .03, IRN: .025, UKR: .025, EGY: .025,
-        IND: .02, US: .015, CH: .012, JAP: .008, GBR: .007, DNK: .004,
+        HTI: .06, AF: .06, PRK: .045, IRN: .0375, UKR: .0375, EGY: .0375,
+        IND: .03, US: .0225, CH: .018, JAP: .012, GBR: .0105, DNK: .006,
     },
     rich: {
-        HTI: .015, AF: .015, PRK: .012, IRN: .01, UKR: .01, EGY: .008,
-        IND: .006, US: .006, CH: .004, JAP: .0025, GBR: .0025, DNK: .0015,
+        HTI: .0225, AF: .0225, PRK: .018, IRN: .015, UKR: .015, EGY: .012,
+        IND: .009, US: .009, CH: .006, JAP: .00375, GBR: .00375, DNK: .00225,
     },
 };
 
@@ -198,16 +198,20 @@ class Event {
             const include = event.include || '';
             const country = COUNTRIES.find(({code}) => new RegExp(`(^|[^A-Z])${code}>0`).test(include));
             const socialClass = include.includes('TLR=0') ? 'poor' : include.includes('TLR>0') ? 'rich' : null;
+            // 61001-61012: one class-agnostic late-life death per country,
+            // available to poor and privileged alike through the old-age
+            // replacement route ('any' matches both classes below).
+            const anyClassElder = Number(id) >= 61001 && Number(id) <= 61012;
 
             // 109730 is a US political coda, not one of the five-by-twenty-four
             // national death pool. It remains an ordinary event after its
             // automatic death branch is removed in events.json.
-            if(Number(id) !== 109730 && terminal && country && socialClass && ageByEvent.has(Number(id))) {
+            if(Number(id) !== 109730 && terminal && country && (socialClass || anyClassElder) && ageByEvent.has(Number(id))) {
                 const record = {
                     id: Number(id),
                     age: ageByEvent.get(Number(id)),
                     country: country.code,
-                    socialClass,
+                    socialClass: socialClass || 'any',
                     category: AMBIENT_CATEGORY.get(Number(id)) || null,
                 };
                 this.#countryDeaths.push(record);
@@ -239,8 +243,8 @@ class Event {
                 this.#ambientActiveAges.set(`${key}:adult`, adult.size);
             }
 
-        if(this.#countryDeaths.length !== 120)
-            console.warn('[event] expected 120 country deaths, found', this.#countryDeaths.length);
+        if(this.#countryDeaths.length !== 132)
+            console.warn('[event] expected 132 country deaths, found', this.#countryDeaths.length);
 
         return this.count;
     }
@@ -313,7 +317,7 @@ class Event {
         const id = `${eventId}`;
         return isAttributeTerminal(Number(eventId))
             || /^20[1-4]\d{3}$/.test(id)
-            || [10001, 10002, 10003, 200004].includes(Number(eventId));
+            || [10001, 10003, 200004].includes(Number(eventId));
     }
 
     #isLGBTQ(eventId) {
@@ -495,7 +499,7 @@ class Event {
     #ambientCandidates(country, socialClass, currentAge) {
         return this.#countryDeaths.filter(record =>
             record.country === country
-            && record.socialClass === socialClass
+            && (record.socialClass === socialClass || record.socialClass === 'any')
             && record.category
             && this.#nearAge(record, currentAge)
             && this.#orientationCompatible(record)
@@ -546,9 +550,26 @@ class Event {
         }
         if(replacementRate == 0 || Math.random() >= replacementRate) return null;
 
+        // From 78 on, the national share of the 60/40 old-age split comes
+        // straight from the per-country late-life set (61001-61012, the
+        // class-agnostic 'any' records) with no age-window check: several
+        // countries' classed elder causes anchor before 78, which used to
+        // leave late deaths with no national candidate at all. Below 78 the
+        // window-based selection continues unchanged, and 102 stays the
+        // forced universal death upstream.
+        if(allowAmbient && currentAge >= 78) {
+            const lateSet = this.#countryDeaths.filter(record =>
+                record.country === country
+                && record.socialClass === 'any'
+                && this.#orientationCompatible(record)
+            );
+            if(lateSet.length)
+                return lateSet[Math.floor(Math.random() * lateSet.length)].id;
+        }
+
         let candidates = this.#countryDeaths.filter(record =>
             record.country === country
-            && record.socialClass === socialClass
+            && (record.socialClass === socialClass || record.socialClass === 'any')
             && (allowAmbient || !record.category)
             && this.#nearAge(record, currentAge)
             && this.#orientationCompatible(record)
@@ -562,7 +583,7 @@ class Event {
         if(candidates.length == 0 && isAttributeTerminal(eventId))
             candidates = this.#countryDeaths.filter(record =>
                 record.country === country
-                && record.socialClass === socialClass
+                && (record.socialClass === socialClass || record.socialClass === 'any')
                 && this.#nearAge(record, currentAge)
                 && this.#orientationCompatible(record)
             );
@@ -576,7 +597,7 @@ class Event {
             const group = this.#countryDeaths
                 .filter(record =>
                     record.country === country
-                    && record.socialClass === socialClass
+                    && (record.socialClass === socialClass || record.socialClass === 'any')
                     && this.#orientationCompatible(record)
                 )
                 .sort((a, b) => b.age - a.age);

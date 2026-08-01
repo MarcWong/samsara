@@ -276,7 +276,15 @@
 		class:restarting
 		style="opacity: {fgOpacity}; filter: blur({blurPx}px);"
 	>
-		<h1 class="title">♀Samsara</h1>
+		<!-- Same drawn ♀ as CityIntro's title: Agency FB has no U+2640, so
+		     the text glyph fell back to a mismatched system font. -->
+		<h1 class="title" aria-label="♀Samsara">
+			<svg class="venus" viewBox="0 0 84 122" aria-hidden="true">
+				<circle cx="42" cy="34" r="27" />
+				<line x1="42" y1="61" x2="42" y2="114" />
+				<line x1="21" y1="90" x2="63" y2="90" />
+			</svg>Samsara
+		</h1>
 
 	<!-- Who this life was: country, orientation, and how long it lasted --
 	     laid out like the Trajectory statbar (dim caption above, big value
@@ -384,6 +392,18 @@
 		margin: 0;
 		color: #eef6fa;
 		text-shadow: 0 2px 14px rgba(8, 16, 24, 0.6);
+		display: flex;
+		align-items: center;
+		gap: 0.08em;
+	}
+	.venus {
+		height: 0.8em;
+		width: auto;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 13;
+		stroke-linecap: round;
+		filter: drop-shadow(0 2px 6px rgba(8, 16, 24, 0.6));
 	}
 	.idcard {
 		display: flex;
