@@ -64,6 +64,10 @@ const AMBIENT_BY_CATEGORY = {
         111502,
     ],
     infrastructure: [
+        // Medical-system failures added to the ambient pool: these three
+        // poor-track early deaths had no category, so the under-18 layer
+        // could never draw them (replacement almost never fires that young).
+        107502, 109502, 110502,
         // One early country-specific vulnerability per group ensures that the
         // under-18 target can be calibrated even where war/disaster is absent.
         81901, 82901,
@@ -97,31 +101,60 @@ for(const category in AMBIENT_BY_CATEGORY)
         // category; the duplicated early ID is intentional, not double risk.
         if(!AMBIENT_CATEGORY.has(id)) AMBIENT_CATEGORY.set(id, category);
 
-// Aggregate probability of any ambient country death before age 18. These are
-// group totals, not per-event or per-year chances. They preserve an overall
-// feeling around 2% while allowing nationality and privilege to matter.
-const EARLY_AMBIENT_RATE = {
+// Aggregate probability of any ambient country death, split by life stage.
+// Infant (<5) and child (5-17) are separate tables so the two bands can be
+// calibrated independently; values are stage totals, not per-year chances.
+const INFANT_AMBIENT_RATE = {
     poor: {
-        HTI: .06, AF: .06, PRK: .045, IRN: .0375, UKR: .0375, EGY: .0375,
-        IND: .03, US: .0225, CH: .018, JAP: .012, GBR: .0105, DNK: .006,
+        HTI: .108, AF: .108, PRK: .078, IRN: .066, UKR: .066, EGY: .066,
+        IND: .054, US: .042, CH: .0324, JAP: .0216, GBR: .0192, DNK: .0108,
     },
     rich: {
-        HTI: .0225, AF: .0225, PRK: .018, IRN: .015, UKR: .015, EGY: .012,
-        IND: .009, US: .009, CH: .006, JAP: .00375, GBR: .00375, DNK: .00225,
+        HTI: .1, AF: .1, PRK: .08, IRN: .065, UKR: .065, EGY: .05,
+        IND: .04, US: .04, CH: .026, JAP: .016, GBR: .016, DNK: .01,
+    },
+};
+const EARLY_AMBIENT_RATE = {
+    poor: {
+        HTI: .1215, AF: .1215, PRK: .08775, IRN: .07425, UKR: .07425, EGY: .07425,
+        IND: .06075, US: .04725, CH: .03645, JAP: .0243, GBR: .0216, DNK: .01215,
+    },
+    rich: {
+        HTI: .019, AF: .019, PRK: .0155, IRN: .013, UKR: .013, EGY: .01,
+        IND: .008, US: .008, CH: .0052, JAP: .0032, GBR: .0032, DNK: .002,
     },
 };
 
-// Aggregate adult ambient risk, kept deliberately modest. Most of the added
-// national texture comes from replacing an already-determined death, so this
-// layer does not drag the life-expectancy curve back toward childhood.
+// Adult ambient risk, split into three life stages so each death band can
+// be calibrated independently. Values are stage totals, not per-year odds.
 const ADULT_AMBIENT_RATE = {
+    poor: {
+        HTI: .075, AF: .075, PRK: .0675, IRN: .0675, UKR: .0675, EGY: .06,
+        IND: .0525, US: .0375, CH: .03, JAP: .018, GBR: .018, DNK: .012,
+    },
+    rich: {
+        HTI: .025, AF: .025, PRK: .0225, IRN: .0225, UKR: .0225, EGY: .019,
+        IND: .015, US: .015, CH: .01, JAP: .0063, GBR: .0063, DNK: .005,
+    },
+};
+const MIDLIFE_AMBIENT_RATE = {
+    poor: {
+        HTI: .47247, AF: .47247, PRK: .42952, IRN: .42952, UKR: .42952, EGY: .37583,
+        IND: .33288, US: .23624, CH: .19328, JAP: .11382, GBR: .11382, DNK: .07517,
+    },
+    rich: {
+        HTI: .08, AF: .08, PRK: .072, IRN: .072, UKR: .072, EGY: .06,
+        IND: .048, US: .048, CH: .032, JAP: .02, GBR: .02, DNK: .016,
+    },
+};
+const SENIOR_AMBIENT_RATE = {
     poor: {
         HTI: .05, AF: .05, PRK: .045, IRN: .045, UKR: .045, EGY: .04,
         IND: .035, US: .025, CH: .02, JAP: .012, GBR: .012, DNK: .008,
     },
     rich: {
-        HTI: .02, AF: .02, PRK: .018, IRN: .018, UKR: .018, EGY: .015,
-        IND: .012, US: .012, CH: .008, JAP: .005, GBR: .005, DNK: .004,
+        HTI: .015, AF: .015, PRK: .0135, IRN: .0135, UKR: .0135, EGY: .011,
+        IND: .009, US: .009, CH: .006, JAP: .004, GBR: .004, DNK: .003,
     },
 };
 
@@ -138,7 +171,7 @@ function deathWindow(targetAge) {
 
 function isAttributeTerminal(eventId) {
     const id = `${eventId}`;
-    return eventId == 10001 || eventId == 10002 || eventId == 10003 || eventId == 200004
+    return eventId == 10001 || eventId == 10002 || eventId == 10003 || eventId == 10023 || eventId == 200004
         || /^20[1-4]\d{2}2$/.test(id)
         || /^(241|242|244|246)[123]55$/.test(id);
 }
@@ -235,12 +268,22 @@ class Event {
                 const key = `${code}:${socialClass}`;
                 const early = new Set();
                 const adult = new Set();
+                const infant = new Set();
+                const midlife = new Set();
+                const senior = new Set();
                 for(let currentAge = 1; currentAge < 80; currentAge++) {
                     if(this.#ambientCandidates(code, socialClass, currentAge).length == 0) continue;
-                    (currentAge < 18 ? early : adult).add(currentAge);
+                    (currentAge < 5 ? infant
+                        : currentAge < 18 ? early
+                        : currentAge < 40 ? adult
+                        : currentAge < 60 ? midlife
+                        : senior).add(currentAge);
                 }
+                this.#ambientActiveAges.set(`${key}:infant`, infant.size);
                 this.#ambientActiveAges.set(`${key}:early`, early.size);
                 this.#ambientActiveAges.set(`${key}:adult`, adult.size);
+                this.#ambientActiveAges.set(`${key}:midlife`, midlife.size);
+                this.#ambientActiveAges.set(`${key}:senior`, senior.size);
             }
 
         if(this.#countryDeaths.length !== 132)
@@ -525,8 +568,18 @@ class Event {
         const candidates = this.#ambientCandidates(country, socialClass, currentAge);
         if(candidates.length == 0) return null;
 
-        const stage = currentAge < 18 ? 'early' : 'adult';
-        const rates = stage === 'early' ? EARLY_AMBIENT_RATE : ADULT_AMBIENT_RATE;
+        const stage = currentAge < 5 ? 'infant'
+            : currentAge < 18 ? 'early'
+            : currentAge < 40 ? 'adult'
+            : currentAge < 60 ? 'midlife'
+            : 'senior';
+        const rates = {
+            infant: INFANT_AMBIENT_RATE,
+            early: EARLY_AMBIENT_RATE,
+            adult: ADULT_AMBIENT_RATE,
+            midlife: MIDLIFE_AMBIENT_RATE,
+            senior: SENIOR_AMBIENT_RATE,
+        }[stage];
         const aggregateRate = rates[socialClass]?.[country] || 0;
         const activeAges = this.#ambientActiveAges.get(`${country}:${socialClass}:${stage}`) || 1;
         const annualHazard = 1 - Math.pow(1 - aggregateRate, 1 / activeAges);

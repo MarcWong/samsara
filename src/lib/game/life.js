@@ -45,6 +45,11 @@ class Life {
     #defaultPropertys;
     #specialThanks;
     #initialData;
+    // Consecutive years spent with Health / Wealth below zero. A negative
+    // stat is a terminal spiral, not a plateau: the third consecutive year
+    // forces the matching generic death (which the national replacement
+    // layer can still recolor), so nobody lingers indefinitely at -1.
+    #negativeYears = { STR: 0, MNY: 0 };
 
     async initial(i18nLoad) {
         const [age, talents, events, achievements, characters] = await Promise.all([
@@ -122,6 +127,7 @@ class Life {
         }
         this.#property.restart(this.#initialData);
         this.#event.restart();
+        this.#negativeYears = { STR: 0, MNY: 0 };
         this.doTalent()
         this.#property.restartLastStep();
         this.#achievement.achieve(this.AchievementOpportunity.START);
@@ -170,11 +176,28 @@ class Life {
         // narrative priority. Do not let the tiny ambient-hazard roll replace
         // its cause of death; the zero-state branch itself still performs the
         // established 40% national / 60% universal death replacement.
-        const ambientEvent = this.#event.hasEligibleZeroState(event)
+        // Hard nine-year clock on negative Health/Wealth: the year a stat
+        // dips below zero starts a countdown, recovery to >=0 resets it, and
+        // the ninth consecutive negative year forces the matching terminal
+        // (10001 for Health, 10023 for Wealth) ahead of every other draw.
+        // doEvent() runs it through the usual 40% national-death replacement,
+        // so the cause of death still carries country texture. Nine years
+        // (not three) keeps the guarantee that nobody camps below zero
+        // forever without collapsing ordinary poor lifespans back into the
+        // thirties -- most recover or die of something authored first.
+        for(const key of ['STR', 'MNY'])
+            this.#negativeYears[key] = this.#property.get(key) < 0
+                ? this.#negativeYears[key] + 1
+                : 0;
+        const forcedDeath = this.#negativeYears.STR >= 9 ? 10001
+            : this.#negativeYears.MNY >= 9 ? 10023
+            : null;
+
+        const ambientEvent = forcedDeath || this.#event.hasEligibleZeroState(event)
             ? null
             : this.#event.randomAmbient(age);
         if(ambientEvent) this.#event.noteExternalEvent();
-        const selectedEvent = ambientEvent ?? this.#event.select(age, event);
+        const selectedEvent = forcedDeath ?? ambientEvent ?? this.#event.select(age, event);
         // A year can have a talent fire with no event to show alongside it:
         // several lucky charms trigger at ages age.json schedules nothing for
         // (Queen's gambit at 8, Rape at 27, Job opportunity at 33, Airplane
