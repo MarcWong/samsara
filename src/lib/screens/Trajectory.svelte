@@ -94,6 +94,9 @@
 
 	let propertyAllocate = null;
 	let printText = '';
+	// Event id that ended the life (see the fatal-year capture below);
+	// null if the run somehow ends without a fatal event.
+	let deathEvent = null;
 	let triedAllInOneStat = false;
 	// Whether the free-allocation bonus (+5 to every attribute) fired for
 	// this life -- read back in renderTrajectory for the privilege coda
@@ -217,6 +220,15 @@
 			.join('  ');
 
 		const fatal = content.some(c => (c.effect?.LIF ?? 0) < 0);
+		// Telemetry: remember WHICH event killed her. The fatal year's chain
+		// ends in the generic 10000 declaration (the LIF<0 carrier), so the
+		// last non-10000 event before it is the actual cause; a bare 10000
+		// (talent kills like Airplane Crash have no EVT chain) records as
+		// 10000 itself.
+		if (fatal) {
+			deathEvent = [...content].reverse().find(c => c.type === 'EVT' && c.id && c.id !== 10000)?.id
+				?? 10000;
+		}
 
 		// A year that both changes a stat and kills reads wrong with the
 		// numbers last: the standardized "You are DEAD..." declaration is the
@@ -292,7 +304,7 @@
 		// The starting (post-rebalance) allocation, so Summary can show
 		// "initial -> final" per stat.
 		const initial = Object.fromEntries(STAT_KEYS.map(key => [key, propertyAllocate[types[key]]]));
-		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial, triedAllInOneStat });
+		goToScreen('SUMMARY', { printText, talents, country, sex, age, initial, triedAllInOneStat, deathEvent });
 	}
 
 	onDestroy(clearAutoTimer);

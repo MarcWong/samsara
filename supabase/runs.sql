@@ -12,7 +12,8 @@ create table public.runs (
   initial     jsonb,    -- allocation after the rebalance bonus, keyed CHR/INT/STR/MNY/SPR
   finals      jsonb,    -- stats at death, keyed by label (Wealth/Appearance/IQ/Health/Happiness)
   talents     jsonb,    -- drawn lucky-charm talent ids
-  all_in      boolean   -- whether the all-tokens-in-one-stat trick was used
+  all_in      boolean,  -- whether the all-tokens-in-one-stat trick was used
+  death_event int       -- id of the event that ended the life (10000 = talent/generic)
 );
 
 -- Anon key can ONLY insert. No select/update/delete policies exist, so the

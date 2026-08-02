@@ -292,6 +292,10 @@ class Life {
         this.#property.effect(effect);
         const content = {
             type: this.PropertyTypes.EVT,
+            // The event's own id rides along so the UI can attribute a death
+            // to the concrete killing event (telemetry's death_event) instead
+            // of reverse-matching description text.
+            id: eventId,
             description,
             postEvent,
             grade,
