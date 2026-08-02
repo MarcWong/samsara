@@ -106,22 +106,22 @@ for(const category in AMBIENT_BY_CATEGORY)
 // calibrated independently; values are stage totals, not per-year chances.
 const INFANT_AMBIENT_RATE = {
     poor: {
-        HTI: .108, AF: .108, PRK: .078, IRN: .066, UKR: .066, EGY: .066,
-        IND: .054, US: .042, CH: .0324, JAP: .0216, GBR: .0192, DNK: .0108,
+        HTI: .11, AF: .11, PRK: .02, IRN: .02, UKR: .02, EGY: .11,
+        IND: .11, US: .02, CH: .004, JAP: .004, GBR: .004, DNK: .004,
     },
     rich: {
-        HTI: .1, AF: .1, PRK: .08, IRN: .065, UKR: .065, EGY: .05,
-        IND: .04, US: .04, CH: .026, JAP: .016, GBR: .016, DNK: .01,
+        HTI: .01, AF: .01, PRK: .004, IRN: .004, UKR: .004, EGY: .01,
+        IND: .01, US: .004, CH: .001, JAP: .001, GBR: .001, DNK: .001,
     },
 };
 const EARLY_AMBIENT_RATE = {
     poor: {
-        HTI: .1215, AF: .1215, PRK: .08775, IRN: .07425, UKR: .07425, EGY: .07425,
-        IND: .06075, US: .04725, CH: .03645, JAP: .0243, GBR: .0216, DNK: .01215,
+        HTI: .03, AF: .03, PRK: .07, IRN: .07, UKR: .07, EGY: .03,
+        IND: .03, US: .07, CH: .006, JAP: .006, GBR: .006, DNK: .006,
     },
     rich: {
-        HTI: .019, AF: .019, PRK: .0155, IRN: .013, UKR: .013, EGY: .01,
-        IND: .008, US: .008, CH: .0052, JAP: .0032, GBR: .0032, DNK: .002,
+        HTI: .012, AF: .012, PRK: .02, IRN: .02, UKR: .02, EGY: .012,
+        IND: .012, US: .02, CH: .002, JAP: .002, GBR: .002, DNK: .002,
     },
 };
 
@@ -129,32 +129,32 @@ const EARLY_AMBIENT_RATE = {
 // be calibrated independently. Values are stage totals, not per-year odds.
 const ADULT_AMBIENT_RATE = {
     poor: {
-        HTI: .075, AF: .075, PRK: .0675, IRN: .0675, UKR: .0675, EGY: .06,
-        IND: .0525, US: .0375, CH: .03, JAP: .018, GBR: .018, DNK: .012,
+        HTI: .12, AF: .12, PRK: .03, IRN: .03, UKR: .03, EGY: .12,
+        IND: .12, US: .03, CH: .008, JAP: .008, GBR: .008, DNK: .008,
     },
     rich: {
-        HTI: .025, AF: .025, PRK: .0225, IRN: .0225, UKR: .0225, EGY: .019,
-        IND: .015, US: .015, CH: .01, JAP: .0063, GBR: .0063, DNK: .005,
+        HTI: .02, AF: .02, PRK: .012, IRN: .012, UKR: .012, EGY: .02,
+        IND: .02, US: .012, CH: .004, JAP: .004, GBR: .004, DNK: .004,
     },
 };
 const MIDLIFE_AMBIENT_RATE = {
     poor: {
-        HTI: .47247, AF: .47247, PRK: .42952, IRN: .42952, UKR: .42952, EGY: .37583,
-        IND: .33288, US: .23624, CH: .19328, JAP: .11382, GBR: .11382, DNK: .07517,
+        HTI: .05, AF: .05, PRK: .18, IRN: .18, UKR: .18, EGY: .05,
+        IND: .05, US: .18, CH: .02, JAP: .02, GBR: .02, DNK: .02,
     },
     rich: {
-        HTI: .08, AF: .08, PRK: .072, IRN: .072, UKR: .072, EGY: .06,
-        IND: .048, US: .048, CH: .032, JAP: .02, GBR: .02, DNK: .016,
+        HTI: .04, AF: .04, PRK: .06, IRN: .06, UKR: .06, EGY: .04,
+        IND: .04, US: .06, CH: .012, JAP: .012, GBR: .012, DNK: .012,
     },
 };
 const SENIOR_AMBIENT_RATE = {
     poor: {
-        HTI: .05, AF: .05, PRK: .045, IRN: .045, UKR: .045, EGY: .04,
-        IND: .035, US: .025, CH: .02, JAP: .012, GBR: .012, DNK: .008,
+        HTI: .04, AF: .04, PRK: .04, IRN: .04, UKR: .04, EGY: .04,
+        IND: .04, US: .04, CH: .01, JAP: .01, GBR: .01, DNK: .01,
     },
     rich: {
-        HTI: .015, AF: .015, PRK: .0135, IRN: .0135, UKR: .0135, EGY: .011,
-        IND: .009, US: .009, CH: .006, JAP: .004, GBR: .004, DNK: .003,
+        HTI: .01, AF: .01, PRK: .01, IRN: .01, UKR: .01, EGY: .01,
+        IND: .01, US: .01, CH: .004, JAP: .004, GBR: .004, DNK: .004,
     },
 };
 
@@ -171,7 +171,7 @@ function deathWindow(targetAge) {
 
 function isAttributeTerminal(eventId) {
     const id = `${eventId}`;
-    return eventId == 10001 || eventId == 10002 || eventId == 10003 || eventId == 10023 || eventId == 200004
+    return eventId == 10001 || eventId == 10002 || eventId == 10003 || eventId == 200004
         || /^20[1-4]\d{2}2$/.test(id)
         || /^(241|242|244|246)[123]55$/.test(id);
 }
@@ -469,8 +469,26 @@ class Event {
     select(currentAge, scheduledEvents) {
         currentAge = this.#displayAge(currentAge);
         const occurred = new Set(this.#property().get('EVT'));
-        const current = this.#eligibleWeighted(scheduledEvents)
+        let current = this.#eligibleWeighted(scheduledEvents)
             .filter(({id}) => !this.#isNarrative(id) || !occurred.has(id));
+        // Death-tier shaping: in the mid tier (PRK/UKR/IRN/US) attribute
+        // band events lose half their draws, in the small tier
+        // (CH/GBR/DNK/JAP) three quarters -- the year falls through to
+        // country/global events or stays quiet, so stats bleed slower and
+        // those lives drift toward their intended later death bands. One
+        // roll per year, all-or-nothing, so the band pool is never half
+        // present. Zero-state (priority 500) is untouched: once a stat is
+        // below zero the cascade proceeds regardless of tier.
+        const tierSkip = { PRK: .5, UKR: .5, IRN: .65, US: .5, CH: .75, GBR: .75, DNK: .75, JAP: .75 };
+        // Age 0 is exempt: the birth events (211101-216301) share the
+        // attribute-band id range but are structural -- every life must open
+        // on the one matching its wealth tier, and China's birth blessing in
+        // life.js appends to it. Skipping them left the log starting at 2.
+        const skip = currentAge === 0 ? 0 : (tierSkip[this.#identity().country] ?? 0);
+        if(skip && Math.random() < skip)
+            current = current.filter(({id}) =>
+                this.#isZeroState(id) || !(Number(id) >= 200000 && Number(id) < 600000)
+            );
         const pending = this.#pendingCandidates(currentAge);
         let candidates = [...pending, ...current];
 

@@ -11,6 +11,8 @@ import Character from './character.js';
 
 const CHINA_BIRTH_BLESSING = 'Your mother consulted an AI fortune teller to chart your destiny, then obtained a "No-Trouble" pendant for you, hoping it will keep your whole life safe and sound.';
 
+const SPR_DEPRESSION_LINE = 'Each “I’m fine” is a drop of lead, each “never mind” a needle. Day after day, you mould yourself into a “good girl”, until this performance hardens into depression.';
+
 class Life {
     constructor() {
         this.#property = new Property(this);
@@ -45,11 +47,10 @@ class Life {
     #defaultPropertys;
     #specialThanks;
     #initialData;
-    // Consecutive years spent with Health / Wealth below zero. A negative
-    // stat is a terminal spiral, not a plateau: the third consecutive year
-    // forces the matching generic death (which the national replacement
-    // layer can still recolor), so nobody lingers indefinitely at -1.
-    #negativeYears = { STR: 0, MNY: 0 };
+    // Whether the depression line has already been stamped onto an event --
+    // it appears exactly once, on the first event shown while Happiness is
+    // negative (see next()).
+    #sprDepressionShown = false;
 
     async initial(i18nLoad) {
         const [age, talents, events, achievements, characters] = await Promise.all([
@@ -127,7 +128,7 @@ class Life {
         }
         this.#property.restart(this.#initialData);
         this.#event.restart();
-        this.#negativeYears = { STR: 0, MNY: 0 };
+        this.#sprDepressionShown = false;
         this.doTalent()
         this.#property.restartLastStep();
         this.#achievement.achieve(this.AchievementOpportunity.START);
@@ -176,22 +177,16 @@ class Life {
         // narrative priority. Do not let the tiny ambient-hazard roll replace
         // its cause of death; the zero-state branch itself still performs the
         // established 40% national / 60% universal death replacement.
-        // Hard nine-year clock on negative Health/Wealth: the year a stat
-        // dips below zero starts a countdown, recovery to >=0 resets it, and
-        // the ninth consecutive negative year forces the matching terminal
-        // (10001 for Health, 10023 for Wealth) ahead of every other draw.
-        // doEvent() runs it through the usual 40% national-death replacement,
-        // so the cause of death still carries country texture. Nine years
-        // (not three) keeps the guarantee that nobody camps below zero
-        // forever without collapsing ordinary poor lifespans back into the
-        // thirties -- most recover or die of something authored first.
-        for(const key of ['STR', 'MNY'])
-            this.#negativeYears[key] = this.#property.get(key) < 0
-                ? this.#negativeYears[key] + 1
-                : 0;
-        const forcedDeath = this.#negativeYears.STR >= 9 ? 10001
-            : this.#negativeYears.MNY >= 9 ? 10023
-            : null;
+        // Big death-tier hard floor: in HTI/AF/EGY/IND any attribute at -3
+        // or below ends the life NOW -- 10001 for Health, the generic
+        // collapse 200004 otherwise. Both are attribute terminals, so the
+        // 40% national / 60% universal replacement split applies as usual.
+        let forcedDeath = null;
+        if(['HTI', 'AF', 'EGY', 'IND'].some(c => this.#property.get(c) > 0)) {
+            if(this.#property.get('STR') <= -3) forcedDeath = 10001;
+            else if(['MNY', 'INT', 'CHR', 'SPR'].some(k => this.#property.get(k) <= -3))
+                forcedDeath = 200004;
+        }
 
         const ambientEvent = forcedDeath || this.#event.hasEligibleZeroState(event)
             ? null
@@ -221,6 +216,19 @@ class Life {
         // age, so any content whose effect ends life is sorted to the end.
         const isFatal = c => (c.effect?.LIF ?? 0) < 0;
         content.sort((a, b) => isFatal(a) - isFatal(b));
+        // The first event shown while Happiness sits below zero carries the
+        // depression line, once per life. Checked AFTER doEvent() so the very
+        // event that pushed her negative is the one that gets stamped; a
+        // quiet negative year just defers it to the next shown event.
+        if(!this.#sprDepressionShown && this.#property.get('SPR') < 0) {
+            const stamped = [...content].reverse().find(c =>
+                c.type === this.PropertyTypes.EVT && c.description && !isFatal(c)
+            ) ?? [...content].reverse().find(c => c.type === this.PropertyTypes.EVT && c.description);
+            if(stamped) {
+                stamped.description += ` ${SPR_DEPRESSION_LINE}`;
+                this.#sprDepressionShown = true;
+            }
+        }
         // isEnd is read fresh here (not cached before doEvent()) — doEvent()
         // is what actually applies this turn's effect, so a stat that drops
         // fatal only on this turn's own event must still be reflected in the
@@ -292,6 +300,10 @@ class Life {
         this.#property.effect(effect);
         const content = {
             type: this.PropertyTypes.EVT,
+            // The event's own id rides along so the UI can attribute a death
+            // to the concrete killing event (telemetry's death_event) instead
+            // of reverse-matching description text.
+            id: eventId,
             description,
             postEvent,
             grade,

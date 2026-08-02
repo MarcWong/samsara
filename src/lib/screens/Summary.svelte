@@ -201,7 +201,8 @@
 			initial,
 			finals: Object.fromEntries(ROWS.map(r => [r.label, r.value])),
 			talents: ($draft.talents ?? []).map(t => t.id),
-			all_in: triedAllInOneStat
+			all_in: triedAllInOneStat,
+			death_event: $draft.deathEvent ?? null
 		});
 		// Prefetch+demux the restart clip while the player is still reading
 		// the summary, so the click starts playback instead of a network
