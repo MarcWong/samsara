@@ -25,6 +25,15 @@ const SOURCE =
 		? 'kiosk'
 		: 'web';
 
+// Which deployment wrote the row: the two GitHub Pages sites build with
+// different base paths (/samsara/ vs /samsara_test/), so the vite BASE_URL
+// baked into each bundle already fingerprints prod vs test -- no extra
+// secret or workflow wiring needed. Local dev ('/') records as 'dev'.
+const DEPLOYMENT =
+	import.meta.env.BASE_URL === '/samsara/' ? 'prod'
+	: import.meta.env.BASE_URL === '/samsara_test/' ? 'test'
+	: 'dev';
+
 export function recordRun(run) {
 	if (!telemetryEnabled) return;
 	try {
@@ -37,7 +46,7 @@ export function recordRun(run) {
 				// No representation back -- we don't read, so don't ask.
 				Prefer: 'return=minimal'
 			},
-			body: JSON.stringify({ ...run, source: SOURCE }),
+			body: JSON.stringify({ ...run, source: SOURCE, deployment: DEPLOYMENT }),
 			// Survives the page being torn down mid-request (idle restarts).
 			keepalive: true
 		}).catch(() => {});

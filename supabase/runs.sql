@@ -5,6 +5,7 @@ create table public.runs (
   id          bigint generated always as identity primary key,
   created_at  timestamptz not null default now(),
   source      text,     -- 'kiosk' (exhibition machine, ?kiosk URL) | 'web'
+  deployment  text,     -- 'prod' (/samsara/) | 'test' (/samsara_test/) | 'dev'
   country     text,     -- country name as shown in game
   orientation text,     -- 'Straight' | 'LGBTQ'
   age         int,      -- displayed age at death
