@@ -10,7 +10,7 @@
     "10001": {
         "id": 10001,
         "event": "You're flattened by an illness out of nowhere. Heaven's line is busy—God is answering someone else's prayer request.",
-        "include": "STR<0",
+        "include": "STR<-9",
         "branch": [
             ":10000"
         ]
@@ -18,7 +18,7 @@
     "10002": {
         "id": 10002,
         "event": "You can’t afford the hospital bill.",
-        "include": "MNY<3&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0",
+        "include": "MNY<1&AF=0&IRN=0&PRK=0&HTI=0&UKR=0&GBR=0",
         "branch": [
             "STR>0:10003",
             "STR<1&MNY<3&TLR>0:10000",
@@ -52,7 +52,7 @@
         "include": "STR<2&(AF>0|IRN>0|PRK>0|HTI>0|UKR>0)",
         "branch": [
             "STR>0:10003",
-            "STR<1:10000"
+            "STR<-2:10000"
         ]
     },
     "10006": {
@@ -132,6 +132,13 @@
             "CHR": 5
         }
     },
+    "10023": {
+        "id": 10023,
+        "event": "The debt has been alive longer than you have felt alive. A collections system upgrades itself overnight, and the grace period a caseworker kept quietly renewing no longer exists in the new schema. You die owing.",
+        "branch": [
+            ":10000"
+        ]
+    },
     "60001": {
         "id": 60001,
         "event": "Governments whiten the sky with reflective particles. Watching engineered sunsets, you learn that even weather can be redesigned without your consent.",
@@ -139,7 +146,7 @@
     },
     "60002": {
         "id": 60002,
-        "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy",
+        "event": "Deep-space receivers detect a signal resembling mathematics, prayer and a heartbeat. You wonder whether the universe has learned human intimacy.",
         "exclude": "EVT?[60002]"
     },
     "60003": {
@@ -159,7 +166,7 @@
     },
     "60006": {
         "id": 60006,
-        "event": "Healthy Years Enter the Market.** Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
+        "event": "Healthy Years Enter the Market. Poor women sell immune responses and healthy years to longevity exchanges. Your contract calls the accelerated ageing both reversible and voluntary.",
         "exclude": "EVT?[60006]"
     },
     "60007": {
@@ -308,42 +315,68 @@
         ],
         "exclude": "EVT?[74001]"
     },
-    "74002": {
-        "id": 74002,
-        "event": "You’ve been shut out and shoved aside your whole life. Then, by chance, a friend’s phone shows you a video of another world outside the border. You decide to risk everything and try to slip across into China.",
-        "include": "PRK>0&EVT![86001,86002]",
-        "exclude": "EVT?[74002, 86001, 86002]",
-        "branch": [
-            "MNY>2&STR>1:74003",
-            "MNY>0|STR>0:74004",
-            "MNY<1&STR<1:74005"
-        ]
-    },
-    "74003": {
-        "id": 74003,
-        "event": "You make it across, into China, and keep moving until North Korea shrinks into a story you tell in a language it took you years to learn.",
+    "74006": {
+        "id": 74006,
+        "event": "You cross the river into China and disappear into a factory dormitory among undocumented North Korean women. A broker takes most of your money; police raids and traffickers make every knock sound like repatriation. Diplomats debate whether women like you are refugees, migrants or evidence.",
         "NoRandom": 1,
         "effect": {
-            "PRK": -1,
-            "CH": 1
+            "STR": -1,
+            "MNY": -1
         }
     },
-    "74004": {
-        "id": 74004,
-        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. Your family manages to bribe the guards — the only reason you’re not one of the ones who disappear.",
-        "NoRandom": 1,
+    "74007": {
+        "id": 74007,
+        "event": "Chinese patrols catch you before dawn and hand you back across the river. No bribe saves you. Guards hood you, record the names of your relatives and send you to an interrogation centre, where surviving becomes another form of silence.",
+        "NoRandom": 1
+    },
+    "74008": {
+        "id": 74008,
+        "event": "Interrogators demand the names of brokers and women who crossed with you. Months of hunger, forced labour and unanswered questions strip away your remaining savings and strength. You leave detention alive, but under surveillance, as the state begins collapsing around its own prisons.",
+        "include": "PRK>0&TLR=0&EVT?[74007]",
         "effect": {
             "STR": -2,
-            "MNY": -2
+            "MNY": -1,
+            "SPR": -1
         }
     },
-    "74005": {
-        "id": 74005,
-        "event": "You reach the China–North Korea border at night, but exhaustion means you don’t slip past the patrol’s watch in time. You’re caught and dragged back into North Korea. No one ever hears from you again. You’re dead.",
+    "74009": {
+        "id": 74009,
+        "event": "Chinese police return you at the border. With no money, strength or relative able to bargain for you, you disappear into a detention transport. Your family receives neither a body nor an official explanation. You are dead.",
         "NoRandom": 1,
         "branch": [
             ":10000"
         ]
+    },
+    "74010": {
+        "id": 74010,
+        "event": "A military aircraft carries you to Russia with sealed technical files chained to an officer’s wrist. The cabin holds officials, scientists and their families; everyone understands that the documents, not the people, are what earned seats.",
+        "NoRandom": 1
+    },
+    "74011": {
+        "id": 74011,
+        "event": "Your family is removed from the Russian evacuation list after a final purge. A diplomatic driver gets you across the Chinese border, where security officers confiscate your documents and place you in a guarded villa. Your knowledge has made you valuable, not free.",
+        "NoRandom": 1,
+        "effect": {
+            "MNY": -1,
+            "SPR": -1
+        }
+    },
+    "74012": {
+        "id": 74012,
+        "event": "Your name appears on both the evacuation list and the arrest list. At the military airfield, security officers separate you from your family and shoot you beside the runway while the aircraft leaves without you. You are dead.",
+        "NoRandom": 1,
+        "branch": [
+            ":10000"
+        ]
+    },
+    "74013": {
+        "id": 74013,
+        "event": "After three years of guarded interrogations in China, you surrender names, procurement routes and fragments of the weapons programme. A multinational agreement moves you to Seoul under a protected identity. You have reached safety by converting state secrets into your own temporary value.",
+        "include": "PRK>0&TLR>0&EVT?[74011]",
+        "effect": {
+            "MNY": -1,
+            "SPR": -1
+        }
     },
     "81001": {
         "id": 81001,
@@ -1018,18 +1051,10 @@
         "event": "Scientists link the polluted air to falling fertility. Television panels blame women first.",
         "include": "CH>0|US>0|JAP>0|GBR>0|IND>0|EGY>0"
     },
-    "101021": {
-        "id": 101021,
-        "event": "You carry clean water home through a heatwave. Your body learns geopolitics before school does.",
-        "include": "AF>0|EGY>0|HTI>0",
-        "effect": {
-            "STR": -1
-        }
-    },
     "101022": {
         "id": 101022,
         "event": "Your secret school changes addresses weekly. The lesson is mathematics; the curriculum is survival.",
-        "include": "AF>0",
+        "include": "AF>0&TLR=0",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -1387,7 +1412,7 @@
     "102503": {
         "id": 102503,
         "event": "You are killed by a male relative after trying to leave an abusive marriage. Police had treated earlier threats as a private family matter.",
-        "include": "IRN>0&TLR=0&(STR<1&MNY<1)",
+        "include": "IRN>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[102604])",
         "branch": [
             ":10000"
         ]
@@ -1716,32 +1741,39 @@
     "103016": {
         "id": 103016,
         "event": "A poor harvest and factional fighting weaken central control. You depend on real maize, vegetables and illegally slaughtered animals from local markets; the food is natural, scarce and sometimes contaminated. Senior officials receive sealed Russian nutrient packs and printed protein while Chinese and Russian forces secure the borders and nuclear sites.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0",
+        "exclude": "EVT?[103605]"
     },
     "103017": {
         "id": 103017,
         "event": "You join thousands walking toward the Chinese border. You do not call yourself a defector; you tell your daughter that you are only looking for food and will return when the roads are safe.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0",
+        "exclude": "EVT?[103605]",
+        "branch": [
+            "MNY>1&STR>1:74006",
+            "MNY>0|STR>0:74007",
+            "MNY<1&STR<1:74009"
+        ]
     },
     "103018": {
         "id": 103018,
-        "event": "At an internationally supervised refugee centre, an unrestricted AI reconstructs world history, explains your legal rights and speaks in the voice you select. You trust it more quickly than the human counsellors, then become paranoid that this new world may simply have built a more persuasive form of propaganda. Some visitors romanticise you as unaugmented and pure, confusing enforced isolation with innocence.",
-        "include": "PRK>0&TLR=0"
+        "event": "An emergency agreement moves you from hiding in China to an internationally supervised border centre. An unrestricted AI reconstructs history, explains your rights and speaks in the voice you choose. You trust it faster than the counsellors, then wonder whether freedom has simply built more persuasive propaganda.",
+        "include": "PRK>0&TLR=0&EVT?[74006]"
     },
     "103019": {
         "id": 103019,
         "event": "The old regime formally collapses. A transitional northern administration opens archives, dismantles some prison camps and permits political parties, but former security officers use hidden money and local connections to retain influence.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103018,74008,103605]"
     },
     "103020": {
         "id": 103020,
         "event": "You vote for the first time. The ballot is confusing and exhilarating, but unemployment, organized crime and humiliating comparisons with wealthy South Korea quickly weaken faith in democracy.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103019]"
     },
     "103021": {
         "id": 103021,
         "event": "A northern strongman wins power by promising order, dignity and protection from southern corporations. He does not restore the old dynasty, but he rebuilds censorship and surrounds himself with veterans and business families.",
-        "include": "PRK>0&TLR=0"
+        "include": "PRK>0&TLR=0&EVT?[103020]"
     },
     "103022": {
         "id": 103022,
@@ -1799,6 +1831,7 @@
         "id": 103505,
         "event": "You develop acute radiation sickness after authorities order residents near a damaged nuclear facility to remain at work and conceal the leak.",
         "include": "PRK>0&TLR=0&(STR<1&MNY<1)",
+        "exclude": "EVT?[103605]",
         "branch": [
             ":10000"
         ]
@@ -1900,28 +1933,35 @@
     },
     "103714": {
         "id": 103714,
-        "event": "State control fractures. You are placed on an aircraft to Russia with technical documents, while other officials flee toward China and competing army units attempt to seize nuclear weapons and missile sites.",
-        "include": "PRK>0&TLR>0"
+        "event": "As rival units fight over nuclear sites, your family learns that evacuation lists are also purge lists. The documents in your possession may buy passage, immunity or a quieter execution; for the first time, privilege feels less like protection than evidence.",
+        "include": "PRK>0&TLR>0",
+        "exclude": "EVT?[103905]",
+        "branch": [
+            "LBTQ>0&MNY>5&STR>5:103905",
+            "MNY>5&STR>5:74010",
+            "MNY>0|STR>0:74011",
+            "MNY<1&STR<1:74012"
+        ]
     },
     "103715": {
         "id": 103715,
         "event": "You negotiate with foreign specialists trying to account for nuclear material. Americans and South Koreans distrust you as a regime insider; Chinese and Russians fear you will reveal what they supplied.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[74010,103905]"
     },
     "103716": {
         "id": 103716,
         "event": "The transitional government offers immunity to officials who cooperate. You testify privately about the weapons program but avoid speaking about forced labor, knowing that honesty on one subject may expose your complicity in another.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103715,74013]"
     },
     "103717": {
         "id": 103717,
         "event": "You return to Pyongyang as a wealthy consultant. Former party families convert political access into property, logistics and telecommunications, creating a new elite before most citizens understand that privatization has begun.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103716]"
     },
     "103718": {
         "id": 103718,
         "event": "The elected northern strongman appoints you to a technology council. You recognize familiar habits beneath democratic language: loyalty tests, controlled media, manufactured enemies and contracts awarded to friends.",
-        "include": "PRK>0&TLR>0"
+        "include": "PRK>0&TLR>0&EVT?[103717]"
     },
     "103719": {
         "id": 103719,
@@ -1986,6 +2026,7 @@
         "id": 103804,
         "event": "You are killed inside a government compound during the armed struggle over succession and control of the nuclear command structure.",
         "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
+        "exclude": "EVT?[103905,74010,74011]",
         "branch": [
             ":10000"
         ]
@@ -2026,7 +2067,7 @@
         "id": 103905,
         "event": "As the regime begins to fracture, you escape to Russia carrying official documents. During questioning, intelligence officers focus on your sexuality as a blackmail risk, and you realise that crossing the border has changed the government above you but not the habit of treating your private life as leverage.",
         "include": "PRK>0&TLR>0&LBTQ>0",
-        "exclude": "EVT?[103905]"
+        "exclude": "EVT?[103905,103714]"
     },
     "104001": {
         "id": 104001,
@@ -3707,22 +3748,22 @@
     "108014": {
         "id": 108014,
         "event": "You give birth to a daughter. Your husband controls the household account and begins hitting walls, then you; the family-stability system describes the situation as elevated mutual conflict.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108015": {
         "id": 108015,
         "event": "The night before you file for divorce, the marital cooling-off period is extended to one year under the Compulsory Marriage Law. Your husband fractured your wrist, but because the injury was not life-threatening, the court orders continued family mediation and sends you back to the apartment you are trying to escape.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108016": {
         "id": 108016,
         "event": "The Two-Child Responsibility Law requires every married woman to produce two children before forty-five. Non-compliant families lose housing priority, pension credits and their first child’s eligibility to sit the Gaokao. Because you have one daughter and an unfinished divorce, the system schedules both reproductive counselling and marital reconciliation.",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108017": {
         "id": 108017,
         "event": "A provincial data engineer releases records showing concealed domestic-violence deaths, manipulated birth statistics and forced reproductive procedures. Your ignored police report appears in the files. Public anger finally wins you a divorce and limited data-audit reforms, but the marriage and two-child laws survive under the new description “temporary demographic emergency measures.”",
-        "include": "CH>0&TLR=0"
+        "include": "CH>0&TLR=0&(LBTQ=0|EVT?[108012])"
     },
     "108018": {
         "id": 108018,
@@ -3808,7 +3849,7 @@
     "108503": {
         "id": 108503,
         "event": "Your husband kills you during compulsory mediation after police classify repeated threats as a marital dispute without immediate danger.",
-        "include": "CH>0&TLR=0&(STR<1&MNY<1)",
+        "include": "CH>0&TLR=0&(STR<1&MNY<1)&(LBTQ=0|EVT?[108012])",
         "branch": [
             ":10000"
         ]
@@ -3844,13 +3885,13 @@
     "108603": {
         "id": 108603,
         "event": "One year after escaping your first husband, you are unmarried again and therefore in violation of the Compulsory Marriage Law. The compatibility bureau assigns you another husband. He tells you on the wedding night that he is gay; you agree to live as roommates while your real partners enter the apartment as trusted family friends.",
-        "include": "CH>0&TLR=0&LBTQ>0",
+        "include": "CH>0&TLR=0&LBTQ>0&EVT?[108012]",
         "exclude": "EVT?[108603]"
     },
     "108604": {
         "id": 108604,
         "event": "The Two-Child Responsibility Law catches up with your assigned marriage. After two state-scheduled embryo transfers, you give birth to a second daughter. Officials congratulate your household for fulfilling its demographic duty, while neither child is permitted to know the women and men their legal parents actually love.",
-        "include": "CH>0&TLR=0&LBTQ>0",
+        "include": "CH>0&TLR=0&LBTQ>0&EVT?[108603]",
         "exclude": "EVT?[108604]"
     },
     "108605": {
@@ -4447,11 +4488,7 @@
     "109730": {
         "id": 109730,
         "event": "Schoolchildren in three countries learn incompatible histories of the former United States. Your digital copies advise governments on every side, allowing your family to remain American long after America has ceased to be a country.",
-        "include": "US>0&TLR>0",
-        "branch": [
-            "STR<100&TLR>0:10000",
-            "STR<96&TLR=0:10000"
-        ]
+        "include": "US>0&TLR>0"
     },
     "109801": {
         "id": 109801,
@@ -4600,7 +4637,7 @@
     },
     "110016": {
         "id": 110016,
-        "event": "Japan enters the Pacific war after attacks on shipping and military bases draw it into the conflict beside the Pacific Commonwealth. Your family evacuates during missile alerts while your husband repairs military rail lines and your care facility moves patients underground.",
+        "event": "Japan enters the Pacific war after attacks on shipping and military bases draw it into the conflict beside the Pacific Commonwealth. Your family evacuates during missile alerts while your spouse repairs military rail lines and your care facility moves patients underground.",
         "include": "JAP>0&TLR=0"
     },
     "110017": {
@@ -5356,7 +5393,7 @@
     "112011": {
         "id": 112011,
         "event": "You give birth to a daughter. Your mother-in-law accepts the baby without celebration and begins explaining which fertility clinic can improve your chance of producing a son.",
-        "include": "IND>0&TLR=0"
+        "include": "IND>0&TLR=0&(LBTQ=0|EVT?[112603])"
     },
     "112012": {
         "id": 112012,
@@ -5704,7 +5741,7 @@
     "201010": {
         "id": 201010,
         "event": "The aid system decides that your contradictory answers prove fraud rather than cognitive difficulty. A relative becomes your authorised reader and begins selling part of every ration issued in your name.",
-        "include": "INT<1&HINT>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5731,7 +5768,7 @@
     "201020": {
         "id": 201020,
         "event": "Years excluded from school leave you unable to read the new biometric ration and medical rules. Your male guardian controls the account and tells each office that you have already received your share.",
-        "include": "INT<1&HINT>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5757,7 +5794,7 @@
     "201030": {
         "id": 201030,
         "event": "A national cognitive assessment classifies you as unable to manage identity, money or reproductive consent. A court-appointed guardian receives your benefits and approves a compulsory neural-rehabilitation programme.",
-        "include": "INT<1&HINT>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5784,7 +5821,7 @@
     "201040": {
         "id": 201040,
         "event": "You fail the combined aptitude and loyalty examination. The result sends you to repetitive chemical work where warning language changes more often than workers are retrained.",
-        "include": "INT<1&HINT>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5810,7 +5847,7 @@
     "201050": {
         "id": 201050,
         "event": "An aptitude platform places you below every formal training threshold and assigns your finances to a commercial guardian. He sends you to dismantle imported electronic waste under a contract you cannot read.",
-        "include": "INT<1&HINT>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5837,7 +5874,7 @@
     "201060": {
         "id": 201060,
         "event": "The emergency network excludes you from its brain-interface channel after a cognitive score of zero. Public warnings remain technically universal because a text version still exists inside an inaccessible application.",
-        "include": "INT<1&HINT>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -5863,7 +5900,7 @@
     "201070": {
         "id": 201070,
         "event": "A factory replaces spoken training with an AI safety interface and classifies you as too slow for the explanatory version. The supervisor signs your consent to continue on the basic display.",
-        "include": "INT<1&HINT>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5889,7 +5926,7 @@
     "201080": {
         "id": 201080,
         "event": "Your cognitive score falls below the standard for a brain interface, formal work and independent consent. A care institution receives your labour allocation and calls permanent guardianship humane optimisation.",
-        "include": "INT<1&HINT>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5916,7 +5953,7 @@
     "201090": {
         "id": 201090,
         "event": "A capacity assessment transfers your contracts and medical choices to an automated guardian. The service speaks gently while removing every decision it predicts you may misunderstand.",
-        "include": "INT<1&HINT>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5942,7 +5979,7 @@
     "201100": {
         "id": 201100,
         "event": "A court model interprets your cognitive score as permanent incapacity. A commercial guardian controls benefits, housing and medical consent while charging each account for the supervision.",
-        "include": "INT<1&HINT>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5969,7 +6006,7 @@
     "201110": {
         "id": 201110,
         "event": "An automated capacity assessment decides that you cannot manage benefits or treatment. Supported housing receives your allowance and replaces appointments with instructions inside an application you cannot navigate.",
-        "include": "INT<1&HINT>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -5995,7 +6032,7 @@
     "201120": {
         "id": 201120,
         "event": "The digital state responds to your zero cognitive score with comprehensive guardianship. A municipal trustee controls money, treatment and housing through a system designed to prevent every unsafe choice.",
-        "include": "INT<1&HINT>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "INT<-9&HINT>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -1,
@@ -6022,7 +6059,7 @@
     "202010": {
         "id": 202010,
         "event": "At a gang checkpoint, you answer an insult with another insult and refuse to lower your eyes. A bystander uploads the exchange because courage and recklessness look identical in a short clip.",
-        "include": "SPR<1&HSPR>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -1,
             "STR": -1
@@ -6048,7 +6085,7 @@
     "202020": {
         "id": 202020,
         "event": "You publicly refuse an order from the man registered as your guardian and describe his violence without the respectful language expected from you. Family mediators focus on the humiliation your tone caused.",
-        "include": "SPR<1&HSPR>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -1,
             "STR": -1
@@ -6074,7 +6111,7 @@
     "202030": {
         "id": 202030,
         "event": "You answer a morality officer with unfiltered contempt. The confrontation is filmed, and your refusal to perform fear is interpreted as evidence that an organisation trained you.",
-        "include": "SPR<1&HSPR>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -1,
             "STR": -1
@@ -6100,7 +6137,7 @@
     "202040": {
         "id": 202040,
         "event": "At a public mourning ceremony, you cannot produce the expected grief quickly enough. A neighbour reports your expression before someone can report hers.",
-        "include": "SPR<1&HSPR>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6126,7 +6163,7 @@
     "202050": {
         "id": 202050,
         "event": "After daily harassment, you strike a man and shout at everyone filming instead of helping. The clip is edited into proof that a woman from your community is dangerous and sexually immoral.",
-        "include": "SPR<1&HSPR>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -2,
             "STR": -1
@@ -6152,7 +6189,7 @@
     "202060": {
         "id": 202060,
         "event": "Years of alarms and grief leave you unable to distinguish suspicion from immediate danger. You accuse an armed shelter volunteer of stealing aid and refuse to de-escalate when others intervene.",
-        "include": "SPR<1&HSPR>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -1,
             "STR": -1
@@ -6178,7 +6215,7 @@
     "202070": {
         "id": 202070,
         "event": "You shout about years of family violence in front of neighbours and refuse to protect the household’s reputation. Relatives call the disclosure hysteria and sign an emergency psychiatric admission.",
-        "include": "SPR<1&HSPR>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -1,
             "STR": -1
@@ -6204,7 +6241,7 @@
     "202080": {
         "id": 202080,
         "event": "A livestream captures you screaming at a supervisor, customers and the moderation bot without pausing long enough for anyone to edit you sympathetically. The clip becomes a permanent example of dangerous female instability.",
-        "include": "SPR<1&HSPR>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "CHR": -2,
             "MNY": -1
@@ -6230,7 +6267,7 @@
     "202090": {
         "id": 202090,
         "event": "You stop performing gratitude, apology and customer warmth at work. The company records each blunt answer as aggression and shares the emotional-risk profile across the service industry.",
-        "include": "SPR<1&HSPR>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "CHR": -1,
@@ -6256,7 +6293,7 @@
     "202100": {
         "id": 202100,
         "event": "A rage platform rewards your confrontations with money and attention until you can no longer recognise the boundary between performance and danger. You challenge an armed neighbour live on camera.",
-        "include": "SPR<1&HSPR>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": 1,
             "CHR": -1,
@@ -6283,7 +6320,7 @@
     "202110": {
         "id": 202110,
         "event": "You lose control during a benefits interview and describe the system with every word the aggression model was trained to detect. Security removes you while the case file changes from vulnerable to threatening.",
-        "include": "SPR<1&HSPR>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6309,7 +6346,7 @@
     "202120": {
         "id": 202120,
         "event": "A municipal wellbeing system identifies that you can no longer regulate conflict or read social cues. It offers intensive affect therapy, and refusal would suspend the services keeping you housed.",
-        "include": "SPR<1&HSPR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "SPR<-9&HSPR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "STR": -1
@@ -6335,7 +6372,7 @@
     "203010": {
         "id": 203010,
         "event": "The lender who financed your family’s food takes your stall, identity papers and room as interest. You begin sorting metal and plastic beside a gang-controlled dump, sleeping wherever the night collector permits.",
-        "include": "MNY<1&HMNY>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6362,7 +6399,7 @@
     "203020": {
         "id": 203020,
         "event": "A food and medicine debt is converted into a family obligation. A male relative sends you to the creditor’s household as an unpaid domestic worker and calls the transfer protection.",
-        "include": "MNY<1&HMNY>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6388,7 +6425,7 @@
     "203030": {
         "id": 203030,
         "event": "The debt court freezes your benefit wallet, transport identity and legal wages. You hide in cash-only domestic work while collectors send your relatives a daily price for your humiliation.",
-        "include": "MNY<1&HMNY>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6415,7 +6452,7 @@
     "203040": {
         "id": 203040,
         "event": "A market lender reports your unpaid grain debt as illegal speculation. Your household loses its place in the subsidised food queue, and neighbours stop trading with you before loyalty inspectors notice them.",
-        "include": "MNY<1&HMNY>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -2
@@ -6441,7 +6478,7 @@
     "203050": {
         "id": 203050,
         "event": "Your microloan default is announced through the neighbourhood payment network. Relatives remove you from the household account, and you join women sorting electronic waste for copper and intact data chips.",
-        "include": "MNY<1&HMNY>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6467,7 +6504,7 @@
     "203060": {
         "id": 203060,
         "event": "War damage, rent arrears and medical debt consume the last compensation attached to your home. You move through emergency shelters while every address is treated as temporary evidence rather than a place to live.",
-        "include": "MNY<1&HMNY>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6521,7 +6558,7 @@
     "203080": {
         "id": 203080,
         "event": "The debtor system removes long-distance travel, formal renting and non-emergency medical deposits from your identity. Relatives stop answering because every transfer to you is now reviewed as concealment of assets.",
-        "include": "MNY<1&HMNY>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -6549,7 +6586,7 @@
     "203090": {
         "id": 203090,
         "event": "The welfare office prevents immediate starvation and assigns you a tiny room, a food card and an employment plan. Debt deductions leave nothing for transport, heating or the co-payments that make the plan physically possible.",
-        "include": "MNY<1&HMNY>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -1,
             "STR": -1
@@ -6575,7 +6612,7 @@
     "203100": {
         "id": 203100,
         "event": "Medical debt takes your car, eviction takes your address, and losing the address closes the benefits account that required it. You enter a tent encampment beneath the same hospital network that owns the debt.",
-        "include": "MNY<1&HMNY>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -2,
             "STR": -2
@@ -6601,7 +6638,7 @@
     "203110": {
         "id": 203110,
         "event": "The benefits system keeps you nominally alive in temporary accommodation while debt deductions consume the cash allowance. Every appeal asks for documents that were lost during the eviction.",
-        "include": "MNY<1&HMNY>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -1,
             "STR": -1
@@ -6628,7 +6665,7 @@
     "203120": {
         "id": 203120,
         "event": "Universal assistance gives you a subsistence card, a small apartment and an activation schedule. You do not starve, but every hour of your life is now conditional data supplied to the municipality.",
-        "include": "MNY<1&HMNY>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "MNY<-9&HMNY>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -1,
             "STR": -1
@@ -6655,7 +6692,7 @@
     "204010": {
         "id": 204010,
         "event": "A fuel explosion scars your face, and the biometric aid kiosk no longer matches you to your identity. People begin calling the scar evidence that you brought danger on yourself.",
-        "include": "CHR<1&HCHR>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&HTI>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -6682,7 +6719,7 @@
     "204020": {
         "id": 204020,
         "event": "A punishment attack leaves visible damage across your face. Your household hides you indoors, saying that the injury has made your presence dangerous to the marriage prospects of other girls.",
-        "include": "CHR<1&HCHR>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&AF>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -3,
             "STR": -2
@@ -6708,7 +6745,7 @@
     "204030": {
         "id": 204030,
         "event": "After a facial injury, cameras reject you at transport gates and pharmacies. Officials call the mismatch a security problem, so every attempt to prove your identity creates another record of suspicious behaviour.",
-        "include": "CHR<1&HCHR>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&IRN>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -6735,7 +6772,7 @@
     "204040": {
         "id": 204040,
         "event": "A chemical accident changes your face. The workplace removes you from public duties and reports the injury as a hereditary defect rather than a failure of equipment.",
-        "include": "CHR<1&HCHR>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&PRK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -6762,7 +6799,7 @@
     "204050": {
         "id": 204050,
         "event": "A man retaliates against your refusal with a corrosive attack. The image travels farther than the police report, and a beauty-ranking service quietly removes you from customer-facing work.",
-        "include": "CHR<1&HCHR>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&IND>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -3,
@@ -6789,7 +6826,7 @@
     "204060": {
         "id": 204060,
         "event": "War burns change your face and make your passport scan fail. The evacuation system treats the mismatch as possible identity fraud while the reconstructive programme prioritises active service records.",
-        "include": "CHR<1&HCHR>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&UKR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -2,
@@ -6816,7 +6853,7 @@
     "204070": {
         "id": 204070,
         "event": "A kitchen fire leaves visible scars. Relatives describe your survival as a family shame because the marriage market reads your face as damaged property.",
-        "include": "CHR<1&HCHR>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -3,
             "STR": -2
@@ -6842,7 +6879,7 @@
     "204080": {
         "id": 204080,
         "event": "A sexual deepfake and a failed cosmetic procedure reduce your platform appearance score to zero. Face recognition locks your work, travel and payment identities because the damaged face no longer matches either version online.",
-        "include": "CHR<1&HCHR>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&CH>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -3,
@@ -6869,7 +6906,7 @@
     "204090": {
         "id": 204090,
         "event": "Your public avatar remains beautiful after illness changes your face, so colleagues begin treating the biological woman as an embarrassing technical problem. Service employers and dating systems reject the unfiltered version.",
-        "include": "CHR<1&HCHR>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
             "SPR": -3,
@@ -6896,7 +6933,7 @@
     "204100": {
         "id": 204100,
         "event": "A sexual deepfake, facial injury and automated reputation score combine into a zero appearance rating. Employers call the result brand safety, and your insurer calls reconstruction elective.",
-        "include": "CHR<1&HCHR>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&US>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -2,
             "SPR": -3,
@@ -6923,7 +6960,7 @@
     "204110": {
         "id": 204110,
         "event": "An abusive former partner circulates a synthetic sex video, then attacks you with a corrosive substance when public shame fails to bring you back. The NHS restores breathing and sight before placing reconstruction on a long wait.",
-        "include": "CHR<1&HCHR>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&GBR>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -3,
             "STR": -3
@@ -6949,7 +6986,7 @@
     "204120": {
         "id": 204120,
         "event": "Beauty scoring is officially illegal, yet insurance, employment and dating systems share enough proxy data to reduce your visible desirability to zero after an injury. Public care restores function but classifies symmetry as consumption.",
-        "include": "CHR<1&HCHR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
+        "include": "CHR<-9&HCHR>0&STR>0&DNK>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "SPR": -1,
             "STR": -1
@@ -7012,7 +7049,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "211201": {
@@ -7056,7 +7093,7 @@
         },
         "branch": [
             "STR<3&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "211301": {
@@ -7099,7 +7136,7 @@
         },
         "branch": [
             "STR<3&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "212101": {
@@ -7217,7 +7254,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "212305": {
@@ -7327,7 +7364,7 @@
         },
         "branch": [
             "STR<1&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "213305": {
@@ -7746,7 +7783,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "221201": {
@@ -7792,7 +7829,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "221301": {
@@ -7839,7 +7876,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "222101": {
@@ -8607,7 +8644,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "231201": {
@@ -8650,7 +8687,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "231301": {
@@ -8692,12 +8729,12 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "232101": {
         "id": 232101,
-        "event": "You can strip and rebuild a pump by fourteen and you cannot get through the language of an examination paper. Adults trust your hands completely and treat your judgement as something you are borrowing from somebody.",
+        "event": "You can strip and rebuild a pump and you cannot get through the language of an examination paper. Adults trust your hands completely and treat your judgement as something you are borrowing from somebody.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)"
     },
     "232102": {
@@ -10288,7 +10325,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "251201": {
@@ -10330,7 +10367,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "251301": {
@@ -10369,7 +10406,7 @@
         },
         "branch": [
             "STR<2&TLR>0:200004",
-            "STR<1&TLR=0:200004"
+            "STR<-6&TLR=0:200004"
         ]
     },
     "252101": {
