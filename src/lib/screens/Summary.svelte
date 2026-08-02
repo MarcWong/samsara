@@ -4,6 +4,7 @@
 	import { videoStage } from '../components/videoStage.svelte.js';
 	import { loadMp4 } from '../components/videoPlayer.js';
 	import { draft, goToScreen, emptyDraft, restartProgress, bgMusicScale } from '../stores.js';
+	import { recordRun } from '../telemetry.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
 
@@ -188,6 +189,20 @@
 		// level Trajectory ducked it to on Start.
 		bgMusicScale.set(1);
 		resetIdleTimer();
+		// One row per finished life, mounted-once per run. Fire-and-forget:
+		// recordRun never throws and swallows network failures, so a downed
+		// exhibition connection can't touch the game. Talent ids are the
+		// DRAWN charms (fired or not) -- `talents` above is already filtered
+		// to fired ones for display, which would under-report the draw.
+		recordRun({
+			country,
+			orientation: sex,
+			age,
+			initial,
+			finals: Object.fromEntries(ROWS.map(r => [r.label, r.value])),
+			talents: ($draft.talents ?? []).map(t => t.id),
+			all_in: triedAllInOneStat
+		});
 		// Prefetch+demux the restart clip while the player is still reading
 		// the summary, so the click starts playback instead of a network
 		// wait. loadMp4 is URL-cached, so onAgain's play() reuses this.

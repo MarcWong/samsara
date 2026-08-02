@@ -30,6 +30,10 @@ jobs:
       run: npm run build
       env:
         NODE_ENV: production
+        # Run telemetry -> Supabase (vite bakes these into the bundle; the
+        # anon key is public by design, RLS limits it to INSERT-only).
+        VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

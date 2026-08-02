@@ -34,6 +34,10 @@ jobs:
         env:
           NODE_ENV: production
           BASE_PATH: /samsara_test
+          # Same Supabase project as production; test-deploy rows are still
+          # tagged source 'web'/'kiosk' -- filter by created_at if needed.
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Deploy to samsara_test
         uses: peaceiris/actions-gh-pages@v3
