@@ -181,22 +181,22 @@
     },
     "60009": {
         "id": 60009,
-        "event": "Three rival identity systems make you a different legal woman at each border. Every government calls its version of you freedom.",
+        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
         "exclude": "EVT?[60009]"
     },
     "60010": {
         "id": 60010,
-        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
+        "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
         "exclude": "EVT?[60010]"
     },
     "60011": {
         "id": 60011,
-        "event": "The Moon declares independence, calling biological parents source contributors. Your predictive double helped create a citizen who is not your child.",
+        "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
         "exclude": "EVT?[60011]"
     },
     "60012": {
         "id": 60012,
-        "event": "You hear lunar minds decode the Choir as a future extinction warning: preserve history’s failures. New religions canonise forgotten women and obsolete machines.",
+        "event": "You watch orbital descendants declare themselves Homo caelestis, designed from women’s reproductive data. Humanity’s daughter species inherits its mother’s oldest exploitation.",
         "exclude": "EVT?[60012]"
     },
     "60013": {
@@ -263,17 +263,17 @@
     },
     "60028": {
         "id": 60028,
-        "event": "An alien vessel carries you above a violet ocean beneath three moons. You awaken at home; everyone calls it psychosis except your predictive double.",
+        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
         "exclude": "EVT?[60028]"
     },
     "60029": {
         "id": 60029,
-        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
+        "event": "A mirror opens onto a parallel Earth where you received another nationality, another body, another lover. She touches the glass, grieving your life.",
         "exclude": "EVT?[60029]"
     },
     "60030": {
         "id": 60030,
-        "event": "A mirror opens onto a parallel Earth where you received another nationality, another body, another lover. She touches the glass, grieving your life.",
+        "event": "An alien vessel carries you above a violet ocean beneath three moons. You awaken at home; everyone calls it psychosis except your predictive double.",
         "exclude": "EVT?[60030]"
     },
     "60031": {
@@ -305,102 +305,6 @@
         "id": 60036,
         "event": "A portal opens from an Earth where humanity escaped extinction by merging into one mind. Its refugees call your loneliness freedom.",
         "exclude": "EVT?[60036]"
-    },
-    "61001": {
-        "id": 61001,
-        "event": "Your breathing depends on a second-hand oxygen concentrator. During unrest, an armed contractor diverts the neighbourhood microgrid to a fortified port. The battery empties before your daughter crosses three checkpoints with a replacement. You die beneath a solar panel still powering someone else.",
-        "include": "HTI>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61002": {
-        "id": 61002,
-        "event": "You visit a reopened women’s archive to donate the cassette your mother once hid. Floodwater has shifted an unrecorded mine onto a path declared safe. It detonates beneath you; officials close the archive, turning your death into another reason women are told not to enter.",
-        "include": "AF>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61003": {
-        "id": 61003,
-        "event": "A scan finds wartime surgical mesh left inside you after your surrogate pregnancy. The manufacturer vanished during reconstruction, so the hospital robot refuses an uninsurable operation. The mesh ruptures; you die of sepsis between two medical systems waiting for each other to accept responsibility.",
-        "include": "UKR>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61004": {
-        "id": 61004,
-        "event": "A restored clerical council declares memory-companion implants spiritually contaminating. During compulsory removal, doctors disconnect the system regulating your tremor and heartbeat. A cerebral haemorrhage begins. Officials record natural old age, protecting both the ban and the clinic.",
-        "include": "IRN>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61005": {
-        "id": 61005,
-        "event": "A truth archive publishes coerced informer lists without context. Your name appears because hunger once made you report a neighbour’s hidden grain. His grandson kills you at a memorial ceremony. The confederation calls it private revenge and leaves the machinery of obedience unnamed.",
-        "include": "PRK>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61006": {
-        "id": 61006,
-        "event": "In the desert resettlement district, your water allowance remains attached to your dead husband’s family identity. An inheritance audit freezes the account during extreme heat. You die from renal failure while premium water tankers pass your block toward the climate-controlled national museum.",
-        "include": "EGY>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61007": {
-        "id": 61007,
-        "event": "Caste has vanished from official records, so the public transplant AI reconstructs it from your surname, village and genome. Your printed kidney goes to someone with higher “social compatibility.” You die after the court confirms that the system never stored caste as a field.",
-        "include": "IND>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61008": {
-        "id": 61008,
-        "event": "Your listed Victorian care home cannot install modern ventilation ducts. During a drug-resistant respiratory outbreak, migration restrictions leave half its care shifts empty. You die inside a room preserved for its historical character; the inquiry praises the building and blames staffing.",
-        "include": "GBR>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61009": {
-        "id": 61009,
-        "event": "Your welfare model classifies prolonged care as high-carbon dependency and repeatedly offers assisted death as autonomous choice. When home-care hours are cut again, you accept. The official record calls it dignity without recording how efficiently public policy narrowed your alternatives.",
-        "include": "DNK>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61010": {
-        "id": 61010,
-        "event": "A regional respiratory outbreak is suppressed before the centenary congress of a national institution. Your smart care home seals its doors automatically, but oxygen deliveries require an incident code officials refuse to create. You die while the public dashboard continues reporting zero severe cases.",
-        "include": "CH>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61011": {
-        "id": 61011,
-        "event": "The company operating your care robot collapses and its lifting licence expires overnight. After you fall, the robot sends the correct alert but cannot touch you. No human carer arrives. The ministry records a successful notification; kidney failure records your death.",
-        "include": "JAP>0",
-        "branch": [
-            ":10000"
-        ]
-    },
-    "61012": {
-        "id": 61012,
-        "event": "Medical licences no longer cross the borders of America’s successor states. During a family visit, a customs firewall disables your printed heart as unauthorised foreign biotechnology. No clinic can legally restart it. You die American inside a country that no longer exists.",
-        "include": "US>0",
-        "branch": [
-            ":10000"
-        ]
     },
     "74001": {
         "id": 74001,
@@ -867,6 +771,46 @@
         "branch": [
             ":10000"
         ]
+    },
+    "86001": {
+        "id": 86001,
+        "event": "Your family moved to Finland to avoid political persecution. You finally don't have to worry about what to eat on the next day, and the teachers in your school treat every student equally.",
+        "include": "MNY>4&MNY<8&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
+        "exclude": "EVT?[86001,86002]",
+        "effect": {
+            "INT": 3,
+            "STR": 5,
+            "MNY": 3,
+            "CHR": 3,
+            "DK": 1,
+            "AF": -1,
+            "EGY": -1,
+            "IND": -1,
+            "IRN": -1,
+            "PRK": -1,
+            "UKR": -1,
+            "HTI": -1
+        }
+    },
+    "86002": {
+        "id": 86002,
+        "event": "Your family moved to Australia. Your parents bought a big house nearby the sea, and sent you to a private school. There you met the son of a well-known company's CEO.",
+        "include": "MNY>7&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
+        "exclude": "EVT?[86001,86002]",
+        "effect": {
+            "INT": 3,
+            "STR": 3,
+            "MNY": 3,
+            "CHR": 5,
+            "UK": 1,
+            "AF": -1,
+            "EGY": -1,
+            "IND": -1,
+            "IRN": -1,
+            "PRK": -1,
+            "UKR": -1,
+            "HTI": -1
+        }
     },
     "87001": {
         "id": 87001,
@@ -6587,7 +6531,7 @@
     "203070": {
         "id": 203070,
         "event": "A household debt enters the future debtor registry under your name. Your husband’s family expels you to protect its credit score, and the collection court schedules detention you cannot afford to appeal.",
-        "include": "MNY<-9&HMNY>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]&(LBTQ=0|EVT?[111604])",
+        "include": "MNY<1&HMNY>0&STR>0&EGY>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]&(LBTQ=0|EVT?[111604])",
         "effect": {
             "SPR": -2,
             "STR": -1
@@ -7110,7 +7054,7 @@
     },
     "211201": {
         "id": 211201,
-        "event": "You are born into a household whose wages arrive already divided among rent, debt and relatives. A broken appliance is a family financial event. Your mother consulted an AI fortune teller to chart your destiny, then obtained a\"No-Trouble\" pendant for you, hoping it will keep your whole life safe and sound.",
+        "event": "You are born into a household whose wages arrive already divided among rent, debt and relatives. A broken appliance is a family financial event. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&MNY<2"
     },
     "211202": {
@@ -7475,7 +7419,7 @@
     },
     "214201": {
         "id": 214201,
-        "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future. Your mother consulted an AI fortune teller to chart your destiny, then obtained a \"No-Trouble\" pendant for you, hoping it will keep your whole life safe and sound..",
+        "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)"
     },
     "214202": {
@@ -7599,7 +7543,7 @@
     },
     "215201": {
         "id": 215201,
-        "event": "You are born into national-level wealth: family companies, political introductions and property distributed across several cities. Your mother consulted an AI fortune teller to chart your destiny, then obtained a \"No-Trouble\" pendant for you, hoping it will keep your whole life safe and sound..",
+        "event": "You are born into national-level wealth: family companies, political introductions and property distributed across several cities. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>10&MNY<14)"
     },
     "215202": {
