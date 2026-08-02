@@ -1100,18 +1100,10 @@
         "event": "Scientists link the polluted air to falling fertility. Television panels blame women first.",
         "include": "CH>0|US>0|JAP>0|GBR>0|IND>0|EGY>0"
     },
-    "101021": {
-        "id": 101021,
-        "event": "You carry clean water home through a heatwave. Your body learns geopolitics before school does.",
-        "include": "AF>0|EGY>0|HTI>0",
-        "effect": {
-            "STR": -1
-        }
-    },
     "101022": {
         "id": 101022,
         "event": "Your secret school changes addresses weekly. The lesson is mathematics; the curriculum is survival.",
-        "include": "AF>0",
+        "include": "AF>0&TLR=0",
         "effect": {
             "INT": 1,
             "SPR": 1
@@ -8791,7 +8783,7 @@
     },
     "232101": {
         "id": 232101,
-        "event": "You can strip and rebuild a pump by fourteen and you cannot get through the language of an examination paper. Adults trust your hands completely and treat your judgement as something you are borrowing from somebody.",
+        "event": "You can strip and rebuild a pump and you cannot get through the language of an examination paper. Adults trust your hands completely and treat your judgement as something you are borrowing from somebody.",
         "include": "(HTI>0|AF>0|IRN>0|PRK>0)&(INT>1&INT<4)"
     },
     "232102": {

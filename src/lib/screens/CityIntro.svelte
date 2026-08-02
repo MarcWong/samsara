@@ -405,8 +405,10 @@
 		filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
 	}
 	.credit {
-		margin: -0.4rem 0 0;
-		font-size: 1.05rem;
+		/* A step below .hint's 1rem, and pulled up against the wordmark so
+		   the byline reads as part of the title block rather than the UI. */
+		margin: -0.65rem 0 0;
+		font-size: 0.85rem;
 		letter-spacing: 0.22em;
 		color: rgba(255, 255, 255, 0.65);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);

@@ -248,7 +248,7 @@
 		// by unprivileged lives and at any age). realAge is the DISPLAYED
 		// age -- the number the player actually watched her die at -- not
 		// the internal 0-102 content index.
-		if (fatal && bonusTriggered && realAge < 75) {
+		if (fatal && bonusTriggered && realAge < 80) {
 			const coda = 'Relax, even when you are privileged, nothing is in control';
 			deathLine = deathLine ? `${deathLine}\n${coda}` : coda;
 		}
@@ -554,6 +554,12 @@
 			     button keeps Start's hit area exactly what it looks like --
 			     a click 0.5cqh outside the pill must not start the run. -->
 			<div class="start-hover-zone">
+				<!-- Always visible, tight against Start, and INSIDE the hover
+				     ring on purpose: playtesters never discovered the hidden
+				     tip below. Anyone who pauses on this line has already put
+				     their pointer into the ring, which reveals it -- the
+				     caption is bait for the trigger zone, not just copy. -->
+				<p class="start-caption">Your choice matters, think twice.</p>
 				<button
 					type="button"
 					class="alloc-action start start-row"
@@ -1398,6 +1404,8 @@
 	   box, so what is clickable as Start is still exactly the pill. */
 	.start-hover-zone {
 		display: flex;
+		flex-direction: column;
+		align-items: center;
 		justify-content: center;
 		/* Vertical: the 2cqh that used to be Start's own margin, minus the
 		   0.5cqh now spent on padding, so the gap above and below the pill is
@@ -1411,6 +1419,14 @@
 	}
 	.start-hover-zone > .alloc-action.start-row {
 		margin: 0;
+	}
+	.start-caption {
+		margin: 0 0 0.6cqh;
+		font-size: max(0.75rem, 1.6cqh);
+		letter-spacing: 0.08em;
+		font-weight: bold;
+		color: rgba(23, 38, 46, 0.95);
+		pointer-events: auto;
 	}
 	/* Hovering the ring reveals the hint; hovering Start itself does not.
 	   :has() is what draws that line -- the wrapper is hovered in both cases
