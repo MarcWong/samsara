@@ -480,7 +480,11 @@ class Event {
         // present. Zero-state (priority 500) is untouched: once a stat is
         // below zero the cascade proceeds regardless of tier.
         const tierSkip = { PRK: .5, UKR: .5, IRN: .65, US: .5, CH: .75, GBR: .75, DNK: .75, JAP: .75 };
-        const skip = tierSkip[this.#identity().country] ?? 0;
+        // Age 0 is exempt: the birth events (211101-216301) share the
+        // attribute-band id range but are structural -- every life must open
+        // on the one matching its wealth tier, and China's birth blessing in
+        // life.js appends to it. Skipping them left the log starting at 2.
+        const skip = currentAge === 0 ? 0 : (tierSkip[this.#identity().country] ?? 0);
         if(skip && Math.random() < skip)
             current = current.filter(({id}) =>
                 this.#isZeroState(id) || !(Number(id) >= 200000 && Number(id) < 600000)
