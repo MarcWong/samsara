@@ -820,7 +820,7 @@
         "include": "(IRN>0|UKR>0)&LBTQ=0",
         "exclude": "EVT?[88001,88002]",
         "effect": {
-            "STR": -3
+            "STR": -2
         }
     },
     "88002": {
@@ -829,7 +829,7 @@
         "include": "(IRN>0|UKR>0)&LBTQ>0",
         "exclude": "EVT?[88001,88002]",
         "effect": {
-            "STR": -3
+            "STR": -2
         }
     },
     "96001": {
@@ -1033,7 +1033,7 @@
     "101019": {
         "id": 101019,
         "event": "The water arrives by subscription. Your period becomes irregular; the price does not.",
-        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0",
+        "include": "AF>0|EGY>0|IND>0|HTI>0",
         "effect": {
             "STR": -1,
             "MNY": -1
