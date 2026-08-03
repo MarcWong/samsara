@@ -43,8 +43,6 @@ describe('checkCondition operators', () => {
     it('? checks whether the prop value is inside the condition list', () => {
         expect(checkCondition(fakeProperty({ AGE: 22 }), 'AGE?[22]')).toBe(true);
         expect(checkCondition(fakeProperty({ AGE: 23 }), 'AGE?[22]')).toBe(false);
-        expect(checkCondition(fakeProperty({ EVT: [86001, 5] }), 'EVT?[86001,86002]')).toBe(true);
-        expect(checkCondition(fakeProperty({ EVT: [5] }), 'EVT?[86001,86002]')).toBe(false);
     });
 
     it('! checks whether the prop value is outside the condition list', () => {

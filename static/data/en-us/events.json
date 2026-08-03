@@ -765,46 +765,6 @@
             ":10000"
         ]
     },
-    "86001": {
-        "id": 86001,
-        "event": "Your family moved to Finland to avoid political persecution. You finally don't have to worry about what to eat on the next day, and the teachers in your school treat every student equally.",
-        "include": "MNY>4&MNY<8&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
-        "exclude": "EVT?[86001,86002]",
-        "effect": {
-            "INT": 3,
-            "STR": 5,
-            "MNY": 3,
-            "CHR": 3,
-            "DK": 1,
-            "AF": -1,
-            "EGY": -1,
-            "IND": -1,
-            "IRN": -1,
-            "PRK": -1,
-            "UKR": -1,
-            "HTI": -1
-        }
-    },
-    "86002": {
-        "id": 86002,
-        "event": "Your family moved to Australia. Your parents bought a big house nearby the sea, and sent you to a private school. There you met the son of a well-known company's CEO.",
-        "include": "MNY>7&(AF>0|EGY>0|IND>0|IRN>0|PRK>0|UKR>0|HTI>0)",
-        "exclude": "EVT?[86001,86002]",
-        "effect": {
-            "INT": 3,
-            "STR": 3,
-            "MNY": 3,
-            "CHR": 5,
-            "UK": 1,
-            "AF": -1,
-            "EGY": -1,
-            "IND": -1,
-            "IRN": -1,
-            "PRK": -1,
-            "UKR": -1,
-            "HTI": -1
-        }
-    },
     "87001": {
         "id": 87001,
         "event": "You spend your gap year volunteering with a UN programme in East Africa. You come home with a phone full of photos and a sudden, uncomfortable gratitude for everything you'd always taken for granted.",
