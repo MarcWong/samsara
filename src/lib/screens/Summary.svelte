@@ -68,22 +68,32 @@
 	const sex = $draft.sex ?? '';
 	const age = $draft.age ?? summary[types.HAGE].value;
 
-	// '' entries are deliberate blank lines (not line-wraps -- a bare \n
-	// inside one string wouldn't render as a break at all under this
-	// screen's default white-space, and wouldn't give a full blank line
-	// even with pre-line) -- split into their own array entries instead,
-	// which works the same way in both places CREDITS gets rendered: the
-	// on-screen {#each} (one <p> per entry, so an empty entry is a blank
-	// <p>) and the print window's CREDITS.join('<br>') (an empty entry
-	// between two real ones doubles up the <br>).
+	// Two credit sets, because the two surfaces have opposite constraints.
+	// The receipt is 280px of monospace, so a role and its name have to be
+	// split across two lines to fit; the screen has the whole bottom-right
+	// corner, where those same splits read as broken sentences. Each entry
+	// is one rendered line in both places -- the on-screen {#each} (one <p>
+	// per entry) and the print window's join('<br>').
 	const CREDITS = [
-		'Lead Direction &',
-		'Narrative Design: Yuwei Jiang',
+		'Lead Direction & Narrative Design:',
+		'Yuwei Jiang',
 		'Developer & Co-Design: Yao Wang',
-		'Audio Design: Guanyu Xie',
-		'Built upon the open-source codebase',
-		'of LifeRestart by VickScarlet',
+		'Music Design: Guanyu Xie',
+		'Built upon the open-source codebase of',
+		'LifeRestart by VickScarlet',
 		'Contact: sabinajiang0505@outlook.com',
+		'WeChat: SabinaJiang_Yuwei',
+		'© 2022 Yuwei Jiang'
+	];
+	const CREDITS_PRINT = [
+		'Lead Direction & Narrative Design:',
+		'Yuwei Jiang',
+		'Developer & Co-Design: Yao Wang',
+		'Music Design: Guanyu Xie',
+		'Built upon the open-source codebase of',
+		'LifeRestart by VickScarlet',
+		'Contact: sabinajiang0505@outlook.com',
+		'WeChat: SabinaJiang_Yuwei',
 		'© 2022 Yuwei Jiang'
 	];
 
@@ -274,7 +284,7 @@
 				.join('')}</div>`
 		);
 		win.document.write(
-			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>${CREDITS.join('<br>')}</p>`
+			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>${CREDITS_PRINT.join('<br>')}</p>`
 		);
 		win.focus();
 		win.document.close();
@@ -389,6 +399,10 @@
 	   family via lightness rather than a warm/cool hue split. */
 	.summary {
 		min-height: 100dvh;
+		/* Positioning context for .credits' bottom-right corner. (The
+		   inline filter: blur() would already establish one, but only while
+		   a restart is animating -- this makes it unconditional.) */
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -550,19 +564,26 @@
 			0 1px 3px rgba(6, 12, 18, 0.9),
 			0 2px 12px rgba(6, 12, 18, 0.7);
 	}
-	/* Pinned to the very bottom of the screen (not just after the hint in
-	   normal flow) via margin-top: auto -- .summary is a flex column with
-	   min-height: 100dvh, so this eats all the leftover vertical space and
-	   sits flush against the bottom edge instead of floating right under
-	   the hint on tall viewports. */
+	/* Out of the centre column entirely and parked in the bottom-right
+	   corner: the panel, hint and action buttons all compete for the middle
+	   of the screen, and eight lines of credits stacked under them made that
+	   column read as crowded. Absolute (not fixed) so it scrolls with the
+	   screen on short viewports, right-aligned against the same safe-area
+	   insets .summary pads with, and pointer-events: none so it can never
+	   sit over the Restart/Print hit areas. */
 	.credits {
-		margin-top: auto;
-		padding-top: 0.5rem;
-		text-align: center;
+		position: absolute;
+		right: calc(1.5rem + env(safe-area-inset-right));
+		bottom: calc(1.25rem + env(safe-area-inset-bottom));
+		text-align: right;
+		pointer-events: none;
 	}
 	.credits p {
 		margin: 0.15em 0;
 		font-size: 0.7rem;
+		/* Each entry is authored as one full line here (unlike the receipt's
+		   narrower splits) -- never let a viewport re-break it mid-sentence. */
+		white-space: nowrap;
 		/* Higher opacity + a dark drop shadow (same treatment as .title)
 		   instead of a faint, nearly-see-through tint -- the old
 		   rgba(...,0.55) all but vanished against this screen's bright
