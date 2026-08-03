@@ -247,12 +247,13 @@
 	// split and again between the story and the QR codes -- a plain <br>
 	// read as an arbitrary gap; an actual rule reads as a deliberate
 	// section break, the way a real printed receipt tears between parts.
-	// Sized for the real hardware: an XP-58IIH cuts 58mm paper with a 48mm
-	// printable band (~181 CSS px). The old inline width: 280px was a screen
-	// guess that the thermal driver either cropped on the right or shrank
-	// into illegibility. @page declares the true medium so the browser lays
-	// out at receipt width from the start, and every block inherits the
-	// 180px column instead of repeating its own width.
+	// Sized for the real hardware: an XP-58IIH cuts 58mm paper, but the
+	// zj-58 PPD's imageable area is only 48mm of it. The old inline
+	// width: 280px was a screen guess the thermal driver cropped; declaring
+	// the full 58mm was no better, since the driver then adds its own 14pt
+	// hard margin on top (and may scale to fit), which printed as a blank
+	// gutter down the left third. Everything below is laid out in the 48mm
+	// printable band, so the driver has nothing left to offset.
 	const DASHED_LINE = "<div class='rule'></div>";
 	function onPrintTxt() {
 		const win = window.open();
@@ -260,21 +261,30 @@
 		const txts = printHeaderAndStory();
 		win.document.write(
 			`<style>
-				@page { size: 58mm auto; margin: 0; }
+				/* Declare the PRINTABLE band (48mm), not the 58mm paper: the
+				   zj-58 PPD reports an imageable area of 14 0 150 182pt, so a
+				   58mm page gets shifted right by its 14pt hard margin and, on
+				   some drivers, scaled down to fit 136pt -- which showed up as
+				   a wide blank gutter down the left third of the receipt.
+				   Matching the page box to the printable width means the
+				   driver has nothing left to offset or scale. */
+				@page { size: 48mm auto; margin: 0; }
+				html, body { margin: 0; padding: 0; }
 				body {
-					width: 180px;
-					margin: 0;
-					padding: 2px 0 6px;
+					width: 48mm;
+					box-sizing: border-box;
+					padding: 2px 1mm 6px;
 					font-family: 'Cascadia Code', Consolas, monospace;
 				}
-				p { margin: 3px 0; font-size: 10px; }
+				* { box-sizing: border-box; max-width: 100%; }
+				p { margin: 3px 0; font-size: 9px; }
 				.rule { border-top: 1px dashed #999; margin: 6px 0; }
-				.masthead { font-size: 12px; margin: 4px 0 6px; }
-				.qrs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-				.qrs > div { width: 84px; text-align: center; }
-				.qrs img { width: 84px; height: 84px; }
-				.qrs p { margin: 2px 0 0; font-size: 8px; }
-				.credits { margin: 6px 0 0; font-size: 9px; text-align: center; }
+				.masthead { font-size: 11px; margin: 4px 0 6px; }
+				.qrs { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5mm; }
+				.qrs > div { width: 20mm; text-align: center; }
+				.qrs img { width: 20mm; height: 20mm; }
+				.qrs p { margin: 2px 0 0; font-size: 7px; }
+				.credits { margin: 6px 0 0; font-size: 8px; text-align: center; }
 			</style>`
 		);
 		win.document.write("<p class='masthead'>Life Summary @Samsara</p>");
