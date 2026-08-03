@@ -247,22 +247,43 @@
 	// split and again between the story and the QR codes -- a plain <br>
 	// read as an arbitrary gap; an actual rule reads as a deliberate
 	// section break, the way a real printed receipt tears between parts.
-	const DASHED_LINE = "<div style='border-top: 1px dashed #999; width: 280px; margin: 8px 0;'></div>";
+	// Sized for the real hardware: an XP-58IIH cuts 58mm paper with a 48mm
+	// printable band (~181 CSS px). The old inline width: 280px was a screen
+	// guess that the thermal driver either cropped on the right or shrank
+	// into illegibility. @page declares the true medium so the browser lays
+	// out at receipt width from the start, and every block inherits the
+	// 180px column instead of repeating its own width.
+	const DASHED_LINE = "<div class='rule'></div>";
 	function onPrintTxt() {
 		const win = window.open();
 		if (!win) return;
 		const txts = printHeaderAndStory();
 		win.document.write(
-			"<p style='margin: 6px 0; width: 280px; font-size: 14px; font-family:Cascadia Code, Consolas, monospace'>Life Summary @Samsara</p>"
+			`<style>
+				@page { size: 58mm auto; margin: 0; }
+				body {
+					width: 180px;
+					margin: 0;
+					padding: 2px 0 6px;
+					font-family: 'Cascadia Code', Consolas, monospace;
+				}
+				p { margin: 3px 0; font-size: 10px; }
+				.rule { border-top: 1px dashed #999; margin: 6px 0; }
+				.masthead { font-size: 12px; margin: 4px 0 6px; }
+				.qrs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+				.qrs > div { width: 84px; text-align: center; }
+				.qrs img { width: 84px; height: 84px; }
+				.qrs p { margin: 2px 0 0; font-size: 8px; }
+				.credits { margin: 6px 0 0; font-size: 9px; text-align: center; }
+			</style>`
 		);
+		win.document.write("<p class='masthead'>Life Summary @Samsara</p>");
 		for (const line of txts) {
 			if (line === '') {
 				win.document.write(DASHED_LINE);
 				continue;
 			}
-			win.document.write(
-				`<p style='margin:3px 0; width: 280px; font-size: 12px; font-family:Cascadia Code, Consolas, monospace'>${line}</p>`
-			);
+			win.document.write(`<p>${line}</p>`);
 		}
 		win.document.write(DASHED_LINE);
 		const qrOrigin = `${window.location.origin}${base}/images`;
@@ -273,18 +294,18 @@
 			['qr-code_discord.png', 'Stay updated on Discord'],
 		];
 		win.document.write(
-			`<div style='margin: 0; width: 280px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;'>${qrs
+			`<div class='qrs'>${qrs
 				.map(
 					([file, caption]) =>
-						`<div style='width: 130px; text-align: center;'>` +
-						`<img src='${qrOrigin}/${file}' style='width: 130px; height: 130px;'>` +
-						`<p style='margin: 4px 0 0; font-size: 11px; font-family:Cascadia Code, Consolas, monospace;'>${caption}</p>` +
+						`<div>` +
+						`<img src='${qrOrigin}/${file}'>` +
+						`<p>${caption}</p>` +
 						`</div>`
 				)
 				.join('')}</div>`
 		);
 		win.document.write(
-			`<p style='margin: 8px 0 0; width: 280px; font-size: 11px; font-family:Cascadia Code, Consolas, monospace; text-align: center;'>${CREDITS_PRINT.join('<br>')}</p>`
+			`<p class='credits'>${CREDITS_PRINT.join('<br>')}</p>`
 		);
 		win.focus();
 		win.document.close();
