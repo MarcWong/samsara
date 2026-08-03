@@ -1188,7 +1188,7 @@
     "101046": {
         "id": 101046,
         "event": "Your family still eats real vegetables and meat. The soil report comes with a toxin warning.",
-        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0|PRK>0",
+        "include": "AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0",
         "effect": {
             "STR": -1
         }
@@ -1196,7 +1196,7 @@
     "101047": {
         "id": 101047,
         "event": "Imported nutrient formula costs more than local food. Your mother saves it for when you are ill.",
-        "include": "(AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0|PRK>0)&MNY>5",
+        "include": "(AF>0|EGY>0|IND>0|IRN>0|HTI>0|UKR>0)&MNY>5",
         "effect": {
             "STR": 1,
             "MNY": -1
