@@ -97,6 +97,18 @@
 		'© 2022 Yuwei Jiang'
 	];
 
+	// The receipt's four QR codes. Hoisted to component scope (rather than
+	// living inside onPrintTxt) so onMount can warm the browser cache with
+	// the exact same URLs the print window will request -- see the preload
+	// in onMount, which front-loads onPrintTxt's decode wait.
+	const QR_ORIGIN = `${base}/images`;
+	const QRS = [
+		['qrcode.png', 'Play it at home'],
+		['qr-code_ins.png', 'Follow on Instagram'],
+		['qr-code_coffee.png', 'Buy us a coffee'],
+		['qr-code_discord.png', 'Stay updated on Discord'],
+	];
+
 	// Restart Life plays videos/8.mp4 -- a purpose-shot transition clip that
 	// opens on drifting cloud/sky (the same look Background.svelte's shader
 	// paints behind this screen) and pushes through it into the morgue,
@@ -214,6 +226,17 @@
 			all_in: triedAllInOneStat,
 			death_event: $draft.deathEvent ?? null
 		});
+		// Warm the four QR PNGs (~340KB) while the player reads the summary,
+		// so onPrintTxt's decode wait is already satisfied by the time they
+		// hit Print -- otherwise a session's first receipt stalls a beat on
+		// the network. Same URLs the print window requests, so the browser
+		// cache does the work; failures are ignored, since the print path
+		// already tolerates missing codes.
+		for (const [file] of QRS) {
+			const img = new Image();
+			img.src = `${QR_ORIGIN}/${file}`;
+			img.decode?.().catch(() => {});
+		}
 		// Prefetch+demux the restart clip while the player is still reading
 		// the summary, so the click starts playback instead of a network
 		// wait. loadMp4 is URL-cached, so onAgain's play() reuses this.
@@ -296,15 +319,9 @@
 			win.document.write(`<p>${line}</p>`);
 		}
 		win.document.write(DASHED_LINE);
-		const qrOrigin = `${window.location.origin}${base}/images`;
-		const qrs = [
-			['qrcode.png', 'Play it at home'],
-			['qr-code_ins.png', 'Follow on Instagram'],
-			['qr-code_coffee.png', 'Buy us a coffee'],
-			['qr-code_discord.png', 'Stay updated on Discord'],
-		];
+		const qrOrigin = `${window.location.origin}${QR_ORIGIN}`;
 		win.document.write(
-			`<div class='qrs'>${qrs
+			`<div class='qrs'>${QRS
 				.map(
 					([file, caption]) =>
 						`<div>` +
@@ -319,7 +336,26 @@
 		);
 		win.focus();
 		win.document.close();
-		win.print();
+
+		// Wait for the four QR PNGs (~340KB) to finish decoding before
+		// printing. win.print() used to fire synchronously after close(),
+		// which snapshots the page mid-load: the images had reserved their
+		// 20mm boxes in layout but had no pixels yet, so the receipt printed
+		// a tall blank band where the codes should be. decode() resolves per
+		// image; the 3s cap keeps a slow or missing asset from stalling the
+		// print entirely (the exhibition machine must always produce a
+		// receipt, even a QR-less one).
+		const imgs = [...win.document.images];
+		const ready = Promise.all(
+			imgs.map(img =>
+				img.decode?.().catch(() => {}) ??
+				new Promise(res => {
+					if (img.complete) return res();
+					img.onload = img.onerror = () => res();
+				})
+			)
+		);
+		Promise.race([ready, new Promise(res => setTimeout(res, 3000))]).then(() => win.print());
 	}
 </script>
 
