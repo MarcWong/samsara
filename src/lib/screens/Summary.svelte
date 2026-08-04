@@ -355,7 +355,31 @@
 				})
 			)
 		);
-		Promise.race([ready, new Promise(res => setTimeout(res, 3000))]).then(() => win.print());
+		// Close the popup once the job is away, so the exhibition machine
+		// lands back on the summary instead of stranding the visitor on a
+		// blank receipt tab. afterprint fires on both "printed" and
+		// "cancelled", which is what we want -- either way the window has
+		// done its job. Two belts on top of it: Safari has never fired
+		// afterprint reliably, and under Chrome's --kiosk-printing the job
+		// goes out with no dialog at all, so a timer closes the window if
+		// the event never arrives. `closed` guards against double-calling.
+		let closed = false;
+		const dismiss = () => {
+			if (closed) return;
+			closed = true;
+			win.close();
+		};
+		win.onafterprint = dismiss;
+		win.addEventListener?.('afterprint', dismiss);
+
+		Promise.race([ready, new Promise(res => setTimeout(res, 3000))]).then(() => {
+			win.print();
+			// Fallback for browsers/modes that never fire afterprint --
+			// notably Chrome's --kiosk-printing, where there is no dialog to
+			// wait on, so the window has nothing left to do once the job is
+			// away. The event path still closes it sooner when it works.
+			setTimeout(dismiss, 10000);
+		});
 	}
 </script>
 
