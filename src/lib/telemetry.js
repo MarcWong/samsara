@@ -1,3 +1,5 @@
+import { base } from '$app/paths';
+
 // Fire-and-forget run telemetry -> Supabase (PostgREST), no SDK dependency.
 //
 // GitHub Pages is static hosting, so the "database" is a Supabase project
@@ -26,12 +28,17 @@ const SOURCE =
 		: 'web';
 
 // Which deployment wrote the row: the two GitHub Pages sites build with
-// different base paths (/samsara/ vs /samsara_test/), so the vite BASE_URL
-// baked into each bundle already fingerprints prod vs test -- no extra
-// secret or workflow wiring needed. Local dev ('/') records as 'dev'.
+// different base paths, so the one baked into each bundle already
+// fingerprints prod vs test -- no extra secret or workflow wiring needed.
+// Local dev (empty base) records as 'dev'.
+//
+// This reads $app/paths, NOT import.meta.env.BASE_URL: the base is set via
+// SvelteKit's `paths` option (see vite.config.js), which does not feed
+// Vite's own BASE_URL -- that stays '/' in every build, so the earlier
+// check silently tagged production rows as 'dev'.
 const DEPLOYMENT =
-	import.meta.env.BASE_URL === '/samsara/' ? 'prod'
-	: import.meta.env.BASE_URL === '/samsara_test/' ? 'test'
+	base === '/samsara' ? 'prod'
+	: base === '/samsara_test' ? 'test'
 	: 'dev';
 
 export function recordRun(run) {
