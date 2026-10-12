@@ -192,6 +192,7 @@ class Event {
     #deferredNarratives = new Map();
     #dependencyEvents = new Set();
     #quietYears = 0;
+    #baseText = new Map();
 
     initial({events, age}) {
         this.#events = events;
@@ -299,6 +300,18 @@ class Event {
 
     get count() {
         return Object.keys(this.#events).length;
+    }
+
+    // Swaps every event's narrative line for a translation ({ id: text }), or
+    // back to the shipped English with no argument. Only `event` text is
+    // touched -- conditions, effects and branches stay exactly as loaded, so
+    // a translation can never change how the game plays.
+    localize(texts) {
+        for(const id in this.#events) {
+            const event = this.#events[id];
+            if(!this.#baseText.has(id)) this.#baseText.set(id, event.event);
+            event.event = texts?.[id] ?? this.#baseText.get(id);
+        }
     }
 
     check(eventId) {

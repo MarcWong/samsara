@@ -51,6 +51,10 @@ class Life {
     // it appears exactly once, on the first event shown while Happiness is
     // negative (see next()).
     #sprDepressionShown = false;
+    // The two narrative lines the engine itself appends to events (everything
+    // else comes from the data files). English by default; localize() swaps
+    // them alongside the event/talent text.
+    #text = { chinaBirthBlessing: CHINA_BIRTH_BLESSING, sprDepressionLine: SPR_DEPRESSION_LINE };
 
     async initial(i18nLoad) {
         const [age, talents, events, achievements, characters] = await Promise.all([
@@ -69,6 +73,19 @@ class Life {
         };
         this.#property.initial({age, total});
         this.#character.initial({characters});
+    }
+
+    // Switches the player-facing text language without touching any game
+    // data: `texts` is { events: {id: line}, talents: {id: {name,
+    // description}}, engine: {chinaBirthBlessing, sprDepressionLine} }, or
+    // nothing to restore the shipped English. Safe to call at any time.
+    localize({ events, talents, engine } = {}) {
+        this.#event.localize(events);
+        this.#talent.localize(talents);
+        this.#text = {
+            chinaBirthBlessing: engine?.chinaBirthBlessing ?? CHINA_BIRTH_BLESSING,
+            sprDepressionLine: engine?.sprDepressionLine ?? SPR_DEPRESSION_LINE,
+        };
     }
 
     config({
@@ -225,7 +242,7 @@ class Life {
                 c.type === this.PropertyTypes.EVT && c.description && !isFatal(c)
             ) ?? [...content].reverse().find(c => c.type === this.PropertyTypes.EVT && c.description);
             if(stamped) {
-                stamped.description += ` ${SPR_DEPRESSION_LINE}`;
+                stamped.description += ` ${this.#text.sprDepressionLine}`;
                 this.#sprDepressionShown = true;
             }
         }
@@ -288,13 +305,13 @@ class Life {
         // Egypt, which share the same underlying birth-event IDs. Three older
         // descriptions contain a similar sentence, but the requested exact
         // wording is still appended because those originals must remain intact.
-        const alreadyHasExactBlessing = description?.includes(CHINA_BIRTH_BLESSING);
+        const alreadyHasExactBlessing = description?.includes(this.#text.chinaBirthBlessing);
         if(
             isRootEvent
             && this.#property.get(this.PropertyTypes.AGE) === 0
             && this.#property.get(this.PropertyTypes.CHN) > 0
             && !alreadyHasExactBlessing
-        ) description = `${description} ${CHINA_BIRTH_BLESSING}`;
+        ) description = `${description} ${this.#text.chinaBirthBlessing}`;
 
         this.#property.change(this.PropertyTypes.EVT, eventId);
         this.#property.effect(effect);

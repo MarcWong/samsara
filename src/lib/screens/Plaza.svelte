@@ -6,7 +6,9 @@
 	import { loadMp4, webCodecsSupported } from '../components/videoPlayer.js';
 	import { drawTalents as drawTalentsFrom } from '../game/talentDraw.js';
 	import COUNTRIES from '../game/functions/countries.js';
+	import { t } from '../i18n.js';
 
+	// `label` is the i18n key suffix (orient.<label>), not display text.
 	const ORIENTATIONS = [
 		{ value: 0, label: 'Straight' },
 		{ value: 1, label: 'LGBTQ' },
@@ -138,11 +140,11 @@
 	<div class="crt-curve" aria-hidden="true"></div>
 
 	{#if step === 'country'}
-		<h2 class="crt-prompt">&gt; SELECT COUNTRY OF BIRTH_</h2>
+		<h2 class="crt-prompt">{$t('plaza.selectCountry')}</h2>
 		<div class="crt-grid">
-			{#each COUNTRIES as { code, name } (code)}
+			{#each COUNTRIES as { code } (code)}
 				<button type="button" class="crt-item" onclick={() => chooseCountry(code)}>
-					[{name}]
+					[{$t(`country.${code}`)}]
 				</button>
 			{/each}
 		</div>
@@ -164,10 +166,10 @@
 				style="left: {value === 0 ? HANDLE_LEFT_X : HANDLE_RIGHT_X}%; top: {HANDLE_Y}%;"
 				onclick={() => chooseOrientation(value)}
 			>
-				{label}
+				{$t(`orient.${label}`)}
 			</button>
 		{/each}
-		<p class="orientation-prompt" style="left: 50%; top: {PROMPT_Y}%;">Select your orientation</p>
+		<p class="orientation-prompt" style="left: 50%; top: {PROMPT_Y}%;">{$t('plaza.selectOrientation')}</p>
 	</div>
 {/if}
 

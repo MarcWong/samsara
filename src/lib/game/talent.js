@@ -8,6 +8,7 @@ class Talent {
     #talentPullCount;
     #talentRate;
     #additions;
+    #baseText = new Map();
 
     initial({ talents }) {
         this.#talents = talents;
@@ -33,6 +34,19 @@ class Talent {
 
     get count() {
         return Object.keys(this.#talents).length;
+    }
+
+    // Swaps talent names/descriptions for a translation ({ id: { name,
+    // description } }), or back to the shipped English with no argument.
+    // Same contract as Event.localize: text only, mechanics untouched.
+    localize(texts) {
+        for(const id in this.#talents) {
+            const talent = this.#talents[id];
+            if(!this.#baseText.has(id)) this.#baseText.set(id, { name: talent.name, description: talent.description });
+            const { name, description } = texts?.[id] ?? this.#baseText.get(id);
+            talent.name = name;
+            talent.description = description;
+        }
     }
 
     get #prop() {

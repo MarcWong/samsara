@@ -7,6 +7,7 @@
 	import { recordRun } from '../telemetry.js';
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
+	import { t, tr, translate } from '../i18n.js';
 
 	const { summary } = core;
 	const types = core.PropertyTypes;
@@ -28,15 +29,19 @@
 	const property = core.request(core.Module.PROPERTY);
 	const finals = core.propertys;
 	const ROWS = [
-		[types.HMNY, 'Wealth', 'MNY'],
-		[types.HCHR, 'Appearance', 'CHR'],
-		[types.HINT, 'IQ', 'INT'],
-		[types.HSTR, 'Health', 'STR'],
-		[types.HSPR, 'Happiness', 'SPR'],
-	].map(([type, label, key]) => {
+		[types.HMNY, 'MNY'],
+		[types.HCHR, 'CHR'],
+		[types.HINT, 'INT'],
+		[types.HSTR, 'STR'],
+		[types.HSPR, 'SPR'],
+	].map(([type, key]) => {
 		const value = Math.max(0, finals[types[key]] ?? 0);
 		return {
-			label,
+			// `label` is what the player reads; `name` is the English stat
+			// name, which keys the telemetry row so it is identical in every
+			// language.
+			label: tr(`stat.${key}`),
+			name: translate('en', `stat.${key}`),
 			value,
 			grade: property.judgeOf(type, value).grade,
 			start: initial ? initial[key] : null,
@@ -64,8 +69,12 @@
 	// and the final *display* age (post AGE-table mapping, i.e. the age the
 	// player actually watched themselves die at) -- the raw HAGE property is
 	// the internal 0-102 content index, kept only as a fallback.
+	// `country` and `sex` are the canonical English values Trajectory passed
+	// along (they also feed telemetry); the *Label forms are what is shown.
 	const country = $draft.country ?? '';
 	const sex = $draft.sex ?? '';
+	const countryLabel = $draft.countryCode ? tr(`country.${$draft.countryCode}`) : country;
+	const sexLabel = sex ? tr(`orient.${sex}`) : '';
 	const age = $draft.age ?? summary[types.HAGE].value;
 
 	// Two credit sets, because the two surfaces have opposite constraints.
@@ -74,28 +83,8 @@
 	// corner, where those same splits read as broken sentences. Each entry
 	// is one rendered line in both places -- the on-screen {#each} (one <p>
 	// per entry) and the print window's join('<br>').
-	const CREDITS = [
-		'Lead Direction & Narrative Design:',
-		'Yuwei Jiang',
-		'Developer & Co-Design: Yao Wang',
-		'Music Design: Guanyu Xie',
-		'Built upon the open-source codebase of',
-		'LifeRestart by VickScarlet',
-		'Contact: sabinajiang0505@outlook.com',
-		'WeChat: SabinaJiang_Yuwei',
-		'© 2022 Yuwei Jiang'
-	];
-	const CREDITS_PRINT = [
-		'Lead Direction & Narrative Design:',
-		'Yuwei Jiang',
-		'Developer & Co-Design: Yao Wang',
-		'Music Design: Guanyu Xie',
-		'Built upon the open-source codebase of',
-		'LifeRestart by VickScarlet',
-		'Contact: sabinajiang0505@outlook.com',
-		'WeChat: SabinaJiang_Yuwei',
-		'© 2022 Yuwei Jiang'
-	];
+	const CREDITS = tr('credits');
+	const CREDITS_PRINT = tr('credits');
 
 	// The receipt's four QR codes. Hoisted to component scope (rather than
 	// living inside onPrintTxt) so onMount can warm the browser cache with
@@ -103,10 +92,10 @@
 	// in onMount, which front-loads onPrintTxt's decode wait.
 	const QR_ORIGIN = `${base}/images`;
 	const QRS = [
-		['qrcode.png', 'Play it at home'],
-		['qr-code_ins.png', 'Follow on Instagram'],
-		['qr-code_coffee.png', 'Buy us a coffee'],
-		['qr-code_discord.png', 'Stay updated on Discord'],
+		['qrcode.png', tr('sum.qr.play')],
+		['qr-code_ins.png', tr('sum.qr.instagram')],
+		['qr-code_coffee.png', tr('sum.qr.coffee')],
+		['qr-code_discord.png', tr('sum.qr.discord')],
 	];
 
 	// Restart Life plays videos/8.mp4 -- a purpose-shot transition clip that
@@ -221,7 +210,7 @@
 			orientation: sex,
 			age,
 			initial,
-			finals: Object.fromEntries(ROWS.map(r => [r.label, r.value])),
+			finals: Object.fromEntries(ROWS.map(r => [r.name, r.value])),
 			talents: ($draft.talents ?? []).map(t => t.id),
 			all_in: triedAllInOneStat,
 			death_event: $draft.deathEvent ?? null
@@ -253,12 +242,13 @@
 	// which is untouched.
 	function printHeaderAndStory() {
 		const lines = printText.split('\n');
-		const storyStart = lines.findIndex(l => l.startsWith('Age: '));
+		const storyStart = lines.findIndex(l => l.startsWith(tr('print.age')));
 		const story = storyStart === -1 ? [] : lines.slice(storyStart);
+		const sep = tr('print.sep');
 		const header = [
-			country ? `Country: ${country}` : null,
-			sex ? `Sex orientation: ${sex}` : null,
-			...ROWS.map(r => `${r.label}: ${r.start != null ? `${r.start} → ${r.value}` : r.value}`),
+			countryLabel ? `${tr('print.country')}${sep}${countryLabel}` : null,
+			sexLabel ? `${tr('print.orientation')}${sep}${sexLabel}` : null,
+			...ROWS.map(r => `${r.label}${sep}${r.start != null ? `${r.start} → ${r.value}` : r.value}`),
 		].filter(Boolean);
 		// '' is a receipt-style dashed tear-line marker between the header
 		// block (country/sex/stats) and the story, handled specially below
@@ -310,7 +300,7 @@
 				.credits { margin: 6px 0 0; font-size: 8px; text-align: center; }
 			</style>`
 		);
-		win.document.write("<p class='masthead'>Life Summary @Samsara</p>");
+		win.document.write(`<p class='masthead'>${tr('print.masthead')}</p>`);
 		for (const line of txts) {
 			if (line === '') {
 				win.document.write(DASHED_LINE);
@@ -407,21 +397,21 @@
 	     laid out like the Trajectory statbar (dim caption above, big value
 	     below) so the two screens read as one system. -->
 	<div class="idcard">
-		{#if country}
+		{#if countryLabel}
 			<div class="id">
-				<span class="id-label">Country</span>
-				<span class="id-value">{country}</span>
+				<span class="id-label">{$t('sum.country')}</span>
+				<span class="id-value">{countryLabel}</span>
 			</div>
 		{/if}
-		{#if sex}
+		{#if sexLabel}
 			<div class="id">
-				<span class="id-label">Orientation</span>
-				<span class="id-value">{sex}</span>
+				<span class="id-label">{$t('sum.orientation')}</span>
+				<span class="id-value">{sexLabel}</span>
 			</div>
 		{/if}
 		<div class="id">
-			<span class="id-label">Lived to</span>
-			<span class="id-value">Age {age}</span>
+			<span class="id-label">{$t('sum.livedTo')}</span>
+			<span class="id-value">{$t('sum.age', { age })}</span>
 		</div>
 	</div>
 
@@ -445,18 +435,18 @@
 
 	{#if talents.length}
 		<div class="talents">
-			<h2>Random Events</h2>
+			<h2>{$t('sum.randomEvents')}</h2>
 			<ul>
 				{#each talents as talent (talent.id)}
-					<li>{talent.name} ({talent.description})</li>
+					<li>{$t('sum.talentLine', { name: talent.name, description: talent.description })}</li>
 				{/each}
 			</ul>
 		</div>
 	{/if}
 
 	<div class="actions">
-		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>Print</Button>
-		<Button onclick={() => { onAgain(); resetIdleTimer(); }}>Restart Life</Button>
+		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>{$t('sum.print')}</Button>
+		<Button onclick={() => { onAgain(); resetIdleTimer(); }}>{$t('sum.restart')}</Button>
 	</div>
 
 	{#if !triedAllInOneStat}
@@ -464,7 +454,7 @@
 		     BONUS_AMOUNT in Trajectory.svelte): what varies per country is
 		     the TRIGGER, so naming a number here would invite reading it as
 		     the threshold rather than the reward. -->
-		<p class="hint">Throw all your tokens into one attribute,<br/>get a boost on every stat automatically,<br/>and boom -- you've just unlocked easy mode for life.</p>
+		<p class="hint">{$t('sum.hint')}</p>
 	{/if}
 
 	<div class="credits">
@@ -650,6 +640,7 @@
 		margin: 0;
 		font-size: 1.2rem;
 		line-height: 1.5;
+		white-space: pre-line;
 		color: rgba(238, 246, 250, 0.95);
 		text-shadow:
 			0 1px 3px rgba(6, 12, 18, 0.9),

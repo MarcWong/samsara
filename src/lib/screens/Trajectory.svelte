@@ -7,12 +7,15 @@
 	import COUNTRIES from '../game/functions/countries.js';
 	import { onSkip } from '../skip.js';
 	import { drawTalents as drawTalentsFrom } from '../game/talentDraw.js';
+	import { t, tr } from '../i18n.js';
 
 	const types = core.PropertyTypes;
 	// Wealth first, matching this session's stat-ordering fix applied
 	// everywhere else in the app.
 	const STAT_KEYS = ['MNY', 'CHR', 'INT', 'STR', 'SPR'];
-	const STAT_LABELS = { MNY: 'Wealth', CHR: 'Appearance', INT: 'IQ', STR: 'Health', SPR: 'Happiness' };
+	// The language can only change on the start screen, so reading it once as
+	// this screen mounts is enough.
+	const STAT_LABELS = Object.fromEntries(STAT_KEYS.map(key => [key, tr(`stat.${key}`)]));
 
 	// The displayed age is age.json's own `age` field, read from the row the
 	// tick landed on. It used to be a hardcoded table here, ported from
@@ -35,12 +38,18 @@
 	let talents = $draft.talents;
 	const countryCode = $draft.countryCode;
 	const countryData = COUNTRIES.find(({ code }) => code === countryCode);
+	// `country` and `sex` stay the canonical English values: they travel on to
+	// Summary and its telemetry row, which must read the same in every
+	// language. What the player reads is the localized `countryLabel` /
+	// `sexLabel` derived from them.
 	const country = countryData?.name;
 	// LGBTQ, not LBTQ -- this string is what the statbar, the print block and
 	// Summary's identity row all show. The condition-DSL property key stays
 	// `LBTQ` (every events.json include is written against it); only the
 	// label the player reads is spelled out in full.
 	const sex = $draft.orientation == 1 ? 'LGBTQ' : 'Straight';
+	const countryLabel = countryData ? tr(`country.${countryData.code}`) : '';
+	const sexLabel = tr(`orient.${sex}`);
 
 	// -- stat allocation (ported verbatim from Plaza's old property step,
 	// now shown over the stairwell's frozen sky highlight instead of a DOS
@@ -199,7 +208,7 @@
 					case 'EVT':
 						return description + (postEvent ? `\n${postEvent}` : '');
 					case 'TLT':
-						return `Lucky Charm {${name}}: ${description}`;
+						return tr('log.luckyCharm', { name, description });
 					default:
 						return '';
 				}
@@ -231,8 +240,8 @@
 		}
 
 		// A year that both changes a stat and kills reads wrong with the
-		// numbers last: the standardized "You are DEAD..." declaration is the
-		// closing beat of the whole life, so a "Health -1" printed under it
+		// numbers last: the standardized death declaration (event 10000, "You
+		// are DEAD again, mortal.") is the closing beat of the whole life, so a "Health -1" printed under it
 		// buries it. Split that one trailing line off the joined text so it
 		// can render BELOW the stat deltas -- i.e. the attribute change moves
 		// up and the death has the last word:
@@ -242,13 +251,15 @@
 		//   Health -1
 		//   You are DEAD again, mortal.
 		//
-		// Every death event in events.json now carries that marker as its own
-		// final line, so this matches on all of them. Fatal content is sorted
-		// last by life.js's next(), which is why the marker is reliably the
-		// last line of the joined text.
-		const deathMatch = fatal ? joined.match(/\n(You are DEAD[^\n]*)$/i) : null;
-		const text = deathMatch ? joined.slice(0, deathMatch.index) : joined;
-		let deathLine = deathMatch ? deathMatch[1] : '';
+		// Every death event in events.json now chains into that declaration as
+		// its own final line, so this matches on all of them. Fatal content is
+		// sorted last by life.js's next(), which is why it is reliably the
+		// last line of the joined text. It is found by event id rather than by
+		// matching its wording, so it works in every language.
+		const declaration = fatal ? content.find(c => c.type === 'EVT' && c.id === 10000)?.description : '';
+		const hasDeathLine = !!declaration && joined.endsWith(`\n${declaration}`);
+		const text = hasDeathLine ? joined.slice(0, -(declaration.length + 1)) : joined;
+		let deathLine = hasDeathLine ? declaration : '';
 
 		// Privilege coda: a life that triggered the free-allocation bonus
 		// (+5 to every attribute) and still died young gets one extra line
@@ -261,12 +272,12 @@
 		// age -- the number the player actually watched her die at -- not
 		// the internal 0-102 content index.
 		if (fatal && bonusTriggered && realAge < 80) {
-			const coda = 'Relax, even when you are privileged, nothing is in control';
+			const coda = tr('log.coda');
 			deathLine = deathLine ? `${deathLine}\n${coda}` : coda;
 		}
 
 		printText +=
-			`Age: ${realAge}\n${text}` +
+			`${tr('print.age')}${realAge}\n${text}` +
 			(statChangesText ? `\n${statChangesText}` : '') +
 			(deathLine ? `\n${deathLine}` : '') +
 			'\n';
@@ -467,14 +478,15 @@
 			talents = drawTalentsFrom(core.talentRandom(), { pool: TLR_TALENT_POOL, weights: TLR_TALENT_WEIGHTS });
 			core.remake(talents.map(t => t.id));
 		}
+		const sep = tr('print.sep');
 		printText =
-			(country ? `Country: ${country}\n` : '') +
-			`Sex orientation: ${sex}\n` +
-			`Family wealth: ${propertyAllocate[types.MNY]}\n` +
-			`Appearance: ${propertyAllocate[types.CHR]}\n` +
-			`IQ: ${propertyAllocate[types.INT]}\n` +
-			`Healthy: ${propertyAllocate[types.STR]}\n` +
-			`Happiness: ${propertyAllocate[types.SPR]}\n\n`;
+			(country ? `${tr('print.country')}${sep}${countryLabel}\n` : '') +
+			`${tr('print.orientation')}${sep}${sexLabel}\n` +
+			`${tr('print.wealth')}${sep}${propertyAllocate[types.MNY]}\n` +
+			`${tr('print.appearance')}${sep}${propertyAllocate[types.CHR]}\n` +
+			`${tr('print.iq')}${sep}${propertyAllocate[types.INT]}\n` +
+			`${tr('print.health')}${sep}${propertyAllocate[types.STR]}\n` +
+			`${tr('print.happiness')}${sep}${propertyAllocate[types.SPR]}\n\n`;
 		core.start(propertyAllocate);
 		stats = core.propertys;
 		allocating = false;
@@ -507,10 +519,10 @@
 			     blur has to sit on an absolutely-positioned child that the
 			     parent's overflow:hidden + clip-path can crop from outside. -->
 			<div class="alloc-glass" aria-hidden="true"></div>
-			<p class="alloc-title">Allocate your attributes</p>
+			<p class="alloc-title">{$t('alloc.title')}</p>
 			<p class="alloc-tokens">
-				<span>Tokens: {propertyPoints}</span>
-				<span>Remaining: {allocLeft}</span>
+				<span>{$t('alloc.tokens', { n: propertyPoints })}</span>
+				<span>{$t('alloc.remaining', { n: allocLeft })}</span>
 			</p>
 			<!-- Mirrors .alloc-row's own structure (empty label, ghost step,
 			     value-width slot, ghost step) purely so the Random button's
@@ -528,7 +540,7 @@
 						aria-hidden="false"
 						onclick={randomAllocate}
 					>
-						Random
+						{$t('alloc.random')}
 					</button>
 				</span>
 				<span class="alloc-step-ghost"></span>
@@ -542,7 +554,7 @@
 							class="alloc-step"
 							disabled={allocate[type] <= allocMin}
 							onclick={() => adjustStat(type, -1)}
-							aria-label="Decrease {label}"
+							aria-label={$t('alloc.decrease', { label })}
 						>
 							−
 						</button>
@@ -552,7 +564,7 @@
 							class="alloc-step"
 							disabled={allocate[type] >= allocMax || allocLeft <= 0}
 							onclick={() => adjustStat(type, 1)}
-							aria-label="Increase {label}"
+							aria-label={$t('alloc.increase', { label })}
 						>
 							+
 						</button>
@@ -571,14 +583,14 @@
 				     tip below. Anyone who pauses on this line has already put
 				     their pointer into the ring, which reveals it -- the
 				     caption is bait for the trigger zone, not just copy. -->
-				<p class="start-caption">Your choice matters, think twice.</p>
+				<p class="start-caption">{$t('alloc.caption')}</p>
 				<button
 					type="button"
 					class="alloc-action start start-row"
 					disabled={allocLeft > 0}
 					onclick={confirmAllocation}
 				>
-					Start
+					{$t('alloc.start')}
 				</button>
 			</div>
 			<!-- Moved inside the glass panel, below Start, but keeping the
@@ -588,7 +600,7 @@
 			     band (nothing back there to hover once it's on the glass)
 			     and onto its own reserved spot under Start instead. -->
 			<div class="alloc-hint-zone" aria-hidden="true">
-				<p class="alloc-hint">See what happens if you put all tokens <br> in to one attribute.</p>
+				<p class="alloc-hint">{$t('alloc.hint')}</p>
 			</div>
 		</div>
 	</div>
@@ -598,8 +610,8 @@
 <div class="trajectory">
 	<div class="statbar">
 		<div class="country">
-			<span class="country-name">{country}</span>
-			<span class="sex">{sex}</span>
+			<span class="country-name">{countryLabel}</span>
+			<span class="sex">{sexLabel}</span>
 		</div>
 		{#each STAT_KEYS as key (key)}
 			<div class="stat">
@@ -669,7 +681,7 @@
 			<div class="stair-log">
 				{#each entries as entry, i (entry.id)}
 					<div class="step" class:fatal={entry.fatal} style="--step: {i % 5}">
-						<div class="step-tread">Age {entry.age}</div>
+						<div class="step-tread">{$t('log.age', { age: entry.age })}</div>
 						<div class="step-riser">
 							<p class="entry-text">{entry.text}</p>
 							{#if entry.statChanges.length}
@@ -696,7 +708,7 @@
 
 	{#if isEnd}
 		<div class="controls">
-			<Button onclick={goSummary}>View Summary</Button>
+			<Button onclick={goSummary}>{$t('log.viewSummary')}</Button>
 		</div>
 	{/if}
 </div>
@@ -1400,6 +1412,7 @@
 		font-size: max(0.7rem, 1.5cqh);
 		letter-spacing: 0.06em;
 		line-height: 1.4;
+		white-space: pre-line;
 		color: rgba(23, 38, 46, 0.72);
 		opacity: 0;
 		transition: opacity 3000ms ease;

@@ -23,6 +23,8 @@
 	import { videoStage } from '../components/videoStage.svelte.js';
 	import { CLIP_VOLUME, BG_DUCKED_SCALE } from '../audio.js';
 	import COUNTRIES from '../game/functions/countries.js';
+	import { t } from '../i18n.js';
+	import LangToggle from '../components/LangToggle.svelte';
 
 	const supported = videoStage.supported;
 
@@ -61,11 +63,13 @@
 		[0, 1], [1, 1], [2, 1], [3, 1], [4, 1],
 		[0, 2], [1, 2], [3, 2], [4, 2], // [2, 2] is the open black cabinet
 	];
+	// The door each country sits on is fixed by its English name's alphabetical
+	// order in every language (re-sorting by a translated name would shuffle
+	// the doors); only the label printed on the plate is localized.
 	const COUNTRY_CELLS = [...COUNTRIES]
 		.sort((a, b) => a.name.localeCompare(b.name))
-		.map(({ code, name }, i) => ({
+		.map(({ code }, i) => ({
 			code,
-			name,
 			x: DOOR_COLS[DOOR_SLOTS[i][0]],
 			y: DOOR_ROWS[DOOR_SLOTS[i][1]],
 		}));
@@ -293,7 +297,7 @@
 		     its cabinet door regardless of viewport shape. Same type
 		     treatment as the title screen's "click anywhere to begin". -->
 		<div class="select-overlay" style={overlayStyle}>
-			{#each COUNTRY_CELLS as { code, name, x, y } (code)}
+			{#each COUNTRY_CELLS as { code, x, y } (code)}
 				<button
 					type="button"
 					class="cell"
@@ -303,7 +307,7 @@
 						selectCountry(code);
 					}}
 				>
-					<span class="cell-label">{name}</span>
+					<span class="cell-label">{$t(`country.${code}`)}</span>
 				</button>
 			{/each}
 			<!-- The prompt lies "painted" on the morgue floor: a perspective
@@ -313,7 +317,7 @@
 			     -- the flicker this used to carry read as distracting/hard
 			     to read, so the text just sits there steady now. -->
 			<div class="floor-text" aria-hidden="true">
-				Which country would you<br />choose to be born in?
+				{$t('intro.pickCountry')}
 			</div>
 		</div>
 	{/if}
@@ -331,15 +335,23 @@
 				<line x1="21" y1="90" x2="63" y2="90" />
 			</svg>Samsara
 		</h1>
-		<p class="credit">by Yuwei Jiang</p>
-		<p class="hint">click anywhere to begin</p>
+		<p class="credit">{$t('intro.credit')}</p>
+		<p class="hint">{$t('intro.hint')}</p>
 	</div>
+
+	<!-- Start-screen only: the title loop is the one place the language can be
+	     chosen. Fades in with the rest of the title block. -->
+	{#if phase === 'loop'}
+		<div class="lang-slot">
+			<LangToggle />
+		</div>
+	{/if}
 
 	{#if phase === 'frozen'}
 		<!-- 2.mp4's own baked-in final frame reads "You are reborn today as
 		     a female" -- this sits just below it, same type treatment as
 		     .hint, so the two read as one continuous piece of UI. -->
-		<p class="continue-hint">continue</p>
+		<p class="continue-hint">{$t('intro.continue')}</p>
 	{/if}
 </div>
 
@@ -373,6 +385,9 @@
 	   swallowed when the hidden state never got painted (phase flips to
 	   'loop' within the first frames of a fast load). Hiding stays instant. */
 	.content:not(.hidden) {
+		animation: content-fade 3.2s ease both;
+	}
+	.lang-slot {
 		animation: content-fade 3.2s ease both;
 	}
 	.content.hidden {
@@ -539,6 +554,7 @@
 		line-height: 1.6;
 		letter-spacing: 0.12em;
 		text-align: center;
+		white-space: pre-line;
 		color: rgba(255, 255, 255, 0.85);
 		text-shadow:
 			0 0 0.4em rgba(180, 210, 230, 0.6),

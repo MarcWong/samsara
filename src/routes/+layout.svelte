@@ -2,8 +2,15 @@
 	import '../app.css';
 	import { base } from '$app/paths';
 	import RotateGate from '$lib/components/RotateGate.svelte';
+	import { lang } from '$lib/i18n.js';
 
 	let { children } = $props();
+
+	// app.html ships lang="en"; keep the document's language in step with the
+	// selected one (screen readers, CJK font selection, hyphenation).
+	$effect(() => {
+		document.documentElement.lang = $lang === 'zh' ? 'zh-CN' : 'en';
+	});
 </script>
 
 <svelte:head>

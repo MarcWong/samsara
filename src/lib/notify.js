@@ -1,17 +1,12 @@
 import { writable } from 'svelte/store';
 import { format } from './game/functions/util.js';
 import './game/events.js';
+import { tr } from './i18n.js';
 
 // Replaces the old app's two popup types (achievement.js's $$event('achievement', ...)
 // and the various $$event('message', [...]) calls from property.js) with one
-// toast list. Message templates are copied from src/i18n/en-us.js's F_* keys —
-// the old app's $lang indirection existed for zh-cn support, which this port
-// isn't carrying forward (see events.json's en-us-only rewrite earlier this
-// project), so the strings are inlined directly instead of re-adding an i18n layer.
-const MESSAGE_TEMPLATES = {
-    F_PropertyPointLeft: 'You have left {0} property point',
-    F_TalentReplace: 'Talent replace [{source.name}] -> [{target.name}]',
-};
+// toast list. Message templates are the old src/i18n/en-us.js F_* keys, now
+// kept (with their Chinese counterparts) in i18n.js as `msg.<key>`.
 
 const notifications = writable([]);
 let nextId = 0;
@@ -28,8 +23,8 @@ function dismiss(id) {
 }
 
 function formatMessage(key, args) {
-    const template = MESSAGE_TEMPLATES[key];
-    if (!template) return key;
+    const template = tr(`msg.${key}`);
+    if (template === `msg.${key}`) return key;
     return format(template, ...args);
 }
 
@@ -47,7 +42,7 @@ function wireNotifications() {
     });
 
     globalThis.$$on('achievement', achievement => {
-        notify('achievement', `Achievement unlocked: ${achievement.name}`);
+        notify('achievement', tr('msg.achievement', { name: achievement.name }));
     });
 }
 

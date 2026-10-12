@@ -22,12 +22,16 @@
      Known limitation, accepted for v1: the game underneath keeps running
      (auto-advance timers, video playback). The gate is for arriving in
      portrait; rotating mid-run is transient and self-corrects. -->
+<script>
+	import { t } from '../i18n.js';
+</script>
+
 <div class="rotate-gate" aria-hidden="true">
 	<div class="device">
 		<div class="screen"></div>
 	</div>
 	<p class="title">&#9792;Samsara</p>
-	<p class="hint">turn your phone sideways&nbsp;&mdash;<br />this life plays out in landscape</p>
+	<p class="hint">{$t('rotate.hint')}</p>
 </div>
 
 <style>
@@ -99,6 +103,7 @@
 		font-size: 1rem;
 		letter-spacing: 0.06em;
 		line-height: 1.6;
+		white-space: pre-line;
 		color: rgba(207, 231, 242, 0.75);
 	}
 

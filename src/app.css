@@ -46,7 +46,12 @@ body {
 	padding: 0;
 	height: 100%;
 	color: var(--text);
-	font-family: 'Agency FB', Consolas, Arial, sans-serif;
+	/* Agency FB / Consolas / Arial have no CJK glyphs; naming the platform
+	   CJK faces explicitly keeps Chinese on a clean sans instead of whatever
+	   the browser happens to pick. */
+	font-family:
+		'Agency FB', Consolas, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+		'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
 }
 
 /* Only html paints a background. If body also painted one, it would sit in
