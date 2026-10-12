@@ -19,8 +19,10 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        # package-lock.json isn't committed, so plain install, no cache.
-        run: npm install
+        # package-lock.json isn't committed, so no cache. --legacy-peer-deps
+        # because a fresh peer-dependency resolve currently crashes npm 10
+        # ("Cannot read properties of null (reading 'edgesOut')").
+        run: npm install --legacy-peer-deps
 
       - name: Test
         run: npm test
