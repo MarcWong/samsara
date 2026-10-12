@@ -23,7 +23,7 @@ jobs:
         # actions/setup-node's lockfile-based caching both have nothing to
         # key off -- confirmed live, this is also why web-ci.yml had been
         # failing since the git-lfs commit. Plain install, no cache.
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         # Overrides the /samsara base path baked into the main production
