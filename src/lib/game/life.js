@@ -176,11 +176,11 @@ class Life {
         // Attribute collapse is already a terminal state and has the highest
         // narrative priority. Do not let the tiny ambient-hazard roll replace
         // its cause of death; the zero-state branch itself still performs the
-        // established 40% national / 60% universal death replacement.
+        // established national / universal death replacement.
         // Big death-tier hard floor: in HTI/AF/EGY/IND any attribute at -3
         // or below ends the life NOW -- 10001 for Health, the generic
         // collapse 200004 otherwise. Both are attribute terminals, so the
-        // 40% national / 60% universal replacement split applies as usual.
+        // national / universal replacement split applies as usual.
         let forcedDeath = null;
         if(['HTI', 'AF', 'EGY', 'IND'].some(c => this.#property.get(c) > 0)) {
             if(this.#property.get('STR') <= -3) forcedDeath = 10001;

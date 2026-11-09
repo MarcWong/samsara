@@ -124,7 +124,7 @@
     "90012": {
         "id": "90012",
         "name": "Iron Lung",
-        "description": "Lost a lung in a hoverboard oopsie; they print a new one with coral-reef stem-cell ink. Now it photosynthesizes and filters smog—you outlive everyone purely because you breathe profit.",
+        "description": "Lost a lung in a hoverboard oopsie; they bioprint a new one with coral-reef stem-cell ink. Now it photosynthesizes and filters smog.",
         "condition": "AGE?[58]",
         "grade": 0,
         "effect": {
@@ -174,7 +174,7 @@
     "90017": {
         "id": "90017",
         "name": "Gul'dan, what must we give it return?",
-        "description": "The Quantum Brain Bridge vaccine makes you solve differential equations in your sleep—but permanently erases \"potato\" from your memory. You argue Kant with your toaster; +4 IQ, minus social grace.",
+        "description": "The Quantum Brain Bridge vaccine makes you solve differential equations in your sleep—but permanently erases \"potato\" from your memory. You argue Kant with your toaster.",
         "condition": "AGE?[13]",
         "grade": 0,
         "effect": {
