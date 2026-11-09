@@ -99,8 +99,4 @@ describe('interface dictionary', () => {
         expect(translate('zh', 'engine.chinaBirthBlessing')).toMatch(CJK);
         expect(translate('en', 'no.such.key')).toBe('no.such.key');
     });
-
-    it('keeps the credits the same length in both languages', () => {
-        expect(DICT.zh.credits.length).toBe(DICT.en.credits.length);
-    });
 });

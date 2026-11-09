@@ -19,6 +19,7 @@ const DICT = {
 	en: {
 		// Start screen
 		'intro.credit': 'by Yuwei Jiang',
+		'intro.reborn': '',
 		'intro.hint': 'click anywhere to begin',
 		'intro.continue': 'continue',
 		'intro.pickCountry': 'Which country would you\nchoose to be born in?',
@@ -97,7 +98,7 @@ const DICT = {
 			'Yuwei Jiang',
 			'Developer & Co-Design: Yao Wang',
 			'Music Design: Guanyu Xie',
-			'Built upon the open-source codebase of',
+			'Open Source Acknowledgments',
 			'LifeRestart by VickScarlet',
 			'Contact: sabinajiang0505@outlook.com',
 			'WeChat: SabinaJiang_Yuwei',
@@ -114,10 +115,11 @@ const DICT = {
 	},
 
 	zh: {
-		'intro.credit': '作者：Yuwei Jiang',
+		'intro.credit': '江 禹 葳　　作 品',
+		'intro.reborn': '你转生为女',
 		'intro.hint': '点击任意位置开始',
 		'intro.continue': '继续',
-		'intro.pickCountry': '你会选择\n出生在哪个国家？',
+		'intro.pickCountry': '你会选择\n出生在哪个国家',
 
 		'plaza.selectCountry': '> 选择出生国家_',
 		'plaza.selectOrientation': '选择你的性取向',
@@ -147,8 +149,8 @@ const DICT = {
 		'alloc.remaining': '剩余：%n%',
 		'alloc.random': '随机',
 		'alloc.start': '开始',
-		'alloc.caption': '你的选择很重要，三思而后行。',
-		'alloc.hint': '看看把所有点数都投入\n同一项属性会发生什么。',
+		'alloc.caption': '你的选择很重要\n三思而后行',
+		'alloc.hint': '看看把所有点数都投入\n同一项属性会发生什么',
 		'alloc.decrease': '减少%label%',
 		'alloc.increase': '增加%label%',
 
@@ -176,18 +178,17 @@ const DICT = {
 		'sum.talentLine': '%name%（%description%）',
 		'sum.print': '打印',
 		'sum.restart': '重启人生',
-		'sum.hint': '把所有点数都投入同一项属性，\n每项属性便会自动获得加成，\n然后——你就解锁了终身简单模式。',
+		'sum.hint': '人生是一场豪赌\n若你胆敢挑一个属性梭哈一把\n每项属性便会自动获得加成，\n你就解锁了天龙人模式。',
 		'sum.qr.play': '在家也能玩',
 		'sum.qr.instagram': '关注 Instagram',
 		'sum.qr.coffee': '请我们喝杯咖啡',
 		'sum.qr.discord': '加入 Discord 获取更新',
 		credits: [
-			'总导演 & 叙事设计：',
-			'Yuwei Jiang',
-			'开发 & 联合设计：Yao Wang',
-			'音乐设计：Guanyu Xie',
-			'基于开源项目',
-			'VickScarlet 的 LifeRestart',
+			'总设计：江禹葳',
+			'开发与联合设计：王尧',
+			'音乐设计：谢冠宇',
+			'Open Source Acknowledgments',
+			'LifeRestart by VickScarlet',
 			'联系方式：sabinajiang0505@outlook.com',
 			'微信：SabinaJiang_Yuwei',
 			'© 2022 Yuwei Jiang',
@@ -202,7 +203,7 @@ const DICT = {
 		// The two sentences the engine itself appends to events (see
 		// Life.localize) -- English lives in life.js as the default.
 		'engine.chinaBirthBlessing':
-			'你的母亲请AI算命师推演了你的命运，又为你求来一枚“无事牌”，盼它护你一生平安顺遂。',
+			'母亲请 AI 推算你的命运，又给你买了块平安符，保佑你一生平安顺遂。',
 		'engine.sprDepressionLine':
 			'每一句“我没事”都是一滴铅，每一句“算了”都是一根针。日复一日，你把自己塑造成一个“乖女孩”，直到这场表演硬化成了抑郁。',
 	},

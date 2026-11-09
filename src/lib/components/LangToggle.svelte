@@ -26,7 +26,7 @@
 	onkeydown={e => e.stopPropagation()}
 >
 	{#each OPTIONS as [code, label], i (code)}
-		{#if i > 0}<span class="sep" aria-hidden="true">|</span>{/if}
+		{#if i > 0}<span class="sep" aria-hidden="true">｜</span>{/if}
 		<button
 			type="button"
 			class="opt"
@@ -42,10 +42,9 @@
 
 <style>
 	.lang-toggle {
-		position: absolute;
-		top: max(1rem, env(safe-area-inset-top));
-		right: max(1.25rem, env(safe-area-inset-right));
 		display: flex;
+		justify-content: center;
+		pointer-events: auto;
 		align-items: center;
 		gap: 0.55em;
 		font-size: 1rem;

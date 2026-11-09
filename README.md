@@ -53,13 +53,25 @@ node repl
 
 ## Languages
 
-The game ships in English and Chinese (简体中文). The player picks the language with the **中文 | EN** switch in the top-right corner of the start screen; a fresh page load always starts in Chinese (`DEFAULT_LANG` in `src/lib/i18n.js`).
+The game ships in English and Chinese (简体中文). The player picks the language with the **中文｜EN** switch under the title on the start screen; a fresh page load always starts in Chinese (`DEFAULT_LANG` in `src/lib/i18n.js`).
 
 - `static/data/en-us/` is the original English data. It is the structure the engine runs on and is never edited for translation.
 - `static/data/zh-cn/` holds text-only overlays (`events.json`: event id → line, `talents.json`: id → name/description) applied on top of it, so a translation can't change conditions, effects or branches.
 - Interface strings (buttons, labels, credits, the printed receipt) live in `src/lib/i18n.js`.
 
 To add another language: add a `DICT` entry in `i18n.js`, a data folder under `static/data/`, and register it in `OVERLAY_DIRS` in `src/lib/game/core.js`. `npm test` checks that every event id and interface key is covered.
+
+## Running offline (exhibition)
+
+The game needs no network once it is built: every video, sound, font, data file and QR image is served locally.
+
+```bash
+npm install --legacy-peer-deps
+npm run build
+npm run preview
+```
+
+Open the address `preview` prints (it ends in `/samsara/`) in the kiosk browser; add `?kiosk` to tag the machine's runs. Without a connection the only thing lost is run telemetry: those requests fail silently and nothing is queued for later. Any static file server pointed at `build/` works the same way, as long as it serves the site under the `/samsara` path (or build with `BASE_PATH=/your-path`).
 
 ## Credits
 

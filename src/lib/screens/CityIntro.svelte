@@ -336,22 +336,35 @@
 			</svg>Samsara
 		</h1>
 		<p class="credit">{$t('intro.credit')}</p>
+		<!-- The language switch sits in the title block, between the byline
+		     and the prompt. Only mounted during the loop: .content is merely
+		     transparent in the other phases, and an invisible switch must not
+		     take clicks. -->
+		{#if phase === 'loop'}
+			<LangToggle />
+		{/if}
 		<p class="hint">{$t('intro.hint')}</p>
 	</div>
 
-	<!-- Start-screen only: the title loop is the one place the language can be
-	     chosen. Fades in with the rest of the title block. -->
-	{#if phase === 'loop'}
-		<div class="lang-slot">
-			<LangToggle />
-		</div>
-	{/if}
 
 	{#if phase === 'frozen'}
 		<!-- 2.mp4's own baked-in final frame reads "You are reborn today as
 		     a female" -- this sits just below it, same type treatment as
 		     .hint, so the two read as one continuous piece of UI. -->
 		<p class="continue-hint">{$t('intro.continue')}</p>
+		<!-- 2.mp4's last frame carries "You are reborn / as a girl" written on
+		     the fogged glass. Languages that need it get a subtitle between
+		     those two lines, pinned to the video rectangle and surfacing one
+		     character at a time, left to right. -->
+		{#if $t('intro.reborn')}
+			<div class="select-overlay" style={overlayStyle} aria-hidden="true">
+				<p class="reborn">
+					{#each [...$t('intro.reborn')] as char, i (i)}
+						<span style="animation-delay: {0.5 + i * 0.45}s">{char}</span>
+					{/each}
+				</p>
+			</div>
+		{/if}
 	{/if}
 </div>
 
@@ -387,9 +400,6 @@
 	.content:not(.hidden) {
 		animation: content-fade 3.2s ease both;
 	}
-	.lang-slot {
-		animation: content-fade 3.2s ease both;
-	}
 	.content.hidden {
 		opacity: 0;
 	}
@@ -402,7 +412,7 @@
 		}
 	}
 	.title {
-		font-size: clamp(2.5rem, 7vw, 4rem);
+		font-size: clamp(3.1rem, 8.6vw, 5rem);
 		margin: 0;
 		text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 		display: flex;
@@ -422,7 +432,7 @@
 	.credit {
 		/* A step below .hint's 1rem, and pulled up against the wordmark so
 		   the byline reads as part of the title block rather than the UI. */
-		margin: -0.65rem 0 0;
+		margin: -1.05rem 0 0;
 		font-size: 0.85rem;
 		letter-spacing: 0.22em;
 		color: rgba(255, 255, 255, 0.65);
@@ -455,6 +465,38 @@
 		color: rgba(255, 255, 255, 0.75);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 		animation: pulse 2.4s ease-in-out infinite;
+	}
+
+	.reborn {
+		position: absolute;
+		left: 51%;
+		top: 52.5%;
+		transform: translate(-50%, -50%);
+		margin: 0;
+		white-space: nowrap;
+		font-family: 'Yuanti SC', 'YouYuan', 'STYuanti', 'Hannotate SC', 'STKaiti', 'KaiTi', cursive;
+		font-weight: bold;
+		font-size: 5.6cqh;
+		letter-spacing: 0.35em;
+		color: rgba(226, 238, 244, 0.6);
+		text-shadow: 0 0 0.5em rgba(190, 215, 230, 0.45);
+	}
+	.reborn span {
+		display: inline-block;
+		opacity: 0;
+		animation: reborn-char 1.6s ease forwards;
+	}
+	@keyframes reborn-char {
+		from {
+			opacity: 0;
+			transform: translateY(0.18em);
+			filter: blur(3px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+			filter: none;
+		}
 	}
 
 	.select-overlay {

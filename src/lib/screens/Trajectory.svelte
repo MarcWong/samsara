@@ -577,6 +577,10 @@
 			     rule in the stylesheet). Wrapping rather than growing the
 			     button keeps Start's hit area exactly what it looks like --
 			     a click 0.5cqh outside the pill must not start the run. -->
+			<!-- Everything below the last stat row is one hover area for the
+			     hidden tip (visitors were not finding the two small zones it
+			     used to have); Start's own face stays excluded. -->
+			<div class="alloc-lower">
 			<div class="start-hover-zone">
 				<!-- Always visible, tight against Start, and INSIDE the hover
 				     ring on purpose: playtesters never discovered the hidden
@@ -602,7 +606,10 @@
 			<div class="alloc-hint-zone" aria-hidden="true">
 				<p class="alloc-hint">{$t('alloc.hint')}</p>
 			</div>
+			</div>
 		</div>
+		<!-- A second trigger strip in the stairwell, right of the + buttons. -->
+		<div class="alloc-side-zone" aria-hidden="true"></div>
 	</div>
 {/if}
 
@@ -1397,7 +1404,7 @@
 	.alloc-hint-zone {
 		position: relative;
 		margin: -1.5cqh -1.5cqw -2.5cqh;
-		padding: 3.5cqh 3.5cqw;
+		padding: 1.6cqh 3.5cqw 3.5cqh;
 	}
 	/* Two different transition speeds, one per direction. The duration
 	   declared here is the one that runs on the way BACK to this state --
@@ -1418,9 +1425,29 @@
 		transition: opacity 3000ms ease;
 		pointer-events: none;
 	}
-	.alloc-hint-zone:hover .alloc-hint {
+	.alloc-hint-zone:hover .alloc-hint,
+	.alloc-lower:hover:not(:has(.alloc-action:hover)) .alloc-hint,
+	.alloc-overlay:has(.alloc-side-zone:hover) .alloc-hint {
 		opacity: 1;
 		transition: opacity 300ms ease;
+	}
+	.alloc-lower {
+		/* Reaches up to the bottom edge of the last row's +/- circles. */
+		margin-top: -2cqh;
+		padding-top: 2cqh;
+		flex: 1;
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.alloc-side-zone {
+		position: absolute;
+		left: 59%;
+		top: 24%;
+		width: 9%;
+		height: 50%;
+		pointer-events: auto;
 	}
 	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
 	   wrapper for hit-testing and the equal negative margin takes the growth
@@ -1439,7 +1466,9 @@
 		   left in place it would sit INSIDE the ring, making the ring 2.5cqh
 		   tall on those two edges instead of 0.5cqh (measured: 19.5px vs the
 		   3.9px the sides get). */
-		margin: 1.5cqh -0.5cqh;
+		/* Top margin trimmed (was 1.5cqh) to make room for the caption's
+		   second line without pushing the tip below the panel's edge. */
+		margin: 0.2cqh -0.5cqh 1.5cqh;
 		padding: 0.5cqh;
 	}
 	.start-hover-zone > .alloc-action.start-row {
@@ -1450,6 +1479,9 @@
 		font-size: max(0.75rem, 1.6cqh);
 		letter-spacing: 0.08em;
 		font-weight: bold;
+		line-height: 1.35;
+		white-space: pre-line;
+		text-align: center;
 		color: rgba(23, 38, 46, 0.95);
 		pointer-events: auto;
 	}
