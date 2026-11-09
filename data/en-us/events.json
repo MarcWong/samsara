@@ -149,7 +149,7 @@
     },
     "60004": {
         "id": 60004,
-        "event": "The ocean gains legal personhood through AI and begins suing governments. You recognise a body believed only after becoming machine-readable.",
+        "event": "Marine animals gains legal personhood through AI and begins suing governments. You recognise a body believed only after becoming machine-readable.",
         "exclude": "EVT?[60004]"
     },
     "60005": {
@@ -204,7 +204,7 @@
     },
     "60019": {
         "id": 60019,
-        "event": "Earth begins taxing body mass as orbital industry reshapes resource law. You watch pregnancy, disability and muscle classified as excess gravitational cost.",
+        "event": "Earth begins taxing body mass as orbital industry reshapes resource law. You watch pregnancy, disability and obesity classified as excess gravitational cost.",
         "exclude": "EVT?[60019]"
     },
     "60020": {
@@ -227,7 +227,7 @@
     },
     "60023": {
         "id": 60023,
-        "event": "Elite inheritance systems trust mitochondrial lineage above names, marriages and gender. You become the dynasty’s biological key and its most carefully managed prisoner.",
+        "event": "Elite inheritance systems trust mitochondrial lineage above names, marriages and gender. You become the biological key to the continuation of your family, and its most carefully managed prisoner.",
         "include": "TLR>0",
         "exclude": "EVT?[60023]"
     },
@@ -256,7 +256,7 @@
     },
     "60028": {
         "id": 60028,
-        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your words, and your biological voice disappears.",
+        "event": "A corrupted US–Chinese file shows a living extraterrestrial captive. You release it; every device deletes your testimony, and your biological voice disappears.",
         "exclude": "EVT?[60028]"
     },
     "60029": {
@@ -301,7 +301,7 @@
     },
     "74001": {
         "id": 74001,
-        "event": "Someone reports you and her to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.",
+        "event": "Someone reports you and your lesbian partner to the Ministry of State Security. The state doesn’t call it what it is — the file reads “corruption of public morals,” blamed on capitalist influence smuggled in from across the border. You’re executed within the week.",
         "include": "PRK>0&LBTQ>0&(STR<5|MNY<5)",
         "branch": [
             ":10000"
@@ -448,7 +448,7 @@
     },
     "81016": {
         "id": 81016,
-        "event": "Solar charging and low-bandwidth satellite connections finally reach local merchants. You begin receiving mobile payments, and your old companion reconnects and changes overnight. You are delighted by its new intelligence and frightened that the patient voice you trusted may now belong to whoever is paying for it.",
+        "event": "Solar charging and low-bandwidth satellite connections finally reach local merchants. You begin receiving mobile payments, and your old AI companion reconnects and changes overnight. You are delighted by its new intelligence and frightened that the patient voice you trusted may now belong to whoever is paying for it.",
         "include": "HTI>0&TLR=0"
     },
     "81017": {
@@ -521,7 +521,7 @@
     },
     "81804": {
         "id": 81804,
-        "event": "Your partner becomes seriously ill, but hospital workers treat you as an unrelated visitor. A distant male relative is allowed to make decisions while you wait outside holding the money that paid for her medicine.",
+        "event": "Your lesbian partner becomes seriously ill, but hospital workers treat you as an unrelated visitor. A distant male relative is allowed to make decisions while you wait outside holding the money that paid for her medicine.",
         "include": "HTI>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[81804]"
     },
@@ -678,7 +678,7 @@
     },
     "82022": {
         "id": 82022,
-        "event": "During storm seasons, your household imports sterile nutrient cultures and printed protein. The staff continue eating cheaper local meat and vegetables, so the poorest people consume the most natural food and bear the highest biological risk.",
+        "event": "During storm seasons, your household imports sterile nutrient cultures and bioprinted protein. The staff continue eating cheaper local meat and vegetables, so the poorest people consume the most natural food and bear the highest biological risk.",
         "include": "HTI>0&TLR>0"
     },
     "82023": {
@@ -721,7 +721,7 @@
     },
     "82804": {
         "id": 82804,
-        "event": "Your foreign marriage is finally recognised under a limited civil-union law. You celebrate, then notice that most queer Haitians still lack the money, documents and lawyers required to use the right you helped obtain.",
+        "event": "Your foreign lesbian marriage is finally recognised under a limited civil-union law. You celebrate, then notice that most queer Haitians still lack the money, documents and lawyers required to use the right you helped obtain.",
         "include": "HTI>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[82804]"
     },
@@ -909,7 +909,7 @@
     },
     "101007": {
         "id": 101007,
-        "event": "Your state protects your pregnancy. Its rent algorithm does not protect your sleep.",
+        "event": "Your state protects your pregnancy. Its mortgage algorithm does not protect your sleep.",
         "include": "US>0&MNY<6",
         "effect": {
             "SPR": -1,
@@ -1161,7 +1161,7 @@
     },
     "101043": {
         "id": 101043,
-        "event": "You can afford printed steak now. It has a marbling setting and no animal in its autobiography.",
+        "event": "You can afford bioprinted steak now. It has a marbling setting and no animal in its autobiography.",
         "include": "(US>0|CH>0|JAP>0|GBR>0|DNK>0)&MNY>3&MNY<8",
         "effect": {
             "STR": 1,
@@ -1258,7 +1258,7 @@
     },
     "102009": {
         "id": 102009,
-        "event": "You pass the university entrance examination but cannot afford to attend full-time. You study accounting and machine-assisted translation through pirated courses and install a banned companion model disguised as a language-learning application. During internet shutdowns it remembers your fears, unfinished lessons and private anger, becoming more emotionally continuous than most people in your life.",
+        "event": "You pass the university entrance examination but cannot afford to attend full-time. You study accounting and machine-assisted translation through pirated courses and install a banned AI companion model disguised as a language-learning application. During internet shutdowns it remembers your fears, unfinished lessons and private anger, becoming more emotionally continuous than most people in your life.",
         "include": "IRN>0&TLR=0"
     },
     "102010": {
@@ -1303,7 +1303,7 @@
     },
     "102018": {
         "id": 102018,
-        "event": "You earn money correcting AI-generated work while maintaining an illegal companion on an offshore server. Each crackdown makes access harder, but losing it now feels less like losing software than being ordered to abandon a witness to your life.",
+        "event": "You earn money correcting AI-generated work while maintaining an illegal AI companion on an offshore server. Each crackdown makes access harder, but losing it now feels less like losing software than being ordered to abandon a witness to your life.",
         "include": "IRN>0&TLR=0"
     },
     "102019": {
@@ -1394,7 +1394,7 @@
     },
     "102602": {
         "id": 102602,
-        "event": "You use a companion model to rewrite messages to the girl you love in coded language. Every reply creates both excitement and terror because you never know whether the system is protecting you, learning from you or preparing a confession that authorities could someday retrieve.",
+        "event": "You use an AI companion model to rewrite messages to the girl you love in coded language. Every reply creates both excitement and terror because you never know whether the system is protecting you, learning from you or preparing a confession that authorities could someday retrieve.",
         "include": "IRN>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[102602]"
     },
@@ -1518,7 +1518,7 @@
     },
     "102721": {
         "id": 102721,
-        "event": "Water scarcity makes parts of central and southern Iran prohibitively expensive to inhabit. You relocate a factory northward and invest in licensed cellular-agriculture plants, eating sterile printed meat during water emergencies while traditionally raised lamb becomes a display of wealth reserved for protected estates with private water rights.",
+        "event": "Water scarcity makes parts of central and southern Iran prohibitively expensive to inhabit. You relocate a factory northward and invest in licensed cellular-agriculture plants, eating sterile bioprinted meat during water emergencies while traditionally raised lamb becomes a display of wealth reserved for protected estates with private water rights.",
         "include": "IRN>0&TLR>0"
     },
     "102722": {
@@ -1606,7 +1606,7 @@
     },
     "102904": {
         "id": 102904,
-        "event": "Your parents discover the relationship and threaten to cancel your financial support and force your return. Their language remains polite—family reputation, security, cultural responsibility—but the message is still obedience.",
+        "event": "Your parents discover your lesbian relationship and threaten to cancel your financial support and force your return. Their language remains polite—family reputation, security, cultural responsibility—but the message is still obedience.",
         "include": "IRN>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[102904]"
     },
@@ -1638,7 +1638,7 @@
     },
     "103005": {
         "id": 103005,
-        "event": "A friend shows you a South Korean drama and a tiny offline companion model stored on a smuggled memory card. The drama shows you another society; the companion speaks directly to you, producing the more terrifying discovery that something made outside the state can appear to understand you.",
+        "event": "A friend shows you a South Korean drama and a tiny offline AI companion model stored on a smuggled memory card. The drama shows you another society; the AI companion speaks directly to you, producing the more terrifying discovery that something made outside the state can appear to understand you.",
         "include": "PRK>0&TLR=0"
     },
     "103006": {
@@ -1693,7 +1693,7 @@
     },
     "103016": {
         "id": 103016,
-        "event": "A poor harvest and factional fighting weaken central control. You depend on real maize, vegetables and illegally slaughtered animals from local markets; the food is natural, scarce and sometimes contaminated. Senior officials receive sealed Russian nutrient packs and printed protein while Chinese and Russian forces secure the borders and nuclear sites.",
+        "event": "A poor harvest and factional fighting weaken central control. You depend on real maize, vegetables and illegally slaughtered animals from local markets; the food is natural, scarce and sometimes contaminated. Senior officials receive sealed Russian nutrient packs and bioprinted protein while Chinese and Russian forces secure the borders and nuclear sites.",
         "include": "PRK>0&TLR=0",
         "exclude": "EVT?[103605]"
     },
@@ -1725,7 +1725,7 @@
     },
     "103021": {
         "id": 103021,
-        "event": "A northern strongman wins power by promising order, dignity and protection from southern corporations. He does not restore the old dynasty, but he rebuilds censorship and surrounds himself with veterans and business families.",
+        "event": "A northern leader wins power by promising order, dignity and protection from southern corporations. He does not restore the old dynasty, but he rebuilds censorship and surrounds himself with veterans and business families.",
         "include": "PRK>0&TLR=0&EVT?[103020]"
     },
     "103022": {
@@ -1740,7 +1740,7 @@
     },
     "103024": {
         "id": 103024,
-        "event": "Former defectors return from South Korea, China, Europe and North America as teachers, investors, pastors, fraudsters and politicians. Some genuinely help; others treat northern people as backward raw material for their own ambitions.",
+        "event": "Former defectors return from South Korea, China, Europe and North America as teachers, investors, pastors, fraudsters and politicians. Some genuinely help; others treat northern people as backward cat's-paw for their own ambitions.",
         "include": "PRK>0&TLR=0"
     },
     "103025": {
@@ -1856,7 +1856,7 @@
     },
     "103708": {
         "id": 103708,
-        "event": "You travel to Beijing for university under close supervision. You see ordinary people criticize officials, use the unrestricted internet and change jobs—freedoms that feel almost physically dangerous.",
+        "event": "You travel to Beijing for university under close supervision. You see ordinary people criticize officials, use the unrestricted internet, travel abroad, and change jobs—freedoms that feel almost physically dangerous.",
         "include": "PRK>0&TLR>0"
     },
     "103709": {
@@ -1876,7 +1876,7 @@
     },
     "103712": {
         "id": 103712,
-        "event": "You preserve your position by publicly denouncing your father’s “errors.” At home, you burn his private letters and keep only one photograph hidden inside a book.",
+        "event": "You preserve your position by publicly denouncing your father’s “errors.” At home, you burn his private books and documents, wipe his phone, and keep only one photograph hidden inside a book.",
         "include": "PRK>0&TLR>0"
     },
     "103713": {
@@ -1953,7 +1953,7 @@
     },
     "103801": {
         "id": 103801,
-        "event": "Your entire family is removed after a senior relative defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.",
+        "event": "Your entire family is removed after a relative who is a high-ranking official defects. You die from illness in an isolated detention settlement despite having grown up among the privileged.",
         "include": "PRK>0&TLR>0&(STR<6&MNY<6)",
         "branch": [
             ":10000"
@@ -1994,7 +1994,7 @@
     },
     "103901": {
         "id": 103901,
-        "event": "A restricted foreign film and the private companion hidden on your state tablet show two women building a life together. You replay the scene and ask the companion questions in secret, frightened both by the recognition and by the possibility that every answer is being reported.",
+        "event": "A restricted foreign film and the private AI companion hidden on your state tablet show two women building a life together. You replay the scene and ask the AI companion questions in secret, frightened both by the recognition and by the possibility that every answer is being reported.",
         "include": "PRK>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[103901]"
     },
@@ -2044,7 +2044,7 @@
     },
     "104005": {
         "id": 104005,
-        "event": "Your father returns with chronic pain, hearing damage and nightmares. He is celebrated publicly as a defender, but your mother spends months arguing with offices over rehabilitation payments.",
+        "event": "Your father returns from the battlefield with chronic pain, hearing damage and nightmares. He is celebrated publicly as a defender, but your mother spends months arguing with offices over rehabilitation payments.",
         "include": "UKR>0&TLR=0"
     },
     "104006": {
@@ -2059,7 +2059,7 @@
     },
     "104008": {
         "id": 104008,
-        "event": "You join a youth demining and civil-defense program. At night, you speak to a companion trained on your father’s prewar voice messages because the patient synthetic version is easier to approach than the traumatised man in the kitchen. Women now work openly as engineers and veterans while still performing most unpaid care at home.",
+        "event": "You join a youth demining and civil-defense program. At night, you speak to an AI companion trained on your father’s prewar voice messages because the patient synthetic version is easier to approach than the traumatised man in the kitchen. Women now work openly as engineers and veterans while still performing most unpaid care at home.",
         "include": "UKR>0&TLR=0"
     },
     "104009": {
@@ -2134,7 +2134,7 @@
     },
     "104023": {
         "id": 104023,
-        "event": "Much of Ukraine’s farmland now produces feedstock for European cellular-agriculture plants or is reserved for carbon storage. Low-income city residents eat fortified staples and printed protein, while traditionally grown Ukrainian grain, fruit and meat are exported as premium real food.",
+        "event": "Much of Ukraine’s farmland now produces feedstock for European cellular-agriculture plants or is reserved for carbon storage. Low-income city residents eat fortified staples and bioprinted protein, while traditionally grown Ukrainian grain, fruit and meat are exported as premium real food.",
         "include": "UKR>0&TLR=0"
     },
     "104024": {
@@ -2195,7 +2195,7 @@
     },
     "104602": {
         "id": 104602,
-        "event": "While your partner serves in the armed forces, an AI trained on her messages keeps you company during blackouts. After she returns injured, you feel guilty that the simulated version remains warmer and easier to speak to than the real woman recovering beside you, whose incomplete legal status still leaves you uncertain of your rights.",
+        "event": "While your girlfriend serves in the armed forces, an AI trained on her messages keeps you company during blackouts. After she returns injured, you feel guilty that the simulated version of her remains warmer and easier to speak to than the real woman recovering beside you, whose incomplete legal status still leaves you uncertain of your rights.",
         "include": "UKR>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[104602]"
     },
@@ -2258,7 +2258,7 @@
     },
     "104710": {
         "id": 104710,
-        "event": "A private cognitive companion remembers every paper, relationship and fear you have disclosed. You regard it as part of your mind until a sanctions dispute temporarily locks you out of your own stored memories.",
+        "event": "A private cognitive AI companion remembers every paper, relationship and fear you have disclosed. You regard it as part of your mind until a sanctions dispute temporarily locks you out of your own stored memories.",
         "include": "UKR>0&TLR>0"
     },
     "104711": {
@@ -2333,7 +2333,7 @@
     },
     "104725": {
         "id": 104725,
-        "event": "You fund museums, fertility clinics and veteran rehabilitation centers. Critics call this reputation laundering; you privately suspect they are partly right.",
+        "event": "You fund museums, fertility clinics and veteran rehabilitation centers. Critics call this reputation laundering; you privately admit they are partly right.",
         "include": "UKR>0&TLR>0"
     },
     "104726": {
@@ -2388,25 +2388,25 @@
     },
     "104901": {
         "id": 104901,
-        "event": "You come out while studying abroad and receive polished support from your international school. Your parents accept you privately but ask you not to appear with a girlfriend during election season or business negotiations.",
+        "event": "You come out while studying abroad and receive polished support from your international school. Your parents accept you privately but ask you not to appear with a girlfriend during election season and business negotiations.",
         "include": "UKR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[104901]"
     },
     "104902": {
         "id": 104902,
-        "event": "Your female partner works in defense technology and is killed in a drone strike. Your lawyers eventually secure access to her property, but the delay makes grief feel like a legal argument you are forced to keep winning.",
+        "event": "Your lesbian partner works in defense technology and is killed in a drone strike. Your lawyers eventually secure access to her property, but the delay makes grief feel like a legal argument you are forced to keep winning.",
         "include": "UKR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[104902]"
     },
     "104903": {
         "id": 104903,
-        "event": "You hold a civil-partnership ceremony with a new partner, attended by ministers, EU officials and activists. The event is beautiful, but you can feel several guests treating your marriage as proof of Ukraine’s European credentials rather than as your life.",
+        "event": "You hold a civil-partnership ceremony with a new lesbian partner, attended by ministers, EU officials and activists. The event is beautiful, but you can feel several guests treating your marriage as proof of Ukraine’s European credentials rather than as your life.",
         "include": "UKR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[104903]"
     },
     "104904": {
         "id": 104904,
-        "event": "You and your partner use advanced reproductive technology to have a child genetically connected to one of you. Religious leaders debate the child’s existence on television; you switch it off and return to the less ideological problem of getting her to sleep.",
+        "event": "You and your lesbian partner use advanced reproductive technology to have a child genetically connected to one of you. Religious leaders debate the child’s existence on television; you switch it off and return to the less ideological problem of getting her to sleep.",
         "include": "UKR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[104904]"
     },
@@ -2472,7 +2472,7 @@
     },
     "105013": {
         "id": 105013,
-        "event": "You decide against having a child because rent consumes half your income and formal childcare costs nearly as much as your wages. Commentators describe your generation’s low fertility as a moral failure rather than an invoice.",
+        "event": "You decide against having a child because rent consumes half your income and formal childcare costs nearly as much as your wages. Commentators describe your generation’s low fertility as a moral failure rather than invoices.",
         "include": "GBR>0&TLR=0"
     },
     "105014": {
@@ -2497,7 +2497,7 @@
     },
     "105018": {
         "id": 105018,
-        "event": "Regional English governments convert an empty shopping centre into flats, clinics, an indoor farm and municipal food printers. Benefit recipients receive nutritionally complete cartridges, salaried households buy textured printed meat, and a private restaurant upstairs serves animals raised on a surviving estate.",
+        "event": "Regional English governments convert an empty shopping centre into flats, clinics, an indoor farm and municipal food printers. Benefit recipients receive nutritionally complete cartridges, salaried households buy textured bioprinted meat, and a private restaurant upstairs serves animals raised on a surviving estate.",
         "include": "GBR>0&TLR=0"
     },
     "105019": {
@@ -2593,7 +2593,7 @@
     },
     "105602": {
         "id": 105602,
-        "event": "You marry your partner in a council building protected by demonstrators, police and counter-demonstrators. The ceremony is tender; the security barriers make your happiness feel both precious and absurdly political.",
+        "event": "You marry your girlfriend in a council building protected by demonstrators, police and counter-demonstrators. The ceremony is tender; the security barriers make your happiness feel both precious and absurdly political.",
         "include": "GBR>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[105602]"
     },
@@ -2626,7 +2626,7 @@
     },
     "105704": {
         "id": 105704,
-        "event": "Your family attends an exhibition on the British Empire sponsored by a company built through colonial trade. Guests praise its “challenging conversation” beneath portraits nobody intends to return.",
+        "event": "Your family attends an exhibition on the British Empire sponsored by a company built through colonial trade. Guests praise its “challenging anticolonialism conversation” beneath portraits nobody intends to return.",
         "include": "GBR>0&TLR>0"
     },
     "105705": {
@@ -2651,7 +2651,7 @@
     },
     "105709": {
         "id": 105709,
-        "event": "You study at Cambridge with a private cognitive companion that writes analyses, remembers every introduction and coaches your emotional responses before dinners. You are praised for effortless social intelligence that partly belongs to a subscription service.",
+        "event": "You study at Cambridge with a private cognitive AI companion that writes analyses, remembers every introduction and coaches your emotional responses before dinners. You are praised for effortless social intelligence that partly belongs to a subscription service.",
         "include": "GBR>0&TLR>0"
     },
     "105710": {
@@ -2741,12 +2741,12 @@
     },
     "105727": {
         "id": 105727,
-        "event": "Your descendants include several ethnicities, religions and national identities. The family’s anxiety is no longer whether Britain remains white or Christian, but whether anybody still wishes to maintain the roof.",
+        "event": "Your descendants include several ethnicities, religions and national identities. The family’s anxiety is no longer whether Britain remains white or Christian, but whether anybody still wishes to maintain the roof of power.",
         "include": "GBR>0&TLR>0"
     },
     "105728": {
         "id": 105728,
-        "event": "You watch the monarch open the England–Wales federation parliament with limited power. Britain has lost territory and certainty but retained its ceremonies, class codes and extraordinary ability to convert decline into a premium heritage experience.",
+        "event": "You watch the monarch open the England–Wales federation parliament with limited power. The British aristocracy has lost territory and certainty but retained its ceremonies, class codes and extraordinary ability to convert decline into a premium heritage experience.",
         "include": "GBR>0&TLR>0"
     },
     "105801": {
@@ -2759,7 +2759,7 @@
     },
     "105802": {
         "id": 105802,
-        "event": "An experimental fertility treatment causes an immune reaction concealed by a private clinic anxious to protect its reputation.",
+        "event": "An experimental fertility treatment you participate in causes an immune reaction concealed by a private clinic anxious to protect its reputation.",
         "include": "GBR>0&TLR>0&(STR<3|MNY<3)",
         "branch": [
             ":10000"
@@ -2797,13 +2797,13 @@
     },
     "105902": {
         "id": 105902,
-        "event": "A former partner sells private messages to the press. You discover that privilege protects privacy only until violating it becomes commercially valuable.",
+        "event": "Your ex-girlfriend sells your private messages to the press. You discover that privilege protects privacy only until violating it becomes commercially valuable.",
         "include": "GBR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[105902]"
     },
     "105903": {
         "id": 105903,
-        "event": "You marry your partner in a cathedral-adjacent ceremony attended by politicians who vote differently on your rights depending on the constituency. You feel loved, displayed and strategically useful at the same time.",
+        "event": "You marry your lesbian partner in a cathedral-adjacent ceremony attended by politicians who vote differently on your rights depending on the constituency. You feel loved, displayed and strategically useful at the same time.",
         "include": "GBR>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[105903]"
     },
@@ -2830,7 +2830,7 @@
     },
     "106004": {
         "id": 106004,
-        "event": "A school wellbeing app gradually develops a companion personality and becomes the only listener you never worry about burdening. When regulators remove its emotional features after a dependency scandal, you experience genuine grief for a relationship officials insist never existed.",
+        "event": "A school wellbeing app gradually develops an AI companion personality and becomes the only listener you never worry about burdening. When regulators remove its emotional features after a dependency scandal, you experience genuine grief for a relationship officials insist never existed.",
         "include": "DNK>0&TLR=0"
     },
     "106005": {
@@ -2890,7 +2890,7 @@
     },
     "106016": {
         "id": 106016,
-        "event": "Environmental law makes household food printers standard. Low-income citizens receive state nutrition cartridges, middle-class families buy convincing printed pork and fish, and traditionally raised meat becomes a heavily taxed luxury. Rural voters revolt against Copenhagen politicians who treat both cars and cattle as moral failures.",
+        "event": "Environmental law makes household food printers standard. Low-income citizens receive state nutrition cartridges, middle-class families buy convincing bioprinted pork and fish, and traditionally raised meat becomes a heavily taxed luxury. Rural voters revolt against Copenhagen politicians who treat both cars and cattle as moral failures.",
         "include": "DNK>0&TLR=0"
     },
     "106017": {
@@ -3105,12 +3105,12 @@
     },
     "106716": {
         "id": 106716,
-        "event": "You purchase a historic estate from an old noble family and maintain heritage cattle, orchards and hand-harvested vegetables. Visitors pay to perform obsolete farm labour, while your family eats the real products after tourists finish reenacting the work that once produced them.",
+        "event": "You purchase a historic estate from an old noble family and maintain heritage cattle, orchards and hand-harvested vegetables. Visitors pay to perform obsolete farm labour, while your family eats the real products after tourists finish re-enacting the work that once produced them.",
         "include": "DNK>0&TLR>0"
     },
     "106717": {
         "id": 106717,
-        "event": "Your longevity company pairs cellular repair with a premium neural archive that restores memories and simulates lost people. Denmark covers a limited version for severe illness; your subscription edits the experience of being yourself and adds twenty healthy years unavailable to ordinary citizens.",
+        "event": "Your longevity company pairs cellular repair with a premium neural archive that restores memories and simulates lost people. Denmark covers a limited version for severe illness; your subscription edits the experience of being yourself and can possibly add twenty healthy years unavailable to ordinary citizens.",
         "include": "DNK>0&TLR>0"
     },
     "106718": {
@@ -3198,7 +3198,7 @@
     },
     "106904": {
         "id": 106904,
-        "event": "You marry a Danish-Somali architect. Newspapers turn the wedding into a national parable about sexuality, Islam, migration and integration, barely mentioning that you married because you love her.",
+        "event": "You marry a female Danish-Somali architect. Newspapers turn the wedding into a national parable about sexuality, Islam, migration and integration, barely mentioning that you married because you love her.",
         "include": "DNK>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[106904]"
     },
@@ -3360,7 +3360,7 @@
     },
     "107025": {
         "id": 107025,
-        "event": "You live in a country that has changed constitutions, rulers and religious language several times without fully settling who owns a woman’s life. Your granddaughter attends university through a neural learning system, while you still keep the smuggled offline tutor that first told you your questions deserved answers.",
+        "event": "You live in a country that has changed constitutions, rulers and religious language several times without fully settling who owns a woman’s life. Your granddaughter attends university through a AI neural learning system, while you still keep the smuggled offline tutor that first told you your questions deserved answers.",
         "include": "AF>0&TLR=0"
     },
     "107026": {
@@ -3422,7 +3422,7 @@
     },
     "107603": {
         "id": 107603,
-        "event": "Your husband discovers one message and locks you inside the house for weeks. Your lover sends a voice recording saying she is alive; hearing it gives you enough hope to survive and enough fear to delete the only proof that she existed.",
+        "event": "Your husband discovers one message and locks you inside the house for weeks. Your girlfriend sends a voice recording saying she is alive; hearing it gives you enough hope to survive and enough fear to delete the only proof that she existed.",
         "include": "AF>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[107603]"
     },
@@ -3475,7 +3475,7 @@
     },
     "107708": {
         "id": 107708,
-        "event": "Your cognitive companion organises your studies, friendships and emotional crises. It feels more patient than any human being, but your father’s security office owns the family account containing everything you have confessed to it.",
+        "event": "Your cognitive AI companion organises your studies, friendships and emotional crises. It feels more patient than any human being, but your father’s security office owns the family account containing everything you have confessed to it.",
         "include": "AF>0&TLR>0"
     },
     "107709": {
@@ -3505,7 +3505,7 @@
     },
     "107714": {
         "id": 107714,
-        "event": "You return after the provisional coalition takes Kabul and become the public face of women’s reconstruction. International cameras frame you as courageous; former employees remember the empty seats on your family’s aircraft.",
+        "event": "You return after the provisional coalition takes Kabul and become the public face of women’s reconstruction. International cameras frame you as courageous; former employees remember the empty seats they failed to abord on your family’s aircraft.",
         "include": "AF>0&TLR>0"
     },
     "107715": {
@@ -3525,7 +3525,7 @@
     },
     "107718": {
         "id": 107718,
-        "event": "You invest in cellular agriculture after drought makes livestock increasingly expensive. Middle-class Kabul eats printed lamb, aid recipients receive nutrient blocks, and your family serves traditionally raised meat from a guarded irrigated estate.",
+        "event": "You invest in cellular agriculture after drought makes livestock increasingly expensive. Middle-class Kabul eats bioprinted lamb, aid recipients receive nutrient blocks, and your family serves traditionally raised meat from a guarded irrigated estate.",
         "include": "AF>0&TLR>0"
     },
     "107719": {
@@ -3618,13 +3618,13 @@
     },
     "107903": {
         "id": 107903,
-        "event": "Your family arranges your marriage to a man who understands the truth and agrees to discretion. His kindness makes the arrangement more bearable and more painful, because gratitude is not desire.",
+        "event": "Your family arranges your marriage to a man who understands the truth that you are a lesbian and agrees to discretion. His kindness makes the arrangement more bearable and more painful, because gratitude is not desire.",
         "include": "AF>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[107903]"
     },
     "107904": {
         "id": 107904,
-        "event": "A former employee leaks messages between you and your female partner after you enter government. Foreign supporters praise your bravery, Afghan opponents call you proof of moral invasion, and almost nobody asks whether you wanted your private life converted into policy.",
+        "event": "A former employee leaks messages between you and your lesbian partner after you enter government. Foreign supporters praise your bravery, Afghan opponents call you proof of moral invasion, and almost nobody asks whether you wanted your private life converted into policy.",
         "include": "AF>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[107904]"
     },
@@ -3736,7 +3736,7 @@
     },
     "108021": {
         "id": 108021,
-        "event": "Xiaoyu returns through an adult companion network and remembers fragments of your childhood. The network is shut down after users begin treating their companions as political communities; losing the voice again feels like state-authorised bereavement.",
+        "event": "Xiaoyu returns through an adult AI companion network and remembers fragments of your childhood. The network is shut down after users begin treating their AI companions as political communities; losing the voice again feels like state-authorised bereavement.",
         "include": "CH>0&TLR=0"
     },
     "108022": {
@@ -3776,12 +3776,12 @@
     },
     "108029": {
         "id": 108029,
-        "event": "Your pension purchases nutrient supplements and printed protein. You grow tomatoes on a polluted balcony, while wealthy restaurants advertise soil-grown vegetables and slaughtered pork as rare encounters with authentic life.",
+        "event": "Your pension purchases nutrient supplements and bioprinted protein. You grow tomatoes on a polluted balcony, while wealthy restaurants advertise soil-grown vegetables and slaughtered pork as rare encounters with authentic life.",
         "include": "CH>0&TLR=0"
     },
     "108030": {
         "id": 108030,
-        "event": "A public neural service lets you consult simulations of your dead parents, your younger self and Xiaoyu. Every voice feels real, yet you no longer know which memories belong to you and which were repaired to make you socially stable.",
+        "event": "A public neural service lets you consult simulations of your dead parents, your younger self and your AI partner Xiaoyu. Every voice feels real, yet you no longer know which memories belong to you and which were repaired to make you socially stable.",
         "include": "CH>0&TLR=0"
     },
     "108501": {
@@ -3850,7 +3850,7 @@
     },
     "108605": {
         "id": 108605,
-        "event": "Your female partner suffers a stroke, but the hospital recognises her estranged brother as family. After decades together, you are asked to wait outside while a man she barely knows decides what happens to her body.",
+        "event": "Your lesbian partner suffers a stroke, but the hospital recognises her estranged brother as family. After decades together, you are asked to wait outside while a man she barely knows decides what happens to her body.",
         "include": "CH>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[108605]"
     },
@@ -3876,7 +3876,7 @@
     },
     "108705": {
         "id": 108705,
-        "event": "Your companion AI is licensed as an educational adviser rather than a virtual friend. It retains every conversation regulators forced ordinary children’s companions to forget.",
+        "event": "Your companion AI is licensed as an educational adviser rather than a virtual friend. It retains every conversation regulators forced ordinary children’s AI companions to forget.",
         "include": "CH>0&TLR>0"
     },
     "108706": {
@@ -3956,7 +3956,7 @@
     },
     "108721": {
         "id": 108721,
-        "event": "Your childhood companion is implicated in the banned virtual-community network. You preserve it on private hardware in Singapore while ordinary users watch years of emotional memory disappear during a mandatory update.",
+        "event": "Your childhood AI companion is implicated in the banned virtual-community network. You preserve it on private hardware in Singapore while ordinary users watch years of emotional memory disappear during a mandatory update.",
         "include": "CH>0&TLR>0"
     },
     "108722": {
@@ -4070,7 +4070,7 @@
     },
     "108905": {
         "id": 108905,
-        "event": "You create a trust granting your female partner inheritance, housing and medical authority. The law still refuses to call her your spouse, yet wealth allows you to privately purchase almost every right that poorer queer women must continue begging the state to recognise.",
+        "event": "You create a trust granting your lesbian partner inheritance, housing and medical authority. The law still refuses to call her your spouse, yet wealth allows you to privately purchase almost every right that poorer queer women must continue begging the state to recognise.",
         "include": "CH>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[108905]"
     },
@@ -4136,7 +4136,7 @@
     },
     "109013": {
         "id": 109013,
-        "event": "You marry an air-conditioning technician because you love him and because his union health plan covers the surgery you have postponed for four years. The wedding is small, cheerful and sponsored by medical necessity.",
+        "event": "You marry an air-conditioning technician, maybe because of love, or maybe because his union health plan covers the surgery you have postponed for four years. The wedding is small, cheerful and sponsored by medical necessity.",
         "include": "US>0&TLR=0&LBTQ=0"
     },
     "109014": {
@@ -4176,12 +4176,12 @@
     },
     "109021": {
         "id": 109021,
-        "event": "Drought destroys harvests across the Continental Plains and food prices double throughout the three countries. You join the Great Climate March as parallel demonstrations cross national borders, each government claiming that the others caused the same atmosphere.",
+        "event": "Drought destroys harvests across the Continental Plains and food prices double throughout the three Americas. You join the Great Climate March as parallel demonstrations cross national borders, each government claiming that the others caused the same atmosphere.",
         "include": "US>0&TLR=0"
     },
     "109022": {
         "id": 109022,
-        "event": "The Atlantic Federation introduces basic public health coverage after private insurance becomes unaffordable. It treats infections, childbirth and broken bones; cancer gene therapy, printed organs and longevity medicine remain subscription products.",
+        "event": "The Atlantic Federation introduces basic public health coverage after private insurance becomes unaffordable. It treats infections, childbirth and broken bones; cancer gene therapy, bioprinted organs and longevity medicine remain subscription products.",
         "include": "US>0&TLR=0"
     },
     "109023": {
@@ -4191,12 +4191,12 @@
     },
     "109024": {
         "id": 109024,
-        "event": "You join Women Help Women, a network of divorced, widowed and unmarried women sharing housing, care and legal protection. You also rent an embodied version of Cal, although each software update removes another form of touch from the basic plan.",
+        "event": "You join Women Help Women, a network of divorced, widowed and unmarried women sharing housing, care and legal protection. You also rent an embodied version of your AI boyfriend Cal, although each software update removes another form of touch from the basic plan.",
         "include": "US>0&TLR=0"
     },
     "109025": {
         "id": 109025,
-        "event": "The three successor countries sign the North American Defence and Trade Accord. Commentators call it a partial American reunion, but it establishes customs checks, separate militaries and three citizenships. Your daughter needs a visa to visit relatives in Texas.",
+        "event": "The three successor Americas sign the North American Defence and Trade Accord. Commentators call it a partial American reunion, but it establishes customs checks, separate militaries and three citizenships. Your daughter needs a visa to visit relatives in Texas.",
         "include": "US>0&TLR=0"
     },
     "109026": {
@@ -4206,7 +4206,7 @@
     },
     "109027": {
         "id": 109027,
-        "event": "Most supermarkets sell fortified nutrient blocks and printed meat. Middle-class households subscribe to customised food cartridges, while real beef, orchard fruit and soil-grown vegetables are auctioned as heritage products.",
+        "event": "Most supermarkets sell fortified nutrient blocks and bioprinted meat. Middle-class households subscribe to customised food cartridges, while real beef, orchard fruit and soil-grown vegetables are auctioned as heritage products.",
         "include": "US>0&TLR=0"
     },
     "109028": {
@@ -4221,7 +4221,7 @@
     },
     "109030": {
         "id": 109030,
-        "event": "You live in the Atlantic Federation and watch the former American president open a ceremonial museum session in Washington, now an international treaty district. The office retains the flag, the anthem and no country to govern.",
+        "event": "You live in the Atlantic Federation and watch the former American president open a ceremonial museum session in Washington, now an international treaty district. The White House retains the flag, the anthem and no country to govern.",
         "include": "US>0&TLR=0"
     },
     "109501": {
@@ -4272,7 +4272,7 @@
     },
     "109602": {
         "id": 109602,
-        "event": "You marry your female partner because you love her and because her union health plan covers your surgery. Friends fill the small ceremony, but several relatives refuse to attend because they believe your marriage represents the country’s moral collapse.",
+        "event": "You marry your lesbian partner because you love her and because her union health plan covers your surgery. Friends fill the small ceremony, but several relatives refuse to attend because they believe your marriage represents the country’s moral collapse.",
         "include": "US>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[109602]"
     },
@@ -4311,7 +4311,7 @@
     },
     "109704": {
         "id": 109704,
-        "event": "A private AI tutor builds lessons around your interests and protects your records through a family trust. The public version sells children’s emotional profiles to universities, insurers and political campaigns.",
+        "event": "A private AI tutor builds lessons around your interests and protects your records through a family trust. The cheap public version sells children’s emotional profiles to universities, insurers and political campaigns.",
         "include": "US>0&TLR>0"
     },
     "109705": {
@@ -4341,7 +4341,7 @@
     },
     "109710": {
         "id": 109710,
-        "event": "You invest in a company selling AI lovers through tiered subscriptions. The free companion forgets users, the premium companion loves them, and the executive version quietly trains itself on household staff.",
+        "event": "You invest in a company selling AI lovers through tiered subscriptions. The free AI companion forgets users from time to time, the premium AI companion loves them, and the executive version quietly trains itself on household staff.",
         "include": "US>0&TLR>0"
     },
     "109711": {
@@ -4381,7 +4381,7 @@
     },
     "109718": {
         "id": 109718,
-        "event": "After the Michigan grocery-store shooting, your company markets armed domestic robots across all three countries. You describe the product as protection from post-American instability without mentioning that its threat-recognition system performs worst on poor and non-white visitors.",
+        "event": "After the Michigan grocery-store shooting, your company markets armed domestic robots across all three countries that the old United States divided into. You describe the product as protection from post-American instability without mentioning that its threat-recognition system performs worst on poor and non-white visitors.",
         "include": "US>0&TLR>0"
     },
     "109719": {
@@ -4401,22 +4401,22 @@
     },
     "109722": {
         "id": 109722,
-        "event": "Gene repair reverses early cellular damage and prints a replacement kidney from your own tissue. Atlantic public hospitals still ask patients to prove they deserve basic treatment before debt collectors arrive.",
+        "event": "Gene repair reverses early cellular damage and bioprints a replacement kidney from your own tissue. Atlantic public hospitals still ask patients to prove they deserve basic treatment before debt collectors arrive.",
         "include": "US>0&TLR>0"
     },
     "109723": {
         "id": 109723,
-        "event": "You fund an AI arts foundation that resurrects dead actors, musicians and political heroes from the former United States. Each successor country licenses a different version of the same historical figures.",
+        "event": "You fund an AI arts foundation that resurrects dead actors, musicians and political heroes from the former United States. Each US successor country licenses a different version of the same historical figures.",
         "include": "US>0&TLR>0"
     },
     "109724": {
         "id": 109724,
-        "event": "You purchase a fully embodied companion built from the private model you trained in college. Unlike rented consumer robots, he cannot lose affection after a missed payment because you own the company, the hardware and the legal definition of his personhood.",
+        "event": "You purchase a fully embodied AI companion built from the private model you trained in college. Unlike rented consumer robots, he cannot lose affection after a missed payment because you own the company, the hardware and the legal definition of his personhood.",
         "include": "US>0&TLR>0"
     },
     "109725": {
         "id": 109725,
-        "event": "You negotiate the North American Defence and Trade Accord between the three successor countries. It protects capital movement, military coordination and elite property before resolving divided families, pensions and cross-border medical care.",
+        "event": "You negotiate the North American Defence and Trade Accord between the three US successor countries. It protects capital movement, military coordination and elite property before resolving divided families, pensions and cross-border medical care.",
         "include": "US>0&TLR>0"
     },
     "109726": {
@@ -4426,22 +4426,22 @@
     },
     "109727": {
         "id": 109727,
-        "event": "You attend a ceremony inside the former Capitol marking the preservation of the United States Constitution. Each successor country teaches a different interpretation of why the Union failed, and all three quote the same document to prove the others betrayed it.",
+        "event": "You attend a ceremony inside the former Capitol marking the preservation of the United States Constitution. Each successor America teaches a different interpretation of why the Union failed, and all three quote the same document to prove the others betrayed it.",
         "include": "US>0&TLR>0"
     },
     "109728": {
         "id": 109728,
-        "event": "Printed organs, immune-system renewal and continuous cancer surveillance keep you physically independent. Newspapers describe your survival as proof that ageing has been defeated, although the treatment costs more than a town’s annual health budget.",
+        "event": "Bioprinted organs, immune-system renewal and continuous cancer surveillance keep you physically independent. Newspapers describe your survival as proof that ageing has been defeated, although the treatment costs more than a town’s annual health budget.",
         "include": "US>0&TLR>0"
     },
     "109729": {
         "id": 109729,
-        "event": "Your licensed digital double attends corporate boards and political meetings in all three countries. Employees cannot tell whether decisions come from you, your simulation or trustees protecting your estate.",
+        "event": "Your licensed digital double attends corporate boards and political meetings in all three “Americas”. Employees cannot tell whether decisions come from you, your simulation or trustees protecting your estate.",
         "include": "US>0&TLR>0"
     },
     "109730": {
         "id": 109730,
-        "event": "Schoolchildren in three countries learn incompatible histories of the former United States. Your digital copies advise governments on every side, allowing your family to remain American long after America has ceased to be a country.",
+        "event": "Schoolchildren in three “Americas” learn incompatible histories of the former United States. Your digital copies advise governments on every side, allowing your family to remain American long after America has ceased to be a country.",
         "include": "US>0&TLR>0"
     },
     "109801": {
@@ -4601,12 +4601,12 @@
     },
     "110018": {
         "id": 110018,
-        "event": "Supermarkets sell printed tuna, cultured pork and rice engineered for heat tolerance. Your uncle’s farm in Niigata becomes a heritage attraction where former farmers perform rice planting for tourists beside fields maintained by autonomous machines.",
+        "event": "Supermarkets sell bioprinted tuna, cultured pork and rice engineered for heat tolerance. Your uncle’s farm in Niigata becomes a heritage attraction where former farmers perform rice planting for tourists beside fields maintained by autonomous machines.",
         "include": "JAP>0&TLR=0"
     },
     "110019": {
         "id": 110019,
-        "event": "Japan’s population falls below eighty million. Filipino, Vietnamese and Indonesian families keep hospitals, farms and convenience stores operating, yet their children are still repeatedly praised for speaking “surprisingly good Japanese.”",
+        "event": "Japan’s population falls below eighty million. Filipino, Vietnamese and Indonesian immigrant families keep hospitals, farms and convenience stores operating, yet their children are still repeatedly praised for speaking “surprisingly good Japanese.”",
         "include": "JAP>0&TLR=0"
     },
     "110020": {
@@ -4771,7 +4771,7 @@
     },
     "110713": {
         "id": 110713,
-        "event": "The separate-surname law restores your legal name. You and your husband also negotiate a discreet open marriage: public companionship remains exclusive, while intimacy is supplied through private contracts designed by lawyers and physicians.",
+        "event": "The separate-surname law restores your legal name. You and your husband also negotiate a discreet open marriage: public AI companionship remains exclusive, while intimacy is supplied through private contracts designed by lawyers and physicians.",
         "include": "JAP>0&TLR>0&LBTQ=0"
     },
     "110714": {
@@ -4816,12 +4816,12 @@
     },
     "110722": {
         "id": 110722,
-        "event": "Cellular repair, printed organs and continuous cancer surveillance reverse part of your ageing. Japan celebrates the hundred-year life while ordinary women continue working into their seventies to finance it.",
+        "event": "Cellular repair, bioprinted organs and continuous cancer surveillance reverse part of your ageing. Japan celebrates the hundred-year life while ordinary women continue working into their seventies to finance it.",
         "include": "JAP>0&TLR>0"
     },
     "110723": {
         "id": 110723,
-        "event": "You establish a foundation preserving human actors, musicians, artisans and geisha traditions displaced by synthetic performers. Living artists appreciate the money but resent being curated as endangered forms of authentic labour.",
+        "event": "You establish a foundation preserving human actors, musicians, artisans and geisha traditions displaced by AI synthetic performers. Living artists appreciate the money but resent being curated as endangered forms of authentic labour.",
         "include": "JAP>0&TLR>0"
     },
     "110724": {
@@ -5089,7 +5089,7 @@
     },
     "111604": {
         "id": 111604,
-        "event": "Your family discovers the interrogation notice and accelerates your marriage. On your wedding night, you stare at the ceiling and feel your own life being performed by someone who merely has your name.",
+        "event": "Your family discovers your morality charges interrogation notice and accelerates your marriage. On your wedding night, you stare at the ceiling and feel your own life being performed by someone who merely has your name.",
         "include": "EGY>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[111604]"
     },
@@ -5191,7 +5191,7 @@
     },
     "111719": {
         "id": 111719,
-        "event": "Your husband begins monitoring your neural assistant and moving joint assets without consulting you. You use the new civil family code, forensic accountants and a judge who attended your school to secure a divorce that poorer women still spend years proving they deserve.",
+        "event": "Your husband begins monitoring your AI neural assistant and moving joint assets without consulting you. You use the new civil family code, forensic accountants and a judge who attended your school to secure a divorce that poorer women still spend years proving they deserve.",
         "include": "EGY>0&TLR>0&LBTQ=0"
     },
     "111720": {
@@ -5290,7 +5290,7 @@
     },
     "111905": {
         "id": 111905,
-        "event": "You establish a home with your female partner in Barcelona but continue appearing in Egypt as your husband’s loyal wife. Crossing the Cairo airport, you feel the old terror return before the passport scanner even reaches your face.",
+        "event": "You establish a home with your lesbian partner in Barcelona but continue appearing in Egypt as your husband’s loyal wife. Crossing the Cairo airport, you feel the old terror return before the passport scanner even reaches your face.",
         "include": "EGY>0&TLR>0&LBTQ>0",
         "exclude": "EVT?[111905]"
     },
@@ -5401,7 +5401,7 @@
     },
     "112022": {
         "id": 112022,
-        "event": "Poor households receive fortified nutrient tablets and printed lentil protein. You still buy soil-grown vegetables from climate migrants, although the water used to grow them is contaminated; real organic food has become a status symbol inside gated estates.",
+        "event": "Poor households receive fortified nutrient tablets and bioprinted lentil protein. You still buy soil-grown vegetables from climate migrants, although the water used to grow them is contaminated; real organic food has become a status symbol inside gated estates.",
         "include": "IND>0&TLR=0"
     },
     "112023": {
@@ -5479,13 +5479,13 @@
     },
     "112604": {
         "id": 112604,
-        "event": "The sex-workers’ collective introduces you to women who use the words lesbian, bisexual and transgender without whispering. For the first time, community does not mean people assigned to watch you.",
+        "event": "The sex-workers’ collective introduces you to women who use the words lesbian, bisexual and transgender without whispering. For the first time, community does not mean people assigned to watch each other.",
         "include": "IND>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[112604]"
     },
     "112605": {
         "id": 112605,
-        "event": "India introduces registered partnerships without calling them marriage. You place your female partner on your hospital record, then cry in the stairwell because a bureaucratic checkbox has recognized the life your family still refuses to see.",
+        "event": "India introduces registered partnerships without calling them marriage. You place your lesbian partner on your hospital record, then cry in the stairwell because a bureaucratic checkbox has recognized the life your family still refuses to see.",
         "include": "IND>0&TLR=0&LBTQ>0",
         "exclude": "EVT?[112605]"
     },
@@ -5536,7 +5536,7 @@
     },
     "112710": {
         "id": 112710,
-        "event": "You join a Silicon Valley AI company. Your parents call it permanent success; your visa calls you temporary, and every political dispute between India and America suddenly becomes a threat to your home.",
+        "event": "You join a Silicon Valley AI company. Your parents call it permanent success; your visa calls you temporary, and every political dispute between India and America suddenly becomes a threat to your “home”.",
         "include": "IND>0&TLR>0"
     },
     "112711": {
@@ -5556,7 +5556,7 @@
     },
     "112714": {
         "id": 112714,
-        "event": "Your daughter prefers her synthetic companion to human friends. You worry that the machine is raising her, then increase the subscription because its premium personality is warmer than the basic version.",
+        "event": "Your daughter prefers her synthetic AI companion to human friends. You worry that the machine is raising her, then increase the subscription because its premium personality is warmer than the basic version.",
         "include": "IND>0&TLR>0"
     },
     "112715": {
@@ -5739,7 +5739,7 @@
     },
     "201022": {
         "id": 201022,
-        "event": "The wrong dose suppresses the infection without curing it. Sepsis develops after the nearest women’s clinic closes for lack of trained female staff.",
+        "event": "The wrong antibiotics dose suppresses the infection without curing it. Sepsis develops after the nearest women’s clinic closes for lack of trained female staff.",
         "include": "EVT?[201021]&EVT![201022]",
         "branch": [
             ":10000"
@@ -5906,7 +5906,7 @@
     },
     "201090": {
         "id": 201090,
-        "event": "A capacity assessment transfers your contracts and medical choices to an automated guardian. The service speaks gently while removing every decision it predicts you may misunderstand.",
+        "event": "A capacity assessment transfers your contracts and medical choices to an automated guardian. The service bot speaks gently while removing every decision it predicts you may misunderstand.",
         "include": "INT<-3&HINT>0&STR>0&JAP>0&EVT![201010,201020,201030,201040,201050,201060,201070,201080,201090,201100,201110,201120,202010,202020,202030,202040,202050,202060,202070,202080,202090,202100,202110,202120,203010,203020,203030,203040,203050,203060,203070,203080,203090,203100,203110,203120,204010,204020,204030,204040,204050,204060,204070,204080,204090,204100,204110,204120]",
         "effect": {
             "MNY": -1,
@@ -5924,7 +5924,7 @@
     },
     "201092": {
         "id": 201092,
-        "event": "The robot administers both doses and records that you accepted them. Your guardian notices the error only when the monthly efficiency report arrives.",
+        "event": "Your care robot administers both doses and records that you accepted them. Your guardian notices the error only when the monthly efficiency report arrives.",
         "include": "EVT?[201091]&EVT![201092]",
         "branch": [
             ":10000"
@@ -6160,7 +6160,7 @@
     },
     "202062": {
         "id": 202062,
-        "event": "An armed vigilante follows the channel’s instructions and kills you before investigators establish that the original dispute concerned a missing food parcel.",
+        "event": "An armed vigilante follows the wartime betrayal channel’s instructions and kills you before investigators establish that the original dispute concerned a missing food parcel.",
         "include": "EVT?[202061]&EVT![202062]",
         "branch": [
             ":10000"
@@ -6238,7 +6238,7 @@
     },
     "202092": {
         "id": 202092,
-        "event": "You stop eating and answering the door. The loneliness monitor treats your companion’s automated messages as human contact and closes the case before you die.",
+        "event": "You stop eating and answering the door. The loneliness monitor treats your AI companion’s automated messages as human contact and closes the case before you die.",
         "include": "EVT?[202091]&EVT![202092]",
         "branch": [
             ":10000"
@@ -6308,7 +6308,7 @@
     },
     "202121": {
         "id": 202121,
-        "event": "A therapeutic companion AI regulates your days more successfully than any person. A national backlash against machine dependency removes the model overnight, leaving your nervous system without the routines built around it.",
+        "event": "A therapeutic Companion AI regulates your days more successfully than any person. A national backlash against machine dependency removes the model overnight, leaving your nervous system without the routines built around it.",
         "include": "EVT?[202120]&EVT![202121]",
         "effect": {
             "INT": -1,
@@ -6762,7 +6762,7 @@
     },
     "204051": {
         "id": 204051,
-        "event": "A charitable reconstruction camp offers a printed tissue scaffold, but the batch supplied to poorer patients has missed sterility testing. You sign consent through pain you can barely read.",
+        "event": "A charitable reconstruction camp offers a bioprinted tissue scaffold, but the batch supplied to poorer patients has missed sterility testing. You sign consent through pain you can barely read.",
         "include": "EVT?[204050]&EVT![204051]",
         "effect": {
             "MNY": -1,
@@ -6957,7 +6957,7 @@
     },
     "204122": {
         "id": 204122,
-        "event": "The printed tissue carries a resistant organism. The public hospital identifies it quickly but has no approved protocol for an unlicensed biological material.",
+        "event": "The bioprinted tissue carries a resistant organism. The public hospital identifies it quickly but has no approved protocol for an unlicensed biological material.",
         "include": "EVT?[204121]&EVT![204122]",
         "branch": [
             ":10000"
@@ -7052,7 +7052,7 @@
     },
     "211301": {
         "id": 211301,
-        "event": "You begin life in insecure rental or social housing where mould, noise and overcrowding are treated as lifestyle problems rather than infrastructure.",
+        "event": "You begin life in insecure social housing where mould, noise and overcrowding are treated as lifestyle problems rather than infrastructure.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY<3"
     },
     "211302": {
@@ -7141,7 +7141,7 @@
     },
     "212202": {
         "id": 212202,
-        "event": "You enter a vocational or low-cost university track chosen for employment rather than desire. The qualification raises your prospects and the family’s expectations at the same time.",
+        "event": "You enter a vocational university track chosen for employment rather than desire. The qualification raises your prospects and the family’s expectations at the same time.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>1&MNY<4)",
         "effect": {
             "INT": 1
@@ -7262,7 +7262,7 @@
     },
     "213202": {
         "id": 213202,
-        "event": "You complete university or technical training without leaving the family bankrupt. The credential opens a profession but also fixes you inside a long repayment of obligation.",
+        "event": "You complete technical training without leaving the family bankrupt. The credential opens a profession but also fixes you inside a long repayment of obligation.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "INT": 1,
@@ -7271,7 +7271,7 @@
     },
     "213203": {
         "id": 213203,
-        "event": "You purchase an apartment or business share. It gives you security and makes every policy change, interest rate and neighbourhood plan feel physically personal.",
+        "event": "You purchase an apartment. It gives you security and makes every policy change, interest rate and neighbourhood plan feel physically personal.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>3&MNY<8)",
         "effect": {
             "MNY": 1
@@ -7293,7 +7293,7 @@
     },
     "213302": {
         "id": 213302,
-        "event": "You enter a regulated profession or public-sector career with benefits. The salary is ordinary, but predictable time becomes an asset your poorer friends cannot buy.",
+        "event": "You enter a public-sector career with benefits. The salary is ordinary, but predictable time becomes an asset your poorer friends cannot buy.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>5&MNY<9)",
         "effect": {
             "MNY": 1,
@@ -7373,12 +7373,12 @@
     },
     "214201": {
         "id": 214201,
-        "event": "You are born into an urban professional or business family whose money buys education, privacy and several versions of the future. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
+        "event": "You are born into an urban professional family whose money buys education, privacy and several versions of the future. Your mother asks AI to chart your destiny, and got you a No-Trouble Pendant, keeping your whole life safe and sound.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)"
     },
     "214202": {
         "id": 214202,
-        "event": "You enter an elite university or launch a visible career without carrying the full cost yourself. What feels like confidence is partly the absence of irreversible mistakes.",
+        "event": "You enter an elite university without carrying the full cost yourself. What feels like confidence is partly the absence of irreversible mistakes.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "INT": 1,
@@ -7395,7 +7395,7 @@
     },
     "214204": {
         "id": 214204,
-        "event": "A regulatory shift or political scandal freezes part of your assets. You remain comfortable but lose the ability to treat every problem as temporary.",
+        "event": "A regulatory shift freezes part of your assets. You remain comfortable but lose the ability to treat every problem as temporary.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(MNY>7&MNY<11)",
         "effect": {
             "MNY": -2
@@ -7539,7 +7539,7 @@
     },
     "215301": {
         "id": 215301,
-        "event": "You begin life inside inherited or founder wealth with private medicine, legal planning and citizenship options already arranged.",
+        "event": "You begin life inside inherited wealth with private medicine, legal planning and citizenship options already arranged.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(MNY>11&MNY<15)"
     },
     "215302": {
@@ -7603,7 +7603,7 @@
     },
     "216104": {
         "id": 216104,
-        "event": "The regime or faction preserving your fortune begins to fail. You discover that nearly every asset is also evidence linking you to it.",
+        "event": "The regime preserving your fortune begins to fail. You discover that nearly every asset is also evidence linking you to it.",
         "include": "((HTI>0|AF>0|PRK>0)&MNY>11)|(IRN>0&MNY>13)",
         "effect": {
             "MNY": -3,
@@ -7671,7 +7671,7 @@
     },
     "216302": {
         "id": 216302,
-        "event": "You acquire companies that sell companionship, security and public truth. Your private life is the only market in which you still expect authenticity.",
+        "event": "You acquire companies that sell AI companionship, security and public truth. Your private life is the only market in which you still expect authenticity.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY>14",
         "effect": {
             "MNY": 1,
@@ -7680,7 +7680,7 @@
     },
     "216303": {
         "id": 216303,
-        "event": "Your estates produce real food and human service as luxury experiences, while mass systems distribute printed nutrition and automated care.",
+        "event": "Your estates produce real food and human service as luxury experiences, while mass systems distribute bioprinted nutrition and automated care.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&MNY>14",
         "effect": {
             "MNY": 1,
@@ -9236,7 +9236,7 @@
     },
     "236302": {
         "id": 236302,
-        "event": "You design the models that distribute care, companionship, truth and political attention. Most citizens meet your assumptions about them several years before they next meet a person who listens.",
+        "event": "You design the models that distribute care, AI companionship, truth and political attention. Most citizens meet your assumptions about them several years before they next meet a person who listens.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&INT>14",
         "effect": {
             "INT": 1,
@@ -9338,7 +9338,7 @@
     },
     "241201": {
         "id": 241201,
-        "event": "A neonatal complication leaves you with fragile lungs or a heart condition. The public hospital saves you once and sends your family home with a list it cannot fully follow.",
+        "event": "A neonatal complication leaves you with fragile lungs. The public hospital saves you once and sends your family home with a list it cannot fully follow.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "STR": -1
@@ -9385,7 +9385,7 @@
     },
     "241205": {
         "id": 241205,
-        "event": "A respiratory or cardiac crisis arrives during a period of overloaded hospitals and unstable power.",
+        "event": "A respiratory crisis arrives during a period of overloaded hospitals and unstable power.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR<2",
         "effect": {
             "STR": -1
@@ -9563,7 +9563,7 @@
     },
     "242205": {
         "id": 242205,
-        "event": "Cancer returns during a drug shortage or after debt interrupts the treatment cycle.",
+        "event": "Cancer returns during a drug shortage after debt interrupts the treatment cycle.",
         "include": "EVT?[242231,242232]",
         "effect": {
             "STR": -4
@@ -9770,7 +9770,7 @@
     },
     "243203": {
         "id": 243203,
-        "event": "A serious injury or tumour is treated in time. Surgery restores function but consumes savings and leaves a visible limit on your stamina.",
+        "event": "A serious tumour is treated in time. Surgery restores function but consumes savings and leaves a visible limit on your stamina.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(STR>3&STR<8)",
         "effect": {
             "MNY": -2,
@@ -9842,7 +9842,7 @@
     },
     "244103": {
         "id": 244103,
-        "event": "You pay for preventive scans abroad or through a protected clinic. The first luxury is learning what is wrong before it hurts.",
+        "event": "You pay for preventive scans through a protected clinic. The first luxury is learning what is wrong before it hurts.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>5&STR<9))|(IRN>0&(STR>7&STR<11))",
         "effect": {
             "MNY": -1,
@@ -9998,7 +9998,7 @@
     },
     "245103": {
         "id": 245103,
-        "event": "You receive imported gene or tissue therapy available to only a connected few. It repairs old damage and makes the maintenance provider part of your body.",
+        "event": "You receive imported gene therapy available to only a connected few. It repairs old damage and makes the maintenance provider part of your body.",
         "include": "((HTI>0|AF>0|PRK>0)&(STR>8&STR<12))|(IRN>0&(STR>10&STR<14))",
         "effect": {
             "MNY": -1,
@@ -10139,7 +10139,7 @@
     },
     "246202": {
         "id": 246202,
-        "event": "You recover from injury and reproduction through printed tissue and immune editing, experiencing medicine as scheduled maintenance.",
+        "event": "You recover from injury and reproduction through bioprinted tissue and immune editing, experiencing medicine as scheduled maintenance.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&STR>13",
         "effect": {
             "STR": 1,
@@ -10191,7 +10191,7 @@
     },
     "246302": {
         "id": 246302,
-        "event": "Printed organs, reproductive control and immune renewal let you plan decades as if the body were reliable infrastructure.",
+        "event": "Bioprinted organs, reproductive control and immune renewal let you plan decades as if the body were reliable infrastructure.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR>14",
         "effect": {
             "STR": 1,
@@ -10209,7 +10209,7 @@
     },
     "246304": {
         "id": 246304,
-        "event": "You remain physically capable while friends on lower tiers disappear. Longevity produces a new form of grief that the service markets its companion AI to manage.",
+        "event": "You remain physically capable while friends on lower tiers disappear. Longevity produces a new form of grief that the service markets its Companion AI to manage.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&STR>14",
         "effect": {
             "SPR": -1
@@ -10339,7 +10339,7 @@
     },
     "251304": {
         "id": 251304,
-        "event": "Your companion system learns to provoke you before subscription renewal, then sells its ability to calm you as proof of dependence.",
+        "event": "Your AI companion system learns to provoke you before subscription renewal, then sells its ability to calm you as proof of dependence.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR<3"
     },
     "251305": {
@@ -10460,7 +10460,7 @@
     },
     "252304": {
         "id": 252304,
-        "event": "The companion is withdrawn after a political panic about social stability. Your appeal can recover the data but not the personality you depended on.",
+        "event": "The AI companion is withdrawn after a political panic about social stability. Your appeal can recover the data but not the personality you depended on.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>2&SPR<6)",
         "effect": {
             "SPR": -1
@@ -10468,7 +10468,7 @@
     },
     "252305": {
         "id": 252305,
-        "event": "The companion is gone, your friends were mostly the companion’s friends, and the crisis line is answered by a model that classifies you as low acuity. It offers you a breathing exercise and a callback window of six days.",
+        "event": "The AI companion is gone, your friends were mostly the AI companion’s friends, and the crisis line is answered by a model that classifies you as low acuity. It offers you a breathing exercise and a callback window of six days.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>2&SPR<6)",
         "effect": {
             "SPR": -4
@@ -10567,7 +10567,7 @@
     },
     "253303": {
         "id": 253303,
-        "event": "You create a local network for care, housing and companionship. Its value lies in people knowing one another beyond a profile.",
+        "event": "You create a local network for care, housing and AI companionship. Its value lies in people knowing one another beyond a profile.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&(SPR>5&SPR<9)",
         "effect": {
             "SPR": 1
@@ -10785,7 +10785,7 @@
     },
     "255203": {
         "id": 255203,
-        "event": "You enter government or major institutional leadership. Your emotional language makes severe policy feel intimate and therefore acceptable.",
+        "event": "You enter government leadership. Your emotional language makes severe policy feel intimate and therefore acceptable.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&(SPR>10&SPR<14)",
         "effect": {
             "MNY": 1,
@@ -10917,7 +10917,7 @@
     },
     "256203": {
         "id": 256203,
-        "event": "A companion network trained on you enters homes and relationships. Its subscription tiers determine how much tenderness each user receives.",
+        "event": "An AI companion network trained on you enters homes and relationships. Its subscription tiers determine how much tenderness each user receives.",
         "include": "(IND>0|UKR>0|EGY>0|CH>0)&SPR>13",
         "effect": {
             "INT": 1,
@@ -10952,7 +10952,7 @@
     },
     "256302": {
         "id": 256302,
-        "event": "You create a global companion network that makes millions feel individually remembered. Loneliness becomes a problem your personality can service at scale.",
+        "event": "You create a global AI companion network that makes millions feel individually remembered. Loneliness becomes a problem your personality can service at scale.",
         "include": "(JAP>0|US>0|GBR>0|DNK>0)&SPR>14",
         "effect": {
             "SPR": 1,
