@@ -158,8 +158,12 @@ const SENIOR_AMBIENT_RATE = {
     },
 };
 
-const ATTRIBUTE_REPLACEMENT_RATE = .4;
-const OLD_AGE_REPLACEMENT_RATE = .6;
+// How often a death that is already happening is retold through a
+// country-specific cause instead of the generic one. Raised from .4/.6: the
+// generic causes read as "died of illness" for most lives. This changes only
+// WHICH death is shown, never whether or when one happens.
+const ATTRIBUTE_REPLACEMENT_RATE = .75;
+const OLD_AGE_REPLACEMENT_RATE = .85;
 const OLD_AGE_EVENT_IDS = new Set([10004, 10007, 10008]);
 
 function deathWindow(targetAge) {
@@ -172,6 +176,7 @@ function deathWindow(targetAge) {
 function isAttributeTerminal(eventId) {
     const id = `${eventId}`;
     return eventId == 10001 || eventId == 10002 || eventId == 10003 || eventId == 200004
+        || eventId == 10005 || eventId == 10009
         || /^20[1-4]\d{2}2$/.test(id)
         || /^(241|242|244|246)[123]55$/.test(id);
 }
@@ -634,7 +639,7 @@ class Event {
         }
         if(replacementRate == 0 || Math.random() >= replacementRate) return null;
 
-        // From 78 on, the national share of the 60/40 old-age split comes
+        // From 78 on, the national share of the old-age split comes
         // straight from the per-country late-life set (61001-61012, the
         // class-agnostic 'any' records) with no age-window check: several
         // countries' classed elder causes anchor before 78, which used to
@@ -689,7 +694,7 @@ class Event {
         }
         if(candidates.length == 0) return null;
 
-        // Replacement events are already inside a fixed 40/60 route, so each
+        // Replacement events are already inside a fixed national/universal route, so each
         // matching national cause is equally likely rather than being charged
         // a second ambient-risk multiplier.
         return candidates[Math.floor(Math.random() * candidates.length)].id;
