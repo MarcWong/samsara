@@ -1431,6 +1431,17 @@
 		opacity: 1;
 		transition: opacity 300ms ease;
 	}
+	/* On short screens the rem-based minimum sizes above stop shrinking with
+	   the panel, and the tip's second line slid under the panel's clipped
+	   bottom edge. Close the gaps around Start there. */
+	@media (max-height: 900px) {
+		.start-hover-zone {
+			margin-bottom: 0.4cqh;
+		}
+		.alloc-hint-zone {
+			padding-top: 0.3cqh;
+		}
+	}
 	.alloc-lower {
 		/* Reaches up to the bottom edge of the last row's +/- circles. */
 		margin-top: -2cqh;
