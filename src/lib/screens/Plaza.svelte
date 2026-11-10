@@ -179,7 +179,7 @@
 	   allocation -- one consistent style for everything that now lives on
 	   this one screen. */
 	:global(.crt-screen) {
-		font-family: 'Courier New', Courier, monospace;
+		font-family: 'Courier New', Courier, 'Samsara SC', monospace;
 		/* Enhances the blocky, unhinted terminal-font look (classic Unix
 		   console / BIOS setup utility) instead of the browser's default
 		   antialiased smoothing, which softened every glyph's edges into a

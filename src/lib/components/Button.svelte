@@ -25,7 +25,7 @@
 		border: 1px solid rgba(255, 255, 255, 0.35);
 		border-radius: 999px;
 		padding: 0.9em 2em;
-		font-family: 'Courier New', Courier, monospace;
+		font-family: 'Courier New', Courier, 'Samsara SC', monospace;
 		font-size: 1.5rem;
 		font-weight: bold;
 		letter-spacing: 0.02em;

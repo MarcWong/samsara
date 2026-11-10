@@ -48,6 +48,24 @@ describe('zh-cn game text overlay', () => {
     });
 });
 
+describe('bundled Chinese font', () => {
+    // static/fonts/samsara-sc.woff holds only the characters in use; a new
+    // character in the text would silently fall back to a system font.
+    const covered = new Set(readFileSync(join(__dirname, '../../../../static/fonts/samsara-sc.chars.txt'), 'utf-8'));
+    const sources = {
+        'zh-cn/events.json': JSON.stringify(loadZh('events')),
+        'zh-cn/talents.json': JSON.stringify(loadZh('talents')),
+        'i18n.js zh strings': JSON.stringify(DICT.zh),
+    };
+
+    it('covers every Chinese character in the game text (re-run scripts/subset-fonts.py if this fails)', () => {
+        for (const [name, text] of Object.entries(sources)) {
+            const missing = [...new Set([...text].filter(c => CJK.test(c) && !covered.has(c)))];
+            expect(missing, `${name}: not in the bundled font`).toEqual([]);
+        }
+    });
+});
+
 describe('Life.localize', () => {
     it('swaps event and talent text without touching the mechanics, and restores English', async () => {
         const life = await createLife();

@@ -274,6 +274,13 @@
 		const txts = printHeaderAndStory();
 		win.document.write(
 			`<style>
+				/* The receipt is its own document, so it has to load the
+				   bundled Chinese font itself. */
+				@font-face {
+					font-family: 'Samsara SC';
+					src: url('${window.location.origin}${base}/fonts/samsara-sc.woff') format('woff');
+					font-weight: 100 900;
+				}
 				/* Declare the PRINTABLE band (48mm), not the 58mm paper: the
 				   zj-58 PPD reports an imageable area of 14 0 150 182pt, so a
 				   58mm page gets shifted right by its 14pt hard margin and, on
@@ -287,7 +294,7 @@
 					width: 48mm;
 					box-sizing: border-box;
 					padding: 2px 1mm 6px;
-					font-family: 'Cascadia Code', Consolas, monospace;
+					font-family: 'Cascadia Code', Consolas, 'Samsara SC', monospace;
 				}
 				* { box-sizing: border-box; max-width: 100%; }
 				p { margin: 3px 0; font-size: 9px; }
@@ -336,15 +343,20 @@
 		// print entirely (the exhibition machine must always produce a
 		// receipt, even a QR-less one).
 		const imgs = [...win.document.images];
-		const ready = Promise.all(
-			imgs.map(img =>
+		// ...and for the bundled Chinese font, or the receipt prints in a
+		// fallback face. document.fonts.load() forces the fetch even though
+		// nothing has been laid out with it yet.
+		const fontReady = win.document.fonts?.load?.("9px 'Samsara SC'", '人生').catch(() => {});
+		const ready = Promise.all([
+			fontReady,
+			...imgs.map(img =>
 				img.decode?.().catch(() => {}) ??
 				new Promise(res => {
 					if (img.complete) return res();
 					img.onload = img.onerror = () => res();
 				})
 			)
-		);
+		]);
 		// Close the popup once the job is away, so the exhibition machine
 		// lands back on the summary instead of stranding the visitor on a
 		// blank receipt tab. afterprint fires on both "printed" and

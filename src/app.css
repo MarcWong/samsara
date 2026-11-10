@@ -4,6 +4,21 @@
 	font-display: block;
 }
 
+/* Bundled Chinese fonts, subset to the characters the game uses (rebuild with
+   scripts/subset-fonts.py after editing Chinese text). They make Chinese look
+   the same on every machine instead of depending on installed system fonts. */
+@font-face {
+	font-family: 'Samsara SC';
+	src: url('/fonts/samsara-sc.woff') format('woff');
+	font-weight: 100 900;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Samsara Hand';
+	src: url('/fonts/samsara-hand.woff') format('woff');
+	font-display: swap;
+}
+
 :root {
 	--bg: #222831;
 	--bg-raised: #393e46;
@@ -50,7 +65,7 @@ body {
 	   CJK faces explicitly keeps Chinese on a clean sans instead of whatever
 	   the browser happens to pick. */
 	font-family:
-		'Agency FB', Consolas, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+		'Agency FB', Consolas, Arial, 'Samsara SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
 		'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
 }
 

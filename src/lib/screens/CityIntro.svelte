@@ -474,7 +474,7 @@
 		transform: translate(-50%, -50%);
 		margin: 0;
 		white-space: nowrap;
-		font-family: 'Yuanti SC', 'YouYuan', 'STYuanti', 'Hannotate SC', 'STKaiti', 'KaiTi', cursive;
+		font-family: 'Samsara Hand', 'Yuanti SC', 'YouYuan', 'STKaiti', 'KaiTi', cursive;
 		font-weight: bold;
 		font-size: 5.6cqh;
 		letter-spacing: 0.35em;
