@@ -618,6 +618,14 @@
 		color: #82a0ad;
 		margin: 0 0 0.5rem;
 		font-weight: normal;
+		/* Storm-cloud outline: a tight dark rim plus a soft halo in the
+		   footage's shadow tone, so the same pale blue reads over both the
+		   bright and the dark patches of the cloud background. */
+		text-shadow:
+			0 0 1px #0e1c2e,
+			0 0 2px #0e1c2e,
+			1px 1px 2px rgba(14, 28, 46, 0.9),
+			0 0 10px rgba(14, 28, 46, 0.7);
 	}
 	.talents ul {
 		margin: 0;
@@ -633,6 +641,18 @@
 		padding: 0.6em 1em;
 		color: #ffffff;
 		font-size: 1.15rem;
+	}
+	/* Chinese sets taller than the English at the same size, and an unlucky
+	   draw of three long entries pushed the hint below the fold. A step
+	   smaller and tighter keeps the usual one-or-two-entry page unchanged in
+	   feel while leaving room for the rare long one. */
+	:global(html:lang(zh)) .talents ul {
+		gap: 0.4rem;
+	}
+	:global(html:lang(zh)) .talents li {
+		font-size: 1rem;
+		line-height: 1.5;
+		padding: 0.5em 0.9em;
 	}
 	.actions {
 		display: flex;

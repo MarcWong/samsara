@@ -571,22 +571,13 @@
 					</div>
 				{/each}
 			</div>
-			<!-- Start sits inside its own hover ring: the 0.5cqh of padding
-			     around the button is a second trigger for the hint below,
-			     while the button's own face is excluded (see the :has()
-			     rule in the stylesheet). Wrapping rather than growing the
-			     button keeps Start's hit area exactly what it looks like --
-			     a click 0.5cqh outside the pill must not start the run. -->
-			<!-- Everything below the last stat row is one hover area for the
-			     hidden tip (visitors were not finding the two small zones it
-			     used to have); Start's own face stays excluded. -->
+			<!-- Caption, Start and the hidden tip. The caption and the tip's
+			     own text are hover triggers for the tip (so is the number
+			     column above); Start is not. -->
 			<div class="alloc-lower">
 			<div class="start-hover-zone">
-				<!-- Always visible, tight against Start, and INSIDE the hover
-				     ring on purpose: playtesters never discovered the hidden
-				     tip below. Anyone who pauses on this line has already put
-				     their pointer into the ring, which reveals it -- the
-				     caption is bait for the trigger zone, not just copy. -->
+				<!-- Always visible and itself a trigger: anyone who pauses on
+				     this line reveals the hidden tip below. -->
 				<p class="start-caption">{$t('alloc.caption')}</p>
 				<button
 					type="button"
@@ -597,12 +588,7 @@
 					{$t('alloc.start')}
 				</button>
 			</div>
-			<!-- Moved inside the glass panel, below Start, but keeping the
-			     original hover-to-reveal discovery -- invisible until this
-			     strip itself is hovered, same "hidden in plain sight" tip as
-			     before, just relocated off the background footage's rail
-			     band (nothing back there to hover once it's on the glass)
-			     and onto its own reserved spot under Start instead. -->
+			<!-- Invisible until a trigger is hovered: "hidden in plain sight". -->
 			<div class="alloc-hint-zone" aria-hidden="true">
 				<p class="alloc-hint">{$t('alloc.hint')}</p>
 			</div>
@@ -1022,7 +1008,10 @@
 		left: 32%;
 		top: 8.5%;
 		width: 27%;
-		height: 72.5%;
+		/* 75% rather than 72.5%: the extra strip at the bottom lets the hidden
+		   tip sit in the white well below the railing that crosses the panel
+		   just under Start, instead of on it. */
+		height: 75%;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
@@ -1383,27 +1372,19 @@
 		}
 	}
 
-	/* Strategy tip, now living inside the glass panel below Start instead
-	   of floating over the background footage -- the hover-zone needs its
-	   own reserved padding here (there's no bright rail band to lean on
-	   anymore) so there's still something to find by hovering. */
-	/* The hover target, deliberately larger than the text it reveals. Every
-	   extra padding step is cancelled by an equal negative margin, so the box
-	   grows for hit-testing while its footprint in this flex column -- and so
-	   the hint's on-screen position -- is unchanged.
-	   The growth is capped by what is actually reachable rather than chosen
-	   freely: .alloc-panel clips with BOTH overflow:hidden and a tapering
-	   clip-path, and clipping applies to pointer events too, so anything
-	   past the panel edge would be dead area. Measured at the zone's own
-	   height there are ~22px to the Start button above, ~22px to the panel
-	   floor below, and ~24px to the taper on each side; +2.5cqh / +1.5cqw
-	   (~19px) stays inside all three. Staying clear of Start also matters
-	   because this div follows it in the DOM and both are positioned, so an
-	   overlap would paint on top and swallow the button's clicks. */
+	/* Strategy tip, hidden below Start until one of three small trigger areas
+	   is hovered: the column of numbers between the - and + buttons, the
+	   two-line caption above Start, and the tip's own text. Each target is
+	   kept close to its text (a little padding, cancelled by an equal negative
+	   margin so layout is unchanged) -- with the number column added, the old
+	   large area around Start made the tip show up for almost every player.
+	   Start itself never triggers it. */
 	.alloc-hint-zone {
 		position: relative;
-		margin: -1.5cqh -1.5cqw -2.5cqh;
-		padding: 1.6cqh 3.5cqw 3.5cqh;
+		/* Pushed down into the open white well of the stairwell, below the
+		   railing the panel crosses just under Start. */
+		margin: 2.2cqh -0.8cqw -0.8cqh;
+		padding: 0.8cqh 0.8cqw;
 	}
 	/* Two different transition speeds, one per direction. The duration
 	   declared here is the one that runs on the way BACK to this state --
@@ -1425,72 +1406,48 @@
 		pointer-events: none;
 	}
 	.alloc-hint-zone:hover .alloc-hint,
-	.alloc-lower:hover:not(:has(.alloc-action:hover)) .alloc-hint,
+	.alloc-panel:has(.start-caption:hover) .alloc-hint,
 	.alloc-panel:has(.alloc-value:hover) .alloc-hint {
 		opacity: 1;
 		transition: opacity 300ms ease;
 	}
-	/* On short screens the rem-based minimum sizes above stop shrinking with
-	   the panel, and the tip's second line slid under the panel's clipped
-	   bottom edge. Close the gaps around Start there. */
-	@media (max-height: 900px) {
-		.start-hover-zone {
-			margin-bottom: 0.4cqh;
-		}
-		.alloc-hint-zone {
-			padding-top: 0.3cqh;
-		}
-	}
 	.alloc-lower {
-		/* Reaches up to the bottom edge of the last row's +/- circles. */
-		margin-top: -2cqh;
-		padding-top: 2cqh;
 		flex: 1;
 		align-self: stretch;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
-	/* Second trigger, in the middle of the panel: one unbroken column between
-	   the - and + buttons, from the first row's circles down into .alloc-lower.
-	   Each number grows an invisible box that fills the gap to the buttons on
-	   either side and bridges the space to the neighbouring rows. The first
-	   row's box stops at its own circles so it never covers Random above. */
+	/* The number column: one unbroken strip between the - and + buttons, from
+	   the first row's circles to the last. Each number grows an invisible box
+	   that fills the gap to the buttons on either side and bridges the space
+	   to the neighbouring rows. The first row's box stops at its own circles
+	   so it never covers Random above; the last row's stops at its circles
+	   rather than reaching down toward Start. */
 	.alloc-value::before {
 		content: '';
 		position: absolute;
-		inset: -2.6cqh -1cqw;
+		inset: -1.3cqh -1cqw;
 	}
 	.alloc-row:first-child .alloc-value::before {
 		top: -0.8cqh;
 	}
-	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
-	   wrapper for hit-testing and the equal negative margin takes the growth
-	   back out of the flex column, so Start's on-screen position and the
-	   panel's spacing are byte-identical to before. The button keeps its own
-	   box, so what is clickable as Start is still exactly the pill. */
+	.alloc-row:last-child .alloc-value::before {
+		bottom: -0.8cqh;
+	}
 	.start-hover-zone {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		/* Vertical: the 2cqh that used to be Start's own margin, minus the
-		   0.5cqh now spent on padding, so the gap above and below the pill is
-		   unchanged. Horizontal: a plain -0.5cqh cancelling the padding.
-		   Start's margin has to move up here rather than stay on the button --
-		   left in place it would sit INSIDE the ring, making the ring 2.5cqh
-		   tall on those two edges instead of 0.5cqh (measured: 19.5px vs the
-		   3.9px the sides get). */
-		/* Top margin trimmed (was 1.5cqh) to make room for the caption's
-		   second line without pushing the tip below the panel's edge. */
-		margin: 0.2cqh -0.5cqh 1.5cqh;
-		padding: 0.5cqh;
+		margin-top: 0.7cqh;
 	}
 	.start-hover-zone > .alloc-action.start-row {
 		margin: 0;
 	}
 	.start-caption {
-		margin: 0 0 0.6cqh;
+		margin: -0.6cqh -0.8cqw 0;
+		padding: 0.6cqh 0.8cqw;
 		font-size: max(0.75rem, 1.6cqh);
 		letter-spacing: 0.08em;
 		font-weight: bold;
@@ -1499,16 +1456,6 @@
 		text-align: center;
 		color: rgba(23, 38, 46, 0.95);
 		pointer-events: auto;
-	}
-	/* Hovering the ring reveals the hint; hovering Start itself does not.
-	   :has() is what draws that line -- the wrapper is hovered in both cases
-	   (the button is inside it), so the button's own :hover has to veto.
-	   The hint lives in a later sibling, hence `~`. Leaving the ring for the
-	   button falls back to .alloc-hint's own 3s dissolve, the same slow fade
-	   as moving the pointer away entirely. */
-	.start-hover-zone:hover:not(:has(.alloc-action:hover)) ~ .alloc-hint-zone .alloc-hint {
-		opacity: 1;
-		transition: opacity 300ms ease;
 	}
 	/* Touch devices have no hover, so the hidden-in-plain-sight reveal can
 	   never fire there -- the tip would simply not exist. Show it standing,
