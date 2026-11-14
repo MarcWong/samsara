@@ -197,9 +197,9 @@
 	// Kiosk-style idle reset: this screen is a dead end otherwise (no
 	// auto-advance the way Trajectory has), so a visitor who walks away
 	// without pressing anything would leave the app parked on someone
-	// else's finished life indefinitely. Ninety seconds with neither button touched
+	// else's finished life indefinitely. Forty-five seconds with neither button touched
 	// triggers the exact same Restart Life flow a click would.
-	const IDLE_MS = 90000;
+	const IDLE_MS = 45000;
 	let idleTimer = null;
 	function resetIdleTimer() {
 		clearTimeout(idleTimer);
@@ -445,7 +445,7 @@
 
 	{#if talents.length}
 		<div class="talents">
-			<h2>Random Events</h2>
+			<h2>The Wheel of Fortune</h2>
 			<ul>
 				{#each talents as talent (talent.id)}
 					<li>{talent.name} ({talent.description})</li>

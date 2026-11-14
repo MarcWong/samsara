@@ -199,7 +199,7 @@
 					case 'EVT':
 						return description + (postEvent ? `\n${postEvent}` : '');
 					case 'TLT':
-						return `Lucky Charm {${name}}: ${description}`;
+						return `The Wheel of Fortune {${name}}: ${description}`;
 					default:
 						return '';
 				}
