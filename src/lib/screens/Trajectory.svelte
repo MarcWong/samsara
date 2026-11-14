@@ -1121,6 +1121,7 @@
 		font-size: max(0.82rem, 2.6cqh);
 	}
 	.alloc-value {
+		position: relative;
 		width: 1.6em;
 		text-align: center;
 		font-size: max(0.85rem, 2.8cqh);
@@ -1450,8 +1451,19 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	/* Second trigger, in the middle of the panel: the column of numbers
-	   between each row's - and + buttons. */
+	/* Second trigger, in the middle of the panel: one unbroken column between
+	   the - and + buttons, from the first row's circles down into .alloc-lower.
+	   Each number grows an invisible box that fills the gap to the buttons on
+	   either side and bridges the space to the neighbouring rows. The first
+	   row's box stops at its own circles so it never covers Random above. */
+	.alloc-value::before {
+		content: '';
+		position: absolute;
+		inset: -2.6cqh -1cqw;
+	}
+	.alloc-row:first-child .alloc-value::before {
+		top: -0.8cqh;
+	}
 	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
 	   wrapper for hit-testing and the equal negative margin takes the growth
 	   back out of the flex column, so Start's on-screen position and the
