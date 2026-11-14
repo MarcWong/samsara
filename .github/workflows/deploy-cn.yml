@@ -29,12 +29,15 @@ jobs:
 
       - name: Build
         # The Chinese site lives at marcwong.github.io/samsara_cn, so every
-        # asset path needs that prefix. No Supabase vars on purpose: this
-        # copy does not report runs.
+        # asset path needs that prefix. Runs are reported to the Chinese
+        # edition's own PostgREST server (Aliyun), not the English site's
+        # Supabase -- hence separate secrets.
         run: npm run build
         env:
           NODE_ENV: production
           BASE_PATH: /samsara_cn
+          VITE_SUPABASE_URL: ${{ secrets.CN_TELEMETRY_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.CN_TELEMETRY_KEY }}
 
       - name: Deploy to samsara_cn
         uses: peaceiris/actions-gh-pages@v3

@@ -27,7 +27,7 @@ const SOURCE =
 		? 'kiosk'
 		: 'web';
 
-// Which deployment wrote the row: the two GitHub Pages sites build with
+// Which deployment wrote the row: the GitHub Pages sites build with
 // different base paths, so the one baked into each bundle already
 // fingerprints prod vs test -- no extra secret or workflow wiring needed.
 // Local dev (empty base) records as 'dev'.
@@ -39,6 +39,7 @@ const SOURCE =
 const DEPLOYMENT =
 	base === '/samsara' ? 'prod'
 	: base === '/samsara_test' ? 'test'
+	: base === '/samsara_cn' ? 'cn'
 	: 'dev';
 
 export function recordRun(run) {
