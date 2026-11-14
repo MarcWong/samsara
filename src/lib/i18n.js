@@ -62,7 +62,7 @@ const DICT = {
 
 		// Life log
 		'log.age': 'Age %age%',
-		'log.luckyCharm': 'Lucky Charm {%name%}: %description%',
+		'log.luckyCharm': 'The Wheel of Fortune {%name%}: %description%',
 		'log.coda': 'Relax, even when you are privileged, nothing is in control',
 		'log.viewSummary': 'View Summary',
 
@@ -83,7 +83,7 @@ const DICT = {
 		'sum.orientation': 'Orientation',
 		'sum.livedTo': 'Lived to',
 		'sum.age': 'Age %age%',
-		'sum.randomEvents': 'Random Events',
+		'sum.randomEvents': 'The Wheel of Fortune',
 		'sum.talentLine': '%name% (%description%)',
 		'sum.print': 'Print',
 		'sum.restart': 'Restart Life',
@@ -155,7 +155,7 @@ const DICT = {
 		'alloc.increase': '增加%label%',
 
 		'log.age': '%age% 岁',
-		'log.luckyCharm': '幸运符「%name%」：%description%',
+		'log.luckyCharm': '命运之轮「%name%」：%description%',
 		'log.coda': '放轻松，即便你享有特权，也没有什么真正在掌控之中。',
 		'log.viewSummary': '查看总结',
 
@@ -174,7 +174,7 @@ const DICT = {
 		'sum.orientation': '性取向',
 		'sum.livedTo': '享年',
 		'sum.age': '%age% 岁',
-		'sum.randomEvents': '随机事件',
+		'sum.randomEvents': '命运之轮',
 		'sum.talentLine': '%name%（%description%）',
 		'sum.print': '打印',
 		'sum.restart': '重启人生',

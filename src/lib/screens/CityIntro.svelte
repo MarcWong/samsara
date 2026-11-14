@@ -92,6 +92,23 @@
 	// 'loading' -> 'loop' -> 'transition' -> 'frozen' -> 'morgue' -> 'select'
 	let phase = $state('loading');
 
+	// 2.mp4 cuts to the fogged glass, where the English line is written, this
+	// many seconds in. The Chinese subtitle starts at that cut rather than
+	// waiting for the clip to finish. Timed off the clip's own audio element,
+	// which starts on the same click; if that never plays (or the clip is
+	// skipped), the subtitle still appears with the frozen final frame.
+	const GLASS_CUT_S = 12.4;
+	let glassReached = $state(false);
+	let showReborn = $derived(phase === 'frozen' || (phase === 'transition' && glassReached));
+	$effect(() => {
+		if (phase !== 'transition') return;
+		let frame = requestAnimationFrame(function poll() {
+			if ((audio2El?.currentTime ?? 0) >= GLASS_CUT_S) glassReached = true;
+			else frame = requestAnimationFrame(poll);
+		});
+		return () => cancelAnimationFrame(frame);
+	});
+
 	// Container size, tracked so the country overlay can be pinned to the
 	// exact cover-fit rectangle the video occupies on screen -- the door
 	// percentages above are in video space, not viewport space.
@@ -347,24 +364,25 @@
 	</div>
 
 
+	{#if showReborn && $t('intro.reborn')}
+		<!-- 2.mp4 ends on "You are reborn / as a girl" being written on the
+		     fogged glass. Languages that need it get a subtitle between those
+		     two lines, pinned to the video rectangle; it starts with the
+		     English lettering and surfaces one character at a time. -->
+		<div class="select-overlay" style={overlayStyle} aria-hidden="true">
+			<p class="reborn">
+				{#each [...$t('intro.reborn')] as char, i (i)}
+					<span style="animation-delay: {0.2 + i * 0.45}s">{char}</span>
+				{/each}
+			</p>
+		</div>
+	{/if}
+
 	{#if phase === 'frozen'}
 		<!-- 2.mp4's own baked-in final frame reads "You are reborn today as
 		     a female" -- this sits just below it, same type treatment as
 		     .hint, so the two read as one continuous piece of UI. -->
 		<p class="continue-hint">{$t('intro.continue')}</p>
-		<!-- 2.mp4's last frame carries "You are reborn / as a girl" written on
-		     the fogged glass. Languages that need it get a subtitle between
-		     those two lines, pinned to the video rectangle and surfacing one
-		     character at a time, left to right. -->
-		{#if $t('intro.reborn')}
-			<div class="select-overlay" style={overlayStyle} aria-hidden="true">
-				<p class="reborn">
-					{#each [...$t('intro.reborn')] as char, i (i)}
-						<span style="animation-delay: {0.5 + i * 0.45}s">{char}</span>
-					{/each}
-				</p>
-			</div>
-		{/if}
 	{/if}
 </div>
 
@@ -389,7 +407,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: flex-end;
-		padding-bottom: 12vh;
+		/* The language switch adds a row to the block; it is taken out of
+		   the bottom padding so the wordmark stays where it was, clear of
+		   the figure on the bed. */
+		padding-bottom: calc(12vh - 2.8rem);
 		gap: 1rem;
 		pointer-events: none;
 	}
@@ -412,7 +433,7 @@
 		}
 	}
 	.title {
-		font-size: clamp(3.1rem, 8.6vw, 5rem);
+		font-size: clamp(2.5rem, 7vw, 4rem);
 		margin: 0;
 		text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 		display: flex;
@@ -432,7 +453,7 @@
 	.credit {
 		/* A step below .hint's 1rem, and pulled up against the wordmark so
 		   the byline reads as part of the title block rather than the UI. */
-		margin: -1.05rem 0 0;
+		margin: -0.65rem 0 0;
 		font-size: 0.85rem;
 		letter-spacing: 0.22em;
 		color: rgba(255, 255, 255, 0.65);
@@ -475,16 +496,15 @@
 		margin: 0;
 		white-space: nowrap;
 		font-family: 'Samsara Hand', 'Yuanti SC', 'YouYuan', 'STKaiti', 'KaiTi', cursive;
-		font-weight: bold;
-		font-size: 5.6cqh;
+		font-size: 4.4cqh;
 		letter-spacing: 0.35em;
-		color: rgba(226, 238, 244, 0.6);
-		text-shadow: 0 0 0.5em rgba(190, 215, 230, 0.45);
+		color: rgba(226, 238, 244, 0.42);
+		text-shadow: 0 0 0.5em rgba(190, 215, 230, 0.3);
 	}
 	.reborn span {
 		display: inline-block;
 		opacity: 0;
-		animation: reborn-char 1.6s ease forwards;
+		animation: reborn-char 1.2s ease forwards;
 	}
 	@keyframes reborn-char {
 		from {

@@ -608,8 +608,6 @@
 			</div>
 			</div>
 		</div>
-		<!-- A second trigger strip in the stairwell, right of the + buttons. -->
-		<div class="alloc-side-zone" aria-hidden="true"></div>
 	</div>
 {/if}
 
@@ -1427,7 +1425,7 @@
 	}
 	.alloc-hint-zone:hover .alloc-hint,
 	.alloc-lower:hover:not(:has(.alloc-action:hover)) .alloc-hint,
-	.alloc-overlay:has(.alloc-side-zone:hover) .alloc-hint {
+	.alloc-panel:has(.alloc-value:hover) .alloc-hint {
 		opacity: 1;
 		transition: opacity 300ms ease;
 	}
@@ -1452,14 +1450,8 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	.alloc-side-zone {
-		position: absolute;
-		left: 59%;
-		top: 24%;
-		width: 9%;
-		height: 50%;
-		pointer-events: auto;
-	}
+	/* Second trigger, in the middle of the panel: the column of numbers
+	   between each row's - and + buttons. */
 	/* Second trigger: a 0.5cqh ring around Start. The padding grows the
 	   wrapper for hit-testing and the equal negative margin takes the growth
 	   back out of the flex column, so Start's on-screen position and the

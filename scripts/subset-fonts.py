@@ -6,7 +6,7 @@ machine instead of falling back to whatever the system has:
 
   static/fonts/samsara-sc.woff      Noto Sans SC (variable weight) -- all
                                     Chinese text: events, charms, interface
-  static/fonts/samsara-hand.woff    LXGW WenKai Medium -- the "reborn"
+  static/fonts/samsara-hand.woff    Yozai Medium (悠哉字体) -- the "reborn"
                                     subtitle on the start sequence only
 
 Each holds only the characters the game actually uses, so RE-RUN THIS after
@@ -14,11 +14,11 @@ changing static/data/zh-cn/*.json or the Chinese strings in src/lib/i18n.js.
 `npm test` fails if a character is in the text but not in the font.
 
     pip install fonttools
-    python3 scripts/subset-fonts.py NotoSansSC[wght].ttf LXGWWenKai-Medium.ttf
+    python3 scripts/subset-fonts.py NotoSansSC[wght].ttf Yozai-Medium.ttf
 
 Sources (both SIL Open Font License 1.1, see static/fonts/LICENSE-*.txt):
   https://github.com/google/fonts/tree/main/ofl/notosanssc
-  https://github.com/lxgw/LxgwWenKai/tree/main/fonts/TTF
+  https://github.com/lxgw/yozai-font/releases
 """
 import re
 import sys

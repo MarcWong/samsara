@@ -58,7 +58,7 @@ The game ships in English and Chinese (简体中文). The player picks the langu
 - `static/data/en-us/` is the original English data. It is the structure the engine runs on and is never edited for translation.
 - `static/data/zh-cn/` holds text-only overlays (`events.json`: event id → line, `talents.json`: id → name/description) applied on top of it, so a translation can't change conditions, effects or branches.
 - Interface strings (buttons, labels, credits, the printed receipt) live in `src/lib/i18n.js`.
-- Chinese is drawn with two bundled fonts in `static/fonts/` (Noto Sans SC for all text, LXGW WenKai for the start-sequence subtitle; both SIL OFL), subset to the characters the game uses. After changing any Chinese text, rebuild them with `python3 scripts/subset-fonts.py <NotoSansSC[wght].ttf> <LXGWWenKai-Medium.ttf>` — `npm test` fails if a character is missing from the font.
+- Chinese is drawn with two bundled fonts in `static/fonts/` (Noto Sans SC for all text, Yozai for the handwritten start-sequence subtitle; both SIL OFL), subset to the characters the game uses. After changing any Chinese text, rebuild them with `python3 scripts/subset-fonts.py <NotoSansSC[wght].ttf> <Yozai-Medium.ttf>` — `npm test` fails if a character is missing from the font.
 
 To add another language: add a `DICT` entry in `i18n.js`, a data folder under `static/data/`, and register it in `OVERLAY_DIRS` in `src/lib/game/core.js`. `npm test` checks that every event id and interface key is covered.
 

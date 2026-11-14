@@ -47,7 +47,8 @@
 		pointer-events: auto;
 		align-items: center;
 		gap: 0.55em;
-		font-size: 1rem;
+		font-size: 0.9rem;
+		line-height: 1.2;
 		letter-spacing: 0.12em;
 		cursor: default;
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
@@ -58,7 +59,7 @@
 	/* Same understated treatment as the title screen's hint line: the active
 	   language is lit, the other dimmed until hovered. */
 	.opt {
-		padding: 0.3em 0.2em;
+		padding: 0 0.2em;
 		background: none;
 		border: none;
 		font: inherit;
