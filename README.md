@@ -13,7 +13,7 @@
 <summary><strong>网页版</strong></summary>
 <br />
 
-1. 安装依赖：
+1. 安装依赖（需要 Node.js 20、22 或 24；奇数版本如 23 会报 `EBADENGINE`）：
 
 ```bash
 npm install --legacy-peer-deps
@@ -58,7 +58,7 @@ node repl
 
 ### 一、首次准备（技术人员做一次即可）
 
-1. 安装 [Node.js](https://nodejs.org/)（选 LTS 版本）和 [Google Chrome](https://www.google.com/chrome/)。
+1. 安装 [Node.js](https://nodejs.org/)（选 **LTS** 版本，即 22 或 24；不要用 23、25 这类奇数版本，安装依赖时会报 `EBADENGINE`）和 [Google Chrome](https://www.google.com/chrome/)。
 2. 把整个项目文件夹拷到展场电脑上（例如桌面），在文件夹里打开终端运行一次：
    ```bash
    npm install --legacy-peer-deps
