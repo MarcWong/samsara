@@ -13,10 +13,12 @@
 
 const PAPER_MM = 72; // printable band of the 80mm roll
 // Side margins. The exhibit server places the image at the printer's own
-// printable edge and scales it to the printable width, so equal small
-// margins make the text fill the printable band, centred.
-const PAD_LEFT_MM = 1.5;
-const PAD_RIGHT_MM = 1.5;
+// printable edge and scales it to the printable width. Equal 1.5mm margins
+// still printed a little left of centre on the exhibition printer, so the
+// band is nudged 1mm right. To move the whole receipt, shift millimetres
+// from one side to the other (keep the sum at 3mm so the width stays).
+const PAD_LEFT_MM = 2.5;
+const PAD_RIGHT_MM = 0.5;
 const TOP_MM = 2;
 const RIGHT_EDGE_MM = PAPER_MM - PAD_RIGHT_MM;
 // Same stack as the old HTML receipt: Latin in a monospace face, Chinese in
@@ -280,4 +282,4 @@ export function canvasToBlob(canvas) {
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
 // Bump when the printed layout changes; the exhibit server logs it per print.
-export const RECEIPT_VERSION = 'bw-full-2';
+export const RECEIPT_VERSION = 'bw-full-3';
