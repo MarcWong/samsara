@@ -8,6 +8,7 @@
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
 	import { t, tr, translate } from '../i18n.js';
+	import { renderReceipt, canvasToBlob, RECEIPT_PAPER_MM } from '../receipt.js';
 
 	const { summary } = core;
 	const types = core.PropertyTypes;
@@ -192,7 +193,9 @@
 	let idleTimer = null;
 	function resetIdleTimer() {
 		clearTimeout(idleTimer);
-		if (restarting) return;
+		// The idle reset is for the unattended exhibition machine; on a
+		// visitor's own phone it would only yank the page away mid-read.
+		if (restarting || isTouch) return;
 		idleTimer = setTimeout(onAgain, IDLE_MS);
 	}
 	onMount(() => {
@@ -256,115 +259,104 @@
 		// break needs its own element, not just an empty text line.
 		return [...header, '', ...story];
 	}
-	// Receipt-style dashed tear line, reused between the header/story
-	// split and again between the story and the QR codes.
-	const DASHED_LINE = "<div class='rule'></div>";
-
-	// Laid out for the exhibition printer: 80mm paper whose driver prints a
-	// 72mm band. Declaring exactly that band, with no page margins, leaves the
-	// driver nothing to scale. The first real print came out shifted right
-	// (left edge flush, right side cut off), so the right side carries a much
-	// wider inset than the left. Tune RECEIPT_PAD_RIGHT if the printer changes.
-	const RECEIPT_WIDTH = '72mm';
-	const RECEIPT_PAD_LEFT = '1mm';
-	const RECEIPT_PAD_RIGHT = '7mm';
-
-	function receiptHtml() {
-		const origin = window.location.origin;
-		const qrOrigin = `${origin}${QR_ORIGIN}`;
-		const story = printHeaderAndStory()
-			.map(line => (line === '' ? DASHED_LINE : `<p>${line}</p>`))
-			.join('');
-		const qrs = QRS.map(([file, caption]) => `<div><img src='${qrOrigin}/${file}'><p>${caption}</p></div>`).join('');
-		return `<!doctype html><html><head><meta charset='utf-8'><style>
-			/* The receipt is its own document, so it loads the bundled Chinese
-			   font itself. */
-			@font-face {
-				font-family: 'Samsara SC';
-				src: url('${origin}${base}/fonts/samsara-sc.woff') format('woff');
-				font-weight: 100 900;
-			}
-			@page { size: ${RECEIPT_WIDTH} auto; margin: 0; }
-			html, body { margin: 0; padding: 0; }
-			body {
-				width: ${RECEIPT_WIDTH};
-				box-sizing: border-box;
-				padding: 2mm ${RECEIPT_PAD_RIGHT} 8mm ${RECEIPT_PAD_LEFT};
-				font-family: 'Cascadia Code', Consolas, 'Samsara SC', monospace;
-			}
-			* { box-sizing: border-box; max-width: 100%; }
-			/* Body text at the credits' size: 12px made a typical life over a
-			   metre of paper. */
-			p { margin: 3px 0; font-size: 10px; line-height: 1.4; }
-			.rule { border-top: 1px dashed #999; margin: 8px 0; }
-			.masthead { font-size: 12px; margin: 4px 0 6px; }
-			/* 2 x 2 at 26mm: big enough for a thermal head to keep every module
-			   crisp -- at 20mm the dotted Instagram code no longer scanned. */
-			.qrs { display: flex; flex-wrap: wrap; justify-content: space-evenly; row-gap: 3mm; }
-			.qrs > div { width: 30mm; text-align: center; }
-			.qrs img { width: 26mm; height: 26mm; }
-			.qrs p { margin: 2px 0 0; font-size: 10px; }
-			.credits { margin: 8px 0 0; font-size: 10px; text-align: center; }
-		</style></head><body>
-			<p class='masthead'>${tr('print.masthead')}</p>
-			${story}${DASHED_LINE}
-			<div class='qrs'>${qrs}</div>
-			<p class='credits'>${CREDITS_PRINT.join('<br>')}</p>
-		</body></html>`;
+	// The receipt as data for renderReceipt (src/lib/receipt.js), which
+	// draws it identically for the exhibition printer, the phone "save as
+	// image" and plain browser printing.
+	function receiptData(pxPerMm) {
+		const lines = printHeaderAndStory();
+		const split = lines.indexOf('');
+		const qrOrigin = `${window.location.origin}${QR_ORIGIN}`;
+		return {
+			masthead: tr('print.masthead'),
+			header: split === -1 ? [] : lines.slice(0, split),
+			story: split === -1 ? lines : lines.slice(split + 1),
+			qrs: QRS.map(([file, caption]) => ({ src: `${qrOrigin}/${file}`, caption })),
+			credits: CREDITS_PRINT,
+			portrait: `${qrOrigin}/receipt-portrait.png`,
+			pxPerMm,
+		};
 	}
 
-	// Printed from a hidden iframe inside this page rather than a popup
-	// window. Under Chrome's --kiosk-printing a popup meant a second
-	// full-screen window opening and closing around the job (the double flash
-	// at the exhibition); the iframe never shows. A second press while a job
-	// is still being prepared is ignored, so a double-click prints once.
-	let printFrame = null;
-	function onPrintTxt() {
-		if (printFrame) return;
-		const frame = document.createElement('iframe');
-		frame.setAttribute('aria-hidden', 'true');
-		frame.tabIndex = -1;
-		frame.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 0; height: 0; border: 0;';
-		document.body.appendChild(frame);
-		printFrame = frame;
+	// Phones (touch, no hover) get "save as image" instead of printing.
+	const isTouch =
+		typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-		const win = frame.contentWindow;
-		const doc = win.document;
-		doc.open();
-		doc.write(receiptHtml());
-		doc.close();
+	// Served by `npm run exhibit`? Then the local server prints the receipt
+	// itself, straight to the default printer, with no browser dialog at all.
+	const EXHIBIT_API = `${base}/__exhibit`;
+	let exhibitPrinter = false;
+	onMount(() => {
+		if (isTouch) return;
+		fetch(`${EXHIBIT_API}/ping`)
+			.then(r => r.ok && r.text())
+			.then(body => (exhibitPrinter = body === 'samsara-exhibit'))
+			.catch(() => {});
+	});
 
-		let removed = false;
-		const cleanup = () => {
-			if (removed) return;
-			removed = true;
-			frame.remove();
-			printFrame = null;
-		};
-		win.addEventListener('afterprint', () => setTimeout(cleanup, 500));
+	let busy = false;
+	async function onPrintTxt() {
+		if (busy) return;
+		busy = true;
+		try {
+			if (isTouch) return await saveAsImage();
+			// 8 px/mm = the thermal head's own 203 dpi, so nothing gets resampled.
+			const canvas = await renderReceipt(receiptData(8));
+			if (exhibitPrinter) {
+				const blob = await canvasToBlob(canvas);
+				const res = await fetch(`${EXHIBIT_API}/print`, { method: 'POST', body: blob }).catch(() => null);
+				if (res?.ok) return;
+				console.error('[Summary] exhibit printer failed, falling back to browser print', await res?.text?.());
+			}
+			await browserPrint(canvas);
+		} finally {
+			busy = false;
+		}
+	}
 
-		// Wait for the QR images to decode and the Chinese font to load before
-		// printing -- printing mid-load left blank boxes where the codes should
-		// be. The 3s cap keeps a missing asset from blocking the receipt.
-		const fontReady = doc.fonts?.load?.("10px 'Samsara SC'", '人生').catch(() => {});
-		const ready = Promise.all([
-			fontReady,
-			...[...doc.images].map(
-				img =>
-					img.decode?.().catch(() => {}) ??
-					new Promise(res => {
-						if (img.complete) return res();
-						img.onload = img.onerror = () => res();
-					})
-			),
-		]);
-		Promise.race([ready, new Promise(res => setTimeout(res, 3000))]).then(() => {
-			win.focus();
-			win.print();
-			// Some modes never fire afterprint; the frame is invisible either way,
-			// this just frees it for the next receipt.
-			setTimeout(cleanup, 15000);
+	// Website printing: the receipt image alone in a hidden frame, sized to
+	// the paper band, then the browser's own print.
+	function browserPrint(canvas) {
+		return new Promise(resolve => {
+			const frame = document.createElement('iframe');
+			frame.setAttribute('aria-hidden', 'true');
+			frame.tabIndex = -1;
+			frame.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 0; height: 0; border: 0;';
+			document.body.appendChild(frame);
+			const doc = frame.contentWindow.document;
+			doc.open();
+			doc.write(
+				`<!doctype html><html><head><style>
+					@page { size: ${RECEIPT_PAPER_MM}mm auto; margin: 0; }
+					html, body { margin: 0; padding: 0; }
+					img { display: block; width: ${RECEIPT_PAPER_MM}mm; }
+				</style></head><body><img src='${canvas.toDataURL('image/png')}'></body></html>`
+			);
+			doc.close();
+			const img = doc.images[0];
+			const go = () => {
+				const win = frame.contentWindow;
+				let done = false;
+				const cleanup = () => {
+					if (done) return;
+					done = true;
+					frame.remove();
+					resolve();
+				};
+				win.addEventListener('afterprint', () => setTimeout(cleanup, 500));
+				win.focus();
+				win.print();
+				setTimeout(cleanup, 15000);
+			};
+			(img.decode?.() ?? Promise.resolve()).then(go, go);
 		});
+	}
+
+	// Phones: show the receipt as one long image the visitor can press and
+	// hold to save (works inside WeChat too, where downloads do not).
+	let savedImage = $state(null);
+	async function saveAsImage() {
+		const canvas = await renderReceipt(receiptData(12));
+		savedImage = canvas.toDataURL('image/png');
 	}
 </script>
 
@@ -440,7 +432,7 @@
 	{/if}
 
 	<div class="actions">
-		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>{$t('sum.print')}</Button>
+		<Button variant="print" onclick={() => { resetIdleTimer(); onPrintTxt(); }}>{isTouch ? $t('sum.saveImage') : $t('sum.print')}</Button>
 		<Button onclick={() => { onAgain(); resetIdleTimer(); }}>{$t('sum.restart')}</Button>
 	</div>
 
@@ -459,6 +451,18 @@
 	</div>
 	</div>
 </div>
+
+{#if savedImage}
+	<!-- Phones: the receipt as one long image. Press-and-hold saves it in
+	     every mobile browser, WeChat's included (which blocks downloads). -->
+	<div class="save-overlay" role="dialog" aria-modal="true" aria-label={$t('sum.saveImage')}>
+		<p class="save-hint">{$t('sum.saveHint')}</p>
+		<div class="save-scroll">
+			<img src={savedImage} alt={$t('print.masthead')} />
+		</div>
+		<button type="button" class="save-close" onclick={() => (savedImage = null)}>{$t('sum.close')}</button>
+	</div>
+{/if}
 
 <style>
 	/* Recolored to match the 5 intro/trajectory clips' own cool, desaturated
@@ -689,4 +693,48 @@
 		text-shadow: 0 1px 6px rgba(6, 12, 18, 0.75);
 	}
 
+	.save-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom));
+		background: rgba(8, 16, 24, 0.88);
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+	.save-hint {
+		margin: 0;
+		color: #eef6fa;
+		font-size: 1rem;
+		letter-spacing: 0.08em;
+	}
+	.save-scroll {
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		border-radius: 0.3rem;
+	}
+	.save-scroll img {
+		display: block;
+		width: min(26rem, 80vw);
+		height: auto;
+		/* Let the browser's own press-and-hold menu (save image) through. */
+		-webkit-touch-callout: default;
+		user-select: auto;
+	}
+	.save-close {
+		padding: 0.4em 1.6em;
+		font: inherit;
+		font-size: 1rem;
+		color: #17262e;
+		background: rgba(238, 246, 250, 0.92);
+		border: none;
+		border-radius: 999px;
+		cursor: pointer;
+	}
 </style>

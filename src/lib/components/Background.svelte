@@ -140,6 +140,12 @@
 		mouseTarget.x = e.clientX / window.innerWidth;
 		mouseTarget.y = 1 - e.clientY / window.innerHeight;
 	}
+	// Phones: pointermove stops as soon as a touch turns into a scroll
+	// (pointercancel), so follow the finger through touch events as well.
+	function onTouch(e) {
+		const t = e.touches?.[0];
+		if (t) onPointerMove(t);
+	}
 
 	function onVisibilityChange() {
 		if (document.hidden) {
@@ -200,6 +206,9 @@
 		resize();
 		window.addEventListener('resize', resize);
 		window.addEventListener('pointermove', onPointerMove);
+		window.addEventListener('pointerdown', onPointerMove);
+		window.addEventListener('touchstart', onTouch, { passive: true });
+		window.addEventListener('touchmove', onTouch, { passive: true });
 		document.addEventListener('visibilitychange', onVisibilityChange);
 
 		ready = true;
@@ -210,6 +219,9 @@
 		if (rafId) cancelAnimationFrame(rafId);
 		window.removeEventListener('resize', resize);
 		window.removeEventListener('pointermove', onPointerMove);
+		window.removeEventListener('pointerdown', onPointerMove);
+		window.removeEventListener('touchstart', onTouch);
+		window.removeEventListener('touchmove', onTouch);
 		document.removeEventListener('visibilitychange', onVisibilityChange);
 		renderer?.gl.getExtension('WEBGL_lose_context')?.loseContext();
 	});

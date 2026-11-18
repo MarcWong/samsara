@@ -19,7 +19,7 @@ const VITE = join(ROOT, 'node_modules', 'vite', 'bin', 'vite.js');
 const PORT = 4173;
 const BASE = '/samsara_cn';
 const URL_ = `http://localhost:${PORT}${BASE}/?kiosk`;
-const env = { ...process.env, NODE_ENV: 'production', BASE_PATH: BASE };
+const env = { ...process.env, NODE_ENV: 'production', BASE_PATH: BASE, SAMSARA_EXHIBIT: '1' };
 
 if (!existsSync(VITE)) {
 	console.error('\n[!] 还没有安装依赖。请先在本文件夹运行：npm install --legacy-peer-deps\n');
@@ -89,11 +89,10 @@ if (!chrome || process.argv.includes('--no-browser')) {
 		chrome,
 		[
 			'--kiosk', // full screen, no address bar
-			'--kiosk-printing', // print straight to the default printer, no dialog
-			// Without this, kiosk printing still flashes Chrome's print-preview
-			// window for a moment on every receipt. Pass --print-preview to
-			// `npm run exhibit` to drop it if a system print dialog appears.
-			...(process.argv.includes('--print-preview') ? [] : ['--disable-print-preview']),
+			// Receipts are printed by this server itself (exhibit-printer.js), with
+			// no browser dialog. --kiosk-printing only covers the fallback path,
+			// should that ever fail.
+			'--kiosk-printing',
 			'--autoplay-policy=no-user-gesture-required', // let the intro music start on its own
 			'--no-first-run',
 			'--no-default-browser-check',

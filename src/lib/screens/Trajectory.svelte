@@ -589,6 +589,9 @@
 			</div>
 			</div>
 		</div>
+		<!-- Touch screens only: the strip right of the + buttons is the one
+		     place a tap reveals the hidden tip (see the hover: none rules). -->
+		<div class="alloc-side-zone" aria-hidden="true"></div>
 	</div>
 {/if}
 
@@ -851,6 +854,19 @@
 	}
 	.stair-log-viewport::-webkit-scrollbar {
 		display: none;
+	}
+	/* Phones: the log column was a narrow strip showing one entry at a time.
+	   Widen it by about a third, growing to the left (into the side bar
+	   beside the footage); the right edge stays where it was. */
+	@media (max-height: 560px) {
+		.stair-log-viewport {
+			/* Right edge where it was (64% of the footage); left edge 12% of
+			   the footage further out, but never past the screen edge (the
+			   scene is the footage rectangle, centred between side bars). */
+			left: max(-12%, calc((100% - 100vw) / 2 + 0.6rem));
+			right: 36%;
+			width: auto;
+		}
 	}
 	/* Applied only while scrolled (see onLogScroll) -- at rest this fade
 	   had nothing above the first entry to dissolve and simply erased its
@@ -1452,12 +1468,37 @@
 		color: rgba(23, 38, 46, 0.95);
 		pointer-events: auto;
 	}
-	/* Touch devices have no hover, so the hidden-in-plain-sight reveal can
-	   never fire there -- the tip would simply not exist. Show it standing,
-	   slightly dimmed so it reads as a caption rather than a callout. */
+	/* Touch screens: a tap leaves the element "hovered", so the desktop
+	   triggers (number column, caption, the tip itself) would fire on almost
+	   every tap -- people tap the numbers and buttons constantly. There the
+	   tip stays hidden until the player taps the empty strip right of the +
+	   buttons. */
+	.alloc-side-zone {
+		display: none;
+	}
 	@media (hover: none) {
-		.alloc-hint {
-			opacity: 0.8;
+		.alloc-value::before {
+			display: none;
+		}
+		.alloc-hint-zone:hover .alloc-hint,
+		.alloc-panel:has(.start-caption:hover) .alloc-hint,
+		.alloc-panel:has(.alloc-value:hover) .alloc-hint {
+			opacity: 0;
+		}
+		.alloc-side-zone {
+			display: block;
+			position: absolute;
+			/* From just right of the + buttons (their edge sits at ~54% of
+			   the footage width), first row to last row. */
+			left: 54.6%;
+			top: 26%;
+			width: 11%;
+			height: 37%;
+			pointer-events: auto;
+		}
+		.alloc-overlay:has(.alloc-side-zone:hover) .alloc-hint {
+			opacity: 1;
+			transition: opacity 300ms ease;
 		}
 	}
 	/* Phones in landscape (and WeChat's in-app browser, which also spends

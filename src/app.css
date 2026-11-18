@@ -88,3 +88,13 @@ button {
 #app {
 	height: 100%;
 }
+
+/* Phones in landscape (and WeChat's browser, which also spends ~45px on its
+   title bar). The interface is sized in rem throughout, so scaling the root
+   size with the screen height scales every button and label with the
+   footage -- otherwise they stayed desktop-sized and crowded together. */
+@media (max-height: 560px) {
+	html {
+		font-size: clamp(8px, 2.9vh, 16px);
+	}
+}

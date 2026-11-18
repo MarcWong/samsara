@@ -87,9 +87,8 @@ node repl
 
 | 现象 | 处理 |
 |---|---|
-| 小票不出纸 / 弹出了打印对话框 | 确认打印机已开机、有纸，并且是系统**默认打印机**。全屏模式下打印不会弹对话框，直接出纸。 |
-| 打出来的小票很窄或偏到一边 | 打印机纸张设置选 80mm（可打印宽度 72mm），边距设为无/最小。仍然偏右的话，请技术人员调整 `src/lib/screens/Summary.svelte` 里的 `RECEIPT_PAD_RIGHT`。 |
-| 打印时弹出了系统的打印对话框，要手动点「打印」 | 请技术人员改用 `npm run exhibit -- --print-preview` 启动（会恢复 Chrome 自带的打印预览，打印时会闪一下，但不用点）。 |
+| 小票不出纸 | 确认打印机已开机、有纸，并且是系统**默认打印机**。展场模式下小票由本机服务直接发给默认打印机，不会出现任何弹窗；黑色窗口里会显示「[打印] 已发送到默认打印机」。如果显示「[!] 打印失败」，截图发给技术人员。 |
+| 打出来的小票很窄或偏到一边 | 打印机纸张设置选 80mm（可打印宽度 72mm），边距设为无/最小。小票会自动缩放到打印机报告的可打印宽度。 |
 | 画面卡住、黑屏或声音没了 | 按 `Alt + F4`（Mac `Cmd + Q`）关掉游戏，再双击启动文件重开。 |
 | 黑色窗口里出现 `[!]` 开头的红字 | 截图发给技术人员。 |
 | 观众把游戏玩到一半走了 | 不用管。结算页 45 秒没人操作会自动回到开头。 |
@@ -97,7 +96,9 @@ node repl
 
 ### 给技术人员的说明
 
-- `npm run exhibit`（即启动文件做的事）＝ 以 `BASE_PATH=/samsara_cn` 构建 → `vite preview` 在 4173 端口提供服务 → 用独立配置目录启动 Chrome，参数为 `--kiosk --kiosk-printing --disable-print-preview --autoplay-policy=no-user-gesture-required`（`--disable-print-preview` 用来去掉每次打印时打印预览窗口的一闪；加 `--print-preview` 可去掉它）。加 `--no-browser` 只启动服务、不开 Chrome。
+- `npm run exhibit`（即启动文件做的事）＝ 以 `BASE_PATH=/samsara_cn` 构建 → `vite preview` 在 4173 端口提供服务 → 用独立配置目录启动 Chrome，参数为 `--kiosk --kiosk-printing --autoplay-policy=no-user-gesture-required`。
+- 打印不经过浏览器：结算页把小票画成一张 PNG（`src/lib/receipt.js`，72mm 宽、8 点/毫米），发给本机服务的 `/__exhibit/print`（`scripts/exhibit-printer.js`，只在 `npm run exhibit` 下启用），服务直接打到系统默认打印机——Windows 用 `scripts/print-receipt.ps1`（系统自带的 .NET 打印，按打印机报告的可打印宽度缩放），Mac/Linux 用 `lp`。全程没有任何弹窗。本机服务出错时才退回浏览器打印。设 `SAMSARA_PRINT_DRYRUN=1` 时只把图片存成 `print-dryrun.png`，不真正打印。
+- 手机上（触屏、无鼠标）结算页的按钮是「保存为长图」：生成同一张小票图片，长按即可保存（微信里也可以）。加 `--no-browser` 只启动服务、不开 Chrome。
 - 打印是浏览器做的事（`window.print()`），和服务器是 `npm run dev` 还是 `preview` 无关；能否“直接出纸”只取决于 Chrome 是否带 `--kiosk-printing`，以及系统默认打印机。
 - 展场不建议用 `npm run dev`：开发服务器首次访问要现编译、文件夹里有文件变动就会刷新页面打断观众，并且数据会标成 `deployment = 'dev'`。`exhibit` 构建的数据标为 `deployment = 'cn'`、`source = 'kiosk'`。
 - 每次启动都会重新构建，所以拷进新版本文件后，重启一次就生效。

@@ -124,3 +124,4 @@ __localStorage.json
 !.env.test
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+print-dryrun.png
