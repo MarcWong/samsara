@@ -91,9 +91,15 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 	// Measure at a fixed reference scale, in mm.
 	const REF = 10;
 	const probe = document.createElement('canvas').getContext('2d');
+	// The font is set on every call: the measurers share one context, and
+	// setting it once at creation left the body text measured at the
+	// masthead's larger size, so every line wrapped ~20% early.
 	const measurer = sizeMm => {
-		probe.font = `${sizeMm * REF}px ${MONO}`;
-		return text => probe.measureText(text).width / REF;
+		const font = `${sizeMm * REF}px ${MONO}`;
+		return text => {
+			probe.font = font;
+			return probe.measureText(text).width / REF;
+		};
 	};
 
 	const contentW = RIGHT_EDGE_MM - PAD_LEFT_MM;
@@ -274,4 +280,4 @@ export function canvasToBlob(canvas) {
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
 // Bump when the printed layout changes; the exhibit server logs it per print.
-export const RECEIPT_VERSION = 'bw-full';
+export const RECEIPT_VERSION = 'bw-full-2';
