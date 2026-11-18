@@ -1,47 +1,37 @@
-# Samsara
+# ♀Samsara
 
-[![Samsara Installation](Samsara-Yuwei-Jiang-CN-photo-Florian-Voggeneder2.webp)](https://www.youtube.com/watch?v=SZAssoQM8Og)
+[![Samsara 装置现场](Samsara-Yuwei-Jiang-CN-photo-Florian-Voggeneder2.webp)](https://www.youtube.com/watch?v=SZAssoQM8Og)
 
-♀Samsara (2022) challenges the socioeconomic frameworks woven within our optimism about gender equality. By allowing each audience to become digitally reborn as a female in the program based on their life choices, it draws attention to the parallels between the myth of meritocracy and the myth of progress, asking us to reconsider the power dynamics in the future tense. The work ushers in a sense of a future techno-dystopia where our desires are serviced by AI and human rights are sacrificed in the name of the new techno-religion.
+♀Samsara（2022）质疑的是那些交织在我们对性别平等的乐观想象之中的社会经济框架。作品让每一位观众依据自己的人生选择，在程序中以女性身份“数字转生”，由此揭示“精英主义神话”与“进步神话”之间的相似之处，促使我们以将来时重新审视其中的权力关系。它引人进入一种未来的技术反乌托邦：人的欲望由 AI 服侍，人权则以新的“技术宗教”之名被牺牲。
 
-Read more at [Planet B Exhibition at Ars Eletronica](https://ars.electronica.art/planetb/en/samsara/).
+更多介绍见 [林茨电子艺术节 Planet B 展览](https://ars.electronica.art/planetb/en/samsara/)。
 
 
-## Installation
+## 安装与运行
 
 <details>
-<summary><strong>Web Version</strong></summary>
+<summary><strong>网页版</strong></summary>
 <br />
 
-1. Installation dependence.
+1. 安装依赖：
 
 ```bash
-yarn install
+npm install --legacy-peer-deps
 ```
 
-Or
-
-```bash
-npm install
-```
-
-2. Start local server.
-
-```bash
-yarn dev
-```
-
-Or
+2. 启动本地开发服务器：
 
 ```bash
 npm run dev
 ```
 
-3. After the startup is complete, will automatically open a browser and visit.
+3. 启动完成后，在浏览器中打开终端里显示的地址即可。
+
+展场布展请不要用这种方式，见下文《展场布展操作手册》。
 </details>
 
 <details>
-<summary><strong>Command Line Version</strong></summary>
+<summary><strong>命令行版</strong></summary>
 <br />
 
 ```bash
@@ -51,16 +41,16 @@ node repl
 </details>
 
 
-## Languages
+## 语言
 
-The game ships in English and Chinese (简体中文). The player picks the language with the **中文｜EN** switch under the title on the start screen; a fresh page load always starts in Chinese (`DEFAULT_LANG` in `src/lib/i18n.js`).
+游戏提供简体中文和英文两个版本。玩家在开始画面标题下方的 **中文｜EN** 开关中选择语言；每次打开页面默认是中文（`src/lib/i18n.js` 中的 `DEFAULT_LANG`）。
 
-- `static/data/en-us/` is the original English data. It is the structure the engine runs on and is never edited for translation.
-- `static/data/zh-cn/` holds text-only overlays (`events.json`: event id → line, `talents.json`: id → name/description) applied on top of it, so a translation can't change conditions, effects or branches.
-- Interface strings (buttons, labels, credits, the printed receipt) live in `src/lib/i18n.js`.
-- Chinese is drawn with two bundled fonts in `static/fonts/` (Noto Sans SC for all text, Yozai for the handwritten start-sequence subtitle; both SIL OFL), subset to the characters the game uses. After changing any Chinese text, rebuild them with `python3 scripts/subset-fonts.py <NotoSansSC[wght].ttf> <Yozai-Medium.ttf>` — `npm test` fails if a character is missing from the font.
+- `static/data/en-us/` 是原版英文数据，也是游戏引擎实际运行的数据结构，翻译时从不改动。
+- `static/data/zh-cn/` 只存放文字叠加层（`events.json`：事件编号 → 文字；`talents.json`：编号 → 名称和描述），在运行时覆盖到英文数据上，因此翻译不可能改变触发条件、数值效果或分支。
+- 界面文字（按钮、标签、致谢、打印小票）都在 `src/lib/i18n.js`。
+- 中文使用 `static/fonts/` 中打包的两款字体（正文用思源黑体 Noto Sans SC，开场“你转生为女”手写字幕用悠哉字体 Yozai，均为 SIL OFL 开源许可），并裁剪到游戏实际用到的字。**修改任何中文文字之后**，都要重新裁剪字体：`python3 scripts/subset-fonts.py <NotoSansSC[wght].ttf> <Yozai-Medium.ttf>`。如果有字不在字体里，`npm test` 会报错并列出缺的字。
 
-To add another language: add a `DICT` entry in `i18n.js`, a data folder under `static/data/`, and register it in `OVERLAY_DIRS` in `src/lib/game/core.js`. `npm test` checks that every event id and interface key is covered.
+添加新语言：在 `i18n.js` 中增加一个 `DICT` 条目，在 `static/data/` 下新建数据文件夹，并在 `src/lib/game/core.js` 的 `OVERLAY_DIRS` 中注册。`npm test` 会检查每个事件编号和界面词条是否都已覆盖。
 
 ## 展场布展操作手册（本地运行）
 
@@ -112,18 +102,18 @@ To add another language: add a `DICT` entry in `i18n.js`, a data folder under `s
 - 每次启动都会重新构建，所以拷进新版本文件后，重启一次就生效。
 - 小票的二维码、致谢文字和字体都在本机，断网也能完整打印。
 
-## Credits
+## 致谢
 
-- Lead Direction Narrative Design: <a href='https://www.imdb.com/name/nm14776446/'>Yuwei Jiang</a>
+- 总设计：<a href='https://www.imdb.com/name/nm14776446/'>江禹葳</a>
 
-- Developer & Co-Design: Yao Wang
+- 开发与联合设计：王尧
 
-- Audio design: Guanyu Xie
+- 音乐设计：谢冠宇
 
-- Built upon the open-source codebase of LifeRestart by VickScarlet https://liferestart.syaro.io/
+- 基于 VickScarlet 的开源项目《人生重开模拟器》（LifeRestart）开发：https://liferestart.syaro.io/
 
-- Contact: sabinajiang0505@outlook.com
+- 联系方式：sabinajiang0505@outlook.com
 
-![by me a coffee](static/images/qr-code_coffee.png)
+![作品集](static/images/qr-code_portfolio.png)
 
-![follow Ins](static/images/qr-code_ins.png)
+![关注 Instagram](static/images/qr-code_ins.png)
