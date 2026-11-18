@@ -51,7 +51,13 @@
 	`;
 
 	const fragment = `
+		// Many phone GPUs have no highp in fragment shaders; demanding it made
+		// the shader fail to compile there and the clouds simply vanished.
+		#ifdef GL_FRAGMENT_PRECISION_HIGH
 		precision highp float;
+		#else
+		precision mediump float;
+		#endif
 
 		uniform float uTime;
 		uniform vec2 uMouse;
@@ -121,8 +127,116 @@
 	`;
 
 	let canvasEl = $state(null);
+	let softEl = $state(null);
 	let ready = $state(false);
+	// 'gl' | 'soft' -- which layer is drawing the clouds.
+	let mode = $state('gl');
 	let reducedMotion = $state(false);
+
+	// Software clouds: the same noise field as the shader, drawn on a small
+	// 2D canvas and stretched to the screen (it is soft cloud, so the low
+	// resolution never shows). Used wherever WebGL is unavailable or fails,
+	// and for reduced motion (one still frame), so the summary always has its
+	// clouds -- the plain gradient that used to stand in looked like nothing.
+	function fract(x) {
+		return x - Math.floor(x);
+	}
+	function hash2(x, y) {
+		let px = fract(x * 123.34);
+		let py = fract(y * 456.21);
+		const d = px * (px + 45.32) + py * (py + 45.32);
+		px += d;
+		py += d;
+		return fract(px * py);
+	}
+	function noise2(x, y) {
+		const ix = Math.floor(x);
+		const iy = Math.floor(y);
+		const fx = x - ix;
+		const fy = y - iy;
+		const a = hash2(ix, iy);
+		const b = hash2(ix + 1, iy);
+		const c = hash2(ix, iy + 1);
+		const d = hash2(ix + 1, iy + 1);
+		const ux = fx * fx * (3 - 2 * fx);
+		const uy = fy * fy * (3 - 2 * fy);
+		return a + (b - a) * ux + (c - a) * uy * (1 - ux) + (d - b) * ux * uy;
+	}
+	function fbm2(x, y) {
+		let v = 0;
+		let amp = 0.5;
+		for (let i = 0; i < 5; i++) {
+			v += amp * noise2(x, y);
+			x *= 2;
+			y *= 2;
+			amp *= 0.5;
+		}
+		return v;
+	}
+	function smoothstep(e0, e1, x) {
+		const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0)));
+		return t * t * (3 - 2 * t);
+	}
+	let softCtx = null;
+	let softImage = null;
+	let softLast = 0;
+	function drawSoft(timeSec) {
+		const W = softEl.width;
+		const H = softEl.height;
+		const data = softImage.data;
+		const aspect = W / H;
+		const [dk, md, lt] = (PALETTES[screen] ?? PALETTES.MAIN).map(hexToRgb);
+		const mx = mouseEased.x * aspect;
+		const my = mouseEased.y;
+		for (let j = 0; j < H; j++) {
+			const sy = 1 - (j + 0.5) / H;
+			for (let i = 0; i < W; i++) {
+				const sx = ((i + 0.5) / W) * aspect;
+				const dist = Math.hypot(sx - mx, sy - my);
+				const pull = smoothstep(0.6, 0, dist);
+				const fx = sx * 3 + timeSec * 0.03 + (sx - mx) * pull * 1.5;
+				const fy = sy * 3 + timeSec * 0.02 + (sy - my) * pull * 1.5;
+				const n = fbm2(fx, fy) + fbm2(fx * 2 + 10, fy * 2 + 10) * 0.5;
+				const t1 = smoothstep(0.2, 0.6, n);
+				const t2 = smoothstep(0.55, 0.85, n + pull * 0.3);
+				const k = (j * W + i) * 4;
+				for (let c = 0; c < 3; c++) {
+					const base = dk[c] + (md[c] - dk[c]) * t1;
+					data[k + c] = 255 * (base + (lt[c] - base) * t2);
+				}
+				data[k + 3] = 255;
+			}
+		}
+		softCtx.putImageData(softImage, 0, 0);
+	}
+	function sizeSoft() {
+		const aspect = window.innerWidth / window.innerHeight;
+		softEl.width = 160;
+		softEl.height = Math.max(40, Math.round(160 / aspect));
+		softImage = softCtx.createImageData(softEl.width, softEl.height);
+	}
+	function startSoft(why) {
+		console.warn('[Background] drawing clouds without WebGL:', why);
+		renderer = null;
+		mode = 'soft';
+		softCtx = softEl?.getContext('2d');
+		if (!softCtx) return; // nothing can draw: keep the gradient
+		sizeSoft();
+		window.addEventListener('resize', sizeSoft);
+		ready = true;
+		drawSoft(0);
+		if (!reducedMotion) rafId = requestAnimationFrame(softLoop);
+	}
+	function softLoop(t) {
+		rafId = requestAnimationFrame(softLoop);
+		if (!startTime) startTime = t;
+		mouseEased.x += (mouseTarget.x - mouseEased.x) * 0.06;
+		mouseEased.y += (mouseTarget.y - mouseEased.y) * 0.06;
+		// ~20 fps is plenty for slow-drifting cloud and keeps phones cool.
+		if (t - softLast < 50) return;
+		softLast = t;
+		drawSoft((t - startTime) / 1000);
+	}
 
 	let renderer, program, mesh, rafId;
 	const mouseTarget = { x: 0.5, y: 0.5 };
@@ -151,8 +265,8 @@
 		if (document.hidden) {
 			cancelAnimationFrame(rafId);
 			rafId = null;
-		} else if (!rafId) {
-			rafId = requestAnimationFrame(loop);
+		} else if (!rafId && !reducedMotion) {
+			rafId = requestAnimationFrame(mode === 'soft' ? softLoop : loop);
 		}
 	}
 
@@ -171,7 +285,15 @@
 
 	onMount(() => {
 		reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (reducedMotion) return;
+		window.addEventListener('pointermove', onPointerMove);
+		window.addEventListener('pointerdown', onPointerMove);
+		window.addEventListener('touchstart', onTouch, { passive: true });
+		window.addEventListener('touchmove', onTouch, { passive: true });
+		document.addEventListener('visibilitychange', onVisibilityChange);
+		// Reduced motion: still clouds, no animation.
+		if (reducedMotion) return startSoft('prefers-reduced-motion');
+		// ?softclouds forces the software layer (for checking it on a desktop).
+		if (new URLSearchParams(window.location.search).has('softclouds')) return startSoft('forced by ?softclouds');
 
 		try {
 			renderer = new Renderer({
@@ -183,10 +305,7 @@
 		} catch {
 			renderer = null;
 		}
-		if (!renderer?.gl) {
-			renderer = null;
-			return;
-		}
+		if (!renderer?.gl) return startSoft('no WebGL context');
 
 		const palette = PALETTES[screen] ?? PALETTES.MAIN;
 		program = new Program(renderer.gl, {
@@ -201,15 +320,22 @@
 				uColorLight: { value: hexToRgb(palette[2]) },
 			},
 		});
-		mesh = new Mesh(renderer.gl, { geometry: new Triangle(renderer.gl), program });
+		const gl = renderer.gl;
+		if (!gl.getProgramParameter(program.program, gl.LINK_STATUS)) {
+			return startSoft(`shader failed: ${gl.getProgramInfoLog(program.program) || 'link error'}`);
+		}
+		mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
+		// A lost context (common when a phone backgrounds the browser) would
+		// otherwise leave a black screen: carry on in software instead.
+		canvasEl.addEventListener('webglcontextlost', e => {
+			e.preventDefault();
+			cancelAnimationFrame(rafId);
+			rafId = null;
+			startSoft('WebGL context lost');
+		});
 
 		resize();
 		window.addEventListener('resize', resize);
-		window.addEventListener('pointermove', onPointerMove);
-		window.addEventListener('pointerdown', onPointerMove);
-		window.addEventListener('touchstart', onTouch, { passive: true });
-		window.addEventListener('touchmove', onTouch, { passive: true });
-		document.addEventListener('visibilitychange', onVisibilityChange);
 
 		ready = true;
 		rafId = requestAnimationFrame(loop);
@@ -218,6 +344,7 @@
 	onDestroy(() => {
 		if (rafId) cancelAnimationFrame(rafId);
 		window.removeEventListener('resize', resize);
+		window.removeEventListener('resize', sizeSoft);
 		window.removeEventListener('pointermove', onPointerMove);
 		window.removeEventListener('pointerdown', onPointerMove);
 		window.removeEventListener('touchstart', onTouch);
@@ -246,8 +373,15 @@
 <canvas
 	bind:this={canvasEl}
 	class="bg-canvas"
-	class:hidden={!ready}
+	class:hidden={!ready || mode !== 'gl'}
 	style:opacity={bgOpacity}
+></canvas>
+<canvas
+	bind:this={softEl}
+	class="bg-canvas soft"
+	class:hidden={!ready || mode !== 'soft'}
+	style:opacity={bgOpacity}
+	aria-hidden="true"
 ></canvas>
 
 <style>
@@ -264,5 +398,12 @@
 	}
 	.bg-canvas.hidden {
 		display: none;
+	}
+	/* Stretched from a small canvas: smooth scaling plus a touch of blur so
+	   the low resolution reads as soft cloud, not pixels. */
+	.bg-canvas.soft {
+		image-rendering: auto;
+		filter: blur(2px);
+		transform: scale(1.03);
 	}
 </style>
