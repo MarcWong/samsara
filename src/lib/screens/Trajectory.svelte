@@ -1013,6 +1013,15 @@
 		display: flex;
 		justify-content: center;
 	}
+	/* Phones: centred, the button sat on top of the newest log entry -- the
+	   death line, of all things. Move it to the right, clear of the log
+	   column (which ends at 64% of the footage), just inside the footage. */
+	@media (max-height: 560px) {
+		.controls {
+			justify-content: flex-end;
+			padding-right: max(1.5rem, calc((100vw - 177.78vh) / 2 + 1.5rem));
+		}
+	}
 
 	/* Pinned to 5.mp4's own cover-fit rectangle (see overlayStyle in the
 	   script block), same technique CityIntro/Plaza use for their door
@@ -1517,12 +1526,13 @@
 			display: block;
 			position: absolute;
 			/* The wall right of the panel, as marked on a phone screenshot:
-			   from just right of the panel's edge across the peeling wall,
+			   starting a little clear of the panel's edge (the strip right
+			   beside it must not trigger), across the peeling wall,
 			   level with "Random" down to below Start. Percentages of the
 			   footage. */
-			left: 56.5%;
+			left: 59.5%;
 			top: 23%;
-			width: 28%;
+			width: 24%;
 			height: 52%;
 			pointer-events: auto;
 			/* Holding a finger here must not scroll, zoom, select or open the
