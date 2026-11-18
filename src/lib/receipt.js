@@ -12,10 +12,11 @@
 // All layout is in millimetres; `pxPerMm` only decides the output pixels.
 
 const PAPER_MM = 72; // printable band of the 80mm roll
-// Side margins of the printed receipt, as on the earlier HTML version that
-// printed correctly: a narrow left margin and a wide right one.
-const PAD_LEFT_MM = 1;
-const PAD_RIGHT_MM = 7;
+// Side margins. The old browser-printed receipt needed 1mm/7mm to undo the
+// driver shifting it right; the exhibit server now places the image at the
+// printer's own printable edge, so the same 64mm text band sits centred.
+const PAD_LEFT_MM = 4;
+const PAD_RIGHT_MM = 4;
 const TOP_MM = 2;
 const RIGHT_EDGE_MM = PAPER_MM - PAD_RIGHT_MM;
 // Same stack as the old HTML receipt: Latin in a monospace face, Chinese in
@@ -273,4 +274,4 @@ export function canvasToBlob(canvas) {
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
 // Bump when the printed layout changes; the exhibit server logs it per print.
-export const RECEIPT_VERSION = 'bw-1-7mm';
+export const RECEIPT_VERSION = 'bw-4-4mm';
