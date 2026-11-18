@@ -1,4 +1,5 @@
 <script>
+	import { fitRectStyle } from '../components/videoFit.js';
 	import { onMount } from 'svelte';
 	import { base } from '$app/paths';
 	import { draft, goToScreen } from '../stores.js';
@@ -35,13 +36,7 @@
 	// of inside the fixed-aspect crt-screen panel.
 	let cw = $state(0);
 	let ch = $state(0);
-	let overlayStyle = $derived.by(() => {
-		if (!cw || !ch) return 'display: none;';
-		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
-		const dw = VIDEO_W * s;
-		const dh = VIDEO_H * s;
-		return `left: ${(cw - dw) / 2}px; top: ${(ch - dh) / 2}px; width: ${dw}px; height: ${dh}px;`;
-	});
+	let overlayStyle = $derived(fitRectStyle(cw, ch, VIDEO_W, VIDEO_H));
 
 	onMount(() => {
 		const resize = () => {

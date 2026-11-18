@@ -90,6 +90,10 @@ if (!chrome || process.argv.includes('--no-browser')) {
 		[
 			'--kiosk', // full screen, no address bar
 			'--kiosk-printing', // print straight to the default printer, no dialog
+			// Without this, kiosk printing still flashes Chrome's print-preview
+			// window for a moment on every receipt. Pass --print-preview to
+			// `npm run exhibit` to drop it if a system print dialog appears.
+			...(process.argv.includes('--print-preview') ? [] : ['--disable-print-preview']),
 			'--autoplay-policy=no-user-gesture-required', // let the intro music start on its own
 			'--no-first-run',
 			'--no-default-browser-check',

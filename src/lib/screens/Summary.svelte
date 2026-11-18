@@ -261,10 +261,13 @@
 	const DASHED_LINE = "<div class='rule'></div>";
 
 	// Laid out for the exhibition printer: 80mm paper whose driver prints a
-	// 72mm band (verified with a full-width test print -- black bars reached
-	// both edges). Declaring exactly that band, with no margins, leaves the
-	// driver nothing to offset or scale.
+	// 72mm band. Declaring exactly that band, with no page margins, leaves the
+	// driver nothing to scale. The first real print came out shifted right
+	// (left edge flush, right side cut off), so the right side carries a much
+	// wider inset than the left. Tune RECEIPT_PAD_RIGHT if the printer changes.
 	const RECEIPT_WIDTH = '72mm';
+	const RECEIPT_PAD_LEFT = '1mm';
+	const RECEIPT_PAD_RIGHT = '7mm';
 
 	function receiptHtml() {
 		const origin = window.location.origin;
@@ -286,18 +289,20 @@
 			body {
 				width: ${RECEIPT_WIDTH};
 				box-sizing: border-box;
-				padding: 2mm 2.5mm 8mm;
+				padding: 2mm ${RECEIPT_PAD_RIGHT} 8mm ${RECEIPT_PAD_LEFT};
 				font-family: 'Cascadia Code', Consolas, 'Samsara SC', monospace;
 			}
 			* { box-sizing: border-box; max-width: 100%; }
-			p { margin: 4px 0; font-size: 12px; line-height: 1.45; }
+			/* Body text at the credits' size: 12px made a typical life over a
+			   metre of paper. */
+			p { margin: 3px 0; font-size: 10px; line-height: 1.4; }
 			.rule { border-top: 1px dashed #999; margin: 8px 0; }
-			.masthead { font-size: 15px; margin: 4px 0 8px; }
-			/* 2 x 2 at 27mm: big enough for a thermal head to keep every module
+			.masthead { font-size: 12px; margin: 4px 0 6px; }
+			/* 2 x 2 at 26mm: big enough for a thermal head to keep every module
 			   crisp -- at 20mm the dotted Instagram code no longer scanned. */
 			.qrs { display: flex; flex-wrap: wrap; justify-content: space-evenly; row-gap: 3mm; }
-			.qrs > div { width: 32mm; text-align: center; }
-			.qrs img { width: 27mm; height: 27mm; }
+			.qrs > div { width: 30mm; text-align: center; }
+			.qrs img { width: 26mm; height: 26mm; }
 			.qrs p { margin: 2px 0 0; font-size: 10px; }
 			.credits { margin: 8px 0 0; font-size: 10px; text-align: center; }
 		</style></head><body>
@@ -341,7 +346,7 @@
 		// Wait for the QR images to decode and the Chinese font to load before
 		// printing -- printing mid-load left blank boxes where the codes should
 		// be. The 3s cap keeps a missing asset from blocking the receipt.
-		const fontReady = doc.fonts?.load?.("12px 'Samsara SC'", '人生').catch(() => {});
+		const fontReady = doc.fonts?.load?.("10px 'Samsara SC'", '人生').catch(() => {});
 		const ready = Promise.all([
 			fontReady,
 			...[...doc.images].map(

@@ -69,4 +69,11 @@
 		object-fit: cover;
 		display: block;
 	}
+	/* Same rule as the canvas (videoFit.js): wider than 16:9, fit the height
+	   and leave side bars rather than cropping the top and bottom. */
+	@media (min-aspect-ratio: 16/9) {
+		video {
+			object-fit: contain;
+		}
+	}
 </style>

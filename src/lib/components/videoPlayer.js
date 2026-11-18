@@ -17,6 +17,7 @@
 
 import { createFile, DataStream, MP4BoxBuffer } from 'mp4box';
 import { onSkip } from '../skip.js';
+import { fitScale, STAGE_BG } from './videoFit.js';
 
 export function webCodecsSupported() {
 	return typeof VideoDecoder !== 'undefined';
@@ -143,18 +144,28 @@ export class CanvasVideoPlayer {
 		if (this.#lastFrame) this.#paint(this.#lastFrame);
 	}
 
-	// object-fit: cover -- fill the canvas, center, crop the overflow.
+	// Fit the frame's height (see videoFit.js): on screens narrower than
+	// 16:9 this is cover, on wider ones the frame is centred between dark
+	// side bars instead of losing its top and bottom.
 	#paint(frame) {
 		const cw = this.#canvas.width;
 		const ch = this.#canvas.height;
 		if (!cw || !ch) return;
 		const fw = frame.displayWidth;
 		const fh = frame.displayHeight;
-		const s = Math.max(cw / fw, ch / fh);
+		const s = fitScale(cw, ch, fw, fh);
 		let dw = fw * s;
 		let dh = fh * s;
 		let dx = (cw - dw) / 2;
 		let dy = (ch - dh) / 2;
+		if (dx > 0) {
+			// The canvas is never cleared (see the warp note below), so paint
+			// the side bars explicitly or they would keep stale pixels.
+			const ctx = this.#ctx;
+			ctx.fillStyle = STAGE_BG;
+			ctx.fillRect(0, 0, Math.ceil(dx), ch);
+			ctx.fillRect(Math.floor(dx + dw), 0, Math.ceil(dx) + 1, ch);
+		}
 		// Clip-boundary alignment: warp this clip's early frames so its
 		// content starts exactly where the previous clip's content was, then
 		// ease the warp out -- the framing mismatch plays as a deliberate

@@ -16,6 +16,7 @@
 	// Browsers without WebCodecs fall back to the shared VideoStage's native
 	// <video> driving the same click state machine (with the browser's own
 	// last-frame behavior, which is the best available there).
+	import { fitRectStyle } from '../components/videoFit.js';
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
 	import { goToScreen, bgMusicScale } from '../stores.js';
@@ -114,13 +115,7 @@
 	// percentages above are in video space, not viewport space.
 	let cw = $state(0);
 	let ch = $state(0);
-	let overlayStyle = $derived.by(() => {
-		if (!cw || !ch) return 'display: none;';
-		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
-		const dw = VIDEO_W * s;
-		const dh = VIDEO_H * s;
-		return `left: ${(cw - dw) / 2}px; top: ${(ch - dh) / 2}px; width: ${dw}px; height: ${dh}px;`;
-	});
+	let overlayStyle = $derived(fitRectStyle(cw, ch, VIDEO_W, VIDEO_H));
 
 	onMount(() => {
 		// These four play over the looping bg.opus bed, so they carry an

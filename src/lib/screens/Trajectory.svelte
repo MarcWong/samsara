@@ -1,4 +1,5 @@
 <script>
+	import { fitRectStyle } from '../components/videoFit.js';
 	import { onMount, onDestroy } from 'svelte';
 	import { draft, goToScreen } from '../stores.js';
 	import { core } from '../game/core.js';
@@ -337,13 +338,7 @@
 	const VIDEO_H = 720;
 	let cw = $state(0);
 	let ch = $state(0);
-	let overlayStyle = $derived.by(() => {
-		if (!cw || !ch) return 'display: none;';
-		const s = Math.max(cw / VIDEO_W, ch / VIDEO_H);
-		const dw = VIDEO_W * s;
-		const dh = VIDEO_H * s;
-		return `left: ${(cw - dw) / 2}px; top: ${(ch - dh) / 2}px; width: ${dw}px; height: ${dh}px;`;
-	});
+	let overlayStyle = $derived(fitRectStyle(cw, ch, VIDEO_W, VIDEO_H));
 	onMount(() => {
 		const resize = () => {
 			cw = window.innerWidth;
@@ -1463,6 +1458,52 @@
 	@media (hover: none) {
 		.alloc-hint {
 			opacity: 0.8;
+		}
+	}
+	/* Phones in landscape (and WeChat's in-app browser, which also spends
+	   ~45px on its own title bar): the footage is only ~300-400px tall, so
+	   every rem floor above stops scaling with the panel and the content
+	   overflows it -- labels wrapped one character per line and Start fell
+	   off the bottom. Below this height everything scales with the footage
+	   alone, so the panel is simply a smaller copy of the desktop one. */
+	@media (max-height: 560px) {
+		.alloc-title {
+			font-size: 3.6cqh;
+		}
+		.alloc-tokens {
+			font-size: 2.3cqh;
+			margin-bottom: 1.6cqh;
+		}
+		.alloc-stats {
+			gap: 1.8cqh;
+			margin-bottom: 1.4cqh;
+		}
+		.alloc-label {
+			font-size: 2.8cqh;
+			white-space: nowrap;
+		}
+		.alloc-value {
+			font-size: 3cqh;
+		}
+		.alloc-step,
+		.alloc-step-ghost {
+			font-size: 2.6cqh;
+		}
+		.alloc-action.random-row {
+			font-size: 3.4cqh;
+		}
+		.alloc-action.start-row {
+			font-size: 4.6cqh;
+			margin: 1.2cqh 0;
+		}
+		.start-caption {
+			font-size: 2cqh;
+		}
+		.alloc-hint {
+			font-size: 2cqh;
+		}
+		.alloc-hint-zone {
+			margin-top: 0;
 		}
 	}
 </style>
