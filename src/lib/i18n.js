@@ -90,7 +90,7 @@ const DICT = {
 		'sum.hint':
 			"Throw all your tokens into one attribute,\nget a boost on every stat automatically,\nand boom -- you've just unlocked easy mode for life.",
 		'sum.qr.play': 'Play it at home',
-		'sum.qr.instagram': 'Follow on Instagram',
+		'sum.qr.wechat': 'Add on WeChat',
 		'sum.qr.portfolio': 'View the portfolio',
 		'sum.qr.discord': 'Stay updated on Discord',
 		credits: [
@@ -101,7 +101,7 @@ const DICT = {
 			'Open Source Acknowledgments',
 			'LifeRestart by VickScarlet',
 			'Contact: sabinajiang0505@outlook.com',
-			'WeChat: SabinaJiang_Yuwei',
+			'Instagram: @artist_jiangyuwei',
 			'© 2022 Yuwei Jiang',
 		],
 
@@ -180,7 +180,7 @@ const DICT = {
 		'sum.restart': '重启人生',
 		'sum.hint': '人生是一场豪赌\n若你胆敢挑一个属性梭哈一把\n每项属性便会自动获得加成，\n你就解锁了天龙人模式。',
 		'sum.qr.play': '在家也能玩',
-		'sum.qr.instagram': '关注 Instagram',
+		'sum.qr.wechat': '添加微信',
 		'sum.qr.portfolio': '查看作品集',
 		'sum.qr.discord': '加入 Discord 获取更新',
 		credits: [
@@ -190,7 +190,7 @@ const DICT = {
 			'Open Source Acknowledgments',
 			'LifeRestart by VickScarlet',
 			'联系方式：sabinajiang0505@outlook.com',
-			'微信：SabinaJiang_Yuwei',
+			'Instagram：@artist_jiangyuwei',
 			'© 2022 Yuwei Jiang',
 		],
 

@@ -92,8 +92,8 @@
 	// in onMount, which front-loads onPrintTxt's decode wait.
 	const QR_ORIGIN = `${base}/images`;
 	const QRS = [
-		['qrcode.png', tr('sum.qr.play')],
-		['qr-code_ins.png', tr('sum.qr.instagram')],
+		['qrcode_cn.png', tr('sum.qr.play')],
+		['qr-code_wechat.png', tr('sum.qr.wechat')],
 		['qr-code_portfolio.png', tr('sum.qr.portfolio')],
 		['qr-code_discord.png', tr('sum.qr.discord')],
 	];
@@ -257,130 +257,108 @@
 		return [...header, '', ...story];
 	}
 	// Receipt-style dashed tear line, reused between the header/story
-	// split and again between the story and the QR codes -- a plain <br>
-	// read as an arbitrary gap; an actual rule reads as a deliberate
-	// section break, the way a real printed receipt tears between parts.
-	// Sized for the real hardware: an XP-58IIH cuts 58mm paper, but the
-	// zj-58 PPD's imageable area is only 48mm of it. The old inline
-	// width: 280px was a screen guess the thermal driver cropped; declaring
-	// the full 58mm was no better, since the driver then adds its own 14pt
-	// hard margin on top (and may scale to fit), which printed as a blank
-	// gutter down the left third. Everything below is laid out in the 48mm
-	// printable band, so the driver has nothing left to offset.
+	// split and again between the story and the QR codes.
 	const DASHED_LINE = "<div class='rule'></div>";
-	function onPrintTxt() {
-		const win = window.open();
-		if (!win) return;
-		const txts = printHeaderAndStory();
-		win.document.write(
-			`<style>
-				/* The receipt is its own document, so it has to load the
-				   bundled Chinese font itself. */
-				@font-face {
-					font-family: 'Samsara SC';
-					src: url('${window.location.origin}${base}/fonts/samsara-sc.woff') format('woff');
-					font-weight: 100 900;
-				}
-				/* Declare the PRINTABLE band (48mm), not the 58mm paper: the
-				   zj-58 PPD reports an imageable area of 14 0 150 182pt, so a
-				   58mm page gets shifted right by its 14pt hard margin and, on
-				   some drivers, scaled down to fit 136pt -- which showed up as
-				   a wide blank gutter down the left third of the receipt.
-				   Matching the page box to the printable width means the
-				   driver has nothing left to offset or scale. */
-				@page { size: 48mm auto; margin: 0; }
-				html, body { margin: 0; padding: 0; }
-				body {
-					width: 48mm;
-					box-sizing: border-box;
-					padding: 2px 1mm 6px;
-					font-family: 'Cascadia Code', Consolas, 'Samsara SC', monospace;
-				}
-				* { box-sizing: border-box; max-width: 100%; }
-				p { margin: 3px 0; font-size: 9px; }
-				.rule { border-top: 1px dashed #999; margin: 6px 0; }
-				.masthead { font-size: 11px; margin: 4px 0 6px; }
-				.qrs { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5mm; }
-				.qrs > div { width: 20mm; text-align: center; }
-				.qrs img { width: 20mm; height: 20mm; }
-				.qrs p { margin: 2px 0 0; font-size: 7px; }
-				.credits { margin: 6px 0 0; font-size: 8px; text-align: center; }
-			</style>`
-		);
-		win.document.write(`<p class='masthead'>${tr('print.masthead')}</p>`);
-		for (const line of txts) {
-			if (line === '') {
-				win.document.write(DASHED_LINE);
-				continue;
-			}
-			win.document.write(`<p>${line}</p>`);
-		}
-		win.document.write(DASHED_LINE);
-		const qrOrigin = `${window.location.origin}${QR_ORIGIN}`;
-		win.document.write(
-			`<div class='qrs'>${QRS
-				.map(
-					([file, caption]) =>
-						`<div>` +
-						`<img src='${qrOrigin}/${file}'>` +
-						`<p>${caption}</p>` +
-						`</div>`
-				)
-				.join('')}</div>`
-		);
-		win.document.write(
-			`<p class='credits'>${CREDITS_PRINT.join('<br>')}</p>`
-		);
-		win.focus();
-		win.document.close();
 
-		// Wait for the four QR PNGs (~340KB) to finish decoding before
-		// printing. win.print() used to fire synchronously after close(),
-		// which snapshots the page mid-load: the images had reserved their
-		// 20mm boxes in layout but had no pixels yet, so the receipt printed
-		// a tall blank band where the codes should be. decode() resolves per
-		// image; the 3s cap keeps a slow or missing asset from stalling the
-		// print entirely (the exhibition machine must always produce a
-		// receipt, even a QR-less one).
-		const imgs = [...win.document.images];
-		// ...and for the bundled Chinese font, or the receipt prints in a
-		// fallback face. document.fonts.load() forces the fetch even though
-		// nothing has been laid out with it yet.
-		const fontReady = win.document.fonts?.load?.("9px 'Samsara SC'", '人生').catch(() => {});
+	// Laid out for the exhibition printer: 80mm paper whose driver prints a
+	// 72mm band (verified with a full-width test print -- black bars reached
+	// both edges). Declaring exactly that band, with no margins, leaves the
+	// driver nothing to offset or scale.
+	const RECEIPT_WIDTH = '72mm';
+
+	function receiptHtml() {
+		const origin = window.location.origin;
+		const qrOrigin = `${origin}${QR_ORIGIN}`;
+		const story = printHeaderAndStory()
+			.map(line => (line === '' ? DASHED_LINE : `<p>${line}</p>`))
+			.join('');
+		const qrs = QRS.map(([file, caption]) => `<div><img src='${qrOrigin}/${file}'><p>${caption}</p></div>`).join('');
+		return `<!doctype html><html><head><meta charset='utf-8'><style>
+			/* The receipt is its own document, so it loads the bundled Chinese
+			   font itself. */
+			@font-face {
+				font-family: 'Samsara SC';
+				src: url('${origin}${base}/fonts/samsara-sc.woff') format('woff');
+				font-weight: 100 900;
+			}
+			@page { size: ${RECEIPT_WIDTH} auto; margin: 0; }
+			html, body { margin: 0; padding: 0; }
+			body {
+				width: ${RECEIPT_WIDTH};
+				box-sizing: border-box;
+				padding: 2mm 2.5mm 8mm;
+				font-family: 'Cascadia Code', Consolas, 'Samsara SC', monospace;
+			}
+			* { box-sizing: border-box; max-width: 100%; }
+			p { margin: 4px 0; font-size: 12px; line-height: 1.45; }
+			.rule { border-top: 1px dashed #999; margin: 8px 0; }
+			.masthead { font-size: 15px; margin: 4px 0 8px; }
+			/* 2 x 2 at 27mm: big enough for a thermal head to keep every module
+			   crisp -- at 20mm the dotted Instagram code no longer scanned. */
+			.qrs { display: flex; flex-wrap: wrap; justify-content: space-evenly; row-gap: 3mm; }
+			.qrs > div { width: 32mm; text-align: center; }
+			.qrs img { width: 27mm; height: 27mm; }
+			.qrs p { margin: 2px 0 0; font-size: 10px; }
+			.credits { margin: 8px 0 0; font-size: 10px; text-align: center; }
+		</style></head><body>
+			<p class='masthead'>${tr('print.masthead')}</p>
+			${story}${DASHED_LINE}
+			<div class='qrs'>${qrs}</div>
+			<p class='credits'>${CREDITS_PRINT.join('<br>')}</p>
+		</body></html>`;
+	}
+
+	// Printed from a hidden iframe inside this page rather than a popup
+	// window. Under Chrome's --kiosk-printing a popup meant a second
+	// full-screen window opening and closing around the job (the double flash
+	// at the exhibition); the iframe never shows. A second press while a job
+	// is still being prepared is ignored, so a double-click prints once.
+	let printFrame = null;
+	function onPrintTxt() {
+		if (printFrame) return;
+		const frame = document.createElement('iframe');
+		frame.setAttribute('aria-hidden', 'true');
+		frame.tabIndex = -1;
+		frame.style.cssText = 'position: fixed; right: 0; bottom: 0; width: 0; height: 0; border: 0;';
+		document.body.appendChild(frame);
+		printFrame = frame;
+
+		const win = frame.contentWindow;
+		const doc = win.document;
+		doc.open();
+		doc.write(receiptHtml());
+		doc.close();
+
+		let removed = false;
+		const cleanup = () => {
+			if (removed) return;
+			removed = true;
+			frame.remove();
+			printFrame = null;
+		};
+		win.addEventListener('afterprint', () => setTimeout(cleanup, 500));
+
+		// Wait for the QR images to decode and the Chinese font to load before
+		// printing -- printing mid-load left blank boxes where the codes should
+		// be. The 3s cap keeps a missing asset from blocking the receipt.
+		const fontReady = doc.fonts?.load?.("12px 'Samsara SC'", '人生').catch(() => {});
 		const ready = Promise.all([
 			fontReady,
-			...imgs.map(img =>
-				img.decode?.().catch(() => {}) ??
-				new Promise(res => {
-					if (img.complete) return res();
-					img.onload = img.onerror = () => res();
-				})
-			)
+			...[...doc.images].map(
+				img =>
+					img.decode?.().catch(() => {}) ??
+					new Promise(res => {
+						if (img.complete) return res();
+						img.onload = img.onerror = () => res();
+					})
+			),
 		]);
-		// Close the popup once the job is away, so the exhibition machine
-		// lands back on the summary instead of stranding the visitor on a
-		// blank receipt tab. afterprint fires on both "printed" and
-		// "cancelled", which is what we want -- either way the window has
-		// done its job. Two belts on top of it: Safari has never fired
-		// afterprint reliably, and under Chrome's --kiosk-printing the job
-		// goes out with no dialog at all, so a timer closes the window if
-		// the event never arrives. `closed` guards against double-calling.
-		let closed = false;
-		const dismiss = () => {
-			if (closed) return;
-			closed = true;
-			win.close();
-		};
-		win.onafterprint = dismiss;
-		win.addEventListener?.('afterprint', dismiss);
-
 		Promise.race([ready, new Promise(res => setTimeout(res, 3000))]).then(() => {
+			win.focus();
 			win.print();
-			// Fallback for browsers/modes that never fire afterprint --
-			// notably Chrome's --kiosk-printing, where there is no dialog to
-			// wait on, so the window has nothing left to do once the job is
-			// away. The event path still closes it sooner when it works.
-			setTimeout(dismiss, 10000);
+			// Some modes never fire afterprint; the frame is invisible either way,
+			// this just frees it for the next receipt.
+			setTimeout(cleanup, 15000);
 		});
 	}
 </script>

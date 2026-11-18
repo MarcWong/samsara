@@ -116,4 +116,6 @@ node repl
 
 ![作品集](static/images/qr-code_portfolio.png)
 
-![关注 Instagram](static/images/qr-code_ins.png)
+![添加微信](static/images/qr-code_wechat.png)
+
+- Instagram：@artist_jiangyuwei
