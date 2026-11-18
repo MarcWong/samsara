@@ -36,7 +36,12 @@ try {
         if ($h -le 0) { $h = [double]$e.PageBounds.Height }
         $s = $w / $img.Width
         $srcH = [Math]::Min($img.Height - $script:srcY, $h / $s)
-        $e.Graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+        # The PNG is already pure black/white at the head's own 8 dots/mm:
+        # copy pixels as they are. Smoothing here would put grey back on every
+        # edge, which the driver then halftones into fuzzy text.
+        $e.Graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::NearestNeighbor
+        $e.Graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::Half
+        $e.Graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::None
         $dest = New-Object System.Drawing.RectangleF(0, 0, [single]$w, [single]($srcH * $s))
         $src = New-Object System.Drawing.RectangleF(0, [single]$script:srcY, [single]$img.Width, [single]$srcH)
         $e.Graphics.DrawImage($img, $dest, $src, [System.Drawing.GraphicsUnit]::Pixel)

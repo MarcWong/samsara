@@ -12,7 +12,12 @@
 // All layout is in millimetres; `pxPerMm` only decides the output pixels.
 
 const PAPER_MM = 72; // printable band of the 80mm roll
-const PAD_MM = 2;
+// Side margins of the printed receipt, as on the earlier HTML version that
+// printed correctly: a narrow left margin and a wide right one.
+const PAD_LEFT_MM = 1;
+const PAD_RIGHT_MM = 7;
+const TOP_MM = 2;
+const RIGHT_EDGE_MM = PAPER_MM - PAD_RIGHT_MM;
 // Same stack as the old HTML receipt: Latin in a monospace face, Chinese in
 // the bundled Noto Sans SC subset.
 const MONO = "'Cascadia Code', Consolas, 'Samsara SC', monospace";
@@ -68,9 +73,10 @@ function wrap(measure, text, maxMm) {
  * @param {string[]} r.credits
  * @param {string} [r.portrait]     image placed beside the header block
  * @param {number} r.pxPerMm
+ * @param {boolean} [r.mono]      pure black/white for a thermal printer
  * @returns {Promise<HTMLCanvasElement>}
  */
-export async function renderReceipt({ masthead, header, story, qrs, credits, portrait, pxPerMm }) {
+export async function renderReceipt({ masthead, header, story, qrs, credits, portrait, pxPerMm, mono = false }) {
 	await Promise.all(
 		[SIZE.body, SIZE.masthead].map(mm =>
 			document.fonts?.load?.(`${(mm * 10).toFixed(2)}px ${MONO}`, '人生 Life').catch(() => {})
@@ -89,9 +95,9 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 		return text => probe.measureText(text).width / REF;
 	};
 
-	const contentW = PAPER_MM - 2 * PAD_MM;
+	const contentW = RIGHT_EDGE_MM - PAD_LEFT_MM;
 	const ops = [];
-	let y = PAD_MM;
+	let y = TOP_MM;
 
 	const text = (str, sizeMm, x, align = 'left') => {
 		ops.push({ kind: 'text', str, sizeMm, x, y: y + sizeMm * 0.8 + (sizeMm * (LINE - 1)) / 2, align });
@@ -107,22 +113,22 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 	const blockTop = y;
 	const mBody = measurer(SIZE.body);
 	const mHead = measurer(SIZE.masthead);
-	let textRight = PAD_MM + mHead(masthead);
-	text(masthead, SIZE.masthead, PAD_MM);
+	let textRight = PAD_LEFT_MM + mHead(masthead);
+	text(masthead, SIZE.masthead, PAD_LEFT_MM);
 	y += 2 * PX;
 	for (const line of header) {
-		textRight = Math.max(textRight, PAD_MM + mBody(line));
-		text(line, SIZE.body, PAD_MM);
+		textRight = Math.max(textRight, PAD_LEFT_MM + mBody(line));
+		text(line, SIZE.body, PAD_LEFT_MM);
 		y += GAP.para - SIZE.body * (LINE - 1) * 0.5;
 	}
 	const blockBottom = y;
 	rule();
 	if (portraitImg) {
 		// Centred in the blank space between the widest header line and the
-		// paper's right edge; top no higher than the masthead, bottom no
+		// right edge of the printed band; top no higher than the masthead, bottom no
 		// lower than the rule under the stats.
 		const gap = 1.5;
-		const boxW = PAPER_MM - textRight - 2 * gap;
+		const boxW = RIGHT_EDGE_MM - textRight - 2 * gap;
 		const boxH = blockBottom - blockTop;
 		const aspect = portraitImg.width / portraitImg.height;
 		let h = boxH;
@@ -132,8 +138,8 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 			h = w / aspect;
 		}
 		if (w > 4) {
-			const cx = (textRight + PAPER_MM) / 2;
-			ops.push({ kind: 'img', img: portraitImg, x: cx - w / 2, y: blockTop + (boxH - h) / 2, w, h });
+			const cx = (textRight + RIGHT_EDGE_MM) / 2;
+			ops.push({ kind: 'img', img: portraitImg, x: cx - w / 2, y: blockTop + (boxH - h) / 2, w, h, photo: true });
 		}
 	}
 
@@ -145,7 +151,7 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 			rule();
 			continue;
 		}
-		for (const l of wrap(mBody, line, contentW)) text(l, SIZE.body, PAD_MM);
+		for (const l of wrap(mBody, line, contentW)) text(l, SIZE.body, PAD_LEFT_MM);
 		y += GAP.para - SIZE.body * (LINE - 1) * 0.5;
 	}
 	rule();
@@ -153,7 +159,7 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 	// QR codes, two per row, spaced evenly across the band.
 	const mCap = measurer(SIZE.caption);
 	const colGap = (contentW - 2 * QR.cell) / 3;
-	const colX = [PAD_MM + colGap + QR.cell / 2, PAD_MM + 2 * colGap + 1.5 * QR.cell];
+	const colX = [PAD_LEFT_MM + colGap + QR.cell / 2, PAD_LEFT_MM + 2 * colGap + 1.5 * QR.cell];
 	for (let i = 0; i < qrs.length; i += 2) {
 		const rowTop = y;
 		let rowBottom = rowTop;
@@ -171,7 +177,7 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 	y += 2 * PX;
 	const mCred = measurer(SIZE.credits);
 	for (const line of credits) {
-		for (const l of wrap(mCred, line, contentW)) text(l, SIZE.credits, PAPER_MM / 2, 'center');
+		for (const l of wrap(mCred, line, contentW)) text(l, SIZE.credits, PAD_LEFT_MM + contentW / 2, 'center');
 	}
 	y += 8 * PX;
 
@@ -197,8 +203,8 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 			ctx.lineWidth = Math.max(1, 0.25 * scale);
 			ctx.setLineDash([1 * scale, 0.8 * scale]);
 			ctx.beginPath();
-			ctx.moveTo(PAD_MM * scale, op.y * scale);
-			ctx.lineTo((PAPER_MM - PAD_MM) * scale, op.y * scale);
+			ctx.moveTo(PAD_LEFT_MM * scale, op.y * scale);
+			ctx.lineTo(RIGHT_EDGE_MM * scale, op.y * scale);
 			ctx.stroke();
 			ctx.restore();
 		} else if (op.kind === 'img') {
@@ -206,7 +212,59 @@ export async function renderReceipt({ masthead, header, story, qrs, credits, por
 			ctx.drawImage(op.img, op.x * scale, op.y * scale, op.w * scale, op.h * scale);
 		}
 	}
+	if (mono) toThermal(ctx, canvas.width, canvas.height, ops.filter(op => op.photo), scale);
 	return canvas;
+}
+
+// A thermal head only prints black dots. Handed a grey anti-aliased image,
+// the printer driver turns every soft text edge into a halftone fringe, which
+// read as blurry type. So for printing: text, rules and QR codes are cut to
+// pure black/white at a fixed threshold, and the portrait -- the one real
+// greyscale picture -- is error-diffused (Floyd-Steinberg) here, at the
+// printer's own resolution, so the driver has nothing left to resample.
+function toThermal(ctx, w, h, photos, scale) {
+	const image = ctx.getImageData(0, 0, w, h);
+	const d = image.data;
+	const inPhoto = new Uint8Array(w * h);
+	for (const p of photos) {
+		const x0 = Math.max(0, Math.floor(p.x * scale));
+		const y0 = Math.max(0, Math.floor(p.y * scale));
+		const x1 = Math.min(w, Math.ceil((p.x + p.w) * scale));
+		const y1 = Math.min(h, Math.ceil((p.y + p.h) * scale));
+		const lum = new Float32Array((x1 - x0) * (y1 - y0));
+		const pw = x1 - x0;
+		for (let y = y0; y < y1; y++)
+			for (let x = x0; x < x1; x++) {
+				const i = (y * w + x) * 4;
+				lum[(y - y0) * pw + (x - x0)] = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+				inPhoto[y * w + x] = 1;
+			}
+		const ph = y1 - y0;
+		for (let y = 0; y < ph; y++)
+			for (let x = 0; x < pw; x++) {
+				const k = y * pw + x;
+				const old = lum[k];
+				const v = old < 128 ? 0 : 255;
+				const err = old - v;
+				lum[k] = v;
+				if (x + 1 < pw) lum[k + 1] += (err * 7) / 16;
+				if (y + 1 < ph) {
+					if (x > 0) lum[k + pw - 1] += (err * 3) / 16;
+					lum[k + pw] += (err * 5) / 16;
+					if (x + 1 < pw) lum[k + pw + 1] += err / 16;
+				}
+				const i = ((y + y0) * w + (x + x0)) * 4;
+				d[i] = d[i + 1] = d[i + 2] = v;
+				d[i + 3] = 255;
+			}
+	}
+	for (let k = 0, i = 0; k < w * h; k++, i += 4) {
+		if (inPhoto[k]) continue;
+		const v = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2] < 150 ? 0 : 255;
+		d[i] = d[i + 1] = d[i + 2] = v;
+		d[i + 3] = 255;
+	}
+	ctx.putImageData(image, 0, 0);
 }
 
 export function canvasToBlob(canvas) {

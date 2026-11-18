@@ -300,7 +300,7 @@
 		try {
 			if (isTouch) return await saveAsImage();
 			// 8 px/mm = the thermal head's own 203 dpi, so nothing gets resampled.
-			const canvas = await renderReceipt(receiptData(8));
+			const canvas = await renderReceipt({ ...receiptData(8), mono: true });
 			if (exhibitPrinter) {
 				const blob = await canvasToBlob(canvas);
 				const res = await fetch(`${EXHIBIT_API}/print`, { method: 'POST', body: blob }).catch(() => null);
