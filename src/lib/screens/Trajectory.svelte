@@ -1488,12 +1488,14 @@
 		.alloc-side-zone {
 			display: block;
 			position: absolute;
-			/* From just right of the + buttons (their edge sits at ~54% of
-			   the footage width), first row to last row. */
-			left: 54.6%;
-			top: 26%;
-			width: 11%;
-			height: 37%;
+			/* The wall right of the panel, as marked on a phone screenshot:
+			   from just right of the panel's edge across the peeling wall,
+			   level with "Random" down to below Start. Percentages of the
+			   footage. */
+			left: 56.5%;
+			top: 23%;
+			width: 28%;
+			height: 52%;
 			pointer-events: auto;
 		}
 		.alloc-overlay:has(.alloc-side-zone:hover) .alloc-hint {
