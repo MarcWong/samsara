@@ -61,6 +61,9 @@ export function exhibitPrinter() {
 			if (process.env.SAMSARA_EXHIBIT !== '1') return;
 			server.middlewares.use((req, res, next) => {
 				const path = (req.url ?? '').split('?')[0];
+				// Never let the kiosk browser keep an old page: hashed assets are
+				// fine to cache, the HTML that points at them is not.
+				if (!path.includes('/_app/immutable/')) res.setHeader('Cache-Control', 'no-store');
 				if (path.endsWith('/__exhibit/ping')) {
 					res.setHeader('Content-Type', 'text/plain');
 					res.end('samsara-exhibit');
@@ -76,8 +79,16 @@ export function exhibitPrinter() {
 				});
 				req.on('end', () => {
 					const file = join(tmpdir(), `samsara-receipt-${Date.now()}.png`);
+					const png = Buffer.concat(chunks);
+					const version = req.headers['x-samsara-receipt'];
+					const size = png.length > 24 ? `${png.readUInt32BE(16)}×${png.readUInt32BE(20)}` : '?';
+					if (!version) {
+						console.warn(
+							'[!] 这张小票来自旧版页面（字会发虚、边距不对）。请按 Alt+F4 关掉游戏窗口，关掉这个黑色窗口，再重新双击启动文件。'
+						);
+					}
 					const job = queue.then(async () => {
-						await writeFile(file, Buffer.concat(chunks));
+						await writeFile(file, png);
 						try {
 							await printPng(file);
 						} finally {
@@ -87,7 +98,7 @@ export function exhibitPrinter() {
 					queue = job.catch(() => {});
 					job.then(
 						() => {
-							console.log(`[打印] 已发送到默认打印机 ${new Date().toLocaleTimeString()}`);
+							console.log(`[打印] 已发送到默认打印机 ${new Date().toLocaleTimeString()}（小票版本 ${version ?? '旧版'}，${size} 像素）`);
 							res.end('ok');
 						},
 						err => {

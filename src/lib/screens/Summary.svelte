@@ -8,7 +8,7 @@
 	import Button from '../components/Button.svelte';
 	import { core } from '../game/core.js';
 	import { t, tr, translate } from '../i18n.js';
-	import { renderReceipt, canvasToBlob, RECEIPT_PAPER_MM } from '../receipt.js';
+	import { renderReceipt, canvasToBlob, RECEIPT_PAPER_MM, RECEIPT_VERSION } from '../receipt.js';
 
 	const { summary } = core;
 	const types = core.PropertyTypes;
@@ -303,7 +303,12 @@
 			const canvas = await renderReceipt({ ...receiptData(8), mono: true });
 			if (exhibitPrinter) {
 				const blob = await canvasToBlob(canvas);
-				const res = await fetch(`${EXHIBIT_API}/print`, { method: 'POST', body: blob }).catch(() => null);
+				const res = await fetch(`${EXHIBIT_API}/print`, {
+					method: 'POST',
+					body: blob,
+					// Lets the server tell a stale page (an old kiosk window) from the current one.
+					headers: { 'X-Samsara-Receipt': RECEIPT_VERSION },
+				}).catch(() => null);
 				if (res?.ok) return;
 				console.error('[Summary] exhibit printer failed, falling back to browser print', await res?.text?.());
 			}

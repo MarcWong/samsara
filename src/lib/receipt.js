@@ -272,3 +272,5 @@ export function canvasToBlob(canvas) {
 }
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
+// Bump when the printed layout changes; the exhibit server logs it per print.
+export const RECEIPT_VERSION = 'bw-1-7mm';

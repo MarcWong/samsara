@@ -26,6 +26,8 @@ if (!existsSync(VITE)) {
 	process.exit(1);
 }
 
+const rev = spawnSync('git', ['log', '-1', '--format=%h %cd', '--date=format:%Y-%m-%d %H:%M'], { cwd: ROOT, encoding: 'utf8' });
+if (rev.status === 0) console.log(`\n当前版本：${rev.stdout.trim()}`);
 console.log('\n[1/3] 正在构建游戏（约 10–30 秒）…\n');
 const build = spawnSync(process.execPath, [VITE, 'build'], { cwd: ROOT, env, stdio: 'inherit' });
 if (build.status !== 0) {
