@@ -20,8 +20,10 @@ const PAPER_MM = 72; // printable band of the 80mm roll
 // of the printable edge, so the shift comes out of the right margin and the
 // band loses about one character per line. To move it again, change the
 // difference between the two (right - left = 2 x the leftward shift).
+// Then the right side printed about two characters short of the left, so
+// the band was widened by two characters (2 x ~2.65mm) into the right margin.
 const PAD_LEFT_MM = 0.3;
-const PAD_RIGHT_MM = 5.6;
+const PAD_RIGHT_MM = 0.3;
 const TOP_MM = 2;
 const RIGHT_EDGE_MM = PAPER_MM - PAD_RIGHT_MM;
 // Same stack as the old HTML receipt: Latin in a monospace face, Chinese in
@@ -285,4 +287,4 @@ export function canvasToBlob(canvas) {
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
 // Bump when the printed layout changes; the exhibit server logs it per print.
-export const RECEIPT_VERSION = 'bw-left-2.6';
+export const RECEIPT_VERSION = 'bw-wide-2ch';
