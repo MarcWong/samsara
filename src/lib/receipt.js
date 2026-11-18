@@ -14,13 +14,14 @@
 const PAPER_MM = 72; // printable band of the 80mm roll
 // Side margins. The exhibit server places the image at the printer's own
 // printable edge and scales it to the printable width. On the exhibition
-// printer equal 1.5mm margins came out about one character (~2.6mm) left of
-// the paper's centre, and the image cannot extend past the printable right
-// edge, so the shift comes out of the left margin: the band moves ~2.6mm
-// right and loses about one character per line. To move it again, change
-// the difference between the two (left - right = 2 x the shift).
-const PAD_LEFT_MM = 5.5;
-const PAD_RIGHT_MM = 0.3;
+// printer that band sits right of the paper's centre: with equal 1.5mm
+// margins the text needed to move about one character (~2.6mm) LEFT, and
+// moving it right ran the text off the paper. The image cannot start left
+// of the printable edge, so the shift comes out of the right margin and the
+// band loses about one character per line. To move it again, change the
+// difference between the two (right - left = 2 x the leftward shift).
+const PAD_LEFT_MM = 0.3;
+const PAD_RIGHT_MM = 5.6;
 const TOP_MM = 2;
 const RIGHT_EDGE_MM = PAPER_MM - PAD_RIGHT_MM;
 // Same stack as the old HTML receipt: Latin in a monospace face, Chinese in
@@ -284,4 +285,4 @@ export function canvasToBlob(canvas) {
 
 export const RECEIPT_PAPER_MM = PAPER_MM;
 // Bump when the printed layout changes; the exhibit server logs it per print.
-export const RECEIPT_VERSION = 'bw-shift-2.6';
+export const RECEIPT_VERSION = 'bw-left-2.6';
