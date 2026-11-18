@@ -62,17 +62,55 @@ The game ships in English and Chinese (简体中文). The player picks the langu
 
 To add another language: add a `DICT` entry in `i18n.js`, a data folder under `static/data/`, and register it in `OVERLAY_DIRS` in `src/lib/game/core.js`. `npm test` checks that every event id and interface key is covered.
 
-## Running offline (exhibition)
+## 展场布展操作手册（本地运行）
 
-The game needs no network once it is built: every video, sound, font, data file and QR image is served locally.
+游戏在展场电脑上本地运行，**不需要联网**：视频、声音、字体、二维码全部在本机。联网时会把每局结果上报到数据库，断网时只是不上报，游戏照常玩、小票照常打。
 
-```bash
-npm install --legacy-peer-deps
-npm run build
-npm run preview
-```
+### 一、首次准备（技术人员做一次即可）
 
-Open the address `preview` prints (it ends in `/samsara/`) in the kiosk browser; add `?kiosk` to tag the machine's runs. Without a connection the only thing lost is run telemetry: those requests fail silently and nothing is queued for later. Any static file server pointed at `build/` works the same way, as long as it serves the site under the `/samsara` path (or build with `BASE_PATH=/your-path`).
+1. 安装 [Node.js](https://nodejs.org/)（选 LTS 版本）和 [Google Chrome](https://www.google.com/chrome/)。
+2. 把整个项目文件夹拷到展场电脑上（例如桌面），在文件夹里打开终端运行一次：
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+3. 在项目文件夹里放好 `.env` 文件（数据上报的地址和 key，向开发者要）。没有这个文件也能玩，只是不上报数据。
+4. 小票打印机（58mm 热敏）：装好驱动，在系统设置里**设为默认打印机**，纸张选 58mm。
+5. 试运行一次（见下文第二部分），完整玩一局并打印一张小票，确认能出纸。
+6. 建议在系统里关闭自动休眠和屏保、关闭系统更新提示，避免展出时弹窗。
+
+### 二、每天开馆
+
+1. **双击项目文件夹里的启动文件**：
+   - Windows：`start-exhibit.bat`
+   - Mac：`start-exhibit.command`（第一次如果提示无法打开：右键 → 打开）
+2. 会弹出一个黑色窗口，显示「正在构建游戏」，等 10–30 秒。
+3. 之后 Chrome 会自动**全屏**打开游戏。看到 ♀Samsara 标题画面就可以开放了。
+4. **那个黑色窗口不要关**，可以最小化。关掉它游戏就停了。
+
+### 三、每天闭馆
+
+1. 退出全屏游戏：Windows 按 `Alt + F4`，Mac 按 `Cmd + Q`。
+2. 关闭黑色窗口（或在里面按 `Ctrl + C`）。
+3. 正常关机即可。
+
+### 四、常见问题
+
+| 现象 | 处理 |
+|---|---|
+| 小票不出纸 / 弹出了打印对话框 | 确认打印机已开机、有纸，并且是系统**默认打印机**。全屏模式下打印不会弹对话框，直接出纸。 |
+| 打出来的小票很窄或偏到一边 | 打印机纸张设置改成 58mm，边距设为无/最小。 |
+| 画面卡住、黑屏或声音没了 | 按 `Alt + F4`（Mac `Cmd + Q`）关掉游戏，再双击启动文件重开。 |
+| 黑色窗口里出现 `[!]` 开头的红字 | 截图发给技术人员。 |
+| 观众把游戏玩到一半走了 | 不用管。结算页 45 秒没人操作会自动回到开头。 |
+| Chrome 没有自动打开 | 手动打开 Chrome，访问黑色窗口里显示的地址（`http://localhost:4173/samsara_cn/?kiosk`）。 |
+
+### 给技术人员的说明
+
+- `npm run exhibit`（即启动文件做的事）＝ 以 `BASE_PATH=/samsara_cn` 构建 → `vite preview` 在 4173 端口提供服务 → 用独立配置目录启动 Chrome，参数为 `--kiosk --kiosk-printing --autoplay-policy=no-user-gesture-required`。加 `--no-browser` 只启动服务、不开 Chrome。
+- 打印是浏览器做的事（`window.print()`），和服务器是 `npm run dev` 还是 `preview` 无关；能否“直接出纸”只取决于 Chrome 是否带 `--kiosk-printing`，以及系统默认打印机。
+- 展场不建议用 `npm run dev`：开发服务器首次访问要现编译、文件夹里有文件变动就会刷新页面打断观众，并且数据会标成 `deployment = 'dev'`。`exhibit` 构建的数据标为 `deployment = 'cn'`、`source = 'kiosk'`。
+- 每次启动都会重新构建，所以拷进新版本文件后，重启一次就生效。
+- 小票的二维码、致谢文字和字体都在本机，断网也能完整打印。
 
 ## Credits
 
