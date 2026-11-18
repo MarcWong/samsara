@@ -69,6 +69,26 @@
 	);
 	let allocLeft = $derived(propertyPoints - allocTotal);
 
+	// Touch screens: the hidden tip shows only while a finger rests on the
+	// strip right of the + buttons, like hovering with a mouse, and fades soon
+	// after the finger lifts. (CSS :hover would latch on after a tap and keep
+	// it lit for good.) A quick tap still flashes it briefly.
+	const PEEK_MIN_MS = 700;
+	let hintPeek = $state(false);
+	let peekSince = 0;
+	let peekTimer = null;
+	function peekStart(e) {
+		e.preventDefault();
+		clearTimeout(peekTimer);
+		peekSince = performance.now();
+		hintPeek = true;
+	}
+	function peekEnd() {
+		clearTimeout(peekTimer);
+		const left = PEEK_MIN_MS - (performance.now() - peekSince);
+		peekTimer = setTimeout(() => (hintPeek = false), Math.max(0, left));
+	}
+
 	function clampAlloc(type, rawValue) {
 		let value = Math.trunc(rawValue) || 0;
 		value = Math.max(allocMin, Math.min(allocMax, value));
@@ -585,13 +605,21 @@
 			</div>
 			<!-- Invisible until a trigger is hovered: "hidden in plain sight". -->
 			<div class="alloc-hint-zone" aria-hidden="true">
-				<p class="alloc-hint">{$t('alloc.hint')}</p>
+				<p class="alloc-hint" class:peek={hintPeek}>{$t('alloc.hint')}</p>
 			</div>
 			</div>
 		</div>
 		<!-- Touch screens only: the strip right of the + buttons is the one
 		     place a tap reveals the hidden tip (see the hover: none rules). -->
-		<div class="alloc-side-zone" aria-hidden="true"></div>
+		<div
+			class="alloc-side-zone"
+			aria-hidden="true"
+			onpointerdown={peekStart}
+			onpointerup={peekEnd}
+			onpointercancel={peekEnd}
+			onpointerleave={peekEnd}
+			oncontextmenu={e => e.preventDefault()}
+		></div>
 	</div>
 {/if}
 
@@ -1497,10 +1525,21 @@
 			width: 28%;
 			height: 52%;
 			pointer-events: auto;
+			/* Holding a finger here must not scroll, zoom, select or open the
+			   long-press menu. */
+			touch-action: none;
+			user-select: none;
+			-webkit-user-select: none;
+			-webkit-touch-callout: none;
 		}
-		.alloc-overlay:has(.alloc-side-zone:hover) .alloc-hint {
+		/* Fades out a lot faster than the desktop's 3s: on a phone it should
+		   be gone soon after the finger lifts. */
+		.alloc-hint {
+			transition: opacity 600ms ease;
+		}
+		.alloc-hint.peek {
 			opacity: 1;
-			transition: opacity 300ms ease;
+			transition: opacity 150ms ease;
 		}
 	}
 	/* Phones in landscape (and WeChat's in-app browser, which also spends
