@@ -64,7 +64,7 @@ node repl
    npm install --legacy-peer-deps
    ```
 3. 在项目文件夹里放好 `.env` 文件（数据上报的地址和 key，向开发者要）。没有这个文件也能玩，只是不上报数据。
-4. 小票打印机（58mm 热敏）：装好驱动，在系统设置里**设为默认打印机**，纸张选 58mm。
+4. 小票打印机（80mm 热敏纸，可打印宽度 72mm）：装好驱动，在系统设置里**设为默认打印机**，纸张选 80mm。
 5. 试运行一次（见下文第二部分），完整玩一局并打印一张小票，确认能出纸。
 6. 建议在系统里关闭自动休眠和屏保、关闭系统更新提示，避免展出时弹窗。
 
@@ -88,7 +88,8 @@ node repl
 | 现象 | 处理 |
 |---|---|
 | 小票不出纸 / 弹出了打印对话框 | 确认打印机已开机、有纸，并且是系统**默认打印机**。全屏模式下打印不会弹对话框，直接出纸。 |
-| 打出来的小票很窄或偏到一边 | 打印机纸张设置改成 58mm，边距设为无/最小。 |
+| 打出来的小票很窄或偏到一边 | 打印机纸张设置选 80mm（可打印宽度 72mm），边距设为无/最小。仍然偏右的话，请技术人员调整 `src/lib/screens/Summary.svelte` 里的 `RECEIPT_PAD_RIGHT`。 |
+| 打印时弹出了系统的打印对话框，要手动点「打印」 | 请技术人员改用 `npm run exhibit -- --print-preview` 启动（会恢复 Chrome 自带的打印预览，打印时会闪一下，但不用点）。 |
 | 画面卡住、黑屏或声音没了 | 按 `Alt + F4`（Mac `Cmd + Q`）关掉游戏，再双击启动文件重开。 |
 | 黑色窗口里出现 `[!]` 开头的红字 | 截图发给技术人员。 |
 | 观众把游戏玩到一半走了 | 不用管。结算页 45 秒没人操作会自动回到开头。 |
@@ -96,7 +97,7 @@ node repl
 
 ### 给技术人员的说明
 
-- `npm run exhibit`（即启动文件做的事）＝ 以 `BASE_PATH=/samsara_cn` 构建 → `vite preview` 在 4173 端口提供服务 → 用独立配置目录启动 Chrome，参数为 `--kiosk --kiosk-printing --autoplay-policy=no-user-gesture-required`。加 `--no-browser` 只启动服务、不开 Chrome。
+- `npm run exhibit`（即启动文件做的事）＝ 以 `BASE_PATH=/samsara_cn` 构建 → `vite preview` 在 4173 端口提供服务 → 用独立配置目录启动 Chrome，参数为 `--kiosk --kiosk-printing --disable-print-preview --autoplay-policy=no-user-gesture-required`（`--disable-print-preview` 用来去掉每次打印时打印预览窗口的一闪；加 `--print-preview` 可去掉它）。加 `--no-browser` 只启动服务、不开 Chrome。
 - 打印是浏览器做的事（`window.print()`），和服务器是 `npm run dev` 还是 `preview` 无关；能否“直接出纸”只取决于 Chrome 是否带 `--kiosk-printing`，以及系统默认打印机。
 - 展场不建议用 `npm run dev`：开发服务器首次访问要现编译、文件夹里有文件变动就会刷新页面打断观众，并且数据会标成 `deployment = 'dev'`。`exhibit` 构建的数据标为 `deployment = 'cn'`、`source = 'kiosk'`。
 - 每次启动都会重新构建，所以拷进新版本文件后，重启一次就生效。
