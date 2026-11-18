@@ -94,7 +94,7 @@
 	const QRS = [
 		['qrcode.png', tr('sum.qr.play')],
 		['qr-code_ins.png', tr('sum.qr.instagram')],
-		['qr-code_coffee.png', tr('sum.qr.coffee')],
+		['qr-code_portfolio.png', tr('sum.qr.portfolio')],
 		['qr-code_discord.png', tr('sum.qr.discord')],
 	];
 
